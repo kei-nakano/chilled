@@ -1,0 +1,36 @@
+# 未対応のルールを記述 
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+  
+AllCops:
+  # Rubyのバージョンを指定 
+  TargetRubyVersion: 2.6
+  
+  # 除外対象
+  Exclude:
+    - 'config.ru'
+    - 'bin/**'
+    - 'lib/**'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - !ruby/regexp /old_and_unused\.rb$/
+    - Gemfile
+
+# 日本語コメントを許可
+AsciiComments:
+  Enabled: false
+
+# Ignore class comment
+Documentation:
+  Enabled: false
+
+# Permit class name
+ClassAndModuleChildren:
+  Enabled: false
+
+# Ignore frozen string
+Style/FrozenStringLiteralComment:
+  Enabled: false
