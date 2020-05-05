@@ -8,29 +8,36 @@ AllCops:
   # Rubyのバージョンを指定 
   TargetRubyVersion: 2.6
   
-  # 除外対象
+  # 除外ディレクトリ
   Exclude:
-    - 'config.ru'
-    - 'bin/**'
-    - 'lib/**'
-    - 'db/**/*'
-    - 'config/**/*'
-    - 'script/**/*'
-    - !ruby/regexp /old_and_unused\.rb$/
-    - Gemfile
-
-# 日本語コメントを許可
-AsciiComments:
+    - bin/*
+    - db/schema.rb
+    - vendor/**/*
+  
+# 日本語でのコメントを許可
+Style/AsciiComments:
   Enabled: false
-
-# Ignore class comment
-Documentation:
-  Enabled: false
-
-# Permit class name
-ClassAndModuleChildren:
-  Enabled: false
-
-# Ignore frozen string
+  
+# 文字列のfreeze要求を無視
 Style/FrozenStringLiteralComment:
+  Enabled: false
+  
+# "Line is too long"を無視
+Layout/LineLength:
+  Enabled: false
+  
+# "Prefer single-quoted strings when you don't need string interpolation or special symbols"を無視
+Style/StringLiterals:
+  Enabled: false
+
+# "Missing top-level class documentation comment"を無視
+Style/Documentation:
+  Enabled: false
+  
+# Gemfileのアルファベット順記入を無視  
+Bundler/OrderedGems:  
+  Enabled: false
+  
+# ネストしたモジュール/クラス定義の推奨記法を無視
+ClassAndModuleChildren:
   Enabled: false
