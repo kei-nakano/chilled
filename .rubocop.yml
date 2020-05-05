@@ -18,6 +18,10 @@ AllCops:
 Style/AsciiComments:
   Enabled: false
   
+# ブロックコメントを許可  
+Style/BlockComments:
+  Enabled: false
+  
 # 文字列のfreeze要求を無視
 Style/FrozenStringLiteralComment:
   Enabled: false
@@ -41,3 +45,4 @@ Bundler/OrderedGems:
 # ネストしたモジュール/クラス定義の推奨記法を無視
 ClassAndModuleChildren:
   Enabled: false
+  
