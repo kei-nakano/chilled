@@ -1,0 +1,13 @@
+<div class="main posts-new">
+  <div class="container">
+    <h1 class="form-heading">投稿する</h1>
+    <%= form_with model: @item do |form| %>
+      <div class="form">
+        <div class="form-body">
+          <%= form.text_field :title %>
+          <%= form.submit value="投稿する" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
