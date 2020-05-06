@@ -1,9 +1,14 @@
 <div class="main posts-new">
   <div class="container">
     <h1 class="form-heading">投稿する</h1>
-    <%= form_with model: @item do |form| %>
+    <%= form_with(model: @item, local: true) do |form| %>
       <div class="form">
         <div class="form-body">
+          <% @item.errors.full_messages.each do |message| %>
+            <div class="form-error">
+              <%= message %>
+            </div>
+          <% end %>
           <%= form.text_field :title %>
           <%= form.submit value="投稿する" %>
         </div>

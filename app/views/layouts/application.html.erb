@@ -23,8 +23,19 @@
         <li>
           <%= link_to("新規投稿", "/items/new") %>
         </li>
+        <li>
+          <%= link_to("ユーザー一覧", "/users") %>
+        </li>
+        <li>
+          <%= link_to("新規登録", "/users/new") %>
+        </li>
       </ul>
     </header>
+    <% if flash[:notice] %>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

@@ -12,9 +12,13 @@ class ItemsController < ApplicationController
   end
 
   def create
-    item = Item.new(title: params[:item][:title])
-    item.save
-    redirect_to("/items")
+    @item = Item.new(title: params[:item][:title])
+    if @item.save
+      flash[:notice] = "作成しました"
+      redirect_to("/items")
+    else
+      render('new')
+    end
   end
 
   def edit
@@ -22,13 +26,19 @@ class ItemsController < ApplicationController
   end
 
   def update
-    item = Item.find(params[:id])
-    item.title = params[:item][:title]
-    redirect_to("/items") if item.save
+    @item = Item.find(params[:id])
+    @item.title = params[:item][:title]
+    if @item.save
+      flash[:notice] = "保存しました"
+      redirect_to("/items")
+    else
+      render 'edit'
+    end
   end
 
   def destroy
-    item = Item.find(params[:id])
-    redirect_to("/items") if item.destroy
+    Item.find(params[:id]).destroy
+    flash[:notice] = "投稿を削除しました"
+    redirect_to("/items")
   end
 end
