@@ -16,8 +16,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new
-    if @user.update(name: params[:user][:name], email: params[:user][:email])
+    @user = User.new(user_params)
+    @user.image_name = "default_user.jpg"
+    if @user.save
+      flash[:notice] = "登録しました"
       redirect_to '/users'
     else
       render 'new'
@@ -26,11 +28,13 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    # if @user.update_attributes(user_params)
-    if @user.update(name: params[:user][:name], email: params[:user][:email])
+    unless params[:user][:image].nil?
+      @user.update(image_name: @user.id.to_s + ".jpg")
+      File.binwrite("public/user_images/#{@user.image_name}", params[:user][:image].read)
+    end
+    if @user.update(user_params)
       flash[:notice] = "更新しました"
-      # redirect_to @user
-      redirect_to root_path
+      redirect_to @user
     else
       render 'edit'
     end
@@ -40,5 +44,13 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:notice] = "削除しました"
     redirect_to '/users'
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(
+      :name, :email
+    )
   end
 end

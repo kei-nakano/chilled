@@ -1,0 +1,4 @@
+# ABC Sizeの許容値を40へ(デフォルトは15)
+Metrics/AbcSize:
+  Enabled: true
+  Max: 40

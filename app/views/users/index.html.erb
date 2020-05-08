@@ -3,6 +3,10 @@
     <h1 class="users-heading">ユーザー一覧</h1>
     <% @users.each do |user| %>
       <div class="users-index-item">
+        <div class="user-left">
+          <img src="<%= "/user_images/#{user.image_name}" %>">
+        </div>
+        
         <div class="user-right">
           <%= link_to(user.name, user) %>
         </div>

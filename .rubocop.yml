@@ -14,6 +14,10 @@ AllCops:
     - db/schema.rb
     - vendor/**/*
   
+# "Method has too many lines"を無視
+Metrics/MethodLength:
+  Enabled: false
+  
 # 日本語でのコメントを許可
 Style/AsciiComments:
   Enabled: false

@@ -12,7 +12,9 @@
           <p>ユーザー名</p>
           <%= form.text_field :name %>
           <p>メールアドレス</p>
-          <%= form.text_field :email %>
+          <%= form.email_field :email %>
+          <p>画像</p>
+          <%= form.file_field :image %>
           <%= form.submit value="保存" %>
         <% end %>
       </div>
