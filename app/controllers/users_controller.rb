@@ -28,10 +28,6 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    unless params[:user][:image].nil?
-      @user.update(image_name: @user.id.to_s + ".jpg")
-      File.binwrite("public/user_images/#{@user.image_name}", params[:user][:image].read)
-    end
     if @user.update(user_params)
       flash[:notice] = "更新しました"
       redirect_to @user
@@ -50,7 +46,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :name, :email
+      :name, :email, :image
     )
   end
 end

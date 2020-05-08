@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2020_05_08_040522) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "image_name"
+    t.string "image"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
