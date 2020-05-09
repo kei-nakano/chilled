@@ -5,4 +5,12 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   mount_uploader :image, ImageUploader
+  validate :image_size
+
+  private
+
+  # アップロード画像のサイズを検証する
+  def image_size
+    errors.add(:image, "should be less than 5MB") if image.size > 5.megabytes
+  end
 end

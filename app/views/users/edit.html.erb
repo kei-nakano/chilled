@@ -14,7 +14,7 @@
           <p>メールアドレス</p>
           <%= form.email_field :email %>
           <p>画像</p>
-          <%= form.file_field :image %>
+          <%= form.file_field :image, accept: 'image/jpeg,image/gif,image/png' %>
           <%= form.submit value="保存" %>
         <% end %>
       </div>
