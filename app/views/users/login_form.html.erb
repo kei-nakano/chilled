@@ -1,0 +1,21 @@
+<div class="main users-new">
+  <div class="container">
+    <div class="form-heading">ログイン</div>
+    <div class="form users-form">
+      <div class="form-body">
+        <% if @error_message %>
+          <div class="form-error">
+            <%= @error_message %>
+          </div>
+        <% end %>
+        <%= form_tag("/login") do %>
+          <p>メールアドレス</p>
+          <input name="email" value="<%= params[:email] %>">
+          <p>パスワード</p>
+          <input type="password" name="password" value="<%= params[:password] %>">
+          <input type="submit" value="ログイン">
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
