@@ -14,21 +14,33 @@
         <%= link_to("TweetApp", "/") %>
       </div>
       <ul class="header-menus">
-        <li>
-          <%= link_to("TweetAppとは", "/about") %>
-        </li>
-        <li>
-          <%= link_to("投稿一覧", "/items") %>
-        </li>
-        <li>
-          <%= link_to("新規投稿", "/items/new") %>
-        </li>
-        <li>
-          <%= link_to("ユーザー一覧", "/users") %>
-        </li>
-        <li>
-          <%= link_to("新規登録", "/users/new") %>
-        </li>
+        <% if @current_user %>
+          <li>
+            <%= link_to(@current_user.name, @current_user) %>
+          </li>
+          <li>
+            <%= link_to("投稿一覧", "/items") %>
+          </li>
+          <li>
+            <%= link_to("新規投稿", "/items/new") %>
+          </li>
+          <li>
+            <%= link_to("ユーザー一覧", "/users") %>
+          </li>
+          <li>
+            <%= link_to("ログアウト", "/logout", {method: :post}) %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to("TweetAppとは", "/about") %>
+          </li>
+          <li>
+            <%= link_to("新規登録", "/users/new") %>
+          </li>
+          <li>
+            <%= link_to("ログイン", "/login") %>
+          </li>
+        <% end %>
       </ul>
     </header>
     <% if flash[:notice] %>

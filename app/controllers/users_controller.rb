@@ -3,6 +3,26 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def login_form; end
+
+  def login
+    @user = User.find_by(email: params[:email], password: params[:password])
+    if @user
+      flash[:notice] = "ログインしました"
+      session[:user_id] = @user.id
+      redirect_to @user
+    else
+      @error_message = "メールアドレスかパスワードが間違っています"
+      render 'login_form'
+    end
+  end
+
+  def logout
+    session[:user_id] = nil
+    flash[:notice] = "ログアウトしました"
+    redirect_to '/login'
+  end
+
   def show
     @user = User.find(params[:id])
   end
@@ -17,9 +37,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.image_name = "default_user.jpg"
     if @user.save
       flash[:notice] = "登録しました"
+      session[:user_id] = @user.id
       redirect_to '/users'
     else
       render 'new'
@@ -46,7 +66,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :name, :email, :image
+      :name, :email, :image, :password
     )
   end
 end

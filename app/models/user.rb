@@ -6,6 +6,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   mount_uploader :image, ImageUploader
   validate :image_size
+  validates :password, presence: true
 
   private
 

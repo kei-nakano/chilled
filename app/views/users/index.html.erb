@@ -4,7 +4,7 @@
     <% @users.each do |user| %>
       <div class="users-index-item">
         <div class="user-left">
-          <%= image_tag user.image.url if user.image? %>
+          <%= image_tag user.image.url %>
         </div>
         <div class="user-right">
           <%= link_to(user.name, user) %>
