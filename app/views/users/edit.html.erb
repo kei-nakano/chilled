@@ -13,6 +13,8 @@
           <%= form.text_field :name %>
           <p>メールアドレス</p>
           <%= form.email_field :email %>
+          <p>パスワード</p>
+          <%= form.password_field :password, value: "#{@user.password}" %>
           <p>画像</p>
           <%= form.file_field :image, accept: 'image/jpeg,image/gif,image/png' %>
           <%= form.submit value="保存" %>

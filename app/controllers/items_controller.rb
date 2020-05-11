@@ -4,7 +4,8 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find_by(id: params[:id])
+    @item = Item.find(params[:id])
+    @user = User.find(@item.user_id)
   end
 
   def new
@@ -12,7 +13,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(title: params[:item][:title])
+    @item = Item.new(title: params[:item][:title], user_id: @current_user.id)
     if @item.save
       flash[:notice] = "作成しました"
       redirect_to("/items")

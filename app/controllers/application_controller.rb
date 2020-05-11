@@ -6,16 +6,16 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user
-    return unless @current_user
+    return if @current_user
 
     flash[:notice] = "ログインが必要です"
-    redirect_to("/login")
+    redirect_to "/login"
   end
 
   def forbid_login_user
     return unless @current_user
 
     flash[:notice] = "すでにログインしています"
-    redirect_to("/posts/index")
+    redirect_to @current_user
   end
 end

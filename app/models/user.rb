@@ -8,6 +8,11 @@ class User < ApplicationRecord
   validate :image_size
   validates :password, presence: true
 
+  # DBのリレーション定義後に削除予定
+  def items
+    Item.where(user_id: id)
+  end
+
   private
 
   # アップロード画像のサイズを検証する
