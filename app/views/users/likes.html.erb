@@ -8,13 +8,14 @@
       <%= link_to("削除", @user, {method: "delete"}) %>
     </div>
     <ul class="user-tabs">
-      <li class="active"><%= link_to("投稿", "/users/#{@user.id}") %></li>
-      <li><%= link_to("いいね!", "/users/#{@user.id}/likes") %></li>
+      <li><%= link_to("投稿", "/users/#{@user.id}") %></li>
+      <li class="active"><%= link_to("いいね!", "/users/#{@user.id}/likes") %></li>
     </ul>
-    <% @user.items.each do |item| %>
+    <% @likes.each do |like| %>
+      <% item = Item.find(like.item_id) %>
       <div class="posts-index-item">
         <div class="post-left">
-          <%= image_tag @user.image.url %>
+          <%= image_tag item.user.image.url %>
         </div>
         <div class="post-right">
           <div class="post-user-name">

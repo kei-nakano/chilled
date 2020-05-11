@@ -1,12 +1,26 @@
 <div class="main posts-show">
   <div class="container">
     <div class="posts-show-item">
+      <div class="post-user-name">
+        <%= image_tag @user.image.url %>
+        <%= link_to(@user.name, @user) %>
+      </div>
       <p>
         <%= @item.title %>
       </p>
       <div class="post-time">
         <%= @item.created_at %>
       </div>
+      <% if Like.find_by(user_id: @current_user.id, item_id: @item.id) %>
+        <%= link_to("/likes/#{@item.id}/destroy", {method: "post"}) do %>
+          <span class="fa fa-heart like-btn-unlike"></span>
+        <% end %>
+      <% else %>
+        <%= link_to("/likes/#{@item.id}/create", {method: "post"}) do %>
+          <span class="fa fa-heart like-btn"></span>
+        <% end %>
+      <% end %>
+      <%= Like.where(item_id: @item.id).count %>
       <div class="post-menus">
         <%= link_to("編集", edit_item_path) %>
         <%= link_to("削除", @item, {method: "delete"}) %>

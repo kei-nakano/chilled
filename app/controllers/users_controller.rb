@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user, only: %i[index show edit update]
+  before_action :forbid_login_user, only: %i[new create login_form login]
+  before_action :ensure_correct_user, only: %i[edit update]
+
   def index
     @users = User.all
   end
@@ -62,11 +66,23 @@ class UsersController < ApplicationController
     redirect_to '/users'
   end
 
+  def likes
+    @user = User.find(params[:id])
+    @likes = Like.where(user_id: @user.id)
+  end
+
   private
 
   def user_params
     params.require(:user).permit(
       :name, :email, :image, :password
     )
+  end
+
+  def ensure_correct_user
+    return if @current_user.id == params[:id].to_i
+
+    flash[:notice] = "権限がありません"
+    redirect_to @current_user
   end
 end
