@@ -7,6 +7,7 @@ class User < ApplicationRecord
   mount_uploader :image, ImageUploader
   validate :image_size
   validates :password, presence: true
+  has_secure_password(validations: false)
 
   # DBのリレーション定義後に削除予定
   def items
