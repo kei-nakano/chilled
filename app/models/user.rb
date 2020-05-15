@@ -7,7 +7,7 @@ class User < ApplicationRecord
   before_save { self.email = email.downcase }
   mount_uploader :image, ImageUploader
   validate :image_size
-  validates :password, presence: true, length: { minimum: 8 }
+  validates :password, presence: true, length: { minimum: 7 }
   has_secure_password(validations: false)
   has_many :items, dependent: :destroy
   has_many :active_relationships, class_name: "Relationship",
@@ -21,7 +21,7 @@ class User < ApplicationRecord
 
   # ユーザーをフォローする
   def follow(other_user)
-    following << other_user
+    active_relationships.create(followed_id: other_user.id)
   end
 
   # ユーザーをフォロー解除する

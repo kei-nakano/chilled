@@ -7,6 +7,13 @@ Rails.application.routes.draw do
   post 'likes/:item_id/create' => 'likes#create'
   post 'likes/:item_id/destroy' => 'likes#destroy'
   get 'users/:id/likes' => 'users#likes'
+  post 'relationships/:followed_id/create' => 'relationships#create'
+  delete 'relationships/:followed_id/destroy' => 'relationships#destroy'
   resources :items
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+  # resources :relationships, only: %i[create destroy]
 end
