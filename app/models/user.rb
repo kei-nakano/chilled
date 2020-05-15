@@ -9,11 +9,10 @@ class User < ApplicationRecord
   validate :image_size
   validates :password, presence: true, length: { minimum: 8 }
   has_secure_password(validations: false)
-
-  # DBのリレーション定義後に削除予定
-  def items
-    Item.where(user_id: id)
-  end
+  has_many :items, dependent: :destroy
+  has_many :active_relationships, class_name: "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent: :destroy
 
   private
 

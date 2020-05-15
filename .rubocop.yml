@@ -50,3 +50,6 @@ Bundler/OrderedGems:
 ClassAndModuleChildren:
   Enabled: false
   
+# "Specify an :inverse_of option"を無視
+Rails/InverseOf:
+  Enabled: false
