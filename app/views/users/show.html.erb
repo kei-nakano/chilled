@@ -6,13 +6,15 @@
       <p><%= @user.email %></p>
       <%= link_to("編集", edit_user_path) %>
       <%= link_to("削除", @user, {method: "delete"}) %>
-      <div class="follow-link">
-        <% if @current_user.following?(@user) %>
-          <%= link_to("フォロー解除", "/relationships/#{@user.id}/destroy", method: :delete, remote: true) %>
-        <% else %>
-          <%= link_to("フォロー", "/relationships/#{@user.id}/create", method: :post, remote: true) %>
-        <% end %>
-      </div>
+      <% if @current_user.id != @user.id %>
+        <div class="follow-link">
+          <% if @current_user.following?(@user) %>
+            <%= link_to("フォロー解除", "/relationships/#{@user.id}/destroy", method: :delete, remote: true) %>
+          <% else %>
+            <%= link_to("フォロー", "/relationships/#{@user.id}/create", method: :post, remote: true) %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
     <ul class="user-tabs">
       <li class="active"><%= link_to("投稿", "/users/#{@user.id}") %></li>
