@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'jquery/top'
   root 'home#top'
   get 'about' => 'home#about'
   get 'login' => 'users#login_form'
@@ -8,6 +7,7 @@ Rails.application.routes.draw do
   post 'likes/:item_id/create' => 'likes#create'
   post 'likes/:item_id/destroy' => 'likes#destroy'
   get 'users/:id/likes' => 'users#likes'
+  get 'users/:id/timeline' => 'users#timeline'
   post 'relationships/:followed_id/create' => 'relationships#create'
   delete 'relationships/:followed_id/destroy' => 'relationships#destroy'
   resources :items

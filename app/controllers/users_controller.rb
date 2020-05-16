@@ -79,6 +79,11 @@ class UsersController < ApplicationController
     @likes = Like.where(user_id: @user.id)
   end
 
+  def timeline
+    @user = User.find(params[:id])
+    @items = @user.feed
+  end
+
   private
 
   def user_params

@@ -6,18 +6,19 @@
       <p><%= @user.email %></p>
       <%= link_to("編集", edit_user_path) %>
       <%= link_to("削除", @user, {method: "delete"}) %>
-      <% if @current_user.following?(@user) %>
-        <%= link_to("フォロー解除", "/relationships/#{@user.id}/destroy", method: :delete, remote: true) %>
-      <% else %>
-        <%= link_to("フォロー", "/relationships/#{@user.id}/create", method: :post, remote: true) %>
-      <% end %>
-      <h2 class="test"></h2>
+      <div class="follow-link">
+        <% if @current_user.following?(@user) %>
+          <%= link_to("フォロー解除", "/relationships/#{@user.id}/destroy", method: :delete, remote: true) %>
+        <% else %>
+          <%= link_to("フォロー", "/relationships/#{@user.id}/create", method: :post, remote: true) %>
+        <% end %>
+      </div>
     </div>
     <ul class="user-tabs">
       <li class="active"><%= link_to("投稿", "/users/#{@user.id}") %></li>
       <li><%= link_to("いいね!", "/users/#{@user.id}/likes") %></li>
-      <li><%= link_to("フォロー中(#{@user.following.count})", following_user_path(@user)) %></li>
-      <li><%= link_to("フォロワー(#{@user.followers.count})", followers_user_path(@user)) %></li>
+      <li class="following-count"><%= link_to("フォロー中(#{@user.following.count})", following_user_path(@user)) %></li>
+      <li class="followers-count"><%= link_to("フォロワー(#{@user.followers.count})", followers_user_path(@user)) %></li>
     </ul>
     <% @user.items.each do |item| %>
       <div class="posts-index-item">

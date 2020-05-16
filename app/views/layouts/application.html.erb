@@ -29,6 +29,9 @@
             <%= link_to("ユーザー一覧", "/users") %>
           </li>
           <li>
+            <%= link_to("タイムライン", "/users/#{@current_user.id}/timeline") %>
+          </li>
+          <li>
             <%= link_to("ログアウト", "/logout", {method: :post}) %>
           </li>
         <% else %>
