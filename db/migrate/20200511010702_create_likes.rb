@@ -6,5 +6,10 @@ class CreateLikes < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+    change_table :likes, bulk: true do |t|
+      t.index :user_id
+      t.index :item_id
+      t.index %i[user_id item_id], unique: true
+    end
   end
 end

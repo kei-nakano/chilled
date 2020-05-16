@@ -47,6 +47,31 @@ Bundler/OrderedGems:
   Enabled: false
   
 # ネストしたモジュール/クラス定義の推奨記法を無視
-ClassAndModuleChildren:
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# "Specify an :inverse_of option"を無視
+Rails/InverseOf:
   Enabled: false
   
+# Rubocopの最新の検知ルールはtrueにする
+Layout/SpaceAroundMethodCallOperator:
+  Enabled:  true
+  
+Lint/RaiseException:
+  Enabled:  true
+  
+Lint/StructNewOverride:
+  Enabled:  true
+  
+Style/ExponentialNotation:
+  Enabled:  true  
+  
+Style/HashEachMethods:
+  Enabled:  true
+  
+Style/HashTransformKeys:
+  Enabled:  true
+  
+Style/HashTransformValues:
+  Enabled:  true

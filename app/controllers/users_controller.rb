@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user, only: %i[index show edit update]
+  before_action :authenticate_user, only: %i[index show edit update following followers]
   before_action :forbid_login_user, only: %i[new create login_form login]
   before_action :ensure_correct_user, only: %i[edit update]
 
@@ -28,6 +28,14 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
+  end
+
+  def following
+    @user = User.find(params[:id])
+  end
+
+  def followers
     @user = User.find(params[:id])
   end
 
@@ -69,6 +77,11 @@ class UsersController < ApplicationController
   def likes
     @user = User.find(params[:id])
     @likes = Like.where(user_id: @user.id)
+  end
+
+  def timeline
+    @user = User.find(params[:id])
+    @items = @user.feed
   end
 
   private
