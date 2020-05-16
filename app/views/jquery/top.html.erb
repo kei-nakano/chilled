@@ -1,0 +1,23 @@
+<h1>Ajax#index</h1>
+<h5 id="hoge">赤色になるよ</h5>
+
+<script>
+window.addEventListener('DOMContentLoaded', function(){
+  $("#hoge").css("color","red");
+  alert('JavaScriptのアラート');
+});
+</script>
+
+<p>jQueryが動けば中身が出てくるよ</p>
+<p id="test"></p>
+
+<script>
+window.addEventListener('DOMContentLoaded', function(){
+  $("#test").html("ミッションコンプリート！");
+  $("#test").css("color","red");
+});
+</script>
+
+<script>
+  $("#test").css("color","blue");
+</script>

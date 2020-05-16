@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'jquery/top'
   root 'home#top'
   get 'about' => 'home#about'
   get 'login' => 'users#login_form'
