@@ -6,7 +6,7 @@ class CreateCategories < ActiveRecord::Migration[5.2]
       t.timestamps
     end
     change_table :categories, bulk: true do |t|
-      t.index :name
+      t.index :name, unique: true
     end
   end
 end

@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_082529) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_categories_on_name"
+    t.index ["name"], name: "index_categories_on_name", unique: true
   end
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_082529) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_manufacturers_on_name"
+    t.index ["name"], name: "index_manufacturers_on_name", unique: true
   end
 
   create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
