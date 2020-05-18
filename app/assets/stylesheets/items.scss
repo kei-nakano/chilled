@@ -14,6 +14,12 @@
   object-fit: cover;
 }
 
+.post-user-name h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
 .post-user-name a {
   font-weight: 600;
 }
@@ -47,9 +53,7 @@
 }
 
 .posts-show-item img {
-  width: 60px;
-  height: 60px;
-  border-radius: 40%;
+  width: 360px;
   box-shadow: 0 2px 6px #c1ced7;
   vertical-align: middle;
   object-fit: cover;
