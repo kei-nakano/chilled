@@ -1,4 +1,5 @@
 <div class="main">
+  パンクズリスト
   <div class="container">
     <div class="posts-show-item">
       <div class="post-item-name">
@@ -8,18 +9,29 @@
       <div class="post-right-body">
         <h3>商品情報</h3>
         <table>
-          <tr>
-            <th>説明</th>
-            <th><p><%= @item.content %></p></th>
-          </tr>
-          <tr>
-            <th>参考価格</th>
-            <th><%= @item.price %></th>
-          </tr>
+          <tbody>
+            <tr>
+              <th>説明</th>
+              <td><%= @item.content %></td>
+            </tr>
+            <tr>
+              <th>参考価格</th>
+              <td><%= @item.price %>円</td>
+            </tr>
+            <tr>
+              <th>内容量</th>
+              <td><%= @item.gram %>cal</td>
+            </tr>
+            <tr>
+              <th>カロリー</th>
+              <td><%= @item.calorie %>cal</td>
+            </tr>
+            <tr>
+              <th>メーカー</th>
+              <td><%= Manufacturer.find(@item.manufacturer_id).name %></td>
+            </tr>
+          </tbody>
         </table>
-      </div>
-      <div class="post-time">
-        <%= @item.created_at %>
       </div>
       <% if Like.find_by(user_id: @current_user.id, item_id: @item.id) %>
         <%= link_to("/likes/#{@item.id}/destroy", {method: "post"}) do %>
