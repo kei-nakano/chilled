@@ -4,7 +4,7 @@
 }
 
 html {
-  font: 100%/1.5 'Avenir Next', 'Hiragino Sans', sans-serif;
+  font: 100%/1.5 -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', meiryo, '游ゴシック Medium', sans-serif;
   line-height: 1.7;
   letter-spacing: 1px;
 }
@@ -53,7 +53,7 @@ body {
 }
 
 .container {
-  max-width: 600px;
+  max-width: 840px;
   margin: 60px auto;
   padding-left: 15px;
   padding-right: 15px;

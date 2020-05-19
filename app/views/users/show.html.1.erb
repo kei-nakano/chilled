@@ -22,14 +22,14 @@
       <li class="following-count"><%= link_to("フォロー中(#{@user.following.count})", following_user_path(@user)) %></li>
       <li class="followers-count"><%= link_to("フォロワー(#{@user.followers.count})", followers_user_path(@user)) %></li>
     </ul>
-    <% Item.all.each do |item| %>
+    <% @user.items.each do |item| %>
       <div class="posts-index-item">
         <div class="post-left">
-          <%= image_tag item.image.url %>
+          <%= image_tag @user.image.url %>
         </div>
         <div class="post-right">
           <div class="post-user-name">
-            <%#= link_to(item.user.name, item.user) %>
+            <%= link_to(item.user.name, item.user) %>
           </div>
           <%= link_to(item.title, item) %>
         </div>

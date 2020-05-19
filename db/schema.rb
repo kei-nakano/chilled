@@ -12,11 +12,27 @@
 
 ActiveRecord::Schema.define(version: 2020_05_14_082529) do
 
+  create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_categories_on_name", unique: true
+  end
+
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "title"
+    t.string "title"
+    t.string "image"
+    t.bigint "manufacturer_id"
+    t.bigint "category_id"
+    t.text "content"
+    t.integer "price"
+    t.integer "gram"
+    t.integer "calorie"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.index ["category_id"], name: "index_items_on_category_id"
+    t.index ["manufacturer_id"], name: "index_items_on_manufacturer_id"
   end
 
   create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -27,6 +43,13 @@ ActiveRecord::Schema.define(version: 2020_05_14_082529) do
     t.index ["item_id"], name: "index_likes_on_item_id"
     t.index ["user_id", "item_id"], name: "index_likes_on_user_id_and_item_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "manufacturers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_manufacturers_on_name", unique: true
   end
 
   create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -49,4 +72,6 @@ ActiveRecord::Schema.define(version: 2020_05_14_082529) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "items", "categories"
+  add_foreign_key "items", "manufacturers"
 end

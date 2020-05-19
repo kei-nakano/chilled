@@ -1,15 +1,37 @@
-<div class="main posts-show">
+<div class="main">
+  パンクズリスト <%= Category.find(@item.category_id).name %>
   <div class="container">
     <div class="posts-show-item">
-      <div class="post-user-name">
-        <%= image_tag @user.image.url %>
-        <%= link_to(@user.name, @user) %>
+      <div class="post-item-name">
+        <h2><%= @item.title %></h2>
       </div>
-      <p>
-        <%= @item.title %>
-      </p>
-      <div class="post-time">
-        <%= @item.created_at %>
+      <%= image_tag @item.image.url %>
+      <div class="post-right-body">
+        <h3>商品情報</h3>
+        <table>
+          <tbody>
+            <tr>
+              <th>説明</th>
+              <td><%= @item.content %></td>
+            </tr>
+            <tr>
+              <th>参考価格</th>
+              <td><%= @item.price %>円</td>
+            </tr>
+            <tr>
+              <th>内容量</th>
+              <td><%= @item.gram %>cal</td>
+            </tr>
+            <tr>
+              <th>カロリー</th>
+              <td><%= @item.calorie %>cal</td>
+            </tr>
+            <tr>
+              <th>メーカー</th>
+              <td><%= Manufacturer.find(@item.manufacturer_id).name %></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <% if Like.find_by(user_id: @current_user.id, item_id: @item.id) %>
         <%= link_to("/likes/#{@item.id}/destroy", {method: "post"}) do %>
