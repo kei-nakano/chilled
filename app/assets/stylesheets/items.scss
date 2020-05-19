@@ -32,6 +32,7 @@
   background-color: white;
   box-shadow: 0 2px 6px #c1ced7;
   overflow: hidden; 
+  border-radius: 10px;
 }
 
 .post-item-name h2 {
@@ -84,10 +85,89 @@ table {
   margin: 20px 0;
 }
 
-.post-time {
-  color: #8899a6;
-  margin-bottom: 10px;
+.review-start {
+ /* background-color: rgb(248, 239, 219); */
+  padding-left: 10px;
+  border-radius: 4px;
+  color: #000;
+  margin: 10px 0;
+  text-decoration: underline;
 }
+
+.posts-review-user-left img {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  box-shadow: 0 2px 6px #c1ced7;
+  float: left;
+}
+
+.posts-review-user-right {
+  margin-left: 70px;
+}
+
+.user-name {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.review-time {
+  color: #7e7e7e;
+  font-size: 14px;
+}
+
+.posts-review-user p {
+  display: inline-block;
+  font-weight: bold;
+  margin-left: 15px;
+  font-size: 15px;
+}
+
+.posts-show-review {
+  margin-top: 10px;
+  padding: 30px;
+  background-color: white;
+  box-shadow: 0 2px 6px #c1ced7;
+  overflow: hidden; 
+}
+
+.rate{
+position: relative;
+display: inline-block;
+}
+.rate:before,
+.rate:after{
+content: "★★★★★";
+}
+.rate:before{
+color: #ccc;
+}
+.rate:after{
+position: absolute;
+left:0;
+top:0;
+color: #FFA500;
+overflow: hidden;
+}
+.rate.rate0:after{
+width: 0;
+}
+.rate.rate1:after{
+width: 1em;
+}
+.rate.rate1-5:after{
+width: 1.5em;
+}
+.rate.rate2:after{
+width: 2em;
+}
+.rate.rate2-5:after{
+width: 2.5em;
+}
+.rate.rate3:after{
+width: 3em;
+}
+
 
 .like-btn {
   color: #8899a6;

@@ -17,6 +17,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   def default_url(*)
     return "/uploads/default/" + [version_name, "default_user.jpg"].compact.join('_') if model.class.name == "User"
     return "/uploads/default/" + [version_name, "default_item.png"].compact.join('_') if model.class.name == "Item"
+    return "/uploads/default/" + [version_name, "default_review.jpg"].compact.join('_') if model.class.name == "Review"
   end
 
   # Process files as they are uploaded:
