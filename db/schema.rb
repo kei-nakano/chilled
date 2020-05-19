@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2020_05_19_053301) do
   create_table "reviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "item_id"
-    t.integer "score"
+    t.float "score"
     t.string "title"
     t.text "content"
     t.string "image"

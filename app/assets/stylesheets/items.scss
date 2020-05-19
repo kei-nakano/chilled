@@ -38,8 +38,10 @@
 .post-item-name h2 {
   color: #683e01;
   font-size: 22px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   font-weight: 600;
+  padding-bottom: 2px;
+  border-bottom: solid 2px #5282d4;
 }
 
 .post-right-body {
@@ -57,12 +59,13 @@ table {
   border: 1px solid #BBB;
   width: 90px;
   padding: 5px 10px;
+  font-size: 16px;
 }
 
 .post-right-body td {
   padding: 5px 10px;
   border: 1px solid #BBB;
-  font-size: 15px;
+  font-size: 14px;
   
 }
 
@@ -86,12 +89,12 @@ table {
 }
 
 .review-start {
- /* background-color: rgb(248, 239, 219); */
+  background-color: rgb(255, 244, 221);
   padding-left: 10px;
-  border-radius: 4px;
-  color: #000;
+  color: #683e01;
   margin: 10px 0;
-  text-decoration: underline;
+  border: 1px solid #bbb;
+  border-radius: 10px;
 }
 
 .posts-review-user-left img {
@@ -104,8 +107,13 @@ table {
 
 .posts-review-user-right {
   margin-left: 70px;
+  height: 84px;
 }
 
+.posts-review-user-right p {
+  color: #FFA500;
+  font-weight: 600;
+}
 .user-name {
   font-size: 17px;
   font-weight: 800;
@@ -116,19 +124,37 @@ table {
   font-size: 14px;
 }
 
-.posts-review-user p {
-  display: inline-block;
-  font-weight: bold;
-  margin-left: 15px;
-  font-size: 15px;
-}
-
 .posts-show-review {
   margin-top: 10px;
   padding: 30px;
   background-color: white;
   box-shadow: 0 2px 6px #c1ced7;
   overflow: hidden; 
+  border-radius: 10px;
+}
+
+.posts-review-content {
+  font-size: 14px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.posts-review-content img{
+  width: 300px; 
+}
+
+.posts-end-area {
+  margin-top: 15px;
+  padding-top: 8px;
+  border-top: 1px solid #ccc;
+}
+
+.score {
+  position: relative;
+  left: 93px;
+  top: -27px;
+  color: #FFA500;
+  font-weight: 600;
 }
 
 .rate{
@@ -137,7 +163,7 @@ display: inline-block;
 }
 .rate:before,
 .rate:after{
-content: "★★★★★";
+  content: "★★★★★";
 }
 .rate:before{
 color: #ccc;
@@ -168,6 +194,9 @@ width: 2.5em;
 width: 3em;
 }
 
+.fa-heart:before {
+  margin-right: 3px;
+}
 
 .like-btn {
   color: #8899a6;
