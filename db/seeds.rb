@@ -44,6 +44,11 @@ Review.create!(title: "パッケージ詐欺でした。。。",
                content: 'パッケージだと美味しそうな画像だったんですけど、実際に調理してみると全然ショボかったです。正直もう買いません。',
                score: 2.5)
 
+# コメント
+Comment.create!(user_id: 1,
+                review_id: 1,
+                content: "意外でしたが、参考になりました。")
+
 # リレーションシップ
 users = User.all
 user  = users.first

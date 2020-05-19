@@ -18,7 +18,8 @@ class ImageUploader < CarrierWave::Uploader::Base
     model_name = model.class.name
     return "/uploads/default/" + [version_name, "default_user.jpg"].compact.join('_') if model_name == "User"
     return "/uploads/default/" + [version_name, "default_item.png"].compact.join('_') if model_name == "Item"
-    return "/uploads/default/" + [version_name, "default_item.png"].compact.join('_') if model_name == "Review"
+
+    "/uploads/default/" + [version_name, "default_review.jpg"].compact.join('_')
   end
 
   # Process files as they are uploaded:
