@@ -12,7 +12,7 @@ User.create!(name: "keisuke",
                password: password)
 end
 
-# 製造業者
+# メーカー
 Manufacturer.create!(name: "日清食品")
 Manufacturer.create!(name: "ニチレイフーズ")
 
@@ -35,6 +35,14 @@ Item.create!(title: "日清もちっと生パスタ 牛挽肉とまいたけの�
 #  content = (n + 1).to_s
 #  users.each { |user| user.items.create!(title: content) }
 # end
+
+# レビュー
+Review.create!(title: "パッケージ詐欺でした。。。",
+               image: nil,
+               user_id: 1,
+               item_id: 1,
+               content: 'パッケージだと美味しそうな画像だったんですけど、実際に調理してみると全然ショボかったです。正直もう買いません。',
+               score: 2.5)
 
 # リレーションシップ
 users = User.all

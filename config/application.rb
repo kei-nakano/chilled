@@ -14,5 +14,6 @@ module Sample
     config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.yml').to_s]
     # 認証トークンをremoteフォームに埋め込み、JSが無効な場合に対応
     config.action_view.embed_authenticity_token_in_remote_forms = true
+    config.time_zone = 'Tokyo'
   end
 end
