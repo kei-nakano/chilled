@@ -79,6 +79,7 @@
       </div>
       
       <div class="posts-end-area">
+        
         <% if Like.find_by(user_id: @current_user.id, item_id: @item.id) %>
           <%= link_to("/likes/#{@item.id}/destroy", {method: "post"}) do %>
             <span class="fa fa-heart like-btn-unlike">いいね！</span>
@@ -102,11 +103,41 @@
             <%= form.submit value="決定" %>
           <% end %>
         </div>
+        
+        <% Comment.where(review_id: 1).each do |comment| %>
         <div class="show-comments">
-          <% Comment.all.each do |comment| %>
+          <div class="comments-user-image">
+            <%= image_tag User.find(Review.find_by(item_id: @item.id).user_id).image.url %>
+          </div>
+          <div class="comments-user-right">
+            <div class="comments-user-name">
+              <%= User.find(Review.find_by(item_id: @item.id).user_id).name %>
+            </div>
+            <div class="comments-time">
+              <%= Review.find_by(item_id: @item.id).created_at.strftime("%Y年%m月%d日 %H:%M") %>
+            </div>
+          </div>
             <p><%= comment.content %></p>
-          <% end %>
         </div>
+        <% end %>
+        
+        <% if @comment %>
+          <div class="show-comments">
+            <div class="comments-user-image">
+              <%= image_tag User.find(Review.find_by(item_id: @item.id).user_id).image.url %>
+            </div>
+            <div class="comments-user-right">
+              <div class="comments-user-name">
+                <%= User.find(Review.find_by(item_id: @item.id).user_id).name %>
+              </div>
+              <div class="comments-time">
+                <%= Review.find_by(item_id: @item.id).created_at.strftime("%Y年%m月%d日 %H:%M") %>
+              </div>
+            </div>
+            <div id="add"></div>
+          </div>
+        </div>
+        <% end %>
     </div>
   </div>
 </div>

@@ -9,7 +9,8 @@ class CommentsController < ApplicationController
   end
 
   def create
-    Comment.create!(user_id: @current_user.id, review_id: params[:review_id], content: params[:comment][:content])
+    @comment = Comment.new(user_id: @current_user.id, review_id: params[:review_id], content: params[:comment][:content])
+    @comment.save
     respond_to do |format|
       format.html { redirect_to @user }
       format.js

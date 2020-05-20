@@ -145,8 +145,11 @@ table {
 
 .posts-end-area {
   margin-top: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
   padding-top: 8px;
   border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 
 .score {
@@ -223,6 +226,37 @@ width: 3em;
 
 .comment-form.hidden {
   display: none;
+}
+
+.show-comments {
+ margin-bottom: 15px;
+}
+
+.comments-user-image img {
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  box-shadow: 0 2px 6px #c1ced7;
+  float: left;
+}
+
+.comments-user-right {
+  margin-left: 50px;
+  height: 50px;
+}
+
+.comments-user-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.comments-time {
+  font-size: 12px;
+  color: #7e7e7e;
+}
+
+.show-comments p {
+  font-size: 14px;
 }
 
 /* posts/new ================================ */
