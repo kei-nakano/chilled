@@ -89,12 +89,24 @@
           <% end %>
         <% end %>
         <%= Like.where(item_id: @item.id).count %>
-        <span class="fas fa-comment">コメントする</span>
+        <span class="fas fa-comment"><%= link_to("コメントする", "/comments/new", remote: true) %></span>
         <div class="post-menus">
           <%= link_to("編集", edit_item_path) %>
           <%= link_to("削除", @item, {method: "delete"}) %>
+        </div>
       </div>
-      </div>
+        <div id="click" class="comment-form hidden">
+          <%= form_with(url: "/comments/#{Review.find_by(item_id: @item.id).id}/create" , model: Comment.new) do |form| %>
+            <p>コメント</p>
+            <%= form.text_field :content %>
+            <%= form.submit value="決定" %>
+          <% end %>
+        </div>
+        <div class="show-comments">
+          <% Comment.all.each do |comment| %>
+            <p><%= comment.content %></p>
+          <% end %>
+        </div>
     </div>
   </div>
 </div>
