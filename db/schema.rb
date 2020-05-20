@@ -76,7 +76,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_174524) do
     t.bigint "user_id"
     t.bigint "item_id"
     t.float "score"
-    t.string "title"
     t.text "content"
     t.string "image"
     t.datetime "created_at", null: false
