@@ -1,0 +1,48 @@
+<div class="posts-show-item">
+      <div class="post-item-name">
+        <h2><%= @item.title %></h2>
+      </div>
+      <%= image_tag @item.image.url %>
+      <div class="post-right-body">
+        <h3>商品情報</h3>
+        <table>
+          <tbody>
+            <tr>
+              <th>説明</th>
+              <td><%= @item.content %></td>
+            </tr>
+            <tr>
+              <th>参考価格</th>
+              <td><%= @item.price %>円</td>
+            </tr>
+            <tr>
+              <th>内容量</th>
+              <td><%= @item.gram %>cal</td>
+            </tr>
+            <tr>
+              <th>カロリー</th>
+              <td><%= @item.calorie %>cal</td>
+            </tr>
+            <tr>
+              <th>メーカー</th>
+              <td><%= @item.manufacturer.name %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <% if Like.find_by(user_id: @current_user.id, item_id: @item.id) %>
+        <%= link_to("/likes/#{@item.id}/destroy", {method: "post"}) do %>
+          <span class="fa fa-heart like-btn-unlike"></span>
+        <% end %>
+      <% else %>
+        <%= link_to("/likes/#{@item.id}/create", {method: "post"}) do %>
+          <span class="fa fa-heart like-btn"></span>
+        <% end %>
+      <% end %>
+      <%= Like.where(item_id: @item.id).count %>
+      <div class="post-menus">
+        <%= link_to("編集", edit_item_path) %>
+        <%= link_to("削除", @item, {method: "delete"}) %>
+      </div>
+    </div>
