@@ -77,9 +77,11 @@ body {
 /* ヘッダー ================================ */
 header {
   height: 64px;
-  position: absolute;
+  position: fixed;
   z-index: 1;
   width: 100%;
+  background-color: white;
+  box-shadow: 0 0 15px #c1ced7;
 }
 
 .header-logo {
