@@ -1,10 +1,6 @@
-<div class="main">
-  <div class="breadcrumbs"> 
-    <%= "HOME > 商品レビュー > #{@item.manufacturer.name} > #{@item.category.name} > #{@item.title}" %>
-  </div>
-  
+<% breadcrumb :item_show, @item %>
   <div class="container">
-  <%= render "items/detail" %>
+    <%= render "items/detail" %>
   
     
     
@@ -104,4 +100,3 @@
         <% end %> <!-- @reviews -->
     </div>
   </div>
-</div>
