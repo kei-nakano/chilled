@@ -1,0 +1,14 @@
+<div class="show-comments">
+  <div class="comments-user-image">
+    <%= image_tag comment.user.image.url %>
+  </div>
+  <div class="comments-user-right">
+    <div class="comments-user-name">
+      <%= comment.user.name %>
+    </div>
+    <div class="comments-time">
+      <%= comment.created_at.strftime("%Y年%m月%d日 %H:%M") %>
+    </div>
+  </div>
+    <p><%= comment.content %></p>
+</div>

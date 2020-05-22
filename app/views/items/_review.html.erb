@@ -1,21 +1,18 @@
 <div class="posts-show-review">
   <div class="posts-review-user-left">
-    <%= image_tag User.find(review.user_id).image.url %>
+    <%= image_tag review.user.image.url %>
   </div>
       
       <div class="posts-review-user-right">
         <div class="user-name">
-          <%= User.find(review.user_id).name %>
+          <%= review.user.name %>
         </div>
         
         <div class="review-time">
           <%= review.created_at.strftime("%Y年%m月%d日 %H:%M") %>
         </div>
         
-        <% if review.score < 3 %>
-          <div class="rate rate2-5"></div>
-          <div class="score"><%= review.score %></div>
-        <% end %>
+        <%= render "score", score: review.score %>
       </div>
       
       <div class="posts-review-content">
@@ -41,49 +38,14 @@
           <%= link_to("削除", @item, {method: "delete"}) %>
         </div>
       </div>
+      
         <div id="click" class="comment-form hidden">
-          <%= form_with(url: "/comments/#{Review.find_by(item_id: @item.id).id}/create" , model: Comment.new) do |form| %>
+          <%= form_with(url: "/comments/#{review.id}/create" , model: Comment.new) do |form| %>
             <p>コメント</p>
             <%= form.text_field :content %>
             <%= form.submit value="決定" %>
           <% end %>
         </div>
-        
-        <% Comment.where(review_id: 1).each do |comment| %>
-        <div class="show-comments">
-          <div class="comments-user-image">
-            <%= image_tag User.find(Review.find_by(item_id: @item.id).user_id).image.url %>
-          </div>
-          <div class="comments-user-right">
-            <div class="comments-user-name">
-              <%= User.find(Review.find_by(item_id: @item.id).user_id).name %>
-            </div>
-            <div class="comments-time">
-              <%= Review.find_by(item_id: @item.id).created_at.strftime("%Y年%m月%d日 %H:%M") %>
-            </div>
-          </div>
-            <p><%= comment.content %></p>
-        </div>
-        <% end %>
-        
-        <% if @comment %>
-          <div class="show-comments">
-            <div class="comments-user-image">
-              <%= image_tag User.find(Review.find_by(item_id: @item.id).user_id).image.url %>
-            </div>
-            <div class="comments-user-right">
-              <div class="comments-user-name">
-                <%= User.find(Review.find_by(item_id: @item.id).user_id).name %>
-              </div>
-              <div class="comments-time">
-                <%= Review.find_by(item_id: @item.id).created_at.strftime("%Y年%m月%d日 %H:%M") %>
-              </div>
-            </div>
-            <div id="add"></div>
-          </div>
-        </div>
-        <% end %>
-        
-        
-        
+        <%= render partial: "items/comment", collection: review.comments, locals: { review: review } %>
+        <div id="add-comment"></div>
   </div>

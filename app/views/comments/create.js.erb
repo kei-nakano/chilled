@@ -1,2 +1,4 @@
-$("div#click").addClass('hidden');
-$("div#add").html('<p><%= @comment.content %></p>');
+$(".comment-form").addClass('hidden');
+
+
+$("div#add-comment").prepend("<%= j(render 'items/comment',{ comment: @comment }) %>");
