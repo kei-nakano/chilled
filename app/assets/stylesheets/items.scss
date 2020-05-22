@@ -89,7 +89,7 @@ table {
   
 }
 
-.review-start {
+.review-count {
   background-color: rgb(255, 244, 221);
   padding-left: 10px;
   color: #683e01;
@@ -179,23 +179,47 @@ top:0;
 color: #FFA500;
 overflow: hidden;
 }
+
 .rate.rate0:after{
-width: 0;
+  width: 0;
 }
+
+.rate.rate0-5:after{
+  width: 0.5em;
+}
+
 .rate.rate1:after{
-width: 1em;
+  width: 1em;
 }
+
 .rate.rate1-5:after{
-width: 1.5em;
+  width: 1.5em;
 }
+
 .rate.rate2:after{
-width: 2em;
+  width: 2em;
 }
 .rate.rate2-5:after{
-width: 2.5em;
+  width: 2.5em;
 }
 .rate.rate3:after{
-width: 3em;
+  width: 3em;
+}
+
+.rate.rate3-5:after{
+  width: 3.5em;
+}
+
+.rate.rate4:after{
+  width: 4em;
+}
+
+.rate.rate4-5:after{
+  width: 4.5em;
+}
+
+.rate.rate5:after{
+  width: 5em;
 }
 
 .fa-heart:before {
