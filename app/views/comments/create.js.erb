@@ -1,4 +1,3 @@
-$(".comment-form").addClass('hidden');
-
-
-$("div#add-comment").prepend("<%= j(render 'items/comment',{ comment: @comment }) %>");
+$("#review-<%= @review_id %>").addClass('hidden');
+$("#review-<%= @review_id %>").find("#comment_content").val('');
+$("#latest-comment-<%= @review_id %>").html("<%= j(render 'items/comment',{ comment: @comment }) %>");

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'users/:id/timeline' => 'users#timeline'
   post 'relationships/:followed_id/create' => 'relationships#create'
   delete 'relationships/:followed_id/destroy' => 'relationships#destroy'
-  get 'comments/new' => 'comments#new'
+  get 'comments/:review_id/new' => 'comments#new'
   post 'comments/:review_id/create' => 'comments#create'
   delete 'comments/:review_id/destroy' => 'comments#destroy'
   resources :items

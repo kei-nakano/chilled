@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
   before_action :authenticate_user, only: %i[create destroy]
 
   def new
+    @review_id = params[:review_id]
     respond_to do |format|
       format.html { redirect_to @user }
       format.js
@@ -11,6 +12,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(user_id: @current_user.id, review_id: params[:review_id], content: params[:comment][:content])
     @comment.save
+    @review_id = params[:review_id]
     respond_to do |format|
       format.html { redirect_to @user }
       format.js
