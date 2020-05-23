@@ -1,0 +1,12 @@
+<%= form_with(url: "/comments/#{comment.review.id}/create" , model: comment) do |form| %>
+            <p>コメント</p>
+            <%= form.text_area :content %>
+            <button type="reset" class="cancel-btn" id="cancel-<%= comment.review.id %>">キャンセル</button>
+            <button class="submit-btn"><%= form.submit value="決定" %></button>
+          <% end %>
+          
+          <script>
+          $("#cancel-<%= comment.review.id %>").click(function() {
+            $("#review-<%= comment.review.id %>").addClass('hidden');
+          })
+        </script>

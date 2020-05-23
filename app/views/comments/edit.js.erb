@@ -1,0 +1,2 @@
+$(".show-comments-<%= @comment.id %> a").css('display', 'none');
+$(".show-comments-<%= @comment.id %> span").html("<%= j(render 'items/form', { comment: @comment }) %>");

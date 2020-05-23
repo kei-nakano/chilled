@@ -1,4 +1,4 @@
-<div class="show-comments-<%= comment.id %>">
+<div class="comment-span show-comments-<%= comment.id %>">
   <div class="comments-user-image">
     <%= image_tag comment.user.image.url %>
   </div>
@@ -11,9 +11,12 @@
     </div>
   </div>
     <span><%= comment.content %>
-    <div class="post-menus">
-      <%#= link_to("編集", edit_item_path) %>
-      <%= link_to("削除", comment, method: "delete", remote: true) %>
-    </div></span>
+      <% if @current_user.id == comment.user_id %>
+        <div class="post-menus">
+          <%= link_to("編集", "/comments/#{comment.id}", remote: true) %>
+          <%= link_to("削除", comment, method: "delete", remote: true) %>
+        </div>
+      <% end %>
+    </span>
     
 </div>
