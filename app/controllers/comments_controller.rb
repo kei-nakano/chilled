@@ -4,7 +4,6 @@ class CommentsController < ApplicationController
   def new
     @review_id = params[:review_id]
     respond_to do |format|
-      format.html { redirect_to @user }
       format.js
     end
   end
@@ -14,16 +13,14 @@ class CommentsController < ApplicationController
     @comment.save
     @review_id = params[:review_id]
     respond_to do |format|
-      format.html { redirect_to @user }
       format.js
     end
   end
 
   def destroy
-    @user = User.find(params[:followed_id])
-    @current_user.unfollow(@user)
+    @comment_id = params[:id]
+    Comment.find(@comment_id).destroy
     respond_to do |format|
-      format.html { redirect_to @user }
       format.js
     end
   end

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   delete 'relationships/:followed_id/destroy' => 'relationships#destroy'
   get 'comments/:review_id/new' => 'comments#new'
   post 'comments/:review_id/create' => 'comments#create'
-  delete 'comments/:review_id/destroy' => 'comments#destroy'
+  delete 'comments/:id/' => 'comments#destroy', as: 'comment'
   resources :items
   resources :users do
     member do

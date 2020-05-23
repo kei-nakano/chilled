@@ -1,4 +1,4 @@
-<div class="show-comments">
+<div class="show-comments-<%= comment.id %>">
   <div class="comments-user-image">
     <%= image_tag comment.user.image.url %>
   </div>
@@ -10,5 +10,10 @@
       <%= comment.created_at.strftime("%Y年%m月%d日 %H:%M") %>
     </div>
   </div>
-    <p><%= comment.content %></p>
+    <span><%= comment.content %>
+    <div class="post-menus">
+      <%#= link_to("編集", edit_item_path) %>
+      <%= link_to("削除", comment, method: "delete", remote: true) %>
+    </div></span>
+    
 </div>

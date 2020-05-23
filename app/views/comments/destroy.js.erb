@@ -1,3 +1,1 @@
-$(".followers-count").html('<%= link_to("フォロワー(#{@user.followers.count})", followers_user_path(@user)) %>');
-$(".following-count").html('<%= link_to("フォロー中(#{@user.following.count})", following_user_path(@user)) %>');
-$(".follow-link").html('<%= link_to("フォロー", "/relationships/#{@user.id}/create", method: :post, remote: true) %>');
+$('.show-comments-<%= @comment_id %>').remove();

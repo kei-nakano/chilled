@@ -44,10 +44,17 @@
           <%= form_with(url: "/comments/#{review.id}/create" , model: Comment.new) do |form| %>
             <p>コメント</p>
             <%= form.text_field :content %>
-            <%= form.submit value="決定" %>
-            <%= form.submit value="キャンセル" %>
+            <button><%= form.submit value="決定" %></button>
+            <button type="reset" class="cancel-btn" id="cancel-<%= review.id %>">キャンセル</button>
           <% end %>
+        <script>
+          $("#cancel-<%= review.id %>").click(function() {
+            $("#review-<%= review.id %>").addClass('hidden');
+          })
+        </script>
         </div>
+        
+
         <div id="latest-comment-<%= review.id %>"></div>
         <%= render partial: "items/comment", collection: review.comments.order(created_at: :desc), locals: { review: review } %>
   </div>
