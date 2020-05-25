@@ -67,19 +67,23 @@ Review.create!(image: nil,
 # コメント
 Comment.create!(user_id: 1,
                 review_id: 1,
-                content: "意外でしたが、参考になりました。")
+                content: "1-意外でしたが、参考になりました。")
+Comment.first.update(created_at: Time.zone.today + 1.minute)
 
 Comment.create!(user_id: 2,
                 review_id: 1,
-                content: "ふーん。そうなんだ。")
+                content: "2-ふーん。そうなんだ。")
+Comment.second.update(created_at: Time.zone.today + 2.minutes)
 
 Comment.create!(user_id: 1,
                 review_id: 2,
-                content: "意外でしたが、参考になりました。")
+                content: "3-意外でしたが、参考になりました。")
+Comment.third.update(created_at: Time.zone.today + 3.minutes)
 
 Comment.create!(user_id: 2,
                 review_id: 2,
-                content: "ふーん。そうなんだ。")
+                content: "4-ふーん。そうなんだ。")
+Comment.fourth.update(created_at: Time.zone.today + 4.minutes)
 
 # リレーションシップ
 users = User.all

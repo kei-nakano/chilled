@@ -24,17 +24,17 @@ class CommentsController < ApplicationController
       format.js
     end
   end
-  
+
   def edit
     @comment = Comment.find(params[:id])
     respond_to do |format|
       format.js
     end
   end
-  
+
   def update
-    @comment_id = params[:id]
-    Comment.find(@comment_id).destroy
+    @comment = Comment.find(params[:id])
+    @comment.update(content: params[:comment][:content])
     respond_to do |format|
       format.js
     end
