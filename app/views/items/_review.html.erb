@@ -42,7 +42,7 @@
           <%= form_with(url: "/comments/#{review.id}/create" , model: Comment.new) do |form| %>
             <p>コメント</p>
             <%= form.text_area :content %>
-            <button type="reset" class="cancel-btn" id="cancel-<%= review.id %>">キャンセル</button>
+            <button type="reset" class="cancel-btn">キャンセル</button>
             <button class="submit-btn"><%= form.submit value="決定" %></button>
           <% end %>
         </div>

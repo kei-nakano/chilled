@@ -6,10 +6,24 @@
 </div>
 
 <script>
-  $(".cancel-btn,.submit-btn").click(function() {
-    $(this).parents('.comment-form').addClass('hidden');
+  $(function() {
+    $(document).on('click', '.cancel-btn, .submit-btn', function() {
+      $(this).parents('.comment-form').addClass('hidden');
+      console.log('up');
+    });
+  });
+  
+  $(function() {
+    $(document).on('click', '.cancel-btn', function() {
+      console.log('down');
+      const char =  $(this).parents('.comment-form').attr('id');
+      const id = char.split('-').pop();
+      if ($(this).parents('.comment-form').attr('class').split(' ')[0] == id) {
+        const delete_form = '#cancel-comment-' + id
+        jQuery("#review-comment-" + id).remove();
+        jQuery(".show-comments-" + id).find('a').css('display', 'inline');
+        jQuery(".show-comments-" + id).find('.comment-content').css('display', 'inline');
+      }
+    });
   });
 </script>
-
-
- 

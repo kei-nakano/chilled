@@ -1,3 +1,3 @@
 $(".show-comments-<%= @comment.id %> a").css('display', 'none');
 $(".show-comments-<%= @comment.id %> .comment-content").css('display', 'none');
-$(".show-comments-<%= @comment.id %> span").prepend("<%= j(render 'items/form', { comment: @comment }) %>");
+$(".show-comments-<%= @comment.id %> span").prepend("<%= j(render 'items/form', comment: @comment) %>");
