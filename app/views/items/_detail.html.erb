@@ -1,0 +1,43 @@
+<div class="items-show">
+  <div class="item-name">
+    <h2><%= @item.title %></h2>
+  </div>
+  <%= image_tag @item.image.url %>
+  
+  <div class="item-table">
+    <h3>商品情報</h3>
+     <table>
+      <tbody>
+        <tr>
+          <th>平均評価</th>
+          <td><%= render "score", score: @score %></td>    
+        </tr>
+        <tr>
+          <th>説明</th>
+          <td><%= @item.content %></td>
+        </tr>
+        <tr>
+          <th>参考価格</th>
+          <td><%= @item.price %>円</td>
+        </tr>
+        <tr>
+          <th>内容量</th>
+          <td><%= @item.gram %>cal</td>
+        </tr>
+        <tr>
+          <th>カロリー</th>
+          <td><%= @item.calorie %>cal</td>
+        </tr>
+        <tr>
+          <th>メーカー</th>
+          <td><%= @item.manufacturer.name %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+      
+  <div class="post-menus">
+    <%= link_to("編集", edit_item_path) %>
+    <%= link_to("削除", @item, {method: "delete"}) %>
+  </div>
+</div>

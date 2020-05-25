@@ -1,0 +1,4 @@
+jQuery(".<%= @comment.id %>").remove(); 
+$(".show-comments-<%= @comment.id %> a").css('display', 'inline');
+$(".show-comments-<%= @comment.id %> .comment-content").html('<%= @comment.content %>');
+$(".show-comments-<%= @comment.id %> .comment-content").css('display','inline');

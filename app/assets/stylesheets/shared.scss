@@ -1,12 +1,9 @@
-/* reset ================================ */
 * {
   box-sizing: border-box;
 }
 
 html {
   font: 100%/1.5 -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', meiryo, '游ゴシック Medium', sans-serif;
-  line-height: 1.7;
-  letter-spacing: 1px;
 }
 
 ul, li {
@@ -38,7 +35,7 @@ form input[type="submit"] {
 /* 共通レイアウト ================================ */
 body {
   color: #2d3133;
-  background-color: #3ecdc6;
+  background-color: rgb(255,255,255);
   margin: 0;
   min-height: 1vh;
 }
@@ -52,9 +49,24 @@ body {
   background-color: #f4f4f4;
 }
 
+.breadcrumbs {
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  width: 810px;
+  margin: 30px auto;
+  padding-left: 10px;
+  background-color: #fff4dd;
+  color: #000;
+}
+
+.breadcrumbs a {
+  text-decoration: underline;
+  color: #666;
+}
+
 .container {
   max-width: 840px;
-  margin: 30px auto;
+  margin: 0px auto 60px auto;
   padding-left: 15px;
   padding-right: 15px;
   clear: both;
@@ -63,27 +75,38 @@ body {
 /* ヘッダー ================================ */
 header {
   height: 64px;
-  position: absolute;
+  position: fixed;
   z-index: 1;
   width: 100%;
+  background-color: white;
+  box-shadow: 0 0 15px #c1ced7;
 }
 
 .header-logo {
   float: left;
   padding-left: 20px;
-  color: white;
   font-size: 22px;
   line-height: 64px;
 }
 
-.header-logo a{
-  color: white;
-  font-size: 22px;
+.header-logo img {
+  height: 48px;
+  position: absolute;
+  top: 6px;
 }
 
 .header-menus {
   float: right;
   padding-right: 20px;
+}
+
+.header-menus img {
+  float: left;
+  width: 47px;
+  height: 47px;
+  border-radius: 100%;
+  margin: 10px 0;
+  object-fit: cover;
 }
 
 .header-menus li {
@@ -96,8 +119,9 @@ header {
 
 .header-menus a {
   float: left;
-  font-size: 13px;
-  color: white;
+  font-size: 14px;
+  color: #777;
+  text-decoration: underline;
 }
 
 .header-menus .fa {

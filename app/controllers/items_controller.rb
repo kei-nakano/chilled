@@ -5,6 +5,8 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    @reviews = @item.reviews
+    @score = @item.average_score.round(1)
   end
 
   def new

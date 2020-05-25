@@ -10,6 +10,11 @@ Rails.application.routes.draw do
   get 'users/:id/timeline' => 'users#timeline'
   post 'relationships/:followed_id/create' => 'relationships#create'
   delete 'relationships/:followed_id/destroy' => 'relationships#destroy'
+  get 'comments/:review_id/new' => 'comments#new'
+  post 'comments/:review_id/create' => 'comments#create'
+  delete 'comments/:id' => 'comments#destroy', as: 'comment'
+  get 'comments/:id' => 'comments#edit'
+  patch 'comments/:id' => 'comments#update'
   resources :items
   resources :users do
     member do
