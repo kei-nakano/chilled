@@ -1,9 +1,15 @@
 <% breadcrumb :item_show, @item %>
 <div class="container">
   <%= render "detail" %>
-  <div class="review-count">
-    <h3>この商品のレビュー <%= @reviews.count %>件</h3>
-  </div>
+  <h3 class="review-count">この商品のレビュー <%= @reviews.count %>件</h3>
   <%= render partial: "items/review", collection: @reviews %>
 </div>
 
+<script>
+  $(".cancel-btn,.submit-btn").click(function() {
+    $(this).parents('.comment-form').addClass('hidden');
+  });
+</script>
+
+
+ 
