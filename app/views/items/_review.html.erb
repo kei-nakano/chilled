@@ -16,8 +16,13 @@
   <div class="posts-review-content">
     <p><%= review.content %></p>
     <%= image_tag review.image.url %>
+    <div class="post-menus">
+      <%= link_to("編集", edit_item_path) %>
+      <%= link_to("削除", @item, {method: "delete"}) %>
+    </div>
   </div>
       
+  
   <div class="posts-end-area">
         
         <% if Like.find_by(user_id: @current_user.id, item_id: @item.id) %>
@@ -32,11 +37,8 @@
         
         <%= Like.where(item_id: @item.id).count %>
         <span class="fas fa-comment"><%= link_to("コメントする", "/comments/#{review.id}/new", remote: true) %></span>
-        <div class="post-menus">
-          <%= link_to("編集", edit_item_path) %>
-          <%= link_to("削除", @item, {method: "delete"}) %>
-        </div>
-      </div>
+        
+  </div>
       
         <div id="review-<%= review.id %>" class="comment-form hidden">
           <%= form_with(url: "/comments/#{review.id}/create" , model: Comment.new) do |form| %>
@@ -45,7 +47,8 @@
             <button type="reset" class="cancel-btn">キャンセル</button>
             <button class="submit-btn"><%= form.submit value="決定" %></button>
           <% end %>
-        </div>
+        </div> 
+
         
         <div id="latest-comment-<%= review.id %>"></div>
         <%= render partial: "items/comment", collection: review.comments.order(created_at: :desc), locals: { review: review } %>
