@@ -20,7 +20,8 @@
 /node_modules
 /yarn-error.log
 
-/public/uploads
+/public/uploads/tmp
+/public/uploads/user
 /public/assets
 .byebug_history
 

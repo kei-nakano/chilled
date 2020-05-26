@@ -1,9 +1,26 @@
 <% breadcrumb :item_show, @item %>
 <div class="container">
   <%= render "detail" %>
-  <div class="review-count">
-    <h3>この商品のレビュー <%= @reviews.count %>件</h3>
-  </div>
+  <h3 class="review-count">この商品のレビュー <%= @reviews.count %>件</h3>
   <%= render partial: "items/review", collection: @reviews %>
 </div>
 
+<script>
+  $(function() {
+    $(document).on('click', '.cancel-btn, .submit-btn', function() {
+    $(this).parents('.comment-form').addClass('hidden');
+    });
+    
+    $(document).on('click', '.cancel-btn', function() {
+      const id_array =  $(this).parents('.comment-form').attr('id');
+      const comment_id = id_array.split('-').pop();
+      const check = $(this).parents('.comment-form').hasClass('edit-delete');
+      if (check) {
+        jQuery("#comment-" + comment_id).remove();
+        jQuery(".show-comments-" + comment_id).find('a').css('display', 'inline');
+        jQuery(".show-comments-" + comment_id).find('.comment-content').css('display', 'inline');
+      }
+    });
+  });
+
+</script>

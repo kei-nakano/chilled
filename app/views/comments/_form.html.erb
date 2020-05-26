@@ -1,0 +1,10 @@
+<div id="comment-<%= comment.id %>" class="comment-form edit-delete">
+  <%= form_with(model: comment) do |form| %> 
+    <p>コメント</p>
+    <%= form.text_area :content %>
+    <button type="reset" class="cancel-btn">キャンセル</button>
+    <button class="submit-btn"><%= form.submit value="決定" %></button>
+  <% end %>
+</div>
+
+
