@@ -17,9 +17,13 @@
       </div>
       <span>
         <div class="review-scroll-content">
-          <%= review.content.slice(0..@digest_length).concat("…")  %>
-          <p><%= link_to "続きを見る", review.item %></p>
-          <%= image_tag review.image.url, class: "test" %>
+          <% if review.content.length > @digest_length + 1 %>
+            <%= review.content.slice(0..@digest_length).concat("…")  %>
+          <% else %>
+            <%= review.content %>
+          <% end %>
+          <p><%= link_to "続きを見る", item_path(review.item, review_id: review.id) %></p>
+          <%= image_tag review.image.url, class: "review-scroll-image" %>
         </div>
       </span>
     </div>

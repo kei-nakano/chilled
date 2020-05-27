@@ -21,8 +21,9 @@
 
 .review-scroll-title {
   font-size: 0.9rem;
-  text-decoration: underline solid red; 
-  margin-bottom: 5px;
+  font-weight: 800;
+  border-bottom: solid 2px #5282d4;
+  margin-bottom: 10px;
 }
 
 .review-scroll-content {
@@ -33,7 +34,7 @@
   text-align: right;
 }
 
-.test {
+.review-scroll-image {
   width: 150px;
 }
 
