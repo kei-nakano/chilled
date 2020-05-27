@@ -1,0 +1,7 @@
+<li class="item-box">
+  <%= link_to item do %>
+    <%= image_tag item.image.url, class: "item-scroll-image" %>
+  <% end %>
+  <%= item.title %>
+  <%= render "items/score", score: item.average_score.round(1) %>
+</li>

@@ -39,6 +39,24 @@ Item.create!(title: "日清もちっと生パスタ 牛挽肉とまいたけの�
              gram: 295,
              calorie: 472)
 
+Item.create!(title: "日清もちっと生パスタ 牛挽肉とまいたけのクリーミーボロネーゼ",
+             image: nil,
+             manufacturer_id: 2,
+             category_id: 2,
+             content: 'もちっとした食感の平打ち生パスタ (タリアテッレ) を使用。じっくりと煮込んだ牛肉と北海道産生クリームで仕上げた濃厚で旨みあるボロネーゼソースです。まいたけとパセリをトッピングし彩り豊かに仕上げました。',
+             price: 250,
+             gram: 295,
+             calorie: 472)
+
+Item.create!(title: "日清もちっと生パスタ 牛挽肉とまいたけのクリーミーボロネーゼ",
+             image: nil,
+             manufacturer_id: 2,
+             category_id: 2,
+             content: 'もちっとした食感の平打ち生パスタ (タリアテッレ) を使用。じっくりと煮込んだ牛肉と北海道産生クリームで仕上げた濃厚で旨みあるボロネーゼソースです。まいたけとパセリをトッピングし彩り豊かに仕上げました。',
+             price: 250,
+             gram: 295,
+             calorie: 472)
+
 # users = User.order(:created_at).take(3)
 # 1.times do |n|
 #  content = (n + 1).to_s

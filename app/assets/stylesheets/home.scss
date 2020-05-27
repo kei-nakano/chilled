@@ -4,9 +4,18 @@
   display: flex;
 }
 
-.item {
-  /* flex-boxの特性上、横いっぱいに自動で収めようとする */
+.review-box {
+  /* flex-boxの特性上、横いっぱいに自動で収めようとするのでmin-width */
   min-width: 400px;
+  margin: 16px;
+  background-color: white;
+  box-shadow: 0 2px 6px #c1ced7;
+  border-radius: 10px;
+  padding: 15px 15px;
+}
+
+.item-box {
+  min-width: 300px;
   margin: 16px;
   background-color: white;
   box-shadow: 0 2px 6px #c1ced7;
@@ -26,6 +35,10 @@
   margin-bottom: 10px;
 }
 
+.review-scroll-score {
+  padding-left: 270px;
+}
+
 .review-scroll-content {
   font-size: 0.9rem;
 }
@@ -38,6 +51,9 @@
   width: 150px;
 }
 
+.item-scroll-image {
+  width: 100%;
+}
 
 .review-scroll-wrapper {
 }
