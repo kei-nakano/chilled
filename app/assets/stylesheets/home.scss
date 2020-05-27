@@ -1,0 +1,86 @@
+/* home/top ================================ */
+.horizontal-list {
+  overflow-x: scroll;
+  display: flex;
+}
+
+.review-box {
+  /* flex-boxの特性上、横いっぱいに自動で収めようとするのでmin-width */
+  min-width: 400px;
+  margin: 16px;
+  background-color: white;
+  box-shadow: 0 2px 6px #c1ced7;
+  border-radius: 10px;
+  padding: 15px 15px;
+}
+
+.item-box {
+  min-width: 300px;
+  margin: 16px;
+  background-color: white;
+  box-shadow: 0 2px 6px #c1ced7;
+  border-radius: 10px;
+  padding: 15px 15px;
+}
+
+.scroll-title {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.review-scroll-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  border-bottom: solid 2px #5282d4;
+  margin-bottom: 10px;
+}
+
+.review-scroll-score {
+  padding-left: 270px;
+}
+
+.review-scroll-content {
+  font-size: 0.9rem;
+}
+
+.review-scroll-content p {
+  text-align: right;
+}
+
+.review-scroll-image {
+  width: 150px;
+}
+
+.item-scroll-image {
+  width: 100%;
+}
+
+.review-scroll-wrapper {
+}
+
+/*
+.review-scroll-user-left img {
+    float: left;
+    width: 47px;
+    height: 47px;
+    border-radius: 100%;
+    margin: 10px 0;
+    object-fit: cover;
+}
+
+.review-scroll-user-right {
+  margin-left: 50px;
+  height: 84px;
+  padding-top: 7px;
+}
+
+.review-scroll-user-name {
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.clear {
+  clear: both;
+}
+
+*/

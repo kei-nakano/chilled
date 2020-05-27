@@ -1,6 +1,21 @@
-<div class="main top-main">
-  <div class="top-message">
-    <h2>つぶやきで、世界はつながる</h2>
-    <p>今の気持ちをつぶやいてみよう！</p>
-  </div>
+<div class="container">
+  <h3 class="scroll-title">注目のレビュー</h3>
+  <ul class="horizontal-list">
+    <%= render partial: "home/review", collection: @reviews %>
+  </ul>
+  
+  <h3 class="scroll-title">人気の商品</h3>
+  <ul class="horizontal-list">
+    <%= render partial: "home/item", collection: @items %>
+  </ul>
+  
+  <h3 class="scroll-title">idの降順</h3>
+  <ul class="horizontal-list">
+    <%= render partial: "home/item", collection: Item.all.order(id: :desc) %>
+  </ul>
+  
+  <h3 class="scroll-title">カロリーの降順</h3>
+  <ul class="horizontal-list">
+    <%= render partial: "home/item", collection: Item.all.order(calorie: :desc) %>
+  </ul>
 </div>

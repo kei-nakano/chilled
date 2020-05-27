@@ -5,8 +5,11 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @reviews = @item.reviews
     @score = @item.average_score.round(1)
+    return @reviews = @item.reviews unless params[:review_id]
+
+    @first_review = Review.find(params[:review_id])
+    @other_reviews = @item.reviews.where.not(id: @first_review.id)
   end
 
   def new
