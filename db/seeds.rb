@@ -64,6 +64,18 @@ Review.create!(image: nil,
                content: 'パッケージだと美味しそうな画像だったんですけど、実際に調理してみると全然ショボかったです。正直もう買いません。',
                score: 1.0)
 
+Review.create!(image: nil,
+               user_id: 4,
+               item_id: 2,
+               content: 'パッケージだと美味しそうな画像だったんですけど、実際に調理してみると全然ショボかったです。',
+               score: 1.9)
+
+Review.create!(image: nil,
+               user_id: 4,
+               item_id: 2,
+               content: 'testtesttesttesttesttesttesttesttesttesttesttest',
+               score: 1.9)
+
 # コメント
 Comment.create!(user_id: 1,
                 review_id: 1,

@@ -1,6 +1,6 @@
-<div class="main top-main">
-  <div class="top-message">
-    <h2>つぶやきで、世界はつながる</h2>
-    <p>今の気持ちをつぶやいてみよう！</p>
-  </div>
+<div class="container">
+  <h3 class="scroll-title">注目のレビュー</h3>
+  <ul class="horizontal-list">
+    <%= render partial: "home/review", collection: @reviews %>
+  </ul>
 </div>
