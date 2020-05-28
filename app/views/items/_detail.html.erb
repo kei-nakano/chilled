@@ -32,6 +32,10 @@
           <th>メーカー</th>
           <td><%= @item.manufacturer.name %></td>
         </tr>
+        <tr>
+          <th>タグ</th>
+          <td><%= render partial: "items/tag_list", collection: @item.tag_list %></td>
+        </tr>
       </tbody>
     </table>
   </div>

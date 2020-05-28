@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
   def index
+    return @items = Item.all.tagged_with(params[:tag]) if params[:tag]
+
     @items = Item.all.order(created_at: :desc)
   end
 
@@ -17,7 +19,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(title: params[:item][:title], user_id: @current_user.id)
+    @item = Item.new(item_params)
     if @item.save
       flash[:notice] = "作成しました"
       redirect_to("/items")
@@ -45,5 +47,13 @@ class ItemsController < ApplicationController
     Item.find(params[:id]).destroy
     flash[:notice] = "投稿を削除しました"
     redirect_to("/items")
+  end
+
+  private
+
+  def item_params
+    params.require(:item).permit(
+      :title, :content, :image, :tag_list, :manufacturer_id, :category_id
+    )
   end
 end
