@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
   def index
+    return @items = Item.all.tagged_with(params[:tag]) if params[:tag]
+
     @items = Item.all.order(created_at: :desc)
   end
 

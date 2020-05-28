@@ -18,4 +18,14 @@
   <ul class="horizontal-list">
     <%= render partial: "home/item", collection: Item.all.order(calorie: :desc) %>
   </ul>
+  
+  <h3 class="scroll-title">"美味しい"のタグが付いた商品</h3>
+  <ul class="horizontal-list">
+    <%= render partial: "home/item", collection: Item.all.tagged_with("美味しい") %>
+  </ul>
+  
+  <h3 class="scroll-title">一番使われているタグ"<%= @most_used_tag %>"が付いた商品</h3>
+  <ul class="horizontal-list">
+    <%= render partial: "home/item", collection: Item.all.tagged_with(@most_used_tag) %>
+  </ul>
 </div>
