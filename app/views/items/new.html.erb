@@ -9,7 +9,16 @@
               <%= message %>
             </div>
           <% end %>
+          <p>商品名</p>
           <%= form.text_field :title %>
+          <p>メーカー</p>
+          <%= form.number_field :manufacturer_id %>
+          <p>カテゴリ</p>
+          <%= form.number_field :category_id %>
+          <p>商品説明</p>
+          <%= form.text_field :content %>
+          <p>タグ</p>
+          <%= form.text_field :tag_list %>
           <%= form.submit value="投稿する" %>
         </div>
       </div>
