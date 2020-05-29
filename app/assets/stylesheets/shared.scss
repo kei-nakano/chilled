@@ -85,14 +85,11 @@ header {
 .header-logo {
   float: left;
   padding-left: 20px;
-  font-size: 22px;
-  line-height: 64px;
+  padding-top: 8px;
 }
 
 .header-logo img {
   height: 48px;
-  position: absolute;
-  top: 6px;
 }
 
 .header-menus {
@@ -261,4 +258,19 @@ header {
   width: 100%;
   border-radius: 0 0 2px 2px;
   font-size: 14px;
+}
+
+/* 検索窓 ================================ */
+.search-memu form {
+  float: left;
+  height: 64px;
+  padding: 21px;
+  margin-left: 300px;
+  border: 1px solid #d8dadf;
+  border-radius: 2px;
+  width: 300px;
+}
+
+.search-menu input[type="search"] {
+  width: 150px;
 }
