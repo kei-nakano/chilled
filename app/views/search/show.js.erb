@@ -1,0 +1,3 @@
+$(".user-tabs li").removeClass('active');
+$("#<%= @type %>").addClass('active');
+$(".search-result").html('<%= j(render partial: "search/#{@type}", collection: @results) %>');

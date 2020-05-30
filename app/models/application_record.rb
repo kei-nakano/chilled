@@ -9,14 +9,10 @@ class ApplicationRecord < ActiveRecord::Base
     return where('name like ?', search) if class_name == "Manufacturer"
     return where('name like ?', search) if class_name == "User"
 
-    if class_name == "Item"
-      return Item.eager_load(:manufacturer, :category, :tags).where('items.title like ? or
+    Item.eager_load(:manufacturer, :category, :tags).where('items.title like ? or
                                                              items.content like ? or
                                                              manufacturers.name like ? or
                                                              categories.name like ? or
                                                              tags.name like ?', search, search, search, search, search)
-    end
-    pluck(:name)
-    # where('name like ?', search)
   end
 end

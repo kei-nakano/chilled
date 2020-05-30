@@ -6,7 +6,7 @@
   </div>
   
   <div class="search-memu">
-    <%= form_with url: items_path, method: "get", local: true do |form| %> 
+    <%= form_with url: "/search", method: "get", local: true do |form| %> 
       <%= form.search_field :keyword, placeholder: "キーワードで検索", value: @keyword %>
       <%= form.submit value="決定" %>
     <% end %>
