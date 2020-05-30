@@ -5,9 +5,7 @@ class ApplicationRecord < ActiveRecord::Base
     class_name = name
     search = "%" + keyword + "%"
     return where('content like ?', search) if class_name == "Review"
-    return where('name like ?', search) if class_name == "Category"
-    return where('name like ?', search) if class_name == "Manufacturer"
-    return where('name like ?', search) if class_name == "User"
+    return where('name like ?', search) if class_name.in?(%w[Category User Manufacturer])
 
     Item.eager_load(:manufacturer, :category, :tags).where('items.title like ? or
                                                              items.content like ? or

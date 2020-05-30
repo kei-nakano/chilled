@@ -1,5 +1,8 @@
 <div class="main user-show">
   <div class="container">
+    <div class="search-digest">
+      <%= "#{@digest}：#{@results.count}件" %>
+    </div>
     <ul class="user-tabs">
       <li class="active" id="item"><%= link_to "商品", search_path(type: "item", keyword: @keyword), remote: true %></li>
       <li id="review"><%= link_to "レビュー", search_path(type: "review", keyword: @keyword), remote: true %></li>
