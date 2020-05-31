@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'home#top'
+  get 'search' => 'search#show', as: 'search'
   get 'about' => 'home#about'
   get 'login' => 'users#login_form'
   post 'login' => 'users#login'

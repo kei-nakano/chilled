@@ -1,0 +1,18 @@
+<div class="main user-show">
+  <div class="container">
+    <div class="search-digest">
+      <%= "#{@digest}：#{@results.count}件" %>
+    </div>
+    <ul class="user-tabs">
+      <li class="active" id="item"><%= link_to "商品", search_path(type: "item", keyword: @keyword), remote: true %></li>
+      <li id="review"><%= link_to "レビュー", search_path(type: "review", keyword: @keyword), remote: true %></li>
+      <li id="manufacturer"><%= link_to "メーカー", search_path(type: "manufacturer", keyword: @keyword), remote: true %></li>
+      <li id="category"><%= link_to "カテゴリ", search_path(type: "category", keyword: @keyword), remote: true %></li>
+      <li id="tag"><%= link_to "タグ", search_path(type: "tag", keyword: @keyword), remote: true %></li>
+      <li id="user"><%= link_to "ユーザー", search_path(type: "user", keyword: @keyword), remote: true %></li>
+    </ul>
+    <div class="search-result">
+      <%= render partial: 'search/item', collection: @results %>
+    </div>
+  </div>
+</div>

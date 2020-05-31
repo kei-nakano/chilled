@@ -1,11 +1,21 @@
 <header>
   <div class="header-logo">
-    <%= link_to "/" do %>
+    <%= link_to root_path do %>
       <%= image_tag '/header_logo.png' %>
     <% end %>
   </div>
   
+  <div class="search-memu">
+    <%= form_with url: "/search", method: "get", local: true do |form| %> 
+      <%= form.search_field :keyword, placeholder: "キーワードで検索", value: @keyword %>
+      <%= form.submit value="決定" %>
+    <% end %>
+  </div>
+  
   <ul class="header-menus">
+    <li>
+      
+    </li>
     <% if @current_user %>
       <li>
         <%= link_to @current_user do %>
@@ -13,7 +23,7 @@
         <% end %>
       </li>
       <li>
-        <%= link_to("投稿一覧", "/items") %>
+        <%= link_to("商品一覧", "/items") %>
       </li>
       <li>
         <%= link_to("新規投稿", "/items/new") %>

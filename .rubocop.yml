@@ -1,4 +1,4 @@
-# 未対応のルールを記述 
+# 未対応、可変的なルールを記述 
 inherit_from: .rubocop_todo.yml
 
 require:
