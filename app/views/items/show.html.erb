@@ -23,7 +23,7 @@
       const check = $(this).parents('.comment-form').hasClass('edit-delete');
       if (check) {
         jQuery("#comment-" + comment_id).remove();
-        jQuery(".show-comments-" + comment_id).find('a').css('display', 'inline');
+        jQuery(".show-comments-" + comment_id).find('.post-menus').css('display', 'inline');
         jQuery(".show-comments-" + comment_id).find('.comment-content').css('display', 'inline');
       }
     });

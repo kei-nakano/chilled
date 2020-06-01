@@ -15,7 +15,17 @@
         <%= simple_format(comment.content) %>
       </div>
       <span class="comment-area">
-        <%= render "comment_likes/show", comment: comment, count: @count %>
+      <% if CommentLike.find_by(user_id: @current_user.id, comment_id: comment.id) %>
+          <%= link_to(comment_like_destroy_path(comment_id: comment.id, count: count ||= CommentLike.where(comment_id: comment.id).count), method: "delete", remote: true) do %>
+            <span class="fa fa-heart like-btn-unlike">いいね！<%= count %></span>
+          <% end %>
+        <% else %>
+          <%= link_to(comment_like_create_path(comment_id: comment.id, count: count ||= CommentLike.where(comment_id: comment.id).count), method: "post", remote: true) do %>
+            <span class="fa fa-heart like-btn">いいね！<%= count %></span>
+          <% end %>
+        <% end %>
+        
+        
       </span>
       
       <% if @current_user.id == comment.user_id %>

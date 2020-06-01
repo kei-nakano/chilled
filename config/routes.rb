@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   post 'logout' => 'users#logout'
   post 'likes/:item_id/create' => 'likes#create'
   post 'likes/:item_id/destroy' => 'likes#destroy'
+  post 'comment_likes/:comment_id' => 'comment_likes#create', as: 'comment_like_create'
+  delete 'comment_likes/:comment_id' => 'comment_likes#destroy', as: 'comment_like_destroy'
   get 'users/:id/likes' => 'users#likes'
   get 'users/:id/timeline' => 'users#timeline'
   post 'relationships/:followed_id/create' => 'relationships#create'
