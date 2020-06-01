@@ -119,7 +119,10 @@ Comment.create!(user_id: 2,
                 content: "4-ふーん。そうなんだ。")
 Comment.fourth.update(created_at: Time.zone.today + 4.minutes)
 
-# リレーションシップ
+# いいね
+CommentLike.create!(user_id: 1,
+                    comment_id: 1)
+
 users = User.all
 user  = users.first
 following = users[2..10]

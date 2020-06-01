@@ -1,0 +1,9 @@
+<% if comment_likes %>
+  <%= link_to("/likes/#{@item.id}/destroy", {method: "post"}, remote: true) do %>
+      <span class="fa fa-heart like-btn-unlike">いいね！<%= CommentLike.where(item_id: @item.id).count %></span>
+          <% end %>
+        <% else %>
+          <%= link_to("/likes/#{@item.id}/create", {method: "post"}, remote: true) do %>
+            <span class="fa fa-heart like-btn">いいね！<%= CommentLike.where(item_id: @item.id).count %></span>
+          <% end %>
+        <% end %>

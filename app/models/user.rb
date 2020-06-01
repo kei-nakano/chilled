@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :reviews, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :comment_likes, dependent: :destroy
 
   # ユーザーをフォローする
   def follow(other_user)
