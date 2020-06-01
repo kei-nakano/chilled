@@ -1,11 +1,21 @@
 class CommentLikesController < ApplicationController
   def create
-    CommentLike.create(user_id: @current_user.id, comment_id: params[:comment_id])
-    redirect_to "/comments/#{params[:comment_id]}"
+    @comment = Comment.find(params[:comment_id])
+    CommentLike.create(user_id: @current_user.id, comment_id: @comment.id)
+    @count = params[:count].to_i + 1
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   def destroy
+    @comment = Comment.find(params[:comment_id])
     CommentLike.find_by(user_id: @current_user.id, comment_id: params[:comment_id]).destroy
-    redirect_to "/comments/#{params[:comment_id]}"
+    @count = params[:count].to_i - 1
+
+    respond_to do |format|
+      format.js
+    end
   end
 end
