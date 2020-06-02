@@ -1,6 +1,4 @@
-<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="test" data-url="<%= tweet_url(request.url, review_id) %>">Tweet</a>
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" 
+data-text="<%= Review.find(review_id).item.title %> - 「<%= Review.find(review_id).content %>」"
+data-url="<%= tweet_url(request.url, review_id) %>">Tweet</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<h3>helper</h3>
-<%= tweet_url(request.url, review_id) %>
