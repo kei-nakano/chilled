@@ -1,5 +1,5 @@
 $('.show-comments-<%= @comment.id %>').remove();
 $(function() {
   const count =  Number($('.show-reviews-<%= @comment.review_id %> .comment-count').text()) - 1;
-  $('.show-reviews-<%= @comment.review_id %> .comment-count').text(count)
+  $('.show-reviews-<%= @comment.review_id %> .comment-count').text(count);
 });
