@@ -24,13 +24,15 @@
       
   
   <div class="posts-end-area">
-        
-      <span class="review-area">
-        <%= render "review_likes/show", review: review, count: @count %>
-      </span>
-      
-      <span class="fas fa-comment"><%= link_to("コメントする", "/comments/#{review.id}/new", remote: true) %></span>
-        
+    <span class="review-area">
+      <%= render "review_likes/show", review: review, count: @count %>
+    </span>
+    <span class="fas fa-comment">
+      <%= link_to("コメント", "/comments/#{review.id}/new", remote: true) %>
+    </span>
+    <span class="comment-count <%= comment_count ||= review.comments.count %>">
+      <%= comment_count unless comment_count.zero? %>
+    </span>
   </div>
       
         <div id="review-<%= review.id %>" class="comment-form hidden">
