@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  def test; end
+
   def top
     @reviews = Review.all
     @items = Item.all

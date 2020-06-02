@@ -33,6 +33,10 @@
     <span class="comment-count <%= comment_count ||= review.comments.count %>">
       <%= comment_count unless comment_count.zero? %>
     </span>
+    
+    <!-- tweetシェア機能は大量のエラーが出るためコメントアウト-->
+    <%#= render "shared/tweet", review_id: review.id %>
+    
   </div>
       
         <div id="review-<%= review.id %>" class="comment-form hidden">
