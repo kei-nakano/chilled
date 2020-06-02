@@ -1,0 +1,1 @@
+$(".show-reviews-<%= @review.id %> .review-area").html("<%= j(render "review_likes/show", review: @review, count: @count) %>");
