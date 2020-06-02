@@ -98,6 +98,16 @@ Review.create!(image: nil,
                content: 'testtesttesttesttesttesttesttesttesttesttesttest',
                score: 1.9)
 
+#ReviewLike
+ReviewLike.create!(user_id: 1,
+                   review_id: 1)
+            
+ReviewLike.create!(user_id: 2,
+                   review_id: 1)
+                   
+ReviewLike.create!(user_id: 2,
+                   review_id: 2)
+                   
 # コメント
 Comment.create!(user_id: 1,
                 review_id: 1,
