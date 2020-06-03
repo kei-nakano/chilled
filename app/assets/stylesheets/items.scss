@@ -248,10 +248,17 @@ overflow: hidden;
   color: #8899a6;
 }
 
-.test2 {
-  color: #ff2525;
+.want-to-eat-items {
   font-weight: 900;
   font-size: 14px;
+}
+
+.unwant-to-eat-btn {
+  color: #ff2525;
+}
+
+.want-to-eat-btn {
+  color: #8899a6;
 }
 
 .items-show .fa .fas {

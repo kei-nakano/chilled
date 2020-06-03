@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_03_092501) do
+ActiveRecord::Schema.define(version: 2020_06_03_100457) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -62,16 +62,6 @@ ActiveRecord::Schema.define(version: 2020_06_03_092501) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_items_on_category_id"
     t.index ["manufacturer_id"], name: "index_items_on_manufacturer_id"
-  end
-
-  create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "item_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["item_id"], name: "index_likes_on_item_id"
-    t.index ["user_id", "item_id"], name: "index_likes_on_user_id_and_item_id", unique: true
-    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "manufacturers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -150,6 +140,16 @@ ActiveRecord::Schema.define(version: 2020_06_03_092501) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "want_to_eat_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_want_to_eat_items_on_item_id"
+    t.index ["user_id", "item_id"], name: "index_want_to_eat_items_on_user_id_and_item_id", unique: true
+    t.index ["user_id"], name: "index_want_to_eat_items_on_user_id"
+  end
+
   add_foreign_key "comment_likes", "comments"
   add_foreign_key "comment_likes", "users"
   add_foreign_key "comments", "reviews"
@@ -163,4 +163,6 @@ ActiveRecord::Schema.define(version: 2020_06_03_092501) do
   add_foreign_key "reviews", "items"
   add_foreign_key "reviews", "users"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "want_to_eat_items", "items"
+  add_foreign_key "want_to_eat_items", "users"
 end

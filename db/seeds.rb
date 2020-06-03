@@ -108,7 +108,7 @@ ReviewLike.create!(user_id: 2,
 ReviewLike.create!(user_id: 2,
                    review_id: 2)
 
-# お気に入り
+# 食べた
 EatenItem.create!(user_id: 1,
                   item_id: 1)
 
@@ -117,6 +117,16 @@ EatenItem.create!(user_id: 2,
 
 EatenItem.create!(user_id: 2,
                   item_id: 2)
+
+# 食べてみたい
+WantToEatItem.create!(user_id: 1,
+                      item_id: 1)
+
+WantToEatItem.create!(user_id: 2,
+                      item_id: 1)
+
+WantToEatItem.create!(user_id: 2,
+                      item_id: 2)
 
 # コメント
 Comment.create!(user_id: 1,
