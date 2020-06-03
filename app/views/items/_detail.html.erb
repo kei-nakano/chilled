@@ -39,7 +39,13 @@
       </tbody>
     </table>
   </div>
-      
+  
+  <span class="test1">
+    <i class="fas fa-check-circle"></i>
+    食べた！<%= @item.favorites.count unless @item.favorites.count.zero? %>
+  </span>
+  <span class="test2"><i class="fas fa-utensils"></i>食べてみたい！24</span>    
+  
   <div class="post-menus">
     <%= link_to("編集", edit_item_path) %>
     <%= link_to("削除", @item, {method: "delete"}) %>

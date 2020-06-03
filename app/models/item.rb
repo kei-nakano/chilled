@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   has_many :reviews, dependent: :destroy
   belongs_to :manufacturer
   belongs_to :category
+  has_many :favorites, dependent: :destroy
 
   # 商品のレビュースコアの平均点を算出する
   def average_score
