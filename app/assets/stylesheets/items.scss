@@ -235,10 +235,17 @@ overflow: hidden;
   color: #ff2581;
 }
 
-.test1 {
-  color: #82c91e;
+.eaten-items {
   font-weight: 900;
   font-size: 14px;
+}
+
+.uneaten-btn {
+  color: #82c91e;
+}
+
+.eaten-btn {
+  color: #8899a6;
 }
 
 .test2 {
@@ -247,8 +254,8 @@ overflow: hidden;
   font-size: 14px;
 }
 
-.items-show .fa {
-  font-size: 16px;
+.items-show .fa .fas {
+  font-size: 14px;
   margin-right: 3px;
 }
 

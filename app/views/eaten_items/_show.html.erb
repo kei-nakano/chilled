@@ -1,0 +1,9 @@
+<% if EatenItem.find_by(user_id: @current_user.id, item_id: item.id) %>
+  <%= link_to(eaten_item_destroy_path(item_id: item.id, count: count ||= EatenItem.where(item_id: item.id).count), method: "delete", remote: true) do %>
+    <span class="fas fa-check-circle uneaten-btn">食べた！<%= count %></span>
+  <% end %>
+<% else %>
+  <%= link_to(eaten_item_create_path(item_id: item.id, count: count ||= EatenItem.where(item_id: item.id).count), method: "post", remote: true) do %>
+    <span class="fas fa-check-circle eaten-btn">食べた！<%= count unless count.zero? %></span>
+  <% end %>
+<% end %>

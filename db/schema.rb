@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_03_075733) do
+ActiveRecord::Schema.define(version: 2020_06_03_092501) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -39,14 +39,14 @@ ActiveRecord::Schema.define(version: 2020_06_03_075733) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "eaten_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["item_id"], name: "index_favorites_on_item_id"
-    t.index ["user_id", "item_id"], name: "index_favorites_on_user_id_and_item_id", unique: true
-    t.index ["user_id"], name: "index_favorites_on_user_id"
+    t.index ["item_id"], name: "index_eaten_items_on_item_id"
+    t.index ["user_id", "item_id"], name: "index_eaten_items_on_user_id_and_item_id", unique: true
+    t.index ["user_id"], name: "index_eaten_items_on_user_id"
   end
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -154,8 +154,8 @@ ActiveRecord::Schema.define(version: 2020_06_03_075733) do
   add_foreign_key "comment_likes", "users"
   add_foreign_key "comments", "reviews"
   add_foreign_key "comments", "users"
-  add_foreign_key "favorites", "items"
-  add_foreign_key "favorites", "users"
+  add_foreign_key "eaten_items", "items"
+  add_foreign_key "eaten_items", "users"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "manufacturers"
   add_foreign_key "review_likes", "reviews"

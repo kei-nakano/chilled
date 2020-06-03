@@ -22,7 +22,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :comment_likes, dependent: :destroy
   has_many :review_likes, dependent: :destroy
-  has_many :favorites, dependent: :destroy
+  has_many :eaten_items, dependent: :destroy
 
   # ユーザーをフォローする
   def follow(other_user)
