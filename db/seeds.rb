@@ -109,14 +109,14 @@ ReviewLike.create!(user_id: 2,
                    review_id: 2)
 
 # お気に入り
-Favorite.create!(user_id: 1,
-                 item_id: 1)
+EatenItem.create!(user_id: 1,
+                  item_id: 1)
 
-Favorite.create!(user_id: 2,
-                 item_id: 1)
+EatenItem.create!(user_id: 2,
+                  item_id: 1)
 
-Favorite.create!(user_id: 2,
-                 item_id: 2)
+EatenItem.create!(user_id: 2,
+                  item_id: 2)
 
 # コメント
 Comment.create!(user_id: 1,
