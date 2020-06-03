@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   delete 'review_likes/:review_id' => 'review_likes#destroy', as: 'review_like_destroy'
   post 'eaten_items/:item_id' => 'eaten_items#create', as: 'eaten_item_create'
   delete 'eaten_items/:item_id' => 'eaten_items#destroy', as: 'eaten_item_destroy'
+  post 'want_to_eat_items/:item_id' => 'want_to_eat_items#create', as: 'want_to_eat_item_create'
+  delete 'want_to_eat_items/:item_id' => 'want_to_eat_items#destroy', as: 'want_to_eat_item_destroy'
   get 'users/:id/likes' => 'users#likes'
   get 'users/:id/timeline' => 'users#timeline'
   post 'relationships/:followed_id/create' => 'relationships#create'

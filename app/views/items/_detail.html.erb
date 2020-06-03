@@ -44,7 +44,9 @@
     <%= render "eaten_items/show", item: @item, count: @count %>
   </span>
   
-  <span class="test2"><i class="fas fa-utensils"></i>食べてみたい！24</span>    
+  <span class="want-to-eat-items">
+    <%= render "want_to_eat_items/show", item: @item, count: @count %>
+  </span>
   
   <div class="post-menus">
     <%= link_to("編集", edit_item_path) %>
