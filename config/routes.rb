@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   delete 'eaten_items/:item_id' => 'eaten_items#destroy', as: 'eaten_item_destroy'
   post 'want_to_eat_items/:item_id' => 'want_to_eat_items#create', as: 'want_to_eat_item_create'
   delete 'want_to_eat_items/:item_id' => 'want_to_eat_items#destroy', as: 'want_to_eat_item_destroy'
-  get 'users/:id/likes' => 'users#likes'
   get 'users/:id/timeline' => 'users#timeline'
   post 'relationships/:followed_id/create' => 'relationships#create'
   delete 'relationships/:followed_id/destroy' => 'relationships#destroy'
