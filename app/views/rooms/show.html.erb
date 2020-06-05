@@ -1,11 +1,46 @@
-<h3>メッセージ</h3>
-
-<%= @user.name %>
-
+<div class="line-bc room-<%= @room.id %>"><!--①LINE会話全体を囲う-->
 <% @messages.each do |message| %>
-
-if messages.user.id == @current_user 
-
-  <%= image_tag message.user.image.url %>
-  <%= message.content %>
+  <% if message.user.id == @current_user.id %>
+    <div id="message-<%= message.id %>">
+      <div class="mycomment">
+        <p>
+          <%= link_to "/messages/#{message.id}/destroy", method: :delete, remote: true do %>
+            <%= message.content %>
+          <% end %>
+        </p>
+      </div>
+      <h5><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
+    </div>
+  <% else %>
+    <div class="balloon6">
+      <div class="faceicon">
+        <%= image_tag message.user.image.url %>
+      </div>
+      <div class="chatting">
+        <div class="says">
+          <p><%= message.content %></p>
+        </div>
+      </div>
+      <h5><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
+    </div>
+    
+  <% end %>
 <% end %>
+
+<div class="latest-message">
+</div>
+
+</div>
+<h3>メッセージ入力</h3>
+
+<div id="room-<%= @room.id %>" class="comment-form edit-delete">
+  <%= form_with(url: "/messages/#{@room.id}/create", model: Message.new) do |form| %> 
+    <p>コメント</p>
+    <%= form.text_area :content %>
+    <button type="reset" class="cancel-btn">キャンセル</button>
+    <button class="submit-btn"><%= form.submit value="決定" %></button>
+  <% end %>
+</div>
+
+
+

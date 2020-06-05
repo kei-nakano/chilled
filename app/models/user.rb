@@ -32,22 +32,41 @@ class User < ApplicationRecord
     active_relationships.create(followed_id: other_user.id)
   end
 
-  # ユーザーをフォロー解除する
+  # ユーザをフォロー解除する
   def unfollow(other_user)
     active_relationships.find_by(followed_id: other_user.id).destroy
   end
 
-  # 現在のユーザーがフォローしていたらtrueを返す
+  # 現在のユーザがフォローしていたらtrueを返す
   def following?(other_user)
     following.include?(other_user)
   end
 
-  # フォローしているユーザーと自身のアイテムを返す
+  # フォローしているユーザーと自分のレビューを返す
   def feed
     following_ids = "SELECT followed_id FROM relationships
                      WHERE follower_id = :user_id"
-    Item.where("user_id IN (#{following_ids})
+    Review.where("user_id IN (#{following_ids})
                      OR user_id = :user_id", user_id: id)
+  end
+
+  # 過去にメッセージを送ろうとしたことがある（トークルームが作成された）ユーザを返す
+  def dm_members
+    room_ids = "SELECT room_id FROM entries WHERE user_id = :user_id"
+    user_ids = "SELECT user_id FROM entries WHERE room_id IN (#{room_ids})"
+    User.where.not(id: id).where("id IN (#{user_ids})", user_id: id)
+  end
+
+  # 自分と同じルームを返す
+  def room_id(other_user)
+    current_user_entries = Entry.where(user_id: id)
+    user_entries = Entry.where(user_id: other_user.id)
+    current_user_entries.each do |cu_entry|
+      user_entries.each do |u_entry|
+        return u_entry.room.id if u_entry.room_id == cu_entry.room_id
+      end
+    end
+    nil
   end
 
   private

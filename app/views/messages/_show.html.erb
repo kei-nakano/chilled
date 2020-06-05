@@ -1,0 +1,8 @@
+<div  id="message-<%= message.id %>">
+  <div class="mycomment">
+    <%= link_to "/messages/#{message.id}/destroy", method: :delete, remote: true do %>
+      <p><%= message.content %></p>
+    <% end %>
+  </div>
+  <h5><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
+</div>

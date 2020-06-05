@@ -165,7 +165,6 @@ followers.each { |follower| follower.follow(user) }
 
 # room
 Room.create!
-Room.create!
 
 # Entry
 Entry.create!(user_id: 1,
@@ -198,7 +197,3 @@ Message.create!(user_id: 1,
 Message.create!(user_id: 2,
                 room_id: 1,
                 content: "No.1のmsg")
-
-Message.create!(user_id: 3,
-                room_id: 2,
-                content: "test")

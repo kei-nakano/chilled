@@ -29,14 +29,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @current_user_entries = Entry.where(user_id: @current_user.id)
-    @user_entries = Entry.where(user_id: @user.id)
-
-    @current_user_entries.each do |cu_entry|
-      @user_entries.each do |u_entry|
-        @room_id = u_entry.room.id if u_entry.room_id == cu_entry.room_id
-      end
-    end
+    @room_id = @current_user.room_id(@user)
   end
 
   def following
