@@ -1,0 +1,11 @@
+<h3>メッセージ</h3>
+
+<%= @user.name %>
+
+<% @messages.each do |message| %>
+
+if messages.user.id == @current_user 
+
+  <%= image_tag message.user.image.url %>
+  <%= message.content %>
+<% end %>

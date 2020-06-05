@@ -24,6 +24,8 @@ class User < ApplicationRecord
   has_many :review_likes, dependent: :destroy
   has_many :eaten_items, dependent: :destroy
   has_many :want_to_eat_items, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
 
   # ユーザーをフォローする
   def follow(other_user)

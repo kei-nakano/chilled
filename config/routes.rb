@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   delete 'comments/:id' => 'comments#destroy', as: 'comment'
   get 'comments/:id' => 'comments#edit'
   patch 'comments/:id' => 'comments#update'
+  get 'users/:user_id/room/:room_id' => 'rooms#show'
   resources :items
   resources :users do
     member do
