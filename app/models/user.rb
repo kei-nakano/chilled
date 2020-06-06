@@ -76,11 +76,9 @@ class User < ApplicationRecord
   def image_size
     errors.add(:image, "should be less than 5MB") if image.size > 5.megabytes
   end
-  
+
   # 削除されるユーザが加入していたルームを全て削除する
   def rooms_destroy_all
-    rooms.each do |room| 
-      room.destroy
-    end
+    rooms.each(&:destroy)
   end
 end
