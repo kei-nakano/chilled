@@ -9,7 +9,7 @@ class User < ApplicationRecord
   validate :image_size
   validates :password, presence: true, length: { minimum: 7 }
   has_secure_password(validations: false)
-  has_many :items, dependent: :destroy
+  before_destroy :rooms_destroy_all
   has_many :active_relationships, class_name: "Relationship",
                                   foreign_key: "follower_id",
                                   dependent: :destroy
@@ -26,6 +26,7 @@ class User < ApplicationRecord
   has_many :want_to_eat_items, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
+  has_many :rooms, through: :entries
 
   # ユーザーをフォローする
   def follow(other_user)
@@ -74,5 +75,12 @@ class User < ApplicationRecord
   # アップロード画像のサイズを検証する
   def image_size
     errors.add(:image, "should be less than 5MB") if image.size > 5.megabytes
+  end
+  
+  # 削除されるユーザが加入していたルームを全て削除する
+  def rooms_destroy_all
+    rooms.each do |room| 
+      room.destroy
+    end
   end
 end
