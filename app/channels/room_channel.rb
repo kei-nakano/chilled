@@ -1,7 +1,7 @@
 class RoomChannel < ApplicationCable::Channel
   def subscribed
-    # room_channelのsubscriberに対して情報を送る
-    stream_from "room_channel"
+    stop_all_streams
+    stream_from "room_#{room_id}"
   end
 
   def unsubscribed

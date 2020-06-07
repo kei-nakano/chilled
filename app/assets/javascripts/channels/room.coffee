@@ -1,7 +1,13 @@
 App.room = App.cable.subscriptions.create "RoomChannel",
   connected: ->
+    console.log(location.pathname)
   
   disconnected: ->
+    @perform 'unsubscribed'
+    
+  rejected: ->
+    @perform 'unsubscribed'
+    console.log(location.pathname)
 
   # サーバからデータを受信した時の処理
   received: (data) ->
