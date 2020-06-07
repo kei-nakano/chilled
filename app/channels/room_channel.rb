@@ -1,5 +1,6 @@
 class RoomChannel < ApplicationCable::Channel
   def subscribed
+    # room_channelのsubscriberに対して情報を送る
     stream_from "room_channel"
   end
 
@@ -8,6 +9,6 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def speak(data)
-    Message.create!(user_id: data['user_id'], room_id: data['room_id'], content: data['message'])
+    Message.create!(user_id: current_user.id, room_id: data['room_id'], content: data['message'])
   end
 end
