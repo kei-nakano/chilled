@@ -1,20 +1,20 @@
 App.room = App.cable.subscriptions.create "RoomChannel",
   connected: ->
-    console.log(location.pathname)
   
   disconnected: ->
-    @perform 'unsubscribed'
     
   rejected: ->
-    @perform 'unsubscribed'
-    console.log(location.pathname)
 
-  # サーバからデータを受信した時の処理
   received: (data) ->
-    $('.latest-message').append data['message']
-    console.log('受信')
-
-  # サーバのspeakアクションを呼び出すための処理
+    url = location.pathname
+    browser_room_id = url.split('/room/').pop()
+    message_room_id = data['room_id'].toString()
+    if browser_room_id == message_room_id
+      if data['flag'] == "my"
+        $('.latest-message').append data['message']
+      if data['flag'] == "other"
+        $('.latest-message').append data['message']
+        
   speak: (message) ->
     url = location.pathname
     room_id = url.split('/room/').pop()
