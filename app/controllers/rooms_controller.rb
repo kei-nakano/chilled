@@ -4,6 +4,8 @@ class RoomsController < ApplicationController
     @user = User.find(params[:user_id])
     @messages = Message.includes(:user).where(room_id: @room.id)
     session[:room_id] = params[:room_id]
+    #    byebug
+    #    ActionCable.server.remote_connections.where(current_user: User.find(1)).disconnect
   end
 
   def create

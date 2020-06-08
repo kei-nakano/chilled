@@ -12,6 +12,7 @@ App.room = App.cable.subscriptions.create "RoomChannel",
   # サーバからデータを受信した時の処理
   received: (data) ->
     $('.latest-message').append data['message']
+    console.log('受信')
 
   # サーバのspeakアクションを呼び出すための処理
   speak: (message) ->

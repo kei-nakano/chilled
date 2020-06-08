@@ -2,7 +2,9 @@ class MessageBroadcastJob < ApplicationJob
   queue_as :default
 
   def perform(message)
-    ActionCable.server.broadcast "room_#{message.room_id}", message: render_message(message)
+    Entry.where(room_id: message.room_id).each do |entry|
+      ActionCable.server.broadcast "room_#{entry.user_id}", message: render_message(message)
+    end
   end
 
   private
