@@ -22,8 +22,6 @@ Rails.application.routes.draw do
   get 'comments/:id' => 'comments#edit'
   patch 'comments/:id' => 'comments#update'
   get 'users/:user_id/room/:room_id' => 'rooms#show'
-  post 'messages/:room_id/create' => 'messages#create'
-  delete 'messages/:id/destroy' => 'messages#destroy'
   get 'rooms/index' => 'rooms#index'
   post 'rooms/create' => 'rooms#create', as: 'room_create'
   resources :items
