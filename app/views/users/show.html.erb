@@ -21,6 +21,15 @@
       <li><%= link_to("いいね!", "/users/#{@user.id}/likes") %></li>
       <li class="following-count"><%= link_to("フォロー中(#{@user.following.count})", following_user_path(@user)) %></li>
       <li class="followers-count"><%= link_to("フォロワー(#{@user.followers.count})", followers_user_path(@user)) %></li>
+      <% if @current_user.id == @user.id %>
+        <li class="message"><%= link_to "メッセージ", "/rooms/index" %></li>
+      <% else %>
+        <% if @room_id %>
+          <li class="message"><%= link_to "メッセージ", "/users/#{@user.id}/room/#{@room_id}" %></li>
+        <% else %>
+          <li class="message"><%= link_to "メッセージ", room_create_path(user_id: @user.id), method: :post %></li>
+        <% end %>
+      <% end %>
     </ul>
     <% Item.all.each do |item| %>
       <div class="posts-index-item">

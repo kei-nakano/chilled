@@ -9,7 +9,7 @@ class User < ApplicationRecord
   validate :image_size
   validates :password, presence: true, length: { minimum: 7 }
   has_secure_password(validations: false)
-  has_many :items, dependent: :destroy
+  before_destroy :rooms_destroy_all
   has_many :active_relationships, class_name: "Relationship",
                                   foreign_key: "follower_id",
                                   dependent: :destroy
@@ -24,28 +24,50 @@ class User < ApplicationRecord
   has_many :review_likes, dependent: :destroy
   has_many :eaten_items, dependent: :destroy
   has_many :want_to_eat_items, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
+  has_many :rooms, through: :entries
 
   # ユーザーをフォローする
   def follow(other_user)
     active_relationships.create(followed_id: other_user.id)
   end
 
-  # ユーザーをフォロー解除する
+  # ユーザをフォロー解除する
   def unfollow(other_user)
     active_relationships.find_by(followed_id: other_user.id).destroy
   end
 
-  # 現在のユーザーがフォローしていたらtrueを返す
+  # 現在のユーザがフォローしていたらtrueを返す
   def following?(other_user)
     following.include?(other_user)
   end
 
-  # フォローしているユーザーと自身のアイテムを返す
+  # フォローしているユーザーと自分のレビューを返す
   def feed
     following_ids = "SELECT followed_id FROM relationships
                      WHERE follower_id = :user_id"
-    Item.where("user_id IN (#{following_ids})
+    Review.where("user_id IN (#{following_ids})
                      OR user_id = :user_id", user_id: id)
+  end
+
+  # 過去にメッセージを送ろうとしたことがある（トークルームが作成された）ユーザを返す
+  def dm_members
+    room_ids = "SELECT room_id FROM entries WHERE user_id = :user_id"
+    user_ids = "SELECT user_id FROM entries WHERE room_id IN (#{room_ids})"
+    User.where.not(id: id).where("id IN (#{user_ids})", user_id: id)
+  end
+
+  # 自分と同じルームを返す
+  def room_id(other_user)
+    current_user_entries = Entry.where(user_id: id)
+    user_entries = Entry.where(user_id: other_user.id)
+    current_user_entries.each do |cu_entry|
+      user_entries.each do |u_entry|
+        return u_entry.room.id if u_entry.room_id == cu_entry.room_id
+      end
+    end
+    nil
   end
 
   private
@@ -53,5 +75,10 @@ class User < ApplicationRecord
   # アップロード画像のサイズを検証する
   def image_size
     errors.add(:image, "should be less than 5MB") if image.size > 5.megabytes
+  end
+
+  # 削除されるユーザが加入していたルームを全て削除する
+  def rooms_destroy_all
+    rooms.each(&:destroy)
   end
 end

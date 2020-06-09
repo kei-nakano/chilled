@@ -162,3 +162,38 @@ following = users[2..10]
 followers = users[1..10]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
+
+# room
+Room.create!
+
+# Entry
+Entry.create!(user_id: 1,
+              room_id: 1)
+
+Entry.create!(user_id: 2,
+              room_id: 1)
+
+# message
+Message.create!(user_id: 1,
+                room_id: 1,
+                content: "keiのmsg")
+
+Message.create!(user_id: 2,
+                room_id: 1,
+                content: "No.1のmsg")
+
+Message.create!(user_id: 1,
+                room_id: 1,
+                content: "keiのmsg")
+
+Message.create!(user_id: 2,
+                room_id: 1,
+                content: "No.1のmsg")
+
+Message.create!(user_id: 1,
+                room_id: 1,
+                content: "keiのmsg")
+
+Message.create!(user_id: 2,
+                room_id: 1,
+                content: "No.1のmsg")
