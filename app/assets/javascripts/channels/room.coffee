@@ -27,8 +27,6 @@ App.room = App.cable.subscriptions.create "RoomChannel",
   destroy: (message_id) ->
     @perform 'destroy', message_id: message_id
 
-  #　------あとで------
-  # クライアント側の動作で、speakメソッドを起動するための処理
   $(document).on 'keypress', '[data-behavior~=room_speaker]', (event) ->
     if event.keyCode is 13 # 13はenterキーが押された場合
       App.room.speak event.target.value
@@ -37,4 +35,3 @@ App.room = App.cable.subscriptions.create "RoomChannel",
       
   $(document).on 'click', '.delete-btn', (event) ->
     App.room.destroy event.target.id
-    console.log event.target.id
