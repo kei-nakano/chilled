@@ -48,7 +48,11 @@
           <% end %>
         </div> 
 
-        
         <div id="latest-comment-<%= review.id %>"></div>
-        <%= render partial: "items/comment", collection: review.comments.order(created_at: :desc), locals: { review: review } %>
+        <% if first_comment ||= review.comments.last %>
+          <%= render partial: "items/comment", locals: { comment: first_comment, review: review } %>
+          <%= render partial: "items/comment", collection: review.comments.where.not(id: first_comment.id).order(created_at: :desc), locals: { review: review } %>
+        <% else %>
+          <%= render partial: "items/comment", collection: review.comments.order(created_at: :desc), locals: { review: review } %>
+        <% end %>
   </div>

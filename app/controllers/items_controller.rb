@@ -12,6 +12,7 @@ class ItemsController < ApplicationController
 
     @first_review = Review.find(params[:review_id])
     @other_reviews = @item.reviews.where.not(id: @first_review.id)
+    @first_comment = Comment.find(params[:comment_id]) if params[:comment_id] 
   end
 
   def new

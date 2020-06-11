@@ -11,6 +11,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(user_id: @current_user.id, review_id: params[:review_id], content: params[:comment][:content])
     @comment.save
+    @comment.create_notice_comment(@current_user)
     @review_id = params[:review_id]
     respond_to do |format|
       format.js
