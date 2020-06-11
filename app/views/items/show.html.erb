@@ -3,7 +3,7 @@
   <%= render "detail" %>
   <% if @first_review %>
     <h3 class="review-count">この商品のレビュー <%= @other_reviews.count + 1 %>件</h3>
-    <%= render partial: "items/review", locals: { review: @first_review } %>
+    <%= render partial: "items/review", locals: { review: @first_review, first_comment: @first_comment } %>
     <%= render partial: "items/review", collection: @other_reviews %>
   <% else %>
     <h3 class="review-count">この商品のレビュー <%= @reviews.count %>件</h3>

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get 'users/:user_id/room/:room_id' => 'rooms#show'
   get 'rooms/index' => 'rooms#index'
   post 'rooms/create' => 'rooms#create', as: 'room_create'
+  delete 'notices' => 'notices#destroy'
   resources :items
   resources :notices, only: %i[index]
   resources :users do
