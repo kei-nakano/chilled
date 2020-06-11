@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   get 'rooms/index' => 'rooms#index'
   post 'rooms/create' => 'rooms#create', as: 'room_create'
   resources :items
-  resources :notices, only: :index
+  resources :notices, only: %i[index]
   resources :users do
     member do
       get :following, :followers
