@@ -1,0 +1,26 @@
+<div class="main posts-index">
+  <div class="container">
+    <% @notices.each do |notice| %>
+      <div class="posts-index-item">
+        <div class="post-left">
+          <%= image_tag notice.visitor.image.url %>
+        </div>
+        <div class="post-right">
+          <div class="post-user-name">
+            <%= notice.visitor.name %>さんが
+            <% case notice.action %>
+              <% when "follow" %>
+                あなたをフォローしました。
+              <% when "review_like" %>
+                あなたのレビューにいいねしました。
+              <% when "comment_like" %>
+                あなたのコメントにいいねしました。
+              <% when "comment" %>
+                あなたのレビューにコメントしました。
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

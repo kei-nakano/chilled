@@ -10,12 +10,8 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 7 }
   has_secure_password(validations: false)
   before_destroy :rooms_destroy_all
-  has_many :active_relationships, class_name: "Relationship",
-                                  foreign_key: "follower_id",
-                                  dependent: :destroy
-  has_many :passive_relationships, class_name: "Relationship",
-                                   foreign_key: "followed_id",
-                                   dependent: :destroy
+  has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :reviews, dependent: :destroy
@@ -27,6 +23,8 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :rooms, through: :entries
+  has_many :active_notices, class_name: 'Notice', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notices, class_name: 'Notice', foreign_key: 'visited_id', dependent: :destroy
 
   # ユーザーをフォローする
   def follow(other_user)
@@ -68,6 +66,15 @@ class User < ApplicationRecord
       end
     end
     nil
+  end
+
+  # ユーザフォロー時の通知を作成する
+  def create_notice_follow(current_user)
+    temp = Notice.where(visitor_id: current_user.id, visited_id: id, action: 'follow')
+    return if temp.present?
+
+    notice = current_user.active_notices.new(visited_id: id, action: 'follow')
+    notice.save if notice.valid?
   end
 
   private
