@@ -25,6 +25,8 @@ class User < ApplicationRecord
   has_many :rooms, through: :entries
   has_many :active_notices, class_name: 'Notice', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notices, class_name: 'Notice', foreign_key: 'visited_id', dependent: :destroy
+  has_many :active_blocks, class_name: 'Block', foreign_key: 'from_id', dependent: :destroy
+  has_many :passive_blocks, class_name: 'Block', foreign_key: 'blocked_id', dependent: :destroy
 
   # ユーザーをフォローする
   def follow(other_user)
