@@ -97,6 +97,13 @@ class User < ApplicationRecord
     notice.save if notice.valid?
   end
 
+  # ブロックまたはブロックされているユーザのidを返す
+  def block_ids
+    active_block_ids = active_blocks.pluck(:blocked_id)
+    passive_block_ids = passive_blocks.pluck(:from_id)
+    (active_block_ids + passive_block_ids).uniq
+  end
+
   private
 
   # アップロード画像のサイズを検証する
