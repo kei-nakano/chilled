@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'login' => 'users#login_form'
   post 'login' => 'users#login'
   post 'logout' => 'users#logout'
+  # create/destroyだけのルーティングはリソースルーティングで簡素にする
   post 'comment_likes/:comment_id' => 'comment_likes#create', as: 'comment_like_create'
   delete 'comment_likes/:comment_id' => 'comment_likes#destroy', as: 'comment_like_destroy'
   post 'review_likes/:review_id' => 'review_likes#create', as: 'review_like_create'
@@ -27,9 +28,10 @@ Rails.application.routes.draw do
   delete 'notices' => 'notices#destroy'
   resources :items
   resources :notices, only: %i[index]
+  resources :blocks, only: %i[create destroy]
   resources :users do
     member do
-      get :following, :followers
+      get :following, :followers, :blocking
     end
   end
 end

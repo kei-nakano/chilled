@@ -15,13 +15,23 @@
           <% end %>
         </div>
       <% end %>
+      
+    
+      <% if @user.id != @current_user.id %> 
+        <% if @current_user.blocking?(@user) %>
+          <%= link_to("ブロック解除", "/blocks/#{@user.id}", method: :delete) %>
+        <% else %>
+          <%= link_to("ブロック", "/blocks?user_id=#{@user.id}", method: :post) %>
+        <% end %>
+      <% end %>
+      
     </div>
     <ul class="user-tabs">
       <li class="active"><%= link_to("投稿", "/users/#{@user.id}") %></li>
       <li><%= link_to("いいね!", "/users/#{@user.id}/likes") %></li>
       <li class="following-count"><%= link_to("フォロー中(#{@user.following.count})", following_user_path(@user)) %></li>
       <li class="followers-count"><%= link_to("フォロワー(#{@user.followers.count})", followers_user_path(@user)) %></li>
-      <% if @current_user.id == @user.id %>
+      <% if @user.id == @current_user.id %>
         <li class="message"><%= link_to "メッセージ", "/rooms/index" %></li>
       <% else %>
         <% if @room_id %>
@@ -30,7 +40,11 @@
           <li class="message"><%= link_to "メッセージ", room_create_path(user_id: @user.id), method: :post %></li>
         <% end %>
       <% end %>
+      <% if @user.id == @current_user.id %>
+        <li><%= link_to "ブロック中(#{@user.blocking.count})", "/users/#{@user.id}/blocking" %></li>
+      <% end %>
     </ul>
+    
     <% Item.all.each do |item| %>
       <div class="posts-index-item">
         <div class="post-left">
