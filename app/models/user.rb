@@ -25,20 +25,40 @@ class User < ApplicationRecord
   has_many :rooms, through: :entries
   has_many :active_notices, class_name: 'Notice', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notices, class_name: 'Notice', foreign_key: 'visited_id', dependent: :destroy
+  has_many :active_blocks, class_name: 'Block', foreign_key: 'from_id', dependent: :destroy
+  has_many :passive_blocks, class_name: 'Block', foreign_key: 'blocked_id', dependent: :destroy
+  has_many :blocking, through: :active_blocks, source: :blocked
 
   # ユーザーをフォローする
-  def follow(other_user)
-    active_relationships.create(followed_id: other_user.id)
+  def follow(user)
+    active_relationships.create(followed_id: user.id)
+  end
+
+  # ユーザーをブロックする
+  def block(user)
+    active_blocks.create(blocked_id: user.id)
+  end
+
+  # ユーザをブロック解除する
+  def unblock(user)
+    active_blocks.find_by(blocked_id: user.id).destroy
   end
 
   # ユーザをフォロー解除する
-  def unfollow(other_user)
-    active_relationships.find_by(followed_id: other_user.id).destroy
+  def unfollow(user)
+    return active_relationships.find_by(followed_id: user.id).destroy if following?(user)
+
+    nil
   end
 
-  # 現在のユーザがフォローしていたらtrueを返す
-  def following?(other_user)
-    following.include?(other_user)
+  # ユーザをフォローしていたらtrueを返す
+  def following?(user)
+    following.include?(user)
+  end
+
+  # ユーザをブロックしていたらtrueを返す
+  def blocking?(user)
+    blocking.include?(user)
   end
 
   # フォローしているユーザーと自分のレビューを返す
@@ -57,9 +77,9 @@ class User < ApplicationRecord
   end
 
   # 自分と同じルームを返す
-  def room_id(other_user)
+  def room_id(user)
     current_user_entries = Entry.where(user_id: id)
-    user_entries = Entry.where(user_id: other_user.id)
+    user_entries = Entry.where(user_id: user.id)
     current_user_entries.each do |cu_entry|
       user_entries.each do |u_entry|
         return u_entry.room.id if u_entry.room_id == cu_entry.room_id
@@ -75,6 +95,13 @@ class User < ApplicationRecord
 
     notice = current_user.active_notices.new(visited_id: id, action: 'follow')
     notice.save if notice.valid?
+  end
+
+  # ブロックまたはブロックされているユーザのidを返す
+  def block_ids
+    active_block_ids = active_blocks.pluck(:blocked_id)
+    passive_block_ids = passive_blocks.pluck(:from_id)
+    (active_block_ids + passive_block_ids).uniq
   end
 
   private

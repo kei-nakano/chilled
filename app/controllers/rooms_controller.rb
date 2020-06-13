@@ -2,6 +2,10 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:room_id])
     @user = User.find(params[:user_id])
+    if @current_user.block_ids.include?(@user.id)
+      flash[:notice] = "このユーザをブロックしているかブロックされているため、メッセージを送ることができません。"
+      redirect_back(fallback_location: "/users/#{@user.id}")
+    end
     @messages = Message.includes(:user).where(room_id: @room.id)
   end
 
