@@ -22,6 +22,15 @@ a {
   font-size: 1.4rem;
 }
 
+a:hover {
+  color: #4670ac;
+  text-decoration: underline;
+}
+
+img:hover {
+  opacity: 0.9;
+}
+
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
