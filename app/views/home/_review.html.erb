@@ -24,11 +24,13 @@
   </div>
       
   <div class="review-scroll-content">
-    <% if review.content.length > @digest_length %>
-     <%= review.content.slice(0..@digest_length - 1).concat("…")  %>
-    <% else %>
-      <%= review.content %>
-    <% end %>
+    <div class="review-scroll-content-wrapper">
+      <% if review.content.length > @digest_length %>
+       <%= review.content.slice(0..@digest_length - 1).concat("…")  %>
+      <% else %>
+        <%= review.content %>
+      <% end %>
+    </div>
     
     <p class="review-scroll-span">
       <%= link_to "続きを見る", "items/#{review.item.id}/?review_id=#{review.id}" %>
@@ -39,5 +41,10 @@
         <%= image_tag review.image.url, alt: "商品のレビュー画像" %>
       <% end %>
     </div>
+  </div>
+  
+  <div class="review-scroll-end">
+    <span class="fa fa-heart like-btn-unlike review-scroll-margin">いいね！<%= review.review_likes.count unless review.review_likes.count.zero? %></span>
+    <span class="fas fa-comment">コメント <%= review.comments.count unless review.comments.count.zero? %></span>
   </div>
 </li>
