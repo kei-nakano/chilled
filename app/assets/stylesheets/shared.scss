@@ -1,9 +1,13 @@
+:root {
+  --header-height: 64px;
+}
+
 * {
   box-sizing: border-box;
 }
 
 html {
-  font: 100%/1.5 -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', meiryo, '游ゴシック Medium', sans-serif;
+  font: 62.5%/1.5 -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', meiryo, '游ゴシック Medium', sans-serif;
 }
 
 ul, li {
@@ -15,7 +19,7 @@ ul, li {
 a {
   text-decoration: none;
   color: #2d3133;
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -42,7 +46,7 @@ body {
 
 .main {
   position: absolute;
-  top: 64px;
+  top: var(--header-height);
   width: 100%;
   height: auto;
   min-height: 100%;
@@ -74,7 +78,7 @@ body {
 
 /* ヘッダー ================================ */
 header {
-  height: 64px;
+  height: var(--header-height);
   position: fixed;
   z-index: 1;
   width: 100%;

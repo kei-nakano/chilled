@@ -1,30 +1,30 @@
 <div class="container">
-  <h3 class="scroll-title">注目のレビュー</h3>
+  <h2 class="scroll-title">注目のレビュー</h2>
   <ul class="horizontal-list">
     <%= render partial: "home/review", collection: @reviews %>
   </ul>
   
-  <h3 class="scroll-title">人気の商品</h3>
+  <h2 class="scroll-title">人気の商品</h2>
   <ul class="horizontal-list">
     <%= render partial: "home/item", collection: @items %>
   </ul>
   
-  <h3 class="scroll-title">idの降順</h3>
+  <h2 class="scroll-title">idの降順</h2>
   <ul class="horizontal-list">
     <%= render partial: "home/item", collection: Item.all.order(id: :desc) %>
   </ul>
   
-  <h3 class="scroll-title">カロリーの降順</h3>
+  <h2 class="scroll-title">カロリーの降順</h2>
   <ul class="horizontal-list">
     <%= render partial: "home/item", collection: Item.all.order(calorie: :desc) %>
   </ul>
   
-  <h3 class="scroll-title">"美味しい"のタグが付いた商品</h3>
+  <h2 class="scroll-title">"美味しい"のタグが付いた商品</h2>
   <ul class="horizontal-list">
     <%= render partial: "home/item", collection: Item.all.tagged_with("美味しい") %>
   </ul>
   
-  <h3 class="scroll-title">一番使われているタグ"<%= @most_used_tag %>"が付いた商品</h3>
+  <h2 class="scroll-title">一番使われているタグ"<%= @most_used_tag %>"が付いた商品</h2>
   <ul class="horizontal-list">
     <%= render partial: "home/item", collection: Item.all.tagged_with(@most_used_tag) %>
   </ul>
