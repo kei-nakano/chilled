@@ -2,21 +2,17 @@
   <div class="review-scroll-wrapper">
     <div class="review-scroll-title">
       <%= review.item.title %>
-      <div class="review-scroll-score">
-        <%= render "items/score", score: review.score %>
-      </div>
     </div>
     <div class="review-scroll-span">
       <div class="comments-user-image">
         <%= image_tag review.user.image.url %>
       </div>
       <div class="comments-user-right">
-        <div class="comments-user-name">
-          <%= review.user.name %>
-        </div>
-        <div class="comments-time">
-          <%= review.created_at.strftime("%Y年%m月%d日 %H:%M") %>
-        </div>
+          <span class="review-user-name"><%= review.user.name %></span>
+          <span class="comments-time">/<%= time_ago_in_words(review.created_at) %></span>
+          <div class="review-scroll-score"><%= render "items/score", score: review.score %></div>
+        
+        
         
       </div>
       <span>

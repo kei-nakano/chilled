@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   post 'rooms/create' => 'rooms#create', as: 'room_create'
   delete 'notices' => 'notices#destroy'
   resources :items
+  resources :reviews
   resources :notices, only: %i[index]
   resources :blocks, only: %i[create destroy]
   resources :users do

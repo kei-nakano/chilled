@@ -1,11 +1,16 @@
 /* home/top ================================ */
+.scroll-title {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 2.3rem;
+}
+
 .horizontal-list {
   overflow-x: scroll;
   display: flex;
 }
 
 .review-box {
-  /* flex-boxの特性上、横いっぱいに自動で収めようとするのでmin-width */
   min-width: 400px;
   margin: 16px;
   background-color: white;
@@ -23,25 +28,27 @@
   padding: 15px 15px;
 }
 
-.scroll-title {
-  margin-top: 15px;
-  text-align: center;
-  font-size: 2.3rem;
-}
-
 .review-scroll-title {
-  font-size: 0.9rem;
+  font-size: 1.4rem;
   font-weight: 800;
-  border-bottom: solid 2px #5282d4;
+  border-bottom: solid 2px #c8cdd7;
   margin-bottom: 10px;
 }
 
+.review-user-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
 .review-scroll-score {
-  padding-left: 270px;
+  text-align: left;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #FFA500;
 }
 
 .review-scroll-content {
-  font-size: 0.9rem;
+  font-size: 1.2rem;
 }
 
 .review-scroll-content p {
@@ -49,7 +56,9 @@
 }
 
 .review-scroll-image {
-  width: 150px;
+  width: 370px;
+  height: 260px;
+  object-fit: cover;
 }
 
 .item-scroll-image {
@@ -58,30 +67,3 @@
 
 .review-scroll-wrapper {
 }
-
-/*
-.review-scroll-user-left img {
-    float: left;
-    width: 47px;
-    height: 47px;
-    border-radius: 100%;
-    margin: 10px 0;
-    object-fit: cover;
-}
-
-.review-scroll-user-right {
-  margin-left: 50px;
-  height: 84px;
-  padding-top: 7px;
-}
-
-.review-scroll-user-name {
-  font-size: 0.9rem;
-  font-weight: 800;
-}
-
-.clear {
-  clear: both;
-}
-
-*/
