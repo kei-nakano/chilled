@@ -1,7 +1,12 @@
 <div class="container">
   <h2 class="scroll-title">注目のレビュー</h2>
   <ul class="horizontal-list">
-    <%= render partial: "home/review", collection: @reviews %>
+    <%= render partial: "home/review", collection: @popular_reviews %>
+  </ul>
+  
+  <h2 class="scroll-title">最近のレビュー</h2>
+  <ul class="horizontal-list">
+    <%= render partial: "home/review", collection: @popular_reviews %>
   </ul>
   
   <h2 class="scroll-title">人気の商品</h2>

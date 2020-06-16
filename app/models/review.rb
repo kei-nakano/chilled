@@ -16,4 +16,15 @@ class Review < ApplicationRecord
     notice = current_user.active_notices.new(visited_id: user_id, review_id: id, action: 'review_like')
     notice.save if notice.valid?
   end
+
+  # topページのランキング用に、いいね！とコメントの数を集計し、合計ポイント順にidを返す
+  def self.popular_ids
+    like_weight = 4
+    like_count = ReviewLike.group(:review_id).count
+    comment_weight = 3
+    comment_count = Comment.group(:review_id).count
+
+    total_score = like_count.merge(comment_count) { |_key, like, comment| like * like_weight + comment * comment_weight }
+    Hash[total_score.sort_by { |_, score| -score }].keys
+  end
 end
