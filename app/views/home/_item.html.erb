@@ -1,7 +1,23 @@
-<li class="item-box">
-  <%= link_to item do %>
-    <%= image_tag item.image.url, class: "item-scroll-image" %>
-  <% end %>
-  <%= item.title %>
-  <%= render "items/score", score: item.average_score.round(1) %>
+<li class="item-scroll-wrapper">
+  <div class="item-scroll-image">
+    <%= link_to item do %>
+      <%= image_tag item.image.url, alt: "商品の画像" %>
+    <% end %>
+  </div>
+  
+  <div class="item-scroll-title">
+    <%= item.title %>
+  </div>
+  
+  <div class="item-scroll-score">
+    <%= render "items/score", score: item.average_score.round(1) %>
+  </div>
+  
+  <span class="item-scroll-margin">
+    <% eat_count = item.eaten_items.count %>
+    <span class="eaten-items fas fa-check-circle uneaten-btn">食べた！<%= eat_count unless eat_count.zero? %></span>
+  </span>
+  
+  <% want_count = item.want_to_eat_items.count %>
+  <span class="want-to-eat-items fas fa-utensils unwant-to-eat-btn">食べてみたい！<%= want_count unless want_count.zero? %></span>
 </li>

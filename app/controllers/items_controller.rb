@@ -35,8 +35,7 @@ class ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    @item.title = params[:item][:title]
-    if @item.save
+    if @item.update(item_params)
       flash[:notice] = "保存しました"
       redirect_to("/items")
     else

@@ -225,6 +225,8 @@ table {
   width: 5em;
 }
 
+.fa-utensils:before,
+.fa-check-circle:before,
 .fa-heart:before,
 .fa-comment:before {
   margin-right: 3px;
@@ -240,7 +242,7 @@ table {
 
 .eaten-items {
   font-weight: 900;
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 
 .uneaten-btn {
@@ -253,7 +255,7 @@ table {
 
 .want-to-eat-items {
   font-weight: 900;
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 
 .unwant-to-eat-btn {

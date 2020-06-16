@@ -12,8 +12,15 @@ class Item < ApplicationRecord
 
   # 商品のレビュースコアの平均点を算出する
   def average_score
-    return 0 if reviews.count.zero?
+    count = reviews.count
+    return 0 if count.zero?
 
-    reviews.sum(:score) / reviews.count
+    reviews.sum(:score) / count
+  end
+
+  # topページのランキング用に、レビューのスコアを集計し、合計ポイント順にidを返す
+  def self.popular_ids
+    total_score = Review.group(:item_id).sum(:score)
+    Hash[total_score.sort_by { |_, score| -score }].keys
   end
 end
