@@ -6,6 +6,7 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @tag_limit = 3
     @item = Item.find(params[:id])
     @score = @item.average_score.round(1)
     return @reviews = @item.reviews.where.not(id: @current_user.block_ids) unless params[:review_id]

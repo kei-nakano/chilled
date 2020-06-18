@@ -34,13 +34,13 @@
     <%= render partial: "home/item", collection: @low_calorie_items %>
   </ul>
   
-  <h2 class="scroll-title">"美味しい"のタグが付いた商品</h2>
-  <ul class="horizontal-list">
-    <%= render partial: "home/item", collection: Item.all.tagged_with("美味しい") %>
-  </ul>
+  <% @most_used_tags.each do |tag| %>
+    <h2 class="scroll-title">#<%= tag.name %>のタグが付いた商品</h2>
+    <ul class="horizontal-list">
+      <%= render partial: "home/item", collection: Item.tagged_desc(tag.name).limit(@item_select) %>
+    </ul>
+  <% end %>
+    
   
-  <h2 class="scroll-title">一番使われているタグ"<%= @most_used_tag %>"が付いた商品</h2>
-  <ul class="horizontal-list">
-    <%= render partial: "home/item", collection: Item.all.tagged_with(@most_used_tag) %>
-  </ul>
+  
 </div>

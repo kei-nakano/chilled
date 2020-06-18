@@ -1,6 +1,6 @@
 /* home/top ================================ */
 .scroll-title {
-  margin-top: 20px;
+  margin-top: 25px;
   text-align: center;
   font-size: 2.3rem;
 }
@@ -91,6 +91,7 @@
 
 .item-scroll-wrapper {
   min-width: 300px;
+  max-width: 300px;
   margin: 16px;
   background-color: white;
   box-shadow: 0 2px 6px #c1ced7;
