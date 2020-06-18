@@ -14,14 +14,24 @@
     <%= render partial: "home/item", collection: @popular_items %>
   </ul>
   
-  <h2 class="scroll-title">idの降順</h2>
+  <h2 class="scroll-title">みんなが食べている商品</h2>
   <ul class="horizontal-list">
-    <%= render partial: "home/item", collection: Item.all.order(id: :desc) %>
+    <%= render partial: "home/item", collection: @eaten_items %>
   </ul>
   
-  <h2 class="scroll-title">カロリーの降順</h2>
+  <h2 class="scroll-title">みんなが食べてみたい商品</h2>
   <ul class="horizontal-list">
-    <%= render partial: "home/item", collection: Item.all.order(calorie: :desc) %>
+    <%= render partial: "home/item", collection: @want_to_eat_items %>
+  </ul>
+  
+  <h2 class="scroll-title">コスパの高い商品</h2>
+  <ul class="horizontal-list">
+    <%= render partial: "home/item", collection: @reasonable_items %>
+  </ul>
+  
+  <h2 class="scroll-title">カロリーの低い商品</h2>
+  <ul class="horizontal-list">
+    <%= render partial: "home/item", collection: @low_calorie_items %>
   </ul>
   
   <h2 class="scroll-title">"美味しい"のタグが付いた商品</h2>
