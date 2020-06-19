@@ -11,6 +11,11 @@
   
   <div class="item-scroll-score">
     <%= render "items/score", score: item.average_score.round(1) %>
+    
+    <span class="item-scroll-review">
+      <% review_count = item.reviews.count %>
+      <span class="fas fa-comment"><%= review_count unless review_count.zero? %></span>
+    </span>
   </div>
   
   <span class="item-scroll-margin">

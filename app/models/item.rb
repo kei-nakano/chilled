@@ -13,7 +13,7 @@ class Item < ApplicationRecord
   # 商品のレビュースコアの平均点を算出する
   def average_score
     count = reviews.count
-    return 0 if count.zero?
+    return 0 if count.zero? # 未レビューの場合は、0点とする
 
     reviews.sum(:score) / count
   end

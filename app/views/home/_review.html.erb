@@ -44,7 +44,9 @@
   </div>
   
   <div class="review-scroll-end">
-    <span class="fa fa-heart like-btn-unlike review-scroll-margin">いいね！<%= review.review_likes.count unless review.review_likes.count.zero? %></span>
-    <span class="fas fa-comment">コメント <%= review.comments.count unless review.comments.count.zero? %></span>
+    <% like_count = review.review_likes.count %>
+    <span class="fa fa-heart like-btn-unlike review-scroll-margin">いいね！<%= like_count unless like_count.zero? %></span>
+    <% comment_count = review.comments.count %>
+    <span class="fas fa-comment">コメント <%= comment_count unless comment_count.zero? %></span>
   </div>
 </li>
