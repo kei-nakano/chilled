@@ -30,7 +30,7 @@
     <span class="fas fa-comment">
       <%= link_to("コメント", "/comments/#{review.id}/new", remote: true) %>
     </span>
-    <span class="comment-count <%= comment_count ||= review.comments.where.not(user_id: @current_user.block_ids).count %>">
+    <span class="comment-count <%= comment_count ||= review.comments.where.not(user_id: block_ids(@current_user)).count %>">
       <%= comment_count unless comment_count.zero? %>
     </span>
     
@@ -53,6 +53,6 @@
           <%= render partial: "items/comment", locals: { comment: first_comment, review: review } %>
           <%= render partial: "items/comment", collection: review.comments.where.not(id: first_comment.id).order(created_at: :desc), locals: { review: review } %>
         <% else %>
-          <%= render partial: "items/comment", collection: review.comments.where.not(user_id: @current_user.block_ids).order(created_at: :desc), locals: { review: review } %>
+          <%= render partial: "items/comment", collection: review.comments.where.not(user_id: block_ids(@current_user)).order(created_at: :desc), locals: { review: review } %>
         <% end %>
   </div>

@@ -1,8 +1,10 @@
 <header>
+  <div class="logo-wrapper">
   <div class="header-logo">
-    <%= link_to root_path do %>
-      <%= image_tag '/header_logo.png' %>
+    <%= link_to "/" do %>
+      <%= image_tag '/header.jpg', alt:"サイトのアイコン" %>
     <% end %>
+  </div>
   </div>
   
   <div class="search-memu">
@@ -13,9 +15,6 @@
   </div>
   
   <ul class="header-menus">
-    <li>
-      
-    </li>
     <% if @current_user %>
       <li>
         <%= link_to @current_user do %>

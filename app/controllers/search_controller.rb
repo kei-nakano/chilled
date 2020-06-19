@@ -8,7 +8,7 @@ class SearchController < ApplicationController
 
     if @type == "review"
       @results = Review.search(@keyword)
-      @results = @results.where.not(user_id: @current_user.block_ids)
+      @results = @results.where.not(user_id: block_ids(@current_user))
       respond_to do |format|
         return format.js
       end
@@ -23,7 +23,7 @@ class SearchController < ApplicationController
 
     if @type == "user"
       @results = User.search(@keyword)
-      @results = @results.where.not(id: @current_user.block_ids)
+      @results = @results.where.not(id: block_ids(@current_user))
       respond_to do |format|
         return format.js
       end

@@ -36,8 +36,8 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 input {
-  background-color: transparent;
-  outline-width: 0;
+  //background-color: transparent;
+  //outline-width: 0;
 }
 
 form input[type="submit"] {
@@ -95,14 +95,19 @@ header {
   box-shadow: 0 0 15px #c1ced7;
 }
 
+.logo-wrapper {
+  position: absolute;
+}
+
 .header-logo {
-  float: left;
-  padding-left: 20px;
-  padding-top: 8px;
+  position: relative;
+  top: -13px;
+  left: 22px;
 }
 
 .header-logo img {
-  height: 48px;
+  height: 87px;
+  width: 145px;
 }
 
 .header-menus {
@@ -140,7 +145,8 @@ header {
 
 .header-menus input[type="submit"] {
   padding: 0 20px;
-  float: left;
+  transform: translateX(-50%) translateY(-50%);
+//  float: left;
   line-height: 64px;
   color: white;
   margin: 0;
@@ -279,11 +285,23 @@ header {
   height: 64px;
   padding: 21px;
   margin-left: 300px;
-  border: 1px solid #d8dadf;
   border-radius: 2px;
   width: 300px;
 }
 
-.search-menu input[type="search"] {
+.search-menu input {
   width: 150px;
+  height: 60px;
+}
+
+input#keyword {
+  border: 1px solid #999;
+  padding: 3px 10px;
+  border-radius: 3px;
+  overflow: hidden;
+
+}
+
+.clear {
+  clear: both;
 }
