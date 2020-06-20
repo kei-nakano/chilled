@@ -9,9 +9,8 @@
   
   <div class="search-memu">
     <%= form_with url: "/search", method: "get", local: true do |form| %> 
-      <%= form.search_field :keyword, placeholder: "キーワードで検索", value: @keyword %>
-      <%= form.submit value="決定", id: "search-btn" %>
-      <button id="sbtn4" type="submit"><i class="fas fa-search"></i></button>
+      <%= form.search_field :keyword, placeholder: "商品・レビューを検索", value: @keyword %>
+      <button id="search-btn" type="submit"><i class="fas fa-search"></i></button>
     <% end %>
   </div>
   

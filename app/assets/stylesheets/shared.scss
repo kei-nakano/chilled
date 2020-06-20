@@ -54,8 +54,8 @@ body {
 }
 
 .main {
-  position: absolute;
-  top: var(--header-height);
+  padding-top: var(--header-height);
+  padding-bottom: 100px;
   width: 100%;
   height: auto;
   min-height: 100%;
@@ -95,22 +95,13 @@ header {
   box-shadow: 0 0 15px #c1ced7;
 }
 
-.logo-wrapper {
-  
-}
-
-.header-logo {
-  
-}
-
 .header-logo img {
   float: left;
   margin-top: 2px;
-  margin-left: 22px;
+  margin-left: 25px;
   height: 56px;
 }
 
-/* 検索窓 ================================ */
 .search-memu form {
   float: left;
   padding: 18px 10px;
@@ -129,10 +120,11 @@ input#keyword {
   overflow: hidden;
   min-width: 200px;
   width: 80%;
+  font-size: 1.4rem;
 }
 
-input[type="submit"]#search-btn {
-  padding: 4px;
+button[type="submit"]#search-btn {
+  padding: 5px;
   border: 1px solid #999;
   border-radius: 3px
 }
@@ -159,7 +151,6 @@ input[type="submit"]#search-btn {
   float: left;
   line-height: 64px;
   font-size: 1.3rem;
-  color: white;
   padding-left: 15px;
 }
 
@@ -167,54 +158,32 @@ input[type="submit"]#search-btn {
   float: left;
   font-size: 1.4rem;
   color: #777;
-  text-decoration: underline;
 }
 
 .header-menus .fa {
   padding-right: 5px;
 }
 
-.header-menus input[type="submit"] {
-  padding: 0 20px;
-  transform: translateX(-50%) translateY(-50%);
-//  float: left;
-  line-height: 64px;
-  color: white;
-  margin: 0;
-  font-size: 1.3rem;
-}
+/* フッター ================================ */
 
-/* top ================================ */
-.top-main {
-  padding: 200px 0 100px;
-  text-align: center;
-  position: absolute;
-  top: 0;
-  width: 100%;
+.footer-wrapper {
+  min-height: 80px;
   height: auto;
-  min-height: 100%;
-  color: white;
-  background-color: #3ecdc6;
-  background-repeat: no-repeat;
-  background-position: center 50%;
-  background-size: cover;
-  background-image: url("/top.jpg");
 }
 
-.top-message {
-  position: relative;
+.footer-menu {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 1.4rem;
 }
 
-.top-main h2 {
-  font-size: 7rem;
-  font-weight: 500;
-  line-height: 1.3;
-  -webkit-font-smoothing: antialiased;
-  margin-bottom: 20px;
+.footer-division {
+  padding: 0 10px;
 }
 
-.top-main p {
-  font-size: 24px;
+.footer-end {
+  margin-top: 14px;
+  text-align: center;
 }
 
 /* about ================================ */
