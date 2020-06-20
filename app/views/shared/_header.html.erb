@@ -18,7 +18,7 @@
     <% if @current_user %>
       <li>
         <%= link_to @current_user do %>
-          <%= image_tag @current_user.image.url %>
+          <%= image_tag @current_user.image.url, alt: "ユーザの画像" %>
         <% end %>
       </li>
       <li>

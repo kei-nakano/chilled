@@ -55,7 +55,7 @@ body {
 
 .main {
   padding-top: var(--header-height);
-  padding-bottom: 100px;
+  padding-bottom: 40px;
   width: 100%;
   height: auto;
   min-height: 100%;
@@ -118,7 +118,7 @@ input#keyword {
   padding: 5px 10px;
   border-radius: 3px;
   overflow: hidden;
-  min-width: 200px;
+  min-width: 240px;
   width: 80%;
   font-size: 1.4rem;
 }
@@ -184,27 +184,7 @@ button[type="submit"]#search-btn {
 .footer-end {
   margin-top: 14px;
   text-align: center;
-}
-
-/* about ================================ */
-.about-main {
-  padding: 180px 8% 0;
-  color: white;
-}
-
-.about-main h2 {
-  font-size: 64px;
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-.about-main p {
-  font-weight: 200;
-  font-size: 20px;
-}
-
-.about-img {
-  width: 84%;
+  font-size: 1.0rem;
 }
 
 /* フォーム================================ */
