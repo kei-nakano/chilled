@@ -2,7 +2,7 @@
   <div class="item-name">
     <h2><%= @item.title %></h2>
   </div>
-  <%= image_tag @item.image.url %>
+  <%= image_tag @item.image.url, alt: "商品の画像" %>
   
   <div class="item-table">
     <h3>商品情報</h3>
@@ -10,7 +10,7 @@
       <tbody>
         <tr>
           <th>平均評価</th>
-          <td><%= render "items/score", score: @score %></td>    
+          <td class="show-item-score"><%= render "items/score", score: @item.average_score.round(1) %></td>    
         </tr>
         <tr>
           <th>説明</th>
@@ -30,22 +30,30 @@
         </tr>
         <tr>
           <th>メーカー</th>
-          <td><%= @item.manufacturer.name %></td>
+          <td>
+            <%= link_to @item.manufacturer.name, "/search?keyword=#{@item.manufacturer.name}" %>
+          </td>
+        </tr>
+        <tr>
+          <th>カテゴリ</th>
+          <td>
+            <%= link_to @item.category.name, "/search?keyword=#{@item.category.name}" %>
+          </td>
         </tr>
         <tr>
           <th>タグ</th>
-          <td><%= render partial: "items/tag_list", collection: @item.popular_tags %></td>
+          <td><%= render partial: "items/tag", collection: @item.popular_tags %></td>
         </tr>
       </tbody>
     </table>
   </div>
   
   <span class="eaten-items">
-    <%= render "eaten_items/show", item: @item, count: @count %>
+    <%= render "eaten_items/show", item: @item %>
   </span>
   
   <span class="want-to-eat-items">
-    <%= render "want_to_eat_items/show", item: @item, count: @count %>
+    <%= render "want_to_eat_items/show", item: @item %>
   </span>
   
   <div class="post-menus">

@@ -63,18 +63,22 @@ body {
 }
 
 .breadcrumbs {
-  border: 1px solid #bbb;
-  border-radius: 10px;
-  width: 810px;
-  margin: 30px auto;
+  margin: 30px 0px 30px 25px;
   padding-left: 10px;
-  background-color: #fff4dd;
-  color: #000;
+  color: #909090;
+  font-size: 1.5rem;
 }
 
 .breadcrumbs a {
-  text-decoration: underline;
-  color: #666;
+  padding-right: 5px;
+  padding-left: 5px;
+  color: #909090;
+  font-size: 1.5rem;
+}
+
+.breadcrumbs span {
+  padding-left: 5px;
+  color: #555;
 }
 
 .container {
