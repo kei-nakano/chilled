@@ -96,18 +96,49 @@ header {
 }
 
 .logo-wrapper {
-  position: absolute;
+  
 }
 
 .header-logo {
-  position: relative;
-  top: -13px;
-  left: 22px;
+  
 }
 
 .header-logo img {
-  height: 87px;
-  width: 145px;
+  float: left;
+  margin-top: 2px;
+  margin-left: 22px;
+  height: 56px;
+}
+
+/* 検索窓 ================================ */
+.search-memu form {
+  float: left;
+  padding: 18px 10px;
+  margin-left: 60px;
+}
+
+.search-menu input {
+  width: 150px;
+  height: 60px;
+}
+
+input#keyword {
+  border: 1px solid #999;
+  padding: 5px 10px;
+  border-radius: 3px;
+  overflow: hidden;
+  min-width: 200px;
+  width: 80%;
+}
+
+input[type="submit"]#search-btn {
+  padding: 4px;
+  border: 1px solid #999;
+  border-radius: 3px
+}
+
+.right-menu-wrapper {
+ min-width: 500px; 
 }
 
 .header-menus {
@@ -277,29 +308,6 @@ header {
   width: 100%;
   border-radius: 0 0 2px 2px;
   font-size: 14px;
-}
-
-/* 検索窓 ================================ */
-.search-memu form {
-  float: left;
-  height: 64px;
-  padding: 21px;
-  margin-left: 300px;
-  border-radius: 2px;
-  width: 300px;
-}
-
-.search-menu input {
-  width: 150px;
-  height: 60px;
-}
-
-input#keyword {
-  border: 1px solid #999;
-  padding: 3px 10px;
-  border-radius: 3px;
-  overflow: hidden;
-
 }
 
 .clear {

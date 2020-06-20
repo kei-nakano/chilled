@@ -2,7 +2,7 @@
   <div class="logo-wrapper">
   <div class="header-logo">
     <%= link_to "/" do %>
-      <%= image_tag '/header.jpg', alt:"サイトのアイコン" %>
+      <%= image_tag '/header.png', alt:"サイトのアイコン" %>
     <% end %>
   </div>
   </div>
@@ -10,7 +10,8 @@
   <div class="search-memu">
     <%= form_with url: "/search", method: "get", local: true do |form| %> 
       <%= form.search_field :keyword, placeholder: "キーワードで検索", value: @keyword %>
-      <%= form.submit value="決定" %>
+      <%= form.submit value="決定", id: "search-btn" %>
+      <button id="sbtn4" type="submit"><i class="fas fa-search"></i></button>
     <% end %>
   </div>
   
@@ -34,7 +35,7 @@
         <%= link_to("通知", "/notices") %>
       </li>
       <li>
-        <%= link_to("タイムライン", "/users/#{@current_user.id}/timeline") %>
+        <%= link_to("タ", "/users/#{@current_user.id}/timeline") %>
       </li>
       <li>
         <%= link_to("ログアウト", "/logout", {method: :post}) %>
