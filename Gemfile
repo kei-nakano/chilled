@@ -34,6 +34,7 @@ group :development do
   gem 'pre-commit', require: false
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
+  gem 'bullet'
 end
 
 group :test do

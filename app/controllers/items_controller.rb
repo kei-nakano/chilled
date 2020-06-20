@@ -6,12 +6,13 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @tag_limit = 3
     @item = Item.find(params[:id])
     @score = @item.average_score.round(1)
-    return @reviews = @item.reviews.where.not(id: @current_user.block_ids) unless params[:review_id]
+    return @reviews = @item.reviews.where.not(id: block_ids(@current_user)) unless params[:review_id]
 
     @first_review = Review.find(params[:review_id])
-    @other_reviews = @item.reviews.where.not(id: @first_review.id).where.not(id: @current_user.block_ids)
+    @other_reviews = @item.reviews.where.not(id: @first_review.id).where.not(id: block_ids(@current_user))
     @first_comment = Comment.find(params[:comment_id]) if params[:comment_id]
   end
 
@@ -35,8 +36,7 @@ class ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    @item.title = params[:item][:title]
-    if @item.save
+    if @item.update(item_params)
       flash[:notice] = "保存しました"
       redirect_to("/items")
     else

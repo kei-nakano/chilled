@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root 'home#top'
   get 'search' => 'search#show', as: 'search'
-  get 'about' => 'home#about'
   get 'login' => 'users#login_form'
   post 'login' => 'users#login'
   post 'logout' => 'users#logout'
@@ -27,6 +26,7 @@ Rails.application.routes.draw do
   post 'rooms/create' => 'rooms#create', as: 'room_create'
   delete 'notices' => 'notices#destroy'
   resources :items
+  resources :reviews
   resources :notices, only: %i[index]
   resources :blocks, only: %i[create destroy]
   resources :users do

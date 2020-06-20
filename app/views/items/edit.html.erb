@@ -9,6 +9,12 @@
               <%= message %>
             </div>
           <% end %>
+          <p>内容</p>
+          <%= form.text_field :content %>
+          <p>score</p>
+          <%= form.number_field :score %>
+          <p>画像</p>
+          <%= form.file_field :image, accept: 'image/jpeg,image/gif,image/png' %>
           <%= form.text_field :title %>
           <%= form.submit value="保存" %>
         </div>

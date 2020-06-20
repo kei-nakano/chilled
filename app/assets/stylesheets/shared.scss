@@ -1,9 +1,13 @@
+:root {
+  --header-height: 64px;
+}
+
 * {
   box-sizing: border-box;
 }
 
 html {
-  font: 100%/1.5 -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', meiryo, '游ゴシック Medium', sans-serif;
+  font: 62.5%/1.5 -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', meiryo, '游ゴシック Medium', sans-serif;
 }
 
 ul, li {
@@ -15,7 +19,16 @@ ul, li {
 a {
   text-decoration: none;
   color: #2d3133;
-  font-size: 14px;
+  font-size: 1.4rem;
+}
+
+a:hover {
+  color: #4670ac;
+  text-decoration: underline;
+}
+
+img:hover {
+  opacity: 0.9;
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -23,8 +36,8 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 input {
-  background-color: transparent;
-  outline-width: 0;
+  //background-color: transparent;
+  //outline-width: 0;
 }
 
 form input[type="submit"] {
@@ -41,8 +54,8 @@ body {
 }
 
 .main {
-  position: absolute;
-  top: 64px;
+  padding-top: var(--header-height);
+  padding-bottom: 40px;
   width: 100%;
   height: auto;
   min-height: 100%;
@@ -74,7 +87,7 @@ body {
 
 /* ヘッダー ================================ */
 header {
-  height: 64px;
+  height: var(--header-height);
   position: fixed;
   z-index: 1;
   width: 100%;
@@ -82,14 +95,42 @@ header {
   box-shadow: 0 0 15px #c1ced7;
 }
 
-.header-logo {
+.header-logo img {
   float: left;
-  padding-left: 20px;
-  padding-top: 8px;
+  margin-top: 2px;
+  margin-left: 25px;
+  height: 56px;
 }
 
-.header-logo img {
-  height: 48px;
+.search-memu form {
+  float: left;
+  padding: 18px 10px;
+  margin-left: 60px;
+}
+
+.search-menu input {
+  width: 150px;
+  height: 60px;
+}
+
+input#keyword {
+  border: 1px solid #999;
+  padding: 5px 10px;
+  border-radius: 3px;
+  overflow: hidden;
+  min-width: 240px;
+  width: 80%;
+  font-size: 1.4rem;
+}
+
+button[type="submit"]#search-btn {
+  padding: 5px;
+  border: 1px solid #999;
+  border-radius: 3px
+}
+
+.right-menu-wrapper {
+ min-width: 500px; 
 }
 
 .header-menus {
@@ -109,83 +150,41 @@ header {
 .header-menus li {
   float: left;
   line-height: 64px;
-  font-size: 13px;
-  color: white;
+  font-size: 1.3rem;
   padding-left: 15px;
 }
 
 .header-menus a {
   float: left;
-  font-size: 14px;
+  font-size: 1.4rem;
   color: #777;
-  text-decoration: underline;
 }
 
 .header-menus .fa {
   padding-right: 5px;
 }
 
-.header-menus input[type="submit"] {
-  padding: 0 20px;
-  float: left;
-  line-height: 64px;
-  color: white;
-  margin: 0;
-  font-size: 13px;
-}
+/* フッター ================================ */
 
-/* top ================================ */
-.top-main {
-  padding: 200px 0 100px;
-  text-align: center;
-  position: absolute;
-  top: 0;
-  width: 100%;
+.footer-wrapper {
+  min-height: 80px;
   height: auto;
-  min-height: 100%;
-  color: white;
-  background-color: #3ecdc6;
-  background-repeat: no-repeat;
-  background-position: center 50%;
-  background-size: cover;
-  background-image: url("/top.jpg");
 }
 
-.top-message {
-  position: relative;
+.footer-menu {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 1.4rem;
 }
 
-.top-main h2 {
-  font-size: 70px;
-  font-weight: 500;
-  line-height: 1.3;
-  -webkit-font-smoothing: antialiased;
-  margin-bottom: 20px;
+.footer-division {
+  padding: 0 10px;
 }
 
-.top-main p {
-  font-size: 24px;
-}
-
-/* about ================================ */
-.about-main {
-  padding: 180px 8% 0;
-  color: white;
-}
-
-.about-main h2 {
-  font-size: 64px;
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-.about-main p {
-  font-weight: 200;
-  font-size: 20px;
-}
-
-.about-img {
-  width: 84%;
+.footer-end {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 1.0rem;
 }
 
 /* フォーム================================ */
@@ -260,17 +259,6 @@ header {
   font-size: 14px;
 }
 
-/* 検索窓 ================================ */
-.search-memu form {
-  float: left;
-  height: 64px;
-  padding: 21px;
-  margin-left: 300px;
-  border: 1px solid #d8dadf;
-  border-radius: 2px;
-  width: 300px;
-}
-
-.search-menu input[type="search"] {
-  width: 150px;
+.clear {
+  clear: both;
 }

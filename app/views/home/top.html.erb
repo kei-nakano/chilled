@@ -1,31 +1,44 @@
+<% provide(:title, "Top") %>
 <div class="container">
-  <h3 class="scroll-title">注目のレビュー</h3>
+  <h2 class="scroll-title">注目のレビュー</h2>
   <ul class="horizontal-list">
-    <%= render partial: "home/review", collection: @reviews %>
+    <%= render partial: "home/review", collection: @popular_reviews.includes(:user, :item) %>
   </ul>
   
-  <h3 class="scroll-title">人気の商品</h3>
+  <h2 class="scroll-title">最近のレビュー</h2>
   <ul class="horizontal-list">
-    <%= render partial: "home/item", collection: @items %>
+    <%= render partial: "home/review", collection: @recent_reviews.includes(:user, :item) %>
   </ul>
   
-  <h3 class="scroll-title">idの降順</h3>
+  <h2 class="scroll-title">人気の商品</h2>
   <ul class="horizontal-list">
-    <%= render partial: "home/item", collection: Item.all.order(id: :desc) %>
+    <%= render partial: "home/item", collection: @popular_items %>
   </ul>
   
-  <h3 class="scroll-title">カロリーの降順</h3>
+  <h2 class="scroll-title">みんなが食べている商品</h2>
   <ul class="horizontal-list">
-    <%= render partial: "home/item", collection: Item.all.order(calorie: :desc) %>
+    <%= render partial: "home/item", collection: @eaten_items %>
   </ul>
   
-  <h3 class="scroll-title">"美味しい"のタグが付いた商品</h3>
+  <h2 class="scroll-title">みんなが食べてみたい商品</h2>
   <ul class="horizontal-list">
-    <%= render partial: "home/item", collection: Item.all.tagged_with("美味しい") %>
+    <%= render partial: "home/item", collection: @want_to_eat_items %>
   </ul>
   
-  <h3 class="scroll-title">一番使われているタグ"<%= @most_used_tag %>"が付いた商品</h3>
+  <h2 class="scroll-title">コスパの高い商品</h2>
   <ul class="horizontal-list">
-    <%= render partial: "home/item", collection: Item.all.tagged_with(@most_used_tag) %>
+    <%= render partial: "home/item", collection: @reasonable_items %>
   </ul>
+  
+  <h2 class="scroll-title">カロリーの低い商品</h2>
+  <ul class="horizontal-list">
+    <%= render partial: "home/item", collection: @low_calorie_items %>
+  </ul>
+  
+  <% @most_used_tags.each do |tag| %>
+    <h2 class="scroll-title">#<%= tag.name %>のタグが付いた商品</h2>
+    <ul class="horizontal-list">
+      <%= render partial: "home/item", collection: Item.tagged_desc(tag.name).limit(@item_select) %>
+    </ul>
+  <% end %>
 </div>

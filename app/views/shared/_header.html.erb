@@ -1,25 +1,24 @@
 <header>
+  <div class="logo-wrapper">
   <div class="header-logo">
-    <%= link_to root_path do %>
-      <%= image_tag '/header_logo.png' %>
+    <%= link_to "/" do %>
+      <%= image_tag '/header.png', alt:"サイトのアイコン" %>
     <% end %>
+  </div>
   </div>
   
   <div class="search-memu">
     <%= form_with url: "/search", method: "get", local: true do |form| %> 
-      <%= form.search_field :keyword, placeholder: "キーワードで検索", value: @keyword %>
-      <%= form.submit value="決定" %>
+      <%= form.search_field :keyword, placeholder: "商品・レビューを検索", value: @keyword %>
+      <button id="search-btn" type="submit"><i class="fas fa-search"></i></button>
     <% end %>
   </div>
   
   <ul class="header-menus">
-    <li>
-      
-    </li>
     <% if @current_user %>
       <li>
         <%= link_to @current_user do %>
-          <%= image_tag @current_user.image.url %>
+          <%= image_tag @current_user.image.url, alt: "ユーザの画像" %>
         <% end %>
       </li>
       <li>
@@ -35,7 +34,7 @@
         <%= link_to("通知", "/notices") %>
       </li>
       <li>
-        <%= link_to("タイムライン", "/users/#{@current_user.id}/timeline") %>
+        <%= link_to("タ", "/users/#{@current_user.id}/timeline") %>
       </li>
       <li>
         <%= link_to("ログアウト", "/logout", {method: :post}) %>

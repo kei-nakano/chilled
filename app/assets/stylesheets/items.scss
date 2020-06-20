@@ -162,68 +162,73 @@ table {
   font-weight: 600;
 }
 
-.rate{
-position: relative;
-display: inline-block;
+.rate {
+  position: relative;
+  display: inline-block;
 }
 .rate:before,
-.rate:after{
+.rate:after {
   content: "★★★★★";
 }
-.rate:before{
-color: #ccc;
+.rate:before {
+  color: #ccc;
 }
-.rate:after{
-position: absolute;
-left:0;
-top:0;
-color: #FFA500;
-overflow: hidden;
+.rate:after {
+  position: absolute;
+  left:0;
+  top:0;
+  color: #FFA500;
+  overflow: hidden;
 }
 
-.rate.rate0:after{
+.rate.rate0:after {
   width: 0;
 }
 
-.rate.rate0-5:after{
+.rate.rate0-5:after {
   width: 0.5em;
 }
 
-.rate.rate1:after{
+.rate.rate1:after {
   width: 1em;
 }
 
-.rate.rate1-5:after{
+.rate.rate1-5:after {
   width: 1.5em;
 }
 
-.rate.rate2:after{
+.rate.rate2:after {
   width: 2em;
 }
-.rate.rate2-5:after{
+
+.rate.rate2-5:after {
   width: 2.5em;
 }
-.rate.rate3:after{
+
+.rate.rate3:after {
   width: 3em;
 }
 
-.rate.rate3-5:after{
+.rate.rate3-5:after {
   width: 3.5em;
 }
 
-.rate.rate4:after{
+.rate.rate4:after {
   width: 4em;
 }
 
-.rate.rate4-5:after{
+.rate.rate4-5:after {
   width: 4.5em;
 }
 
-.rate.rate5:after{
+.rate.rate5:after {
   width: 5em;
 }
 
-.fa-heart:before {
+.fa-utensils:before,
+.fa-check-circle:before,
+.fa-heart:before,
+.fa-comment:before {
   margin-right: 3px;
 }
 
@@ -237,7 +242,7 @@ overflow: hidden;
 
 .eaten-items {
   font-weight: 900;
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 
 .uneaten-btn {
@@ -250,7 +255,7 @@ overflow: hidden;
 
 .want-to-eat-items {
   font-weight: 900;
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 
 .unwant-to-eat-btn {

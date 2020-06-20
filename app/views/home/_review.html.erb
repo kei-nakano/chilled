@@ -1,35 +1,52 @@
-<li class="review-box">
-  <div class="review-scroll-wrapper">
-    <div class="review-scroll-title">
-      <%= review.item.title %>
-      <div class="review-scroll-score">
-        <%= render "items/score", score: review.score %>
-      </div>
+<li class="review-scroll-wrapper">
+  <div class="review-scroll-title">
+    <%= review.item.title %>
+  </div>
+
+  <div class="review-scroll-userimage">
+    <%= link_to "users/#{review.user.id}" do %>
+      <%= image_tag review.user.image.url, alt: "ユーザの画像" %>
+    <% end %>
+  </div>
+  
+  <div class="review-scroll-userside">
+    <span class="review-scroll-username">
+      <%= review.user.name %>
+    </span>
+    
+    <span class="review-scroll-time">
+      /<%= time_ago_in_words(review.created_at) %>
+    </span>
+    
+    <div class="review-scroll-score">
+      <%= render "items/score", score: review.score %>
     </div>
-    <div class="review-scroll-span">
-      <div class="comments-user-image">
-        <%= image_tag review.user.image.url %>
-      </div>
-      <div class="comments-user-right">
-        <div class="comments-user-name">
-          <%= review.user.name %>
-        </div>
-        <div class="comments-time">
-          <%= review.created_at.strftime("%Y年%m月%d日 %H:%M") %>
-        </div>
-        
-      </div>
-      <span>
-        <div class="review-scroll-content">
-          <% if review.content.length > @digest_length + 1 %>
-            <%= review.content.slice(0..@digest_length).concat("…")  %>
-          <% else %>
-            <%= review.content %>
-          <% end %>
-          <p><%= link_to "続きを見る", item_path(review.item, review_id: review.id) %></p>
-          <%= image_tag review.image.url, class: "review-scroll-image" %>
-        </div>
-      </span>
+  </div>
+      
+  <div class="review-scroll-content">
+    <div class="review-scroll-content-wrapper">
+      <% if review.content.length > @digest_length %>
+       <%= review.content.slice(0..@digest_length - 1).concat("…")  %>
+      <% else %>
+        <%= review.content %>
+      <% end %>
     </div>
+    
+    <p class="review-scroll-span">
+      <%= link_to "続きを見る", "items/#{review.item.id}/?review_id=#{review.id}" %>
+    </p>
+      
+    <div class="review-scroll-image">
+      <%= link_to "items/#{review.item.id}/?review_id=#{review.id}" do %>
+        <%= image_tag review.image.url, alt: "商品のレビュー画像" %>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="review-scroll-end">
+    <% like_count = review.review_likes.count %>
+    <span class="fa fa-heart like-btn-unlike review-scroll-margin">いいね！<%= like_count unless like_count.zero? %></span>
+    <% comment_count = review.comments.count %>
+    <span class="fas fa-comment">コメント <%= comment_count unless comment_count.zero? %></span>
   </div>
 </li>
