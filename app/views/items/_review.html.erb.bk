@@ -59,17 +59,16 @@
     <%= form_with(url: "/comments/#{review.id}/create" , model: Comment.new) do |form| %>
       <p>コメント</p>
       <%= form.text_area :content %>
-      <button type="submit" class="submit-btn">決定</button>
       <button type="reset" class="cancel-btn">キャンセル</button>
+      <button class="submit-btn"><%= form.submit value="決定" %></button>
     <% end %>
-    <div class="clear"></div>
   </div> 
 
   <div id="latest-comment-<%= review.id %>"></div>
   <% if first_comment ||= false %>
     <%= render partial: "items/comment", locals: { comment: first_comment, review: review } %>
-    <%= render partial: "items/comment", collection: review.comments.includes(:user).where.not(id: first_comment.id).order(created_at: :desc), locals: { review: review } %>
+    <%= render partial: "items/comment", collection: review.comments.where.not(id: first_comment.id).order(created_at: :desc), locals: { review: review } %>
   <% else %>
-    <%= render partial: "items/comment", collection: review.comments.includes(:user).where.not(user_id: block_ids(@current_user)).order(created_at: :desc), locals: { review: review } %>
+    <%= render partial: "items/comment", collection: review.comments.where.not(user_id: block_ids(@current_user)).order(created_at: :desc), locals: { review: review } %>
   <% end %>
 </div>

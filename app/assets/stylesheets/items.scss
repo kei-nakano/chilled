@@ -96,14 +96,13 @@ table {
   padding: 5px 10px;
   border: 1px solid #BBB;
   font-size: 1.4rem;
-  
 }
 
 .review-count {
   background-color: rgb(255, 244, 221);
   padding-left: 10px;
   color: #683e01;
-  margin: 10px 0;
+  margin: 13px 0;
   border: 1px solid #bbb;
   border-radius: 10px;
   font-size: 1.8rem;
@@ -474,39 +473,52 @@ table {
 }
 
 .items-show .fa .fas {
-  font-size: 14px;
+  font-size: 1.4rem;
   margin-right: 3px;
 }
 
 .comment-like {
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 
-.post-menus {
+.comment-edit {
   float: right;
 }
 
-.post-menus a, .post-menus input {
+.comment-edit a, .comment-edit input {
   color: #8899a6;
   text-decoration: underline;
-  font-size: 14px;
+  font-size: 1.4rem;
+}
+
+.comment-edit {
+  float: right;
+}
+
+.comment-edit a, .comment-edit input {
+  color: #8899a6;
+  text-decoration: underline;
+  font-size: 1.4rem;
 }
 
 .comment-count {
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 900;
 }
+
 .submit-btn {
   height: 28px;
-  clear: both;
-  margin-bottom: 10px;  
+  margin-bottom: 10px; 
+  display: block;
+  margin: 0 0 0 3px;
+  float: right;
 }
 
 .cancel-btn {
   height: 28px;
-  clear: both;
   margin-bottom: 10px;
-  margin-left: 607px;
+  float: right;
+  margin-left: 3px;
 }
 
 .comment-span {
@@ -514,12 +526,23 @@ table {
 }
 
 .comment-form textarea {
-  width: 750px;
+  width: 100%;
   float: left;
-  font-size: 1.3em;
   border: 1px solid #d8dadf;
   resize: none;
   min-height: 60px;
+}
+
+textarea#comment_content {
+  font-size: 14px;
+}
+
+textarea#comment_content:focus {
+  outline: 0px solid #ccc;
+}
+
+.comment-form p {
+  font-size: 1.4rem;
 }
 
 .comment-form.hidden {
@@ -545,17 +568,22 @@ table {
 }
 
 .comments-user-name {
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 600;
 }
 
 .comments-time {
-  font-size: 12px;
+  font-size: 1.2rem;
   color: #7e7e7e;
 }
 
 .show-comments p {
-  font-size: 14px;
+  font-size: 1.4rem;
+}
+
+.comment-content {
+  margin-bottom: 1px;
+  font-size: 1.4rem;
 }
 
 /* posts/new ================================ */

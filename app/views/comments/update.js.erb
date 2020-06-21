@@ -1,4 +1,4 @@
 $("#comment-<%= @comment.id %>").remove();
-$(".show-comments-<%= @comment.id %> .post-menus").css('display', 'inline');
+$(".show-comments-<%= @comment.id %> .comment-edit").css('display', 'inline');
 $(".show-comments-<%= @comment.id %> .comment-content").html('<%= j(simple_format(@comment.content)) %>');
 $(".show-comments-<%= @comment.id %> .comment-content").css('display','inline');

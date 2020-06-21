@@ -2,27 +2,31 @@
   <div class="comments-user-image">
     <%= image_tag comment.user.image.url %>
   </div>
+  
   <div class="comments-user-right">
     <div class="comments-user-name">
       <%= comment.user.name %>
     </div>
+    
     <div class="comments-time">
       <%= comment.created_at.strftime("%Y年%m月%d日 %H:%M") %>
     </div>
   </div>
-    <span class="form-insert">
-      <div class="comment-content">
-        <%= simple_format(comment.content) %>
-      </div>
-      <span class="comment-area">
-        <%= render "comment_likes/show", comment: comment, count: @count %>
-      </span>
-      
-      <% if @current_user.id == comment.user_id %>
-        <div class="post-menus">
-          <%= link_to("編集", "/comments/#{comment.id}", remote: true) %>
-          <%= link_to("削除", comment, method: "delete", remote: true) %>
-        </div>
-      <% end %>
+  
+  <span class="form-insert">
+    <div class="comment-content">
+      <%= simple_format(comment.content) %>
+    </div>
+    
+    <span class="comment-area">
+      <%= render "comment_likes/show", comment: comment, count: @count %>
     </span>
+      
+    <% if @current_user.id == comment.user_id %>
+      <div class="comment-edit">
+        <%= link_to("編集", "/comments/#{comment.id}", remote: true) %>
+        <%= link_to("削除", comment, method: "delete", remote: true) %>
+      </div>
+    <% end %>
+  </span>
 </div>
