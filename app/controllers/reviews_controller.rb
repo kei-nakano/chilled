@@ -17,7 +17,7 @@ class ReviewsController < ApplicationController
 
   def review_params
     params.require(:review).permit(
-      :content, :image, :score
+      :content, :image, :score, { multiple_images: [] }
     )
   end
 end

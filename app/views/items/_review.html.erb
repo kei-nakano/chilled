@@ -19,14 +19,25 @@
     
   </div>
       
-  <div class="show-review-content">
+  <div class="image-wrapper"><div class="show-review-content">
     <p><%= simple_format(review.content) %></p>
     <%= image_tag review.image.url, alt: "食品レビュー画像" %>
+    
+    <% unless review.multiple_images[0].blank? %>
+      <%= image_tag review.multiple_images[0].url, alt: "食品レビュー画像" %>
+    <% end %>
+    <% unless review.multiple_images[1].blank? %>
+      <%= image_tag review.multiple_images[1].url, alt: "食品レビュー画像" %>
+    <% end %>
+    <% unless review.multiple_images[2].blank? %>
+      <%= image_tag review.multiple_images[2].url, alt: "食品レビュー画像" %>
+    <% end %>
+    
     <span class="post-menus">
       <%= link_to("編集", edit_item_path) %>
       <%= link_to("削除", @item, {method: "delete"}) %>
     </span>
-  </div>
+  </div></div>
   
       
   

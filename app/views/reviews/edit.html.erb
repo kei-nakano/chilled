@@ -15,6 +15,7 @@
           <%= form.number_field :score %>
           <p>画像</p>
           <%= form.file_field :image, accept: 'image/jpeg,image/gif,image/png' %>
+          <%= form.file_field :multiple_images, multiple: true, accept: 'image/jpeg,image/gif,image/png' %>
           <%= form.submit value="保存" %>
         <% end %>
       </div>
