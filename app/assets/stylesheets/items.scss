@@ -147,28 +147,49 @@ table {
 }
 
 .show-review-content {
-  font-size: 14px;
+  font-size: 1.4rem;
   border-top: 1px solid #ccc;
   padding-top: 20px;
 }
 
-.image-wrapper {
-  width: 100%;
-}
-
 .show-review-content img{
-  width: 50%; 
+  float: left;
+  width: 29%;
   height: 200px;
+  margin: 10px 10px 0px 0px;
+  border-radius: 20px;
   object-fit: cover;
 }
 
-.posts-end-area {
+.show-review-edit {
+  float: right;
+  margin-top: 5px;
+}
+
+.show-review-edit a {
+  font-size: 1.4rem;
+  color: #8899a6;
+  text-decoration: underline;
+}
+
+.review-edit-wrapper {
+  padding-top: 184px;
+}
+
+.review-end-area {
   margin-top: 15px;
   margin-bottom: 15px;
-  padding-bottom: 8px;
+  padding-bottom: 6px;
   padding-top: 8px;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
+  font-size: 1.4rem;
+}
+
+.review-end-area a:hover{
+  text-decoration: none;
+  color: #2d3133;
+  opacity: 0.8;
 }
 
 .score {

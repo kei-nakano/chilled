@@ -15,47 +15,44 @@
     <div class="show-item-score">
       <%= render "items/score", score: review.score %>
     </div>
-    
-    
   </div>
       
-  <div class="image-wrapper"><div class="show-review-content">
+  <div class="show-review-content">
     <p><%= simple_format(review.content) %></p>
-    <%= image_tag review.image.url, alt: "食品レビュー画像" %>
     
-    <% unless review.multiple_images[0].blank? %>
-      <%= image_tag review.multiple_images[0].url, alt: "食品レビュー画像" %>
-    <% end %>
-    <% unless review.multiple_images[1].blank? %>
-      <%= image_tag review.multiple_images[1].url, alt: "食品レビュー画像" %>
-    <% end %>
-    <% unless review.multiple_images[2].blank? %>
-      <%= image_tag review.multiple_images[2].url, alt: "食品レビュー画像" %>
+    <% if review.multiple_images.any? %>
+      <% review.multiple_images.each do |image|  %>
+        <%= image_tag image.url, alt: "食品レビュー画像" %>
+      <% end %>
     <% end %>
     
-    <span class="post-menus">
-      <%= link_to("編集", edit_item_path) %>
-      <%= link_to("削除", @item, {method: "delete"}) %>
-    </span>
-  </div></div>
+    <% if @current_user.id == review.user_id %>
+      <div class="review-edit-wrapper">
+        <div class="show-review-edit">
+          <%= link_to "編集", "/reviews/#{review.id}/edit" %>
+          <%= link_to "削除", "/reviews/#{review.id}", method: "delete" %>
+        </div>
+      </div>
+    <% end %>
+  　<div class="clear"></div>
+  </div>
   
-      
-  
-  <div class="posts-end-area">
+  <div class="review-end-area">
     <span class="review-area">
       <%= render "review_likes/show", review: review, count: @count %>
     </span>
+    
     <span class="fas fa-comment">
-      <%= link_to("コメント", "/comments/#{review.id}/new", remote: true) %>
+      <%= link_to "コメントする", "/comments/#{review.id}/new", remote: true %>
     </span>
     
-    <span class="comment-count <%= comment_count ||= review.comments.where.not(user_id: block_ids(@current_user)).count %>">
+    <% comment_count ||= review.comments.where.not(user_id: block_ids(@current_user)).count %>
+    <span class="comment-count <%= comment_count%>">
       <%= comment_count unless comment_count.zero? %>
     </span>
     
     <!-- tweetシェア機能は大量のエラーが出るためコメントアウト-->
     <%#= render "shared/tweet", review_id: review.id %>
-    
   </div>
       
         <div id="review-<%= review.id %>" class="comment-form hidden">

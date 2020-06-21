@@ -98,9 +98,9 @@ Review.create!(image: nil,
                content: 'testtesttesttesttesttesttesttesttesttesttesttest',
                score: 1.9)
 
-Review.last.update(multiple_images: [File.open("./public/uploads/default/default_user.jpg"),
-                                     File.open("./public/uploads/default/default_user.jpg"),
-                                     File.open("./public/uploads/default/default_user.jpg")])
+Review.last.update(multiple_images: [File.open("./public/uploads/default/1.jpg"),
+                                     File.open("./public/uploads/default/11.jpg"),
+                                     File.open("./public/uploads/default/1.jpg")])
 
 # ReviewLike
 ReviewLike.create!(user_id: 1,
