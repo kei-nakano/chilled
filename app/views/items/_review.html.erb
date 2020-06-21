@@ -1,26 +1,33 @@
-<div class="posts-show-review show-reviews-<%= review.id %>">
-  <div class="posts-review-user-left">
-    <%= image_tag review.user.image.url %>
+<div class="show-item-review show-reviews-<%= review.id %>">
+  <div class="item-review-user-left">
+    <%= image_tag review.user.image.url, alt: "ユーザの画像" %>
   </div>
       
-  <div class="posts-review-user-right">
-    <div class="user-name">
+  <div class="item-review-user-right">
+    <div class="review-user-name">
       <%= review.user.name %>
     </div>
+    
     <div class="review-time">
       <%= review.created_at.strftime("%Y年%m月%d日 %H:%M") %>
     </div>
-    <%= render "items/score", score: review.score %>
+    
+    <div class="show-item-score">
+      <%= render "items/score", score: review.score %>
+    </div>
+    
+    
   </div>
       
-  <div class="posts-review-content">
-    <p><%= review.content %></p>
-    <%= image_tag review.image.url %>
-    <div class="post-menus">
+  <div class="show-review-content">
+    <p><%= simple_format(review.content) %></p>
+    <%= image_tag review.image.url, alt: "食品レビュー画像" %>
+    <span class="post-menus">
       <%= link_to("編集", edit_item_path) %>
       <%= link_to("削除", @item, {method: "delete"}) %>
-    </div>
+    </span>
   </div>
+  
       
   
   <div class="posts-end-area">
@@ -30,6 +37,7 @@
     <span class="fas fa-comment">
       <%= link_to("コメント", "/comments/#{review.id}/new", remote: true) %>
     </span>
+    
     <span class="comment-count <%= comment_count ||= review.comments.where.not(user_id: block_ids(@current_user)).count %>">
       <%= comment_count unless comment_count.zero? %>
     </span>

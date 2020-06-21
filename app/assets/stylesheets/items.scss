@@ -109,7 +109,7 @@ table {
   font-size: 1.8rem;
 }
 
-.posts-review-user-left img {
+.item-review-user-left img {
   width: 60px;
   height: 60px;
   border-radius: 100%;
@@ -118,26 +118,26 @@ table {
   object-fit: cover;
 }
 
-.posts-review-user-right {
+.item-review-user-right {
   margin-left: 70px;
-  height: 84px;
+  height: 75px;
 }
 
-.posts-review-user-right p {
+.item-review-user-right p {
   color: #FFA500;
   font-weight: 600;
 }
-.user-name {
-  font-size: 17px;
+.review-user-name {
+  font-size: 1.6rem;
   font-weight: 800;
 }
 
 .review-time {
   color: #7e7e7e;
-  font-size: 14px;
+  font-size: 1.2rem;
 }
 
-.posts-show-review {
+.show-item-review {
   margin-top: 10px;
   padding: 30px;
   background-color: white;
@@ -146,13 +146,13 @@ table {
   border-radius: 10px;
 }
 
-.posts-review-content {
+.show-review-content {
   font-size: 14px;
   border-top: 1px solid #ccc;
   padding-top: 20px;
 }
 
-.posts-review-content img{
+.show-review-content img{
   width: 300px; 
 }
 

@@ -8,7 +8,7 @@
     <%= render partial: "items/review", collection: @other_reviews %>
   <% else %>
     <h3 class="review-count">この商品のレビュー <%= @reviews.count %>件</h3>
-    <%= render partial: "items/review", collection: @reviews %>
+    <%= render partial: "items/review", collection: @reviews.includes(:user, :comments) %>
   <% end %>
 </div>
 

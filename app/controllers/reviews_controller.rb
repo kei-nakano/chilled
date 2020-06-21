@@ -7,7 +7,7 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     if @review.update(review_params)
       flash[:notice] = "保存しました"
-      redirect_to("/")
+      redirect_to("/items/#{@review.item_id}?review_id=#{@review.id}")
     else
       render 'edit'
     end
