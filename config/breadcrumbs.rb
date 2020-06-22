@@ -2,6 +2,18 @@ crumb :root do
   link "トップ", "/"
 end
 
+# search
+crumb :search do
+  link "検索", "/search"
+  parent :root
+end
+
+# search#show
+crumb :search_show do |keyword|
+  link "「#{keyword}」の検索結果", "/search"
+  parent :search
+end
+
 # item#index
 crumb :items do
   link "商品一覧", "/search"
