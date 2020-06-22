@@ -18,8 +18,8 @@
       <%= simple_format(comment.content) %>
     </div>
     
-    <span class="comment-area">
-      <%= render "comment_likes/show", comment: comment, count: @count %>
+    <span class="commentlike-area">
+      <%= render "comment_likes/show", comment: comment %>
     </span>
       
     <% if @current_user.id == comment.user_id %>

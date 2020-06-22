@@ -27,7 +27,6 @@
     <% end %>
     <div class="clear"></div>
     
-  　
   　<div class="show-review-tag">
       <% if review.tag_list.any? %>
         <% review.tag_list.each do |tag| %>
@@ -62,9 +61,6 @@
     <span class="comment-count <%= comment_count %>">
       <%= comment_count unless comment_count.zero? %>
     </span>
-    
-    <!-- tweetシェア機能は大量のエラーが出るためコメントアウト-->
-    <%#= render "shared/tweet", review_id: review.id %>
   </div>
       
   <div id="review-<%= review.id %>" class="comment-form hidden">
@@ -78,10 +74,10 @@
   </div> 
 
   <div id="latest-comment-<%= review.id %>"></div>
-  <% if first_comment ||= false %>
-    <%= render partial: "items/comment", locals: { comment: first_comment, review: review } %>
-    <%= render partial: "items/comment", collection: review.comments.includes(:user).where.not(id: first_comment.id).order(created_at: :desc), locals: { review: review } %>
+  <% if @first_comment && @first_comment.review_id == review.id %>
+    <%= render partial: "items/comment", locals: { comment: @first_comment } %>
+    <%= render partial: "items/comment", collection: review.comments.includes(:user).where.not(id: @first_comment.id).order(created_at: :desc) %>
   <% else %>
-    <%= render partial: "items/comment", collection: review.comments.includes(:user).where.not(user_id: block_ids(@current_user)).order(created_at: :desc), locals: { review: review } %>
+    <%= render partial: "items/comment", collection: review.comments.includes(:user).where.not(user_id: block_ids(@current_user)).order(created_at: :desc) %>
   <% end %>
 </div>

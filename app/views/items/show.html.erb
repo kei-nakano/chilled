@@ -6,9 +6,11 @@
   
   <% if @first_review %>
     <h3 class="review-count">この商品のレビュー <%= @other_reviews.count + 1 %>件</h3>
-    <%= render partial: "items/review", locals: { review: @first_review, first_comment: @first_comment } %>
+    <%= render partial: "items/review", locals: { review: @first_review } %>
     <%= render partial: "items/review", collection: @other_reviews.includes(:user, :taggings) %>
+    
   <% else %>
+  
     <h3 class="review-count">この商品のレビュー <%= @reviews.count %>件</h3>
     <%= render partial: "items/review", collection: @reviews.includes(:user, :taggings) %>
   <% end %>
@@ -16,20 +18,22 @@
 
 <script>
   $(function() {
+    // コメントフォームでキャンセルまたは決定が押されたらフォームを閉じる
     $(document).on('click', '.cancel-btn, .submit-btn', function() {
-    $(this).parents('.comment-form').addClass('hidden');
+      $(this).parents('.comment-form').addClass('hidden');
     });
     
+    // 投稿コメントの編集フォームをキャンセルしたら、編集フォームを削除して、元のコメントと編集・削除リンク、いいねを再表示する
     $(document).on('click', '.cancel-btn', function() {
       const id_array =  $(this).parents('.comment-form').attr('id');
-      const comment_id = id_array.split('-').pop();
-      const check = $(this).parents('.comment-form').hasClass('edit-delete');
+      const comment_id = id_array.split('-').pop(); // フォームのコメントidを取得
+      const check = $(this).parents('.comment-form').hasClass('edit-delete'); // 投稿コメントの編集フォームか判定
       if (check) {
-        jQuery("#comment-" + comment_id).remove();
-        jQuery(".show-comments-" + comment_id).find('.comment-edit').css('display', 'inline');
-        jQuery(".show-comments-" + comment_id).find('.comment-content').css('display', 'inline');
+        $("#comment-" + comment_id).remove();
+        $(".show-comments-" + comment_id).find('.comment-edit').css('display', 'inline'); // 編集・削除リンク
+        $(".show-comments-" + comment_id).find('.comment-content').css('display', 'inline'); // コメント内容
+        $(".show-comments-" + comment_id).find('.commentlike-area').css('display', 'inline'); // いいね
       }
     });
   });
-
 </script>

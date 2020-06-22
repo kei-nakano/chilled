@@ -1,6 +1,10 @@
-$("#review-<%= @review_id %>").find("#comment_content").val('');
 $(function() {
-  const count =  Number($('.show-reviews-<%= @review_id %> .comment-count').text()) + 1;
-  $('.show-reviews-<%= @review_id %> .comment-count').text(count)
+  $("#review-<%= @review_id %>").find("#comment_content").val('');
+  
+  $(function() {
+    const count =  Number($('.show-reviews-<%= @review_id %> .comment-count').text()) + 1;
+    $('.show-reviews-<%= @review_id %> .comment-count').text(count);
+  });
+  
+  $("#latest-comment-<%= @review_id %>").prepend("<%= j(render 'items/comment', comment: @comment) %>");
 });
-$("#latest-comment-<%= @review_id %>").prepend("<%= j(render 'items/comment', comment: @comment) %>");
