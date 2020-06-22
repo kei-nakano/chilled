@@ -51,13 +51,13 @@
 }
 
 .items-show p {
-  font-size: 15px;
+  font-size: 1.5rem;
   margin: 20px 0;
 }
 
 .item-name h2 {
   color: #683e01;
-  font-size: 22px;
+  font-size: 2.2rem;
   margin-bottom: 25px;
   font-weight: 600;
   padding-bottom: 2px;
@@ -66,6 +66,16 @@
 
 .item-table {
   margin-left: 390px;
+}
+
+.item-table h3 {
+  font-size: 1.6rem;
+}
+
+.show-item-score {
+  color: #FFA500;
+  font-size: 1.4rem;
+  font-weight: 600;
 }
 
 table {
@@ -79,26 +89,26 @@ table {
   border: 1px solid #BBB;
   width: 90px;
   padding: 5px 10px;
-  font-size: 16px;
+  font-size: 1.6rem;
 }
 
 .item-table td {
   padding: 5px 10px;
   border: 1px solid #BBB;
-  font-size: 14px;
-  
+  font-size: 1.4rem;
 }
 
 .review-count {
   background-color: rgb(255, 244, 221);
   padding-left: 10px;
   color: #683e01;
-  margin: 10px 0;
+  margin: 13px 0;
   border: 1px solid #bbb;
   border-radius: 10px;
+  font-size: 1.8rem;
 }
 
-.posts-review-user-left img {
+.item-review-user-left img {
   width: 60px;
   height: 60px;
   border-radius: 100%;
@@ -107,26 +117,26 @@ table {
   object-fit: cover;
 }
 
-.posts-review-user-right {
+.item-review-user-right {
   margin-left: 70px;
-  height: 84px;
+  height: 75px;
 }
 
-.posts-review-user-right p {
+.item-review-user-right p {
   color: #FFA500;
   font-weight: 600;
 }
-.user-name {
-  font-size: 17px;
+.review-user-name {
+  font-size: 1.6rem;
   font-weight: 800;
 }
 
 .review-time {
   color: #7e7e7e;
-  font-size: 14px;
+  font-size: 1.2rem;
 }
 
-.posts-show-review {
+.show-item-review {
   margin-top: 10px;
   padding: 30px;
   background-color: white;
@@ -135,94 +145,58 @@ table {
   border-radius: 10px;
 }
 
-.posts-review-content {
-  font-size: 14px;
+.show-review-content {
+  font-size: 1.4rem;
   border-top: 1px solid #ccc;
   padding-top: 20px;
 }
 
-.posts-review-content img{
-  width: 300px; 
+.show-review-content img{
+  float: left;
+  width: 29%;
+  height: 200px;
+  margin: 10px 10px 0px 0px;
+  border-radius: 20px;
+  object-fit: cover;
 }
 
-.posts-end-area {
+.show-review-edit {
+  float: right;
+  margin-top: 5px;
+}
+
+.show-review-edit a {
+  font-size: 1.4rem;
+  color: #8899a6;
+  text-decoration: underline;
+}
+
+.review-edit-wrapper {
+  
+}
+
+.review-end-area {
   margin-top: 15px;
   margin-bottom: 15px;
-  padding-bottom: 8px;
+  padding-bottom: 6px;
   padding-top: 8px;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
+  font-size: 1.4rem;
 }
 
-.score {
-  position: relative;
-  left: 93px;
-  top: -27px;
-  color: #FFA500;
-  font-weight: 600;
+.review-end-area a:hover{
+  text-decoration: none;
+  color: #2d3133;
+  opacity: 0.8;
 }
 
-.rate {
-  position: relative;
-  display: inline-block;
-}
-.rate:before,
-.rate:after {
-  content: "★★★★★";
-}
-.rate:before {
-  color: #ccc;
-}
-.rate:after {
-  position: absolute;
-  left:0;
-  top:0;
-  color: #FFA500;
-  overflow: hidden;
-}
-
-.rate.rate0:after {
-  width: 0;
-}
-
-.rate.rate0-5:after {
-  width: 0.5em;
-}
-
-.rate.rate1:after {
-  width: 1em;
-}
-
-.rate.rate1-5:after {
-  width: 1.5em;
-}
-
-.rate.rate2:after {
-  width: 2em;
-}
-
-.rate.rate2-5:after {
-  width: 2.5em;
-}
-
-.rate.rate3:after {
-  width: 3em;
-}
-
-.rate.rate3-5:after {
-  width: 3.5em;
-}
-
-.rate.rate4:after {
-  width: 4em;
-}
-
-.rate.rate4-5:after {
-  width: 4.5em;
-}
-
-.rate.rate5:after {
-  width: 5em;
+.review-tag {
+  border: 1px solid #ccc;
+  background-color: #f4f4f4;
+  border-radius: 16px;
+  margin-right: 5px;
+  padding: 0 5px;
 }
 
 .fa-utensils:before,
@@ -243,6 +217,12 @@ table {
 .eaten-items {
   font-weight: 900;
   font-size: 1.4rem;
+}
+
+.eaten-items a:hover,
+.want-to-eat-items a:hover {
+  text-decoration: none;
+  opacity: 0.8;
 }
 
 .uneaten-btn {
@@ -267,39 +247,52 @@ table {
 }
 
 .items-show .fa .fas {
-  font-size: 14px;
+  font-size: 1.4rem;
   margin-right: 3px;
 }
 
 .comment-like {
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 
-.post-menus {
+.comment-edit {
   float: right;
 }
 
-.post-menus a, .post-menus input {
+.comment-edit a, .comment-edit input {
   color: #8899a6;
   text-decoration: underline;
-  font-size: 14px;
+  font-size: 1.4rem;
+}
+
+.comment-edit {
+  float: right;
+}
+
+.comment-edit a, .comment-edit input {
+  color: #8899a6;
+  text-decoration: underline;
+  font-size: 1.4rem;
 }
 
 .comment-count {
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 900;
 }
+
 .submit-btn {
   height: 28px;
-  clear: both;
-  margin-bottom: 10px;  
+  margin-bottom: 10px; 
+  display: block;
+  margin: 0 0 0 3px;
+  float: right;
 }
 
 .cancel-btn {
   height: 28px;
-  clear: both;
   margin-bottom: 10px;
-  margin-left: 607px;
+  float: right;
+  margin-left: 3px;
 }
 
 .comment-span {
@@ -307,12 +300,23 @@ table {
 }
 
 .comment-form textarea {
-  width: 750px;
+  width: 100%;
   float: left;
-  font-size: 1.3em;
   border: 1px solid #d8dadf;
   resize: none;
   min-height: 60px;
+}
+
+textarea#comment_content {
+  font-size: 14px;
+}
+
+textarea#comment_content:focus {
+  outline: 0px solid #ccc;
+}
+
+.comment-form p {
+  font-size: 1.4rem;
 }
 
 .comment-form.hidden {
@@ -338,17 +342,22 @@ table {
 }
 
 .comments-user-name {
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 600;
 }
 
 .comments-time {
-  font-size: 12px;
+  font-size: 1.2rem;
   color: #7e7e7e;
 }
 
 .show-comments p {
-  font-size: 14px;
+  font-size: 1.4rem;
+}
+
+.comment-content {
+  margin-bottom: 1px;
+  font-size: 1.4rem;
 }
 
 /* posts/new ================================ */

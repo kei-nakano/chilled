@@ -1,10 +1,10 @@
 crumb :root do
-  link "Home", root_path
+  link "トップ", "/"
 end
 
 # item#index
 crumb :items do
-  link "Items", items_path
+  link "商品一覧", "/search"
   parent :root
 end
 

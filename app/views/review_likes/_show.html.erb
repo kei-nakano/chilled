@@ -1,9 +1,11 @@
+<% count ||= ReviewLike.where(review_id: review.id).count %>
+
 <% if ReviewLike.find_by(user_id: @current_user.id, review_id: review.id) %>
-  <%= link_to(review_like_destroy_path(review_id: review.id, count: count ||= ReviewLike.where(review_id: review.id).count), method: "delete", remote: true) do %>
+  <%= link_to "/review_likes/#{review.id}?count=#{count}", method: "delete", remote: true do %>
     <span class="fa fa-heart like-btn-unlike">いいね！<%= count %></span>
   <% end %>
 <% else %>
-  <%= link_to(review_like_create_path(review_id: review.id, count: count ||= ReviewLike.where(review_id: review.id).count), method: "post", remote: true) do %>
+  <%= link_to "/review_likes?review_id=#{review.id}&count=#{count}", method: "post", remote: true do %>
     <span class="fa fa-heart like-btn">いいね！<%= count unless count.zero? %></span>
   <% end %>
 <% end %>

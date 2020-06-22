@@ -1,3 +1,6 @@
-$(".show-comments-<%= @comment.id %> .post-menus").css('display', 'none');
-$(".show-comments-<%= @comment.id %> .comment-content").css('display', 'none');
-$(".show-comments-<%= @comment.id %> .form-insert").prepend("<%= j(render 'comments/form', comment: @comment) %>");
+$(function() {
+  $(".show-comments-<%= @comment.id %> .comment-edit").css('display', 'none');
+  $(".show-comments-<%= @comment.id %> .comment-content").css('display', 'none');
+  $(".show-comments-<%= @comment.id %> .commentlike-area").css('display', 'none');
+  $(".show-comments-<%= @comment.id %> .form-insert").prepend("<%= j(render 'comments/form', comment: @comment) %>");
+});

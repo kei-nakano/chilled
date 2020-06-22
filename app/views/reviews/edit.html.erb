@@ -10,11 +10,12 @@
         <% end %>
         <%= form_with(model: @review, local: true) do |form| %>
           <p>内容</p>
-          <%= form.text_field :content %>
+          <%= form.text_area :content %>
           <p>score</p>
           <%= form.number_field :score %>
           <p>画像</p>
           <%= form.file_field :image, accept: 'image/jpeg,image/gif,image/png' %>
+          <%= form.file_field :multiple_images, multiple: true, accept: 'image/jpeg,image/gif,image/png' %>
           <%= form.submit value="保存" %>
         <% end %>
       </div>

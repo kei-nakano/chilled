@@ -1,18 +1,9 @@
 Rails.application.routes.draw do
-  root 'home#top'
+  get '/' => 'home#top', as: 'root'
   get 'search' => 'search#show', as: 'search'
   get 'login' => 'users#login_form'
   post 'login' => 'users#login'
   post 'logout' => 'users#logout'
-  # create/destroyだけのルーティングはリソースルーティングで簡素にする
-  post 'comment_likes/:comment_id' => 'comment_likes#create', as: 'comment_like_create'
-  delete 'comment_likes/:comment_id' => 'comment_likes#destroy', as: 'comment_like_destroy'
-  post 'review_likes/:review_id' => 'review_likes#create', as: 'review_like_create'
-  delete 'review_likes/:review_id' => 'review_likes#destroy', as: 'review_like_destroy'
-  post 'eaten_items/:item_id' => 'eaten_items#create', as: 'eaten_item_create'
-  delete 'eaten_items/:item_id' => 'eaten_items#destroy', as: 'eaten_item_destroy'
-  post 'want_to_eat_items/:item_id' => 'want_to_eat_items#create', as: 'want_to_eat_item_create'
-  delete 'want_to_eat_items/:item_id' => 'want_to_eat_items#destroy', as: 'want_to_eat_item_destroy'
   get 'users/:id/timeline' => 'users#timeline'
   post 'relationships/:followed_id/create' => 'relationships#create'
   delete 'relationships/:followed_id/destroy' => 'relationships#destroy'
@@ -29,6 +20,10 @@ Rails.application.routes.draw do
   resources :reviews
   resources :notices, only: %i[index]
   resources :blocks, only: %i[create destroy]
+  resources :comment_likes, only: %i[create destroy]
+  resources :review_likes, only: %i[create destroy]
+  resources :eaten_items, only: %i[create destroy]
+  resources :want_to_eat_items, only: %i[create destroy]
   resources :users do
     member do
       get :following, :followers, :blocking

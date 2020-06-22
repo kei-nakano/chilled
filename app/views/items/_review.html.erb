@@ -1,58 +1,83 @@
-<div class="posts-show-review show-reviews-<%= review.id %>">
-  <div class="posts-review-user-left">
-    <%= image_tag review.user.image.url %>
+<div class="show-item-review show-reviews-<%= review.id %>">
+  <div class="item-review-user-left">
+    <%= image_tag review.user.image.url, alt: "ユーザの画像" %>
   </div>
       
-  <div class="posts-review-user-right">
-    <div class="user-name">
+  <div class="item-review-user-right">
+    <div class="review-user-name">
       <%= review.user.name %>
     </div>
+    
     <div class="review-time">
       <%= review.created_at.strftime("%Y年%m月%d日 %H:%M") %>
     </div>
-    <%= render "items/score", score: review.score %>
-  </div>
-      
-  <div class="posts-review-content">
-    <p><%= review.content %></p>
-    <%= image_tag review.image.url %>
-    <div class="post-menus">
-      <%= link_to("編集", edit_item_path) %>
-      <%= link_to("削除", @item, {method: "delete"}) %>
+
+    <div class="show-item-score">
+      <%= render "items/score", score: review.score %>
     </div>
   </div>
       
+  <div class="show-review-content">
+    <p><%= simple_format(review.content) %></p>
+    
+    <% if review.multiple_images.any? %>
+      <% review.multiple_images.each do |image|  %>
+        <%= image_tag image.url, alt: "食品レビュー画像" %>
+      <% end %>
+    <% end %>
+    <div class="clear"></div>
+    
+  　<div class="show-review-tag">
+      <% if review.tag_list.any? %>
+        <% review.tag_list.each do |tag| %>
+          <span class="review-tag" %>
+            <%= link_to "#" + tag, "/search?keyword=#{tag}" %>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+    
+    <% if @current_user.id == review.user_id %>
+      <div class="review-edit-wrapper">
+        <div class="show-review-edit">
+          <%= link_to "編集", "/reviews/#{review.id}/edit" %>
+          <%= link_to "削除", "/reviews/#{review.id}", method: "delete" %>
+        </div>
+      </div>
+      <div class="clear"></div>
+    <% end %>
+  </div>
   
-  <div class="posts-end-area">
+  <div class="review-end-area">
     <span class="review-area">
       <%= render "review_likes/show", review: review, count: @count %>
     </span>
+    
     <span class="fas fa-comment">
-      <%= link_to("コメント", "/comments/#{review.id}/new", remote: true) %>
+      <%= link_to "コメントする", "/comments/#{review.id}/new", remote: true %>
     </span>
-    <span class="comment-count <%= comment_count ||= review.comments.where.not(user_id: block_ids(@current_user)).count %>">
+    
+    <% comment_count ||= review.comments.where.not(user_id: block_ids(@current_user)).count %>
+    <span class="comment-count <%= comment_count %>">
       <%= comment_count unless comment_count.zero? %>
     </span>
-    
-    <!-- tweetシェア機能は大量のエラーが出るためコメントアウト-->
-    <%#= render "shared/tweet", review_id: review.id %>
-    
   </div>
       
-        <div id="review-<%= review.id %>" class="comment-form hidden">
-          <%= form_with(url: "/comments/#{review.id}/create" , model: Comment.new) do |form| %>
-            <p>コメント</p>
-            <%= form.text_area :content %>
-            <button type="reset" class="cancel-btn">キャンセル</button>
-            <button class="submit-btn"><%= form.submit value="決定" %></button>
-          <% end %>
-        </div> 
+  <div id="review-<%= review.id %>" class="comment-form hidden">
+    <%= form_with(url: "/comments/#{review.id}/create" , model: Comment.new) do |form| %>
+      <p>コメント</p>
+      <%= form.text_area :content %>
+      <button type="submit" class="submit-btn">決定</button>
+      <button type="reset" class="cancel-btn">キャンセル</button>
+    <% end %>
+    <div class="clear"></div>
+  </div> 
 
-        <div id="latest-comment-<%= review.id %>"></div>
-        <% if first_comment ||= false %>
-          <%= render partial: "items/comment", locals: { comment: first_comment, review: review } %>
-          <%= render partial: "items/comment", collection: review.comments.where.not(id: first_comment.id).order(created_at: :desc), locals: { review: review } %>
-        <% else %>
-          <%= render partial: "items/comment", collection: review.comments.where.not(user_id: block_ids(@current_user)).order(created_at: :desc), locals: { review: review } %>
-        <% end %>
-  </div>
+  <div id="latest-comment-<%= review.id %>"></div>
+  <% if @first_comment && @first_comment.review_id == review.id %>
+    <%= render partial: "items/comment", locals: { comment: @first_comment } %>
+    <%= render partial: "items/comment", collection: review.comments.includes(:user).where.not(id: @first_comment.id).order(created_at: :desc) %>
+  <% else %>
+    <%= render partial: "items/comment", collection: review.comments.includes(:user).where.not(user_id: block_ids(@current_user)).order(created_at: :desc) %>
+  <% end %>
+</div>

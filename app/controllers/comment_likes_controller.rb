@@ -11,8 +11,8 @@ class CommentLikesController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:comment_id])
-    CommentLike.find_by(user_id: @current_user.id, comment_id: params[:comment_id]).destroy
+    @comment = Comment.find(params[:id])
+    CommentLike.find_by(user_id: @current_user.id, comment_id: params[:id]).destroy
     @count = params[:count].to_i - 1
 
     respond_to do |format|

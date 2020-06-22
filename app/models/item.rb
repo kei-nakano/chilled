@@ -59,13 +59,13 @@ class Item < ApplicationRecord
     review_ids = ActsAsTaggableOn::Tagging.where(tag_id: tag_id).pluck(:taggable_id)
     item_count = Review.where(id: review_ids).group(:item_id).count
     item_ids = item_count.sort_by { |_, count| -count }.to_h.keys
-    Item.where(id: item_ids).order(['field(id, ?)', item_ids])
+    Item.where(id: item_ids).order([Arel.sql('field(id, ?)'), item_ids])
   end
 
   # その商品に関連付けられたタグを人気順に返す
   def popular_tags
     tag_count = ActsAsTaggableOn::Tagging.where(taggable_id: reviews.ids).group(:tag_id).count
     tag_ids = tag_count.sort_by { |_, count| -count }.to_h.keys
-    ActsAsTaggableOn::Tag.where(id: tag_ids).order(['field(id, ?)', tag_ids])
+    ActsAsTaggableOn::Tag.where(id: tag_ids).order([Arel.sql('field(id, ?)'), tag_ids])
   end
 end
