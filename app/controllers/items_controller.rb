@@ -10,7 +10,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     return @reviews = @item.reviews.where.not(id: block_ids(@current_user)) unless params[:review_id]
 
-    @first_review = Review.find(params[:review_id]) # TOPか通知から紹介されたレビューを先頭に表示する
+    @first_review = Review.find(params[:review_id]) # TOPまたは通知から紹介されたレビューを先頭に表示する
     @other_reviews = @item.reviews.where.not(id: @first_review.id).where.not(id: block_ids(@current_user))
     @first_comment = Comment.find(params[:comment_id]) if params[:comment_id] # 通知から紹介されたコメントを先頭に表示する
   end

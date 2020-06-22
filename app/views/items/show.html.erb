@@ -1,14 +1,16 @@
-<% provide(:title, @item.title) %>
+<% provide :title, @item.title %>
 <% breadcrumb :item_show, @item %>
+
 <div class="container">
   <%= render "items/detail" %>
+  
   <% if @first_review %>
     <h3 class="review-count">この商品のレビュー <%= @other_reviews.count + 1 %>件</h3>
     <%= render partial: "items/review", locals: { review: @first_review, first_comment: @first_comment } %>
-    <%= render partial: "items/review", collection: @other_reviews.includes(:user) %>
+    <%= render partial: "items/review", collection: @other_reviews.includes(:user, :taggings) %>
   <% else %>
     <h3 class="review-count">この商品のレビュー <%= @reviews.count %>件</h3>
-    <%= render partial: "items/review", collection: @reviews.includes(:user) %>
+    <%= render partial: "items/review", collection: @reviews.includes(:user, :taggings) %>
   <% end %>
 </div>
 

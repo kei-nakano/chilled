@@ -11,7 +11,7 @@
     <div class="review-time">
       <%= review.created_at.strftime("%Y年%m月%d日 %H:%M") %>
     </div>
-    
+
     <div class="show-item-score">
       <%= render "items/score", score: review.score %>
     </div>
@@ -25,6 +25,18 @@
         <%= image_tag image.url, alt: "食品レビュー画像" %>
       <% end %>
     <% end %>
+    <div class="clear"></div>
+    
+  　
+  　<div class="show-review-tag">
+      <% if review.tag_list.any? %>
+        <% review.tag_list.each do |tag| %>
+          <span class="review-tag" %>
+            <%= link_to "#" + tag, "/search?keyword=#{tag}" %>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
     
     <% if @current_user.id == review.user_id %>
       <div class="review-edit-wrapper">
@@ -33,8 +45,8 @@
           <%= link_to "削除", "/reviews/#{review.id}", method: "delete" %>
         </div>
       </div>
+      <div class="clear"></div>
     <% end %>
-  　<div class="clear"></div>
   </div>
   
   <div class="review-end-area">
