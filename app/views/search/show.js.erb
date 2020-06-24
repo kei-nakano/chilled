@@ -1,4 +1,6 @@
-$(".user-tabs li").removeClass('active');
-$("#<%= @type %>").addClass('active');
-$(".search-digest").html('<%= j("#{@digest}:#{@results.count}件") %>');
-$(".search-result").html('<%= j(render partial: "search/#{@type}", collection: @results) %>');
+$(function() {
+ $(".user-tabs li").removeClass('active');
+ $("#<%= @type %>").addClass('active');
+ $(".search-digest").html('<%= j("#{@digest} : #{@results.count}件") %>');
+ $(".search-result").html('<%= j(render partial: "search/#{@type}", collection: @results) %>');
+});

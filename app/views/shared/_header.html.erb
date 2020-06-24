@@ -9,7 +9,7 @@
   
   <div class="search-memu">
     <%= form_with url: "/search", method: "get", local: true do |form| %> 
-      <%= form.search_field :keyword, placeholder: "商品・レビューを検索", value: @keyword %>
+      <%= form.search_field :keyword, placeholder: "商品・レビュー・ユーザーを検索", value: @keyword %>
       <button id="search-btn" type="submit"><i class="fas fa-search"></i></button>
     <% end %>
   </div>
@@ -22,19 +22,13 @@
         <% end %>
       </li>
       <li>
-        <%= link_to("商品一覧", "/items") %>
-      </li>
-      <li>
-        <%= link_to("新規投稿", "/items/new") %>
-      </li>
-      <li>
-        <%= link_to("ユーザー一覧", "/users") %>
+        <%= link_to("レビューを書く", "/items/new") %>
       </li>
       <li>
         <%= link_to("通知", "/notices") %>
       </li>
       <li>
-        <%= link_to("タ", "/users/#{@current_user.id}/timeline") %>
+        <%= link_to("タイムライン", "/users/#{@current_user.id}/timeline") %>
       </li>
       <li>
         <%= link_to("ログアウト", "/logout", {method: :post}) %>

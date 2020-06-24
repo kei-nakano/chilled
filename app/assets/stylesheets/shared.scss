@@ -113,7 +113,7 @@ header {
 }
 
 .search-menu input {
-  width: 150px;
+  width: 200px;
   height: 60px;
 }
 
@@ -122,7 +122,7 @@ input#keyword {
   padding: 5px 10px;
   border-radius: 3px;
   overflow: hidden;
-  min-width: 240px;
+  min-width: 295px;
   width: 80%;
   font-size: 1.4rem;
 }
@@ -503,4 +503,86 @@ button[type="submit"]#search-btn {
   width: 5.0em;
 }
 
+/* 検索 ================================ */
+.search-digest {
+  font-size: 2.0rem;
+  text-align: center;
+}
 
+.search-index-item {
+  padding: 20px 30px;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 0 2px 6px #c1ced7;
+}
+
+.search-show-item img {
+  width: 96px;
+  height: 85px;
+  box-shadow: 0 2px 6px #c1ced7;
+  object-fit: cover;
+}
+
+.search-item-wrapper {
+  padding-left: 112px;
+}
+
+.search-item-wrapper.search-user {
+  padding-left: 80px;
+}
+
+.search-show-item {
+  float: left;
+}
+
+.search-item-title {
+  float: left;
+  width: 90%;
+  padding-bottom: 5px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.search-item-description, .search-review-description {
+  font-size: 12px;
+  width: 90%;
+  text-align: left;
+  padding-bottom: 5px;
+}
+
+.search-item-description p {
+  font-size: 1.2rem;
+  color: #7e7e7e;
+}
+
+.search-review-title {
+  font-weight: 600;
+}
+
+.search-review-end {
+  font-size: 1.4rem;
+}
+
+.show-tag-image img {
+  opacity: 0.5;
+  height: 50px;
+  box-shadow: 0 0 0 #fff;
+}
+
+.search-show-userimage img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 40%;
+}
+
+.search-user-block,
+.search-user-follow {
+  font-size: 1.2rem;
+  position: relative;
+  top: -0.5px;
+}
+
+.search-no-option a {
+  font-size: 1.2rem;
+}
