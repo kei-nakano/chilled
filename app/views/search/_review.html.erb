@@ -35,12 +35,19 @@
     </div>
     
     <div class="search-review-description">
-      <% review_length = 120 %>
+      <% review_length = 115 %>
       <% if review.content.length > review_length %>
        <%= review.content.slice(0..review_length - 1).concat("…")  %>
       <% else %>
         <%= review.content %>
       <% end %>
+    </div>
+    
+    <div class="search-review-end">
+      <% like_count = review.review_likes.count %>
+      <span class="fa fa-heart like-btn-unlike review-scroll-margin">いいね！<%= like_count unless like_count.zero? %></span>
+      <% comment_count = review.comments.count %>
+      <span class="fas fa-comment">コメント <%= comment_count unless comment_count.zero? %></span>
     </div>
   </div>
 </div>

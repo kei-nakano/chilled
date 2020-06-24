@@ -524,12 +524,15 @@ button[type="submit"]#search-btn {
 }
 
 .search-item-wrapper {
-  padding-left: 110px;
+  padding-left: 112px;
+}
+
+.search-item-wrapper.search-user {
+  padding-left: 80px;
 }
 
 .search-show-item {
   float: left;
-  width: 10%;
 }
 
 .search-item-title {
@@ -547,6 +550,35 @@ button[type="submit"]#search-btn {
   padding-bottom: 5px;
 }
 
+.search-item-description p {
+  font-size: 1.2rem;
+  color: #7e7e7e;
+}
+
 .search-review-title {
   font-weight: 600;
+}
+
+.search-review-end {
+  font-size: 1.4rem;
+}
+
+.show-tag-image img {
+  opacity: 0.5;
+  height: 50px;
+  box-shadow: 0 0 0 #fff;
+}
+
+.search-show-userimage img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 40%;
+}
+
+.search-user-block,
+.search-user-follow {
+  font-size: 1.2rem;
+  position: relative;
+  top: -0.5px;
 }

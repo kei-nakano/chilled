@@ -28,7 +28,6 @@ class SearchController < ApplicationController
 
     if @type == "user"
       @results = User.search(@keyword)
-      @results = @results.where.not(id: block_ids(@current_user))
       respond_to do |format|
         return format.js
       end

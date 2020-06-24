@@ -1,9 +1,13 @@
-
-  <div class="posts-index-item">
-    <div class="post-left">
-      <%= image_tag "/#" %>
-    </div>
-    <div class="post-right">
-      <%= link_to(category.name, "/review") %>
+<div class="search-index-item">
+  <div class="search-show-item">
+    <%= link_to "/search?keyword=#{category.name}" do %>
+      <%= image_tag category.image.url, alt: "カテゴリーのイメージ画像" %>
+    <% end %>
+  </div>
+  
+  <div class="search-item-wrapper">
+    <div class="search-item-title">
+      <%= link_to category.name, "/search?keyword=#{category.name}" %>
     </div>
   </div>
+</div>

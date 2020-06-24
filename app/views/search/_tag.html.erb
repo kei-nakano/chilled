@@ -1,9 +1,16 @@
-
-  <div class="posts-index-item">
-    <div class="post-left">
-      <%= image_tag "/#" %>
-    </div>
-    <div class="post-right">
-      <%= link_to(tag.name, "/review") %>
+<div class="search-index-item">
+  <div class="search-show-item">
+    <div class="show-tag-image">
+      <%= link_to "/search?keyword=#{tag.name}" do %>
+        <%= image_tag "/uploads/default/tag.jpg", alt: "タグのイメージ画像" %>
+      <% end %>
     </div>
   </div>
+  
+  <div class="search-item-wrapper">
+    <div class="search-item-title">
+      <%= link_to tag.name, "/search?keyword=#{tag.name}" %>
+    </div>
+  </div>
+</div>
+
