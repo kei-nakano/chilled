@@ -2,39 +2,45 @@ class SearchController < ApplicationController
   def show
     @keyword = params[:keyword] || ""
     @keyword == "" ? (@digest = "全件の検索結果") : (@digest = "「#{@keyword}」の検索結果")
-    @type = params[:type] || "item"
+    @type = params[:type] || "item" # 検索ボタン以外からのページ遷移直後に、itemタブを表示するようにする
+
+    @items = Item.search(@keyword)
+    @reviews = Review.search(@keyword).where.not(user_id: block_ids(@current_user))
+    @categories = Category.search(@keyword)
+    @manufacturers = Manufacturer.search(@keyword)
+    @users = User.search(@keyword)
+    @tags = ActsAsTaggableOn::Tag.where('name like ?', "%" + @keyword + "%")
 
     if @type == "item"
-      @results = Item.search(@keyword)
+      @results = @items
       respond_to do |format|
         return format.js
       end
     end
 
     if @type == "review"
-      @results = Review.search(@keyword)
-      @results = @results.where.not(user_id: block_ids(@current_user))
+      @results = @reviews
       respond_to do |format|
         return format.js
       end
     end
 
     if @type == "category"
-      @results = Category.search(@keyword)
+      @results = @categories
       respond_to do |format|
         return format.js
       end
     end
 
     if @type == "user"
-      @results = User.search(@keyword)
+      @results = @users
       respond_to do |format|
         return format.js
       end
     end
 
     if @type == "manufacturer"
-      @results = Manufacturer.search(@keyword)
+      @results = @manufacturers
       respond_to do |format|
         return format.js
       end
@@ -42,7 +48,7 @@ class SearchController < ApplicationController
 
     return unless @type == "tag"
 
-    @results = ActsAsTaggableOn::Tag.where('name like ?', "%" + @keyword + "%")
+    @results = @tags
     respond_to do |format|
       return format.js
     end
