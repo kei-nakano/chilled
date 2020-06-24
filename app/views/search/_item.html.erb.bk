@@ -1,9 +1,0 @@
-
-  <div class="posts-index-item">
-    <div class="post-left">
-      <%= image_tag item.image.url %>
-    </div>
-    <div class="post-right">
-      <%= link_to(item.title, item) %>
-    </div>
-  </div>

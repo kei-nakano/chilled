@@ -1,9 +1,46 @@
-
-  <div class="posts-index-item">
-    <div class="post-left">
-      <%= image_tag review.user.image.url %>
+<div class="search-index-item">
+  <div class="search-show-item">
+    <%= link_to "/items/#{review.item_id}?review_id=#{review.id}" do %>
+      <% if review.multiple_images.any? %>
+        <%= image_tag review.multiple_images[0].url, alt: "商品の画像" %>
+      <% else %>
+        <%= image_tag review.item.image.url, alt: "商品の画像" %>
+      <% end %>
+    <% end %>
+  </div>
+  
+  <div class="search-item-wrapper">
+    <div class="search-review-title">
+      <%= link_to review.item.title, "/items/#{review.item_id}?review_id=#{review.id}" %>
     </div>
-    <div class="post-right">
-      <%= link_to(review.content, "/review") %>
+    
+    <div class="review-scroll-userimage">
+      <%= link_to "users/#{review.user.id}" do %>
+        <%= image_tag review.user.image.url, alt: "ユーザの画像" %>
+      <% end %>
+    </div>
+  
+    <div class="review-scroll-userside">
+      <span class="review-scroll-username">
+        <%= link_to review.user.name, "/users/#{review.user_id}" %> 
+      </span>
+      
+      <span class="review-scroll-time">
+        /<%= time_ago_in_words(review.created_at) %>
+      </span>
+      
+      <div class="review-scroll-score">
+        <%= render "items/score", score: review.score %>
+      </div>
+    </div>
+    
+    <div class="search-review-description">
+      <% review_length = 120 %>
+      <% if review.content.length > review_length %>
+       <%= review.content.slice(0..review_length - 1).concat("…")  %>
+      <% else %>
+        <%= review.content %>
+      <% end %>
     </div>
   </div>
+</div>

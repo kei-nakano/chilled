@@ -12,7 +12,7 @@ class ApplicationRecord < ActiveRecord::Base
     Item.eager_load(:manufacturer, :category, reviews: :tags).where('items.title like ? or
                                                                      items.content like ? or
                                                                      manufacturers.name like ? or
-                                                                     categories.name like ? or 
+                                                                     categories.name like ? or
                                                                      tags.name like ?', search, search, search, search, search)
   end
 end

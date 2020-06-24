@@ -1,0 +1,19 @@
+<span class="item-scroll-score">
+  <%= render "items/score", score: item.average_score.round(1) %>
+  <span class="item-scroll-review">
+    <% review_count = item.reviews.count %>
+    <span class="fas fa-comment">レビュー <%= review_count unless review_count.zero? %></span>
+  </span>
+</span>
+    
+<% if division %>
+  <div></div>
+<% end %>
+
+<span class="item-scroll-margin">
+  <% eat_count = item.eaten_items.count %>
+  <span class="eaten-items fas fa-check-circle uneaten-btn">食べた！<%= eat_count unless eat_count.zero? %></span>
+</span>
+    
+<% want_count = item.want_to_eat_items.count %>
+<span class="want-to-eat-items fas fa-utensils unwant-to-eat-btn">食べてみたい！<%= want_count unless want_count.zero? %></span>

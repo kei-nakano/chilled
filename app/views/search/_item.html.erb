@@ -1,9 +1,19 @@
-
-  <div class="posts-index-item">
-    <div class="post-left">
-      <%= image_tag item.image.url %>
-    </div>
-    <div class="post-right">
-      <%= link_to(item.title, item) %>
-    </div>
+<div class="search-index-item">
+  <div class="search-show-item">
+    <%= link_to "/items/#{item.id}" do %>
+      <%= image_tag item.image.url, alt: "商品の画像" %>
+    <% end %>
   </div>
+  
+  <div class="search-item-wrapper">
+    <div class="search-item-title">
+      <%= link_to item.title, "/items/#{item.id}" %>
+    </div>
+      
+    <div class="search-item-description">
+      <%= item.content %>
+    </div>
+    
+    <%= render "shared/evaluation", item: item, division: false %>
+  </div>
+</div>
