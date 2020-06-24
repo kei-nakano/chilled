@@ -96,7 +96,12 @@
   float: left;
 }
 
-.user-tabs li.active {
+.user-tabs li.item-#item, 
+.user-tabs li.review-#review,
+.user-tabs li.manufacturer-#manufacturer, 
+.user-tabs li.category-#category,
+.user-tabs li.tag-#tag, 
+.user-tabs li.user-#user {
   border-bottom: 2px solid #3ecdc6;
 }
 

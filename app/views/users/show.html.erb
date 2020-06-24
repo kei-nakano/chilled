@@ -1,11 +1,18 @@
-<div class="main user-show">
+<% provide :title, @user.name %>
+<% breadcrumb :user_show, @user %>
+
+<div class="user-show">
   <div class="container">
     <div class="user">
       <%= image_tag @user.image.url %>
       <h2><%= @user.name %></h2>
       <p><%= @user.email %></p>
-      <%= link_to("編集", edit_user_path) %>
-      <%= link_to("削除", @user, {method: "delete"}) %>
+      
+      <% if @current_user.id == @user.id %>
+        <%= link_to("編集", edit_user_path) %>
+        <%= link_to("削除", @user, {method: "delete"}) %>
+      <% end %>
+      
       <% if @user.id != @current_user.id %>
       
         <% if @current_user.blocking?(@user) %>
@@ -25,7 +32,7 @@
       <% end %>
     </div>
     <ul class="user-tabs">
-      <li class="active"><%= link_to("投稿", "/users/#{@user.id}") %></li>
+      <li class="active"><%= link_to "レビュー(#{@user.reviews.count})", "/users/#{@user.id}" %></li>
       <li><%= link_to("いいね!", "/users/#{@user.id}/likes") %></li>
       <li class="following-count"><%= link_to("フォロー中(#{@user.following.count})", following_user_path(@user)) %></li>
       <li class="followers-count"><%= link_to("フォロワー(#{@user.followers.count})", followers_user_path(@user)) %></li>
