@@ -17,7 +17,7 @@ end
 # items
 crumb :items do
   link "商品一覧", "/search?type=item"
-  parent :root
+  parent :search
 end
 
 # item#show
@@ -29,13 +29,25 @@ end
 # users
 crumb :users do
   link "ユーザー一覧", "/search?type=user"
-  parent :root
+  parent :search
 end
 
 # user#show
 crumb :user_show do |user|
   link user.name, user
   parent :users
+end
+
+# room#index
+crumb :room_index do |user|
+  link "メッセージ", "/rooms"
+  parent :user_show, user
+end
+
+# room#show
+crumb :room_show do |current_user, other|
+  link other.name, "#"
+  parent :room_index, current_user
 end
 
 # user#edit

@@ -10,12 +10,10 @@ Rails.application.routes.draw do
   delete 'comments/:id' => 'comments#destroy', as: 'comment'
   get 'comments/:id' => 'comments#edit'
   patch 'comments/:id' => 'comments#update'
-  get 'users/:user_id/room/:room_id' => 'rooms#show'
-  get 'rooms/index' => 'rooms#index'
-  post 'rooms/create' => 'rooms#create', as: 'room_create'
   delete 'notices' => 'notices#destroy'
-  resources :items
+  resources :items, except: %i[index]
   resources :reviews
+  resources :rooms, only: %i[index show create]
   resources :notices, only: %i[index]
   resources :relationships, only: %i[create destroy]
   resources :blocks, only: %i[create destroy]

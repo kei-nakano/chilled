@@ -10,12 +10,12 @@
       
       <div class="dm-area">
         <% if @user.id == @current_user.id %>
-          <%= link_to "メッセージ", "/rooms/index" %>
+          <%= link_to "メッセージ", "/rooms" %>
         <% else %>
           <% if @room_id %>
-            <%= link_to "メッセージ", "/users/#{@user.id}/room/#{@room_id}" %>
+            <%= link_to "メッセージ", "/rooms/#{@room_id}?user_id=#{@user.id}" %>
           <% else %>
-            <%= link_to "メッセージ", room_create_path(user_id: @user.id), method: :post %>
+            <%= link_to "メッセージ", "/rooms?user_id=#{@user.id}", method: :post %>
           <% end %>
         <% end %>
       </div>

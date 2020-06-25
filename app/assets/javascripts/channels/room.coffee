@@ -8,7 +8,7 @@ App.room = App.cable.subscriptions.create "RoomChannel",
   received: (data) ->
     if data['room_id'] isnt undefined
       url = location.pathname
-      browser_room_id = url.split('/room/').pop()
+      browser_room_id = url.split('/rooms/').pop()
       message_room_id = data['room_id'].toString()
       if browser_room_id == message_room_id
         if data['flag'] == "my"
@@ -21,7 +21,7 @@ App.room = App.cable.subscriptions.create "RoomChannel",
         
   speak: (message) ->
     url = location.pathname
-    room_id = url.split('/room/').pop()
+    room_id = url.split('/rooms/').pop()
     @perform 'speak', message: message, room_id: room_id
     
   destroy: (message_id) ->
