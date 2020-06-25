@@ -66,13 +66,14 @@
 
 .user p {
   font-size: 1.3rem;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .user a {
   color: #8899a6;
   text-decoration: underline;
   font-weight: 200;
+  margin-right: 5px 
 }
 
 .user span {
@@ -106,7 +107,10 @@
 .user-tabs li.user-#user,
 .user-tabs li.liked_review-#liked_review,
 .user-tabs li.eaten_item-#eaten_item,
-.user-tabs li.want_to_eat_item-#want_to_eat_item {
+.user-tabs li.want_to_eat_item-#want_to_eat_item,
+.user-tabs li.follower-#follower,
+.user-tabs li.following-#following,
+.user-tabs li.blocking-#blocking {
   border-bottom: 2px solid #3ecdc6;
 }
 
@@ -118,8 +122,17 @@
 .user-#user a,
 .liked_review-#liked_review a,
 .eaten_item-#eaten_item a,
-.want_to_eat_item-#want_to_eat_item a {
+.want_to_eat_item-#want_to_eat_item a,
+.follower-#follower a, 
+.following-#following a,
+.blocking-#blocking a{
   color: #2d3133;
+}
+
+.dm-area a {
+  margin-bottom: 5px;
+  font-size: 1.4rem;
+  display: inline-block;
 }
 
 /* users/new, users/edit ================================ */

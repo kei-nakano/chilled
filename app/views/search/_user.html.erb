@@ -15,8 +15,12 @@
         <span class="search-user-block">(ブロックしています)</span>
       <% end %>
       
-      <% if @current_user.following.include?(user) %>
+      <% if @current_user.following.include?(user) && @type == "follower" %>
         <span class="search-user-follow">(フォローしています)</span>
+      <% end %>
+      
+      <% if @current_user.followers.include?(user) && @type == "following" %>
+        <span class="search-user-follow">(フォローされています)</span>
       <% end %>
     </div>
     

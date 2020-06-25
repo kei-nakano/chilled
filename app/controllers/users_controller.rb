@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     @type = params[:type] || "review" # typeの指定がない場合、reviewタブを優先表示するようにする
 
     if @type == "review"
-      @results = @user.reviews
+      @results = @user.reviews.includes(:item)
       respond_to do |format|
         format.js
         format.html
@@ -59,7 +59,16 @@ class UsersController < ApplicationController
 
     if @type == "liked_review"
       review_ids = "SELECT review_id FROM review_likes WHERE user_id = :user_id"
-      @results = Review.where("id IN (#{review_ids})", user_id: @user.id)
+      @results = Review.where("id IN (#{review_ids})", user_id: @user.id).includes(:item)
+      respond_to do |format|
+        format.js
+        format.html
+      end
+      return
+    end
+
+    if @type == "blocking"
+      @results = @user.blocking
       respond_to do |format|
         format.js
         format.html

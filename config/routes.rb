@@ -23,9 +23,5 @@ Rails.application.routes.draw do
   resources :review_likes, only: %i[create destroy]
   resources :eaten_items, only: %i[create destroy]
   resources :want_to_eat_items, only: %i[create destroy]
-  resources :users do
-    member do
-      get :following, :followers, :blocking
-    end
-  end
+  resources :users, except: %i[index]
 end

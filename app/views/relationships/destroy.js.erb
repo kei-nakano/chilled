@@ -1,4 +1,6 @@
-$(".followers-count").html('<%= link_to("フォロワー(#{@user.followers.count})", followers_user_path(@user)) %>');
-$(".following-count").html('<%= link_to("フォロー中(#{@user.following.count})", following_user_path(@user)) %>');
-$(".follow-link").html('<%= link_to "フォロー", "/relationships?user_id=#{@user.id}", method: :post, remote: true %>');
-$(".follow-link").append('<%= link_to("ブロック", "/blocks?user_id=#{@user.id}", method: :post) %>');
+$(function() {
+  $("#follower").html('<%= link_to "フォロワー(#{@user.followers.count})", "/users/#{@user.id}?type=follower", remote: true %>');
+  $("#following").html('<%= link_to "フォロー(#{@user.following.count})", "/users/#{@user.id}?type=following", remote: true %>');
+  $(".follow-link").html('<%= link_to "フォロー", "/relationships?user_id=#{@user.id}", method: :post, remote: true %>');
+  $(".follow-link").append('<%= link_to "ブロック", "/blocks?user_id=#{@user.id}", method: :post %>');
+});

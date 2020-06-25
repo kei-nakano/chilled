@@ -8,8 +8,20 @@
       <h2><%= @user.name %></h2>
       <p><%= @user.email %></p>
       
+      <div class="dm-area">
+        <% if @user.id == @current_user.id %>
+          <%= link_to "メッセージ", "/rooms/index" %>
+        <% else %>
+          <% if @room_id %>
+            <%= link_to "メッセージ", "/users/#{@user.id}/room/#{@room_id}" %>
+          <% else %>
+            <%= link_to "メッセージ", room_create_path(user_id: @user.id), method: :post %>
+          <% end %>
+        <% end %>
+      </div>
+      
       <% if @current_user.id == @user.id %>
-        <%= link_to("編集", "/users/#{@user.id}/edit") %>
+        <%= link_to "編集", "/users/#{@user.id}/edit" %>
         <%= link_to "削除", "/users/#{@user.id}", method: :delete %>
       <% end %>
       
@@ -30,7 +42,7 @@
       <% end %>
     </div>
   </div>
-  
+
   <ul class="user-tabs">
     <li class="<%= @type %>-" id="review"><%= link_to "レビュー(#{@user.reviews.count})", "/users/#{@user.id}?type=review", remote: true %></li>
     <li class="<%= @type %>-" id="eaten_item"><%= link_to "食べた！(#{@user.eaten_items.count})", "/users/#{@user.id}?type=eaten_item", remote: true %></li>
@@ -38,22 +50,12 @@
     <li class="<%= @type %>-" id="liked_review"><%= link_to "いいね！(#{@user.review_likes.count})", "/users/#{@user.id}?type=liked_review", remote: true %></li>
     <li class="<%= @type %>-" id="following"><%= link_to "フォロー(#{@user.following.count})", "/users/#{@user.id}?type=following", remote: true %></li>
     <li class="<%= @type %>-" id="follower"><%= link_to "フォロワー(#{@user.followers.count})", "/users/#{@user.id}?type=follower", remote: true %></li>
-    <% if @user.id == @current_user.id %>
-      <li class="<%= @type %>-" id="message"><%= link_to "メッセージ", "/rooms/index" %></li>
-    <% else %>
-      <% if @room_id %>
-        <li class="message" id="message"><%= link_to "メッセージ", "/users/#{@user.id}/room/#{@room_id}" %></li>
-      <% else %>
-          <li class="message" id="message"><%= link_to "メッセージ", room_create_path(user_id: @user.id), method: :post %></li>
-      <% end %>
-    <% end %>
-    
-    <% if @current_user == @user.id %>
-      <li "<%= @type %>-" id="block"><%= link_to "ブロック中(#{@user.blocking.count})", "/users/#{@user.id}/blocking" %></li>
+    <% if @current_user.id == @user.id %>
+      <li "<%= @type %>-" id="blocking"><%= link_to "ブロック(#{@user.blocking.count})", "/users/#{@user.id}?type=blocking", remote: true %></li>
     <% end %>
   </ul>
     
   <div class="search-result">
-    <%= render partial: "search/review", collection: @user.reviews %>
+    <%= render partial: "search/review", collection: @results %>
   </div>
 </div>
