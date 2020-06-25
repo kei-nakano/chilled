@@ -1,0 +1,5 @@
+$(function() {
+ $(".user-tabs li").removeClass();
+ $("#<%= @type %>").addClass('<%= @type %>-');
+ $(".search-result").html('<%= j(render partial: "search/#{@type}", collection: @results) %>');
+});

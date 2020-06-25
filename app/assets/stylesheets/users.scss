@@ -92,23 +92,34 @@
   float: left;
 }
 
+.user-tabs a {
+  display: inline-block;
+  padding: 16px 25px;
+  color: #afb6bf;
+}
+
 .user-tabs li.item-#item, 
 .user-tabs li.review-#review,
 .user-tabs li.manufacturer-#manufacturer, 
 .user-tabs li.category-#category,
 .user-tabs li.tag-#tag, 
-.user-tabs li.user-#user {
+.user-tabs li.user-#user,
+.user-tabs li.liked_review-#liked_review,
+.user-tabs li.eaten_item-#eaten_item,
+.user-tabs li.want_to_eat_item-#want_to_eat_item {
   border-bottom: 2px solid #3ecdc6;
 }
 
-.user-tabs li.active a {
-  color: #57575f;
-}
-
-.user-tabs a {
-  display: inline-block;
-  padding: 16px 30px;
-  color: #afb6bf;
+.item-#item a, 
+.review-#review a,
+.manufacturer-#manufacturer a, 
+.category-#category a,
+.tag-#tag a, 
+.user-#user a,
+.liked_review-#liked_review a,
+.eaten_item-#eaten_item a,
+.want_to_eat_item-#want_to_eat_item a {
+  color: #2d3133;
 }
 
 /* users/new, users/edit ================================ */
