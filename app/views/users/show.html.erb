@@ -1,36 +1,37 @@
 <% provide :title, @user.name %>
 <% breadcrumb :user_show, @user %>
 
-<div class="user-show">
-  <div class="container">
+<div class="container">
+  <div class="user-show">
     <div class="user">
-      <%= image_tag @user.image.url %>
+      <%= image_tag @user.image.url, alt: "ユーザの画像" %>
       <h2><%= @user.name %></h2>
       <p><%= @user.email %></p>
       
       <% if @current_user.id == @user.id %>
-        <%= link_to("編集", edit_user_path) %>
-        <%= link_to("削除", @user, {method: "delete"}) %>
-      <% end %>
-      
-      <% if @user.id != @current_user.id %>
-      
-        <% if @current_user.blocking?(@user) %>
-          <%= link_to("ブロック解除", "/blocks/#{@user.id}", method: :delete) %>
-        <% else %>
-          <div class="follow-link">
-            <% if @current_user.following?(@user) %>
-              <%= link_to("フォロー解除", "/relationships/#{@user.id}/destroy", method: :delete, remote: true) %>
-              <%= link_to("ブロック", "/blocks?user_id=#{@user.id}", method: :post) %>
-            <% else %>
-              <%= link_to("フォロー", "/relationships/#{@user.id}/create", method: :post, remote: true) %>
-              <%= link_to("ブロック", "/blocks?user_id=#{@user.id}", method: :post) %>
-            <% end %>
-          </div>   
-          
-        <% end %>
+        <%= link_to("編集", "/users/#{@user.id}/edit") %>
+        <%= link_to "削除", "/users/#{@user.id}", method: :delete %>
       <% end %>
     </div>
+      
+    <% if @user.id != @current_user.id %>
+      
+      <% if @current_user.blocking?(@user) %>
+        <%= link_to("ブロック解除", "/blocks/#{@user.id}", method: :delete) %>
+      <% else %>
+        <div class="follow-link">
+          <% if @current_user.following?(@user) %>
+            <%= link_to("フォロー解除", "/relationships/#{@user.id}/destroy", method: :delete, remote: true) %>
+            <%= link_to("ブロック", "/blocks?user_id=#{@user.id}", method: :post) %>
+          <% else %>
+            <%= link_to("フォロー", "/relationships/#{@user.id}/create", method: :post, remote: true) %>
+            <%= link_to("ブロック", "/blocks?user_id=#{@user.id}", method: :post) %>
+          <% end %>
+        </div>   
+      <% end %>
+    <% end %>
+  </div>
+  
     <ul class="user-tabs">
       <li class="active"><%= link_to "レビュー(#{@user.reviews.count})", "/users/#{@user.id}" %></li>
       <li><%= link_to("いいね!", "/users/#{@user.id}/likes") %></li>
@@ -50,18 +51,7 @@
       <% end %>
     </ul>
     
-    <% Item.all.each do |item| %>
-      <div class="posts-index-item">
-        <div class="post-left">
-          <%= image_tag item.image.url %>
-        </div>
-        <div class="post-right">
-          <div class="post-user-name">
-            <%#= link_to(item.user.name, item.user) %>
-          </div>
-          <%= link_to(item.title, item) %>
-        </div>
-      </div>
-    <% end %>
+    <div class="search-result">
+      <%= render partial: "search/review", collection: @user.reviews %>
+    </div>
   </div>
-</div>

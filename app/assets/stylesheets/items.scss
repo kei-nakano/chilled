@@ -28,7 +28,7 @@
 
 /* items/show ================================ */
 .items-show {
-  padding: 30px;
+  padding: 30px 30px 5px 30px;
   background-color: white;
   box-shadow: 0 2px 6px #c1ced7;
   overflow: hidden; 
@@ -358,6 +358,23 @@ textarea#comment_content:focus {
 .comment-content {
   margin-bottom: 1px;
   font-size: 1.4rem;
+}
+
+.item-evaluation {
+  display: block;
+}
+
+.create-review a {
+  position: relative;
+  color: #683e01;
+  top: -80px;
+  left: 45px;
+  font-size: 2.0rem;
+  font-weight: 800;
+  border-radius: 17px;
+  padding: 8px;
+  background-color: #f8efdb;
+  border: 1px solid #ccc;
 }
 
 /* posts/new ================================ */
