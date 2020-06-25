@@ -9,3 +9,6 @@ Metrics/PerceivedComplexity:
   
 Metrics/BlockLength:
   Max: 35
+  
+Metrics/ClassLength:
+  Max: 130

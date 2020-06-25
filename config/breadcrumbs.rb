@@ -14,9 +14,9 @@ crumb :search_show do |keyword|
   parent :search
 end
 
-# item#index
+# items
 crumb :items do
-  link "商品一覧", "/search"
+  link "商品一覧", "/search?type=item"
   parent :root
 end
 
@@ -26,14 +26,14 @@ crumb :item_show do |item|
   parent :items
 end
 
-# user#index
+# users
 crumb :users do
-  link "Users", users_path
+  link "ユーザー一覧", "/search?type=user"
   parent :root
 end
 
 # user#show
-crumb :show_user do |user|
+crumb :user_show do |user|
   link user.name, user
   parent :users
 end

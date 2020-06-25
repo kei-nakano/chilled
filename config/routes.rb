@@ -5,8 +5,6 @@ Rails.application.routes.draw do
   post 'login' => 'users#login'
   post 'logout' => 'users#logout'
   get 'users/:id/timeline' => 'users#timeline'
-  post 'relationships/:followed_id/create' => 'relationships#create'
-  delete 'relationships/:followed_id/destroy' => 'relationships#destroy'
   get 'comments/:review_id/new' => 'comments#new'
   post 'comments/:review_id/create' => 'comments#create'
   delete 'comments/:id' => 'comments#destroy', as: 'comment'
@@ -19,14 +17,11 @@ Rails.application.routes.draw do
   resources :items
   resources :reviews
   resources :notices, only: %i[index]
+  resources :relationships, only: %i[create destroy]
   resources :blocks, only: %i[create destroy]
   resources :comment_likes, only: %i[create destroy]
   resources :review_likes, only: %i[create destroy]
   resources :eaten_items, only: %i[create destroy]
   resources :want_to_eat_items, only: %i[create destroy]
-  resources :users do
-    member do
-      get :following, :followers, :blocking
-    end
-  end
+  resources :users, except: %i[index]
 end

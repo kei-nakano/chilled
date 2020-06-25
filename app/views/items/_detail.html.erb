@@ -2,6 +2,7 @@
   <div class="item-name">
     <h2><%= @item.title %></h2>
   </div>
+  
   <%= image_tag @item.image.url, alt: "商品の画像" %>
   
   <div class="item-table">
@@ -48,12 +49,18 @@
     </table>
   </div>
   
-  <span class="eaten-items">
-    <%= render "eaten_items/show", item: @item %>
+  <span class="item-evaluation">
+    <span class="eaten-items">
+      <%= render "eaten_items/show", item: @item %>
+    </span>
+    
+    <span class="want-to-eat-items">
+      <%= render "want_to_eat_items/show", item: @item %>
+    </span>
   </span>
   
-  <span class="want-to-eat-items">
-    <%= render "want_to_eat_items/show", item: @item %>
+  <span class="create-review">
+    <%= link_to "この商品のレビューを書く", "/reviews/#{@item.id}/create" %>
   </span>
   
   <div class="comment-edit">

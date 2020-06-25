@@ -11,20 +11,12 @@ class BlocksController < ApplicationController
     @passive_notices = @user.passive_notices.where(visitor_id: @current_user.id)
     @passive_notices&.destroy_all
 
-    redirect_to @user
-    # respond_to do |format|
-    #  format.html { redirect_to @user }
-    #  format.js
-    # end
+    redirect_to "/users/#{@user.id}"
   end
 
   def destroy
     @user = User.find(params[:id])
     @current_user.unblock(@user)
-    redirect_to @user
-    # respond_to do |format|
-    #  format.html { redirect_to @user }
-    #  format.js
-    # end
+    redirect_to "/users/#{@user.id}"
   end
 end

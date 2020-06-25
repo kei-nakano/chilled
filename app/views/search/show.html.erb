@@ -10,12 +10,12 @@
   </div>
   
   <ul class="user-tabs">
-    <li class="active" id="item"><%= link_to "商品(#{@items.count})", "/search?type=item&keyword=#{@keyword}", remote: true %></li>
-    <li id="review"><%= link_to "レビュー(#{@reviews.count})", "/search?type=review&keyword=#{@keyword}", remote: true %></li>
-    <li id="manufacturer"><%= link_to "メーカー(#{@manufacturers.count})", "/search?type=manufacturer&keyword=#{@keyword}", remote: true %></li>
-    <li id="category"><%= link_to "カテゴリ(#{@categories.count})", "/search?type=category&keyword=#{@keyword}", remote: true %></li>
-    <li id="tag"><%= link_to "タグ(#{@tags.count})", "/search?type=tag&keyword=#{@keyword}", remote: true %></li>
-    <li id="user"><%= link_to "ユーザー(#{@users.count})", "/search?type=user&keyword=#{@keyword}", remote: true %></li>
+    <li class="<%= @type %>-" id="item"><%= link_to "商品(#{@items.count})", "/search?type=item&keyword=#{@keyword}", remote: true %></li>
+    <li class="<%= @type %>-" id="review"><%= link_to "レビュー(#{@reviews.count})", "/search?type=review&keyword=#{@keyword}", remote: true %></li>
+    <li class="<%= @type %>-" id="manufacturer"><%= link_to "メーカー(#{@manufacturers.count})", "/search?type=manufacturer&keyword=#{@keyword}", remote: true %></li>
+    <li class="<%= @type %>-" id="category"><%= link_to "カテゴリ(#{@categories.count})", "/search?type=category&keyword=#{@keyword}", remote: true %></li>
+    <li class="<%= @type %>-" id="tag"><%= link_to "タグ(#{@tags.count})", "/search?type=tag&keyword=#{@keyword}", remote: true %></li>
+    <li class="<%= @type %>-" id="user"><%= link_to "ユーザー(#{@users.count})", "/search?type=user&keyword=#{@keyword}", remote: true %></li>
   </ul>
   
   <div class="search-result">
