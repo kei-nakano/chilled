@@ -6,65 +6,13 @@
 <% end %>
 
 <div class="container">
-  <% @notices.each do |notice| %>
-    <div class="notice-index-item">
-      <div class="notice-left">
-        <%= link_to "/users/#{notice.visitor_id}" do %>
-          <%= image_tag notice.visitor.image.url, alt: "ユーザの画像" %>
-        <% end %>
-      </div>
-      
-      <div class="notice-right">
-        <% case notice.action %>
-          <% when "follow" %>
-            <div class="notice-title">
-              <%= link_to "/users/#{notice.visitor_id}", class: "notice-username" do %><%= notice.visitor.name %><% end %>さんが
-              <span class="notice-review-like">あなたをフォローしました。</span>
-              <span class="notice-time">/<%= time_ago_in_words(notice.created_at) %></span>
-            </div>
-                
-          <% when "review_like" %>
-            <div class="notice-title">
-              <%= link_to "/users/#{notice.visitor_id}", class: "notice-username" do %><%= notice.visitor.name %><% end %>さんが
-              <span class="notice-review-like">あなたのレビューにいいねしました。</span>
-              <span class="notice-time">/<%= time_ago_in_words(notice.created_at) %></span>
-            </div>
-            <div class="override-review">
-              <%= render "search/review", review: notice.review %>
-            </div>
-                
-          <% when "comment_like" %>
-            <div class="notice-title">
-              <%= link_to "/users/#{notice.visitor_id}", class: "notice-username" do %><%= notice.visitor.name %><% end %>さんが
-              <span class="notice-review-like">あなたのコメントにいいねしました。</span>
-              <span class="notice-time">/<%= time_ago_in_words(notice.created_at) %></span>
-            </div>
-            <div class="notice-comment">
-              >
-              <%= link_to "/items/#{notice.comment.review.item.id}?review_id=#{notice.comment.review_id}&comment_id=#{notice.comment.id}" do %>
-                <%= notice.comment.content %>
-              <% end %>
-            </div>
-                
-          <% when "comment" %>
-            <div class="notice-title">
-              <%= link_to "/users/#{notice.visitor_id}", class: "notice-username" do %><%= notice.visitor.name %><% end %>さんが
-              <span class="notice-review-like">あなたのレビューにコメントしました。</span>
-              <span class="notice-time">/<%= time_ago_in_words(notice.created_at) %></span>
-            </div>
-            <div class="notice-comment">
-              >
-              <%= link_to "/items/#{notice.comment.review.item.id}?review_id=#{notice.comment.review_id}&comment_id=#{notice.comment.id}" do %>
-                <%= notice.comment.content %>
-              <% end %>
-            </div>
-            <div class="override-review">
-              <%= render "search/review", review: notice.comment.review %>
-            </div>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
+    <%= render partial: "/notices/notice", collection: @latest_notices %>
+    
+    <% if @latest_notices.any? %>
+      <div class="notice-remind">--ここまでが未読の通知です--</div>
+    <% end %>
+    
+    <%= render partial: "/notices/notice", collection: @old_notices %>
     
   <% if @notices.any? %>
     <div class="delete-notice">
