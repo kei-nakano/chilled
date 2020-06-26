@@ -1,7 +1,5 @@
 <div id="message-<%= message.id %>">
-  <div class="mycomment">
-    <p><%= message.content %></p>
-  </div>
+  <div class="mycomment"><%= simple_format(message.content) %></div>
   <h5><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
-  <button id="<%= message.id %>" class="delete-btn">削除</button>
+  <button id="<%= message.id %>" class="delete-btn dm">削除</button>
 </div>

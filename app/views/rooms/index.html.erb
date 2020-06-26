@@ -1,13 +1,16 @@
-<div class="main users-index">
+<% provide :title, "メッセージ" %>
+<% breadcrumb :room_index, @current_user %>
+
+<div class="users-index">
   <div class="container">
     <h1 class="users-heading">メッセージを送る相手を選んでください</h1>
     <% @users.each do |user| %>
       <div class="users-index-item">
         <div class="user-left">
-          <%= image_tag user.image.url %>
+          <%= image_tag user.image.url, alt: "ユーザの画像" %>
         </div>
         <div class="user-right">
-          <%= link_to(user.name, "/users/#{user.id}/room/#{@current_user.room_id(user)}") %>
+          <%= link_to user.name, "/rooms/#{@current_user.room_id(user)}?user_id=#{user.id}" %>
         </div>
       </div>
     <% end %>

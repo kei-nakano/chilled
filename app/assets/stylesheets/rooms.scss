@@ -1,12 +1,62 @@
-/*以下、①背景色など*/
+/* rooms/index ================================ */
+.users-heading {
+  font-weight: 300;
+  margin: 60px 0 20px;
+  font-size: 4.8rem;
+  color: #bcc8d4;
+}
+
+.users-index-item {
+  padding: 20px 30px;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 0 2px 6px #c1ced7;
+  display: table;
+  width: 100%;
+}
+
+.user-left img {
+  width: 60px;
+  height: 60px;
+  border-radius: 40%;
+  box-shadow: 0 2px 6px #c1ced7;
+  object-fit: cover;
+}
+
+.user-name a {
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.user-name a:hover {
+  color: #3ecdc6;
+}
+
+.user-left {
+  float: left;
+  width: 10%;
+}
+
+.user-right {
+  width: 90%;
+  text-align: left;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.user-right a {
+  font-weight: 800;
+}
+
 .line-bc {
   padding: 20px 10px;
   max-width: 450px;
+  min-height: 400px;
   margin: 15px auto;
   text-align: right;
-  font-size: 14px;
+  font-size: 1.4rem;
   background: #7da4cd;
-
+  border-radius: 25px;
 }
 
 /*以下、②左側のコメント*/
@@ -23,22 +73,31 @@
 .balloon6 .faceicon {
   float: left;
   margin-right: -50px;
-  width: 40px;
+  width: 45px;
+  height: 45px;
+  object-fit: cover
+  
 }
 
 .balloon6 .faceicon img{
-  width: 100%;
-  height: auto;
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
   border-radius: 50%;
 }
+
 .balloon6 .chatting {
   width: 100%;
   text-align: left;
 }
+
+.chatting {
+  margin: 10px 0;
+}
 .says {
   display: inline-block;
   position: relative; 
-  margin: 0 0 0 50px;
+  margin: 0 0 0 60px;
   padding: 10px;
   max-width: 250px;
   border-radius: 12px;
@@ -59,6 +118,7 @@
 .says p {
   margin: 0;
   padding: 0;
+  font-size: 1.4rem;
 }
 
 /*以下、③右側の緑コメント*/
@@ -72,8 +132,9 @@
   padding: 8px;
   max-width: 250px;
   border-radius: 12px;
-  background: #30e852;
-  font-size: 15px;
+  background: #51fa70;
+  font-size: 1.4rem;
+  text-align: left;
 }
 
 .mycomment p:after {
@@ -82,7 +143,34 @@
   top: 3px; 
   right: -19px;
   border: 8px solid transparent;
-  border-left: 18px solid #30e852;
+  border-left: 18px solid #51fa70;
   -webkit-transform: rotate(-35deg);
   transform: rotate(-35deg);
+}
+
+.dm.delete-btn {
+  border: 1px solid #ccc;
+  margin-top: 5px;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  color: #4a535a;
+}
+
+.dm-form {
+  text-align: center;
+}
+
+.dm-form textarea {
+  width: 450px;
+  height: 60px;
+  font-size: 14px;
+}
+
+.speak-btn {
+  font-size: 1.4rem;
+}
+
+.speak-btn-wrapper {
+  width: 450px;
+  margin: 0 auto;
 }

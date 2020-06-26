@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   def show
-    @room = Room.find(params[:room_id])
+    @room = Room.find(params[:id])
     @user = User.find(params[:user_id])
     if block_ids(@current_user).include?(@user.id)
       flash[:notice] = "このユーザをブロックしているかブロックされているため、メッセージを送ることができません。"
@@ -14,7 +14,7 @@ class RoomsController < ApplicationController
     @user = User.find(params[:user_id])
     Entry.create(user_id: @current_user.id, room_id: @room_id)
     Entry.create(user_id: @user.id, room_id: @room_id)
-    redirect_to "/users/#{@user.id}/room/#{@room_id}"
+    redirect_to "/rooms/#{@room_id}?user_id=#{@user.id}"
   end
 
   def index

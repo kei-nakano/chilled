@@ -4,6 +4,7 @@ class HomeController < ApplicationController
     review_select = 7
     @item_select = 10
     select_period = 2
+    limit_period = 100 #  過去どれだけ前の時間に投稿されたレビューを対象とするか
     tag_select = 3
     from = Time.zone.now - select_period.day
     to = Time.zone.now
@@ -18,7 +19,7 @@ class HomeController < ApplicationController
     while @recent_reviews.count < review_select
       select_period += 1 # 抽出数が足りない場合は、対象期間を変更する
       from = Time.zone.now - select_period.day
-      break if select_period > 10
+      break if select_period > limit_period
 
       @recent_reviews = popular_reviews_all.where(created_at: from..to).limit(review_select)
     end

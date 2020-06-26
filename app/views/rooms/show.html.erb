@@ -1,39 +1,40 @@
-<div class="line-bc room-<%= @room.id %>"><!--①LINE会話全体を囲う-->
-<% @messages.each do |message| %>
-  <% if message.user.id == @current_user.id %>
-    <div id="message-<%= message.id %>" class="msg-btn">
-      <div class="mycomment">
-        <p>
-          <%= message.content %>
-        </p>
-      </div>
-      <h5><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
-      <button id="<%= message.id %>" class="delete-btn">削除</button>
-    </div>
-  <% else %>
-    <div id="message-<%= message.id %>">
-      <div class="balloon6">
-        <div class="faceicon">
-          <%= image_tag message.user.image.url %>
-        </div>
-        <div class="chatting">
-          <div class="says">
-            <p><%= message.content %></p>
-          </div>
-        </div>
+<% provide :title, "メッセージ(#{@user.name})" %>
+<% breadcrumb :room_show, @current_user, @user %>
+
+<div class="line-bc room-<%= @room.id %>">
+  <% @messages.each do |message| %>
+    <% if message.user.id == @current_user.id %>
+      <div id="message-<%= message.id %>" class="msg-btn">
+        <div class="mycomment"><%= simple_format(message.content) %></div>
         <h5><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
+        <button id="<%= message.id %>" class="delete-btn dm">削除</button>
       </div>
-    </div>
+      
+    <% else %>
+    
+      <div id="message-<%= message.id %>">
+        <div class="balloon6">
+          <div class="faceicon">
+            <%= image_tag message.user.image.url, alt: "ユーザの画像" %>
+          </div>
+          <div class="chatting">
+            <div class="says"><%= simple_format(message.content) %></div>
+          </div>
+          <h5><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
-
-<div class="latest-message">
+  
+  <div class="latest-message"></div>
 </div>
 
+<div class="dm-form">
+  <h2>メッセージ入力</h2>
+  <form>
+    <textarea id="room-speaker"></textarea>
+    <div class="speak-btn-wrapper">
+      <button type="button" class="speak-btn submit-btn">決定</button>
+    </div>
+  </form>
 </div>
-<h3>メッセージ入力</h3>
-<form>
-  <label>Say something:</label>
-  <input type="text" data-behavior="room_speaker">
-</form>
-
