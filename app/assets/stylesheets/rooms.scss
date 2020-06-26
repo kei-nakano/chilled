@@ -80,8 +80,9 @@
 }
 
 .balloon6 .faceicon img{
-  width: 100%;
-  height: auto;
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
   border-radius: 50%;
 }
 
@@ -117,6 +118,7 @@
 .says p {
   margin: 0;
   padding: 0;
+  font-size: 1.4rem;
 }
 
 /*以下、③右側の緑コメント*/
@@ -131,7 +133,8 @@
   max-width: 250px;
   border-radius: 12px;
   background: #51fa70;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  text-align: left;
 }
 
 .mycomment p:after {
@@ -155,4 +158,19 @@
 
 .dm-form {
   text-align: center;
+}
+
+.dm-form textarea {
+  width: 450px;
+  height: 60px;
+  font-size: 14px;
+}
+
+.speak-btn {
+  font-size: 1.4rem;
+}
+
+.speak-btn-wrapper {
+  width: 450px;
+  margin: 0 auto;
 }

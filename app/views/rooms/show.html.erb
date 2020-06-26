@@ -5,9 +5,7 @@
   <% @messages.each do |message| %>
     <% if message.user.id == @current_user.id %>
       <div id="message-<%= message.id %>" class="msg-btn">
-        <div class="mycomment">
-          <p><%= message.content %></p>
-        </div>
+        <div class="mycomment"><%= simple_format(message.content) %></div>
         <h5><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
         <button id="<%= message.id %>" class="delete-btn dm">削除</button>
       </div>
@@ -20,9 +18,7 @@
             <%= image_tag message.user.image.url, alt: "ユーザの画像" %>
           </div>
           <div class="chatting">
-            <div class="says">
-              <p><%= message.content %></p>
-            </div>
+            <div class="says"><%= simple_format(message.content) %></div>
           </div>
           <h5><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
         </div>
@@ -36,6 +32,9 @@
 <div class="dm-form">
   <h2>メッセージ入力</h2>
   <form>
-    <input type="text" data-behavior="room_speaker">
+    <textarea id="room-speaker"></textarea>
+    <div class="speak-btn-wrapper">
+      <button type="button" class="speak-btn submit-btn">決定</button>
+    </div>
   </form>
 </div>

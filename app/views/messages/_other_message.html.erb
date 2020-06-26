@@ -1,12 +1,10 @@
 <div id="message-<%= message.id %>">
   <div class="balloon6">
     <div class="faceicon">
-      <%= image_tag message.user.image.url %>
+      <%= image_tag message.user.image.url, alt: "ユーザの画像" %>
     </div>
     <div class="chatting">
-      <div class="says">
-        <p><%= message.content %></p>
-      </div>
+      <div class="says"><%= simple_format(message.content) %></div>
     </div>
     <h5><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
   </div>
