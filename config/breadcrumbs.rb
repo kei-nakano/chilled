@@ -2,6 +2,18 @@ crumb :root do
   link "トップ", "/"
 end
 
+# notice
+crumb :notice do
+  link "通知", "/notices"
+  parent :root
+end
+
+# no_notice
+crumb :no_notice do
+  link "現在通知はありません", "#"
+  parent :notice
+end
+
 # search
 crumb :search do
   link "検索", "/search"

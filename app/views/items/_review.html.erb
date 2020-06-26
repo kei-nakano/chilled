@@ -1,11 +1,13 @@
 <div class="show-item-review show-reviews-<%= review.id %>">
   <div class="item-review-user-left">
-    <%= image_tag review.user.image.url, alt: "ユーザの画像" %>
+    <%= link_to "/users/#{review.user_id}" do %>
+      <%= image_tag review.user.image.url, alt: "ユーザの画像" %>
+    <% end %>
   </div>
       
   <div class="item-review-user-right">
     <div class="review-user-name">
-      <%= review.user.name %>
+      <%= link_to review.user.name, "/users/#{review.user_id}" %>
     </div>
     
     <div class="review-time">

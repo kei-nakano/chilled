@@ -1,9 +1,6 @@
 class NoticesController < ApplicationController
   def index
-    @notices = @current_user.passive_notices
-    @notices.where(checked: false).each do |notice|
-      notice.update(checked: true)
-    end
+    @notices = @current_user.passive_notices.order(created_at: :desc).includes(:comment, :visitor, :review)
   end
 
   def destroy
