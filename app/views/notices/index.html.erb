@@ -1,48 +1,25 @@
-<div class="main posts-index">
-  <div class="container">
-    <%= link_to "全削除", "/notices", method: :delete %>
-    <% @notices.each do |notice| %>
-      <div class="posts-index-item">
-        <div class="post-left">
-          <%= image_tag notice.visitor.image.url %>
-        </div>
-        <div class="post-right">
-          <div class="post-user-name">
-            <%= link_to user_path(notice.visitor) do %>
-              <%= notice.visitor.name %>さんが
-            <% end %>
-            <% case notice.action %>
-              <% when "follow" %>
-                あなたをフォローしました。
-              <% when "review_like" %>
-                あなたのレビューにいいねしました。
-                <p> 
-                  >
-                  <%= link_to item_path(notice.review.item, review_id: notice.review_id) do %>
-                    <%= notice.review.content %>
-                  <% end %>
-                </p>
-              <% when "comment_like" %>
-                あなたのコメントにいいねしました。
-                <p> 
-                  >
-                  <%= link_to item_path(notice.comment.review.item, review_id: notice.comment.review_id, comment_id: notice.comment.id) do %>
-                    <%= notice.comment.content %>
-                  <% end %>
-                </p>
-              <% when "comment" %>
-                あなたのレビューにコメントしました。
-                <p> 
-                  >
-                  <%= link_to item_path(notice.comment.review.item, review_id: notice.comment.review_id, comment_id: notice.comment.id) do %>
-                    <%= notice.comment.content %>
-                  <% end %>
-                </p>
-            <% end %>
-            <p><%= time_ago_in_words(notice.created_at) %></p>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
+<% provide :title, "通知" %>
+<% if @notices.any? %>
+  <% breadcrumb :notice %>
+<% else %>
+  <% breadcrumb :no_notice %>
+<% end %>
+
+<div class="container">
+  <%= render partial: "/notices/notice", collection: @latest_notices %>
+    
+  <% if @latest_notices.any? %>
+    <div class="notice-remind">
+      <h3>----------ここまでが未読の通知です----------</h3>
+    </div>
+  <% end %>
+    
+  <%= render partial: "/notices/notice", collection: @old_notices %>
+    
+  <% if @notices.any? %>
+    <div class="delete-notice">
+      <%= link_to "削除する", "/notices/destroy", method: :delete %>
+    </div>
+    <div class="clear"></div>
+  <% end %>
 </div>

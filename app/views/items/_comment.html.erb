@@ -1,11 +1,13 @@
 <div class="comment-span show-comments-<%= comment.id %>">
   <div class="comments-user-image">
-    <%= image_tag comment.user.image.url %>
+    <%= link_to "/users/#{comment.user_id}" do %>
+      <%= image_tag comment.user.image.url %>
+    <% end %>
   </div>
   
   <div class="comments-user-right">
     <div class="comments-user-name">
-      <%= comment.user.name %>
+      <%= link_to comment.user.name, "/users/#{comment.user_id}" %>
     </div>
     
     <div class="comments-time">

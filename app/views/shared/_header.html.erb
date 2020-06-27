@@ -22,20 +22,15 @@
         <% end %>
       </li>
       <li>
-        <%= link_to("通知", "/notices") %>
-      </li>
-      <li>
-        <%= link_to("タイムライン", "/users/#{@current_user.id}/timeline") %>
+        <%= link_to("通知", "/notices") %><i class="fas fa-bell badge"></i>
+        <%= @current_user.passive_notices.where(checked: false).count %>
       </li>
       <li>
         <%= link_to("ログアウト", "/logout", {method: :post}) %>
       </li>
       
     <% else %>
-    
-      <li>
-        <%= link_to("TweetAppとは", "/about") %>    
-      </li>
+  
       <li>
         <%= link_to("新規登録", "/users/new") %>
       </li>
