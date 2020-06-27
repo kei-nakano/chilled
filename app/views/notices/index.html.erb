@@ -6,13 +6,15 @@
 <% end %>
 
 <div class="container">
-    <%= render partial: "/notices/notice", collection: @latest_notices %>
+  <%= render partial: "/notices/notice", collection: @latest_notices %>
     
-    <% if @latest_notices.any? %>
-      <div class="notice-remind">--ここまでが未読の通知です--</div>
-    <% end %>
+  <% if @latest_notices.any? %>
+    <div class="notice-remind">
+      <h3>----------ここまでが未読の通知です----------</h3>
+    </div>
+  <% end %>
     
-    <%= render partial: "/notices/notice", collection: @old_notices %>
+  <%= render partial: "/notices/notice", collection: @old_notices %>
     
   <% if @notices.any? %>
     <div class="delete-notice">
