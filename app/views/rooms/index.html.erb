@@ -9,6 +9,9 @@
         <div class="user-left">
           <%= image_tag user.image.url, alt: "ユーザの画像" %>
         </div>
+        <% if user.appear == true %>
+          <span class="active-icon override">.</span>
+        <% end %>
         <div class="user-right">
           <%= link_to user.name, "/rooms/#{@current_user.room_with(user).id}?user_id=#{user.id}" %>
         </div>

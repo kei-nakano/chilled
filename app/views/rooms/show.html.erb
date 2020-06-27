@@ -10,7 +10,7 @@
         <% if message.checked == true %> 
           <h5>既読<h5>
         <% else %>
-          <h5>未読<h5>
+          <h5 class="unread">未読<h5>
         <% end %>
         
         <h5 class="message-time"><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
