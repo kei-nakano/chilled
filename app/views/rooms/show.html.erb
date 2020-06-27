@@ -6,7 +6,14 @@
     <% if message.user.id == @current_user.id %>
       <div id="message-<%= message.id %>" class="msg-btn">
         <div class="mycomment"><%= simple_format(message.content) %></div>
-        <h5><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
+        
+        <% if message.checked == true %> 
+          <h5>既読<h5>
+        <% else %>
+          <h5>未読<h5>
+        <% end %>
+        
+        <h5 class="message-time"><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
         <button id="<%= message.id %>" class="delete-btn dm">削除</button>
       </div>
       
@@ -20,7 +27,7 @@
           <div class="chatting">
             <div class="says"><%= simple_format(message.content) %></div>
           </div>
-          <h5><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
+          <h5 class="message-time"><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
         </div>
       </div>
     <% end %>

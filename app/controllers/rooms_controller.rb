@@ -7,6 +7,10 @@ class RoomsController < ApplicationController
       redirect_back(fallback_location: "/users/#{@user.id}")
     end
     @messages = Message.includes(:user).where(room_id: @room.id)
+    unread_messages = @messages.where(checked: false, user_id: @user.id)
+    unread_messages.each do |message|
+      message.update_attribute(:checked, true)
+    end
   end
 
   def create

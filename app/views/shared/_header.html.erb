@@ -19,14 +19,34 @@
       <li>
         <%= link_to @current_user do %>
           <%= image_tag @current_user.image.url, alt: "ユーザの画像" %>
+          <span><%= @current_user.name %></span>
         <% end %>
       </li>
+      
       <li>
-        <%= link_to("通知", "/notices") %><i class="fas fa-bell badge"></i>
-        <%= @current_user.passive_notices.where(checked: false).count %>
+        <%= link_to "/rooms" do %>
+          <% notice_count = @current_user.passive_notices.where(checked: false).count %>
+          <span class="header-notice">
+            <span class="fa fa-envelope" aria-hidden="true"> メッセージ</span>
+            <%= notice_count unless notice_count.zero? %>
+          </span>
+        <% end %>
       </li>
+      
       <li>
-        <%= link_to("ログアウト", "/logout", {method: :post}) %>
+        <%= link_to "/notices" do %>
+          <% notice_count = @current_user.passive_notices.where(checked: false).count %>
+          <span class="header-notice">
+            <span class="fas fa-bell badge"> 通知</span>
+            <%= notice_count unless notice_count.zero? %>
+          </span>
+        <% end %>
+      </li>
+      
+      <li>
+        <%= link_to "/logout", method: :post do %>
+          <span class="fas fa-sign-out-alt"> ログアウト</span>
+        <% end %>
       </li>
       
     <% else %>

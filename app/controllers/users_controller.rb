@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @room_id = @current_user.room_id(@user)
+    @room_id = @current_user.room_with(@user).id
     @type = params[:type] || "review" # typeの指定がない場合、reviewタブを優先表示するようにする
 
     if @type == "review"

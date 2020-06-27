@@ -6,6 +6,6 @@
     <div class="chatting">
       <div class="says"><%= simple_format(message.content) %></div>
     </div>
-    <h5><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
+    <h5 class="message-time"><%= message.created_at.strftime("%Y年%m月%d日 %H:%M") %></h5>
   </div>
 </div>
