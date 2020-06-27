@@ -7,13 +7,19 @@
     <% @users.each do |user| %>
       <div class="users-index-item">
         <div class="user-left">
-          <%= image_tag user.image.url, alt: "ユーザの画像" %>
+          <%= link_to "/users/#{user.id}" do %>
+            <%= image_tag user.image.url, alt: "ユーザの画像" %>
+          <% end %>
         </div>
         <% if user.appear == true %>
           <span class="active-icon override">.</span>
         <% end %>
         <div class="user-right">
           <%= link_to user.name, "/rooms/#{@current_user.room_with(user).id}?user_id=#{user.id}" %>
+          <% unread_count = Message.where(room_id: @current_user.room_with(user).id, user_id: user.id, checked: false).count %>
+          <% unless unread_count.zero? %>
+            <p class="unread-message-count"><%= "未読のメッセージが#{unread_count}件あります" %></p>
+          <% end %>
         </div>
       </div>
     <% end %>

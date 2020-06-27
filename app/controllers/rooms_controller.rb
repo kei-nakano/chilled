@@ -13,7 +13,7 @@ class RoomsController < ApplicationController
     unread_messages.each do |message|
       message.update_attribute(:checked, true)
     end
-    MessageStatusChangeJob.perform_later @room.id, @user.id
+    MessageStatusChangeJob.perform_later @room.id, @user.id # クライアントの画面をJob経由で更新する
   end
 
   def create

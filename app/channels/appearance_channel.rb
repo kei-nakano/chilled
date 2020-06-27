@@ -10,8 +10,4 @@ class AppearanceChannel < ApplicationCable::Channel
   def appear(data)
     current_user.update_attribute(:room_id, data['room_id'])
   end
-
-  def away
-    # current_user.away
-  end
 end
