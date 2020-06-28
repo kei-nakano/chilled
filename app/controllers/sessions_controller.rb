@@ -6,8 +6,9 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:email].downcase)
     if user&.authenticate(params[:password])
+      login user
+      remember user
       flash[:notice] = "ログインしました"
-      session[:user_id] = user.id
       redirect_to "/users/#{user.id}"
     else
       flash.now[:notice] = 'メールアドレスかパスワードに誤りがあります'
@@ -16,7 +17,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session.delete(:user_id)
+    logout @current_user if @current_user
     @current_user = nil
     flash[:notice] = "ログアウトしました"
     redirect_to '/'
