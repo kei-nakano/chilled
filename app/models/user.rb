@@ -77,12 +77,12 @@ class User < ApplicationRecord
   end
 
   # 自分と同じルームを返す
-  def room_id(user)
+  def room_with(user)
     current_user_entries = Entry.where(user_id: id)
     user_entries = Entry.where(user_id: user.id)
     current_user_entries.each do |cu_entry|
       user_entries.each do |u_entry|
-        return u_entry.room_id if u_entry.room_id == cu_entry.room_id
+        return u_entry.room if u_entry.room_id == cu_entry.room_id
       end
     end
     nil

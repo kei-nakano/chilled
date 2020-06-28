@@ -6,6 +6,9 @@
     <div class="user">
       <%= image_tag @user.image.url, alt: "ユーザの画像" %>
       <h2><%= @user.name %></h2>
+      <% if @user.appear == true %>
+        <span class="user-active-status">(アクティブ)</span>
+      <% end %>
       <p><%= @user.email %></p>
       
       <div class="dm-area">

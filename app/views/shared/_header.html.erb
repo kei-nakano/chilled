@@ -17,26 +17,50 @@
   <ul class="header-menus">
     <% if @current_user %>
       <li>
-        <%= link_to @current_user do %>
+        <%= link_to "/users/#{@current_user.id}" do %>
           <%= image_tag @current_user.image.url, alt: "ユーザの画像" %>
+          <span class="header-username"><%= @current_user.name %></span>
         <% end %>
       </li>
+      
       <li>
-        <%= link_to("通知", "/notices") %><i class="fas fa-bell badge"></i>
-        <%= @current_user.passive_notices.where(checked: false).count %>
+        <%= link_to "/rooms" do %>
+          <% message_count = Message.where(room_id: @current_user.rooms.ids, checked: false).where.not(user_id: @current_user.id).count %>
+          <span class="header-notice">
+            <span class="fa fa-envelope" aria-hidden="true"> メッセージ <%= message_count unless message_count.zero? %></span>
+          </span>
+        <% end %>
       </li>
+      
       <li>
-        <%= link_to("ログアウト", "/logout", {method: :post}) %>
+        <%= link_to "/notices" do %>
+          <% notice_count = @current_user.passive_notices.where(checked: false).count %>
+          <span class="header-notice">
+            <span class="fas fa-bell badge"> 通知 <%= notice_count unless notice_count.zero? %></span>
+          </span>
+        <% end %>
+      </li>
+      
+      <li>
+        <%= link_to "/logout", method: :post do %>
+          <span class="fas fa-sign-out-alt"> ログアウト</span>
+        <% end %>
       </li>
       
     <% else %>
   
       <li>
-        <%= link_to("新規登録", "/users/new") %>
+        <%= link_to "/users/new" do %>
+          <span class="fa fa-user-plus" aria-hidden="true"> 新規登録</span>
+        <% end%>
       </li>
+      
       <li>
-        <%= link_to("ログイン", "/login") %>        
+        <%= link_to "/login" do %>
+          <span class="fa fa-sign-in-alt"> ログイン</span>
+        <% end %>
       </li>
+      
     <% end %>
   </ul>
 </header>

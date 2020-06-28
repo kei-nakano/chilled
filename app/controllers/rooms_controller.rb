@@ -6,7 +6,14 @@ class RoomsController < ApplicationController
       flash[:notice] = "このユーザをブロックしているかブロックされているため、メッセージを送ることができません。"
       redirect_back(fallback_location: "/users/#{@user.id}")
     end
+
+    # roomに入った時点で、未読メッセージのステータスを全て既読に変更する
     @messages = Message.includes(:user).where(room_id: @room.id)
+    unread_messages = @messages.where(checked: false, user_id: @user.id)
+    unread_messages.each do |message|
+      message.update_attribute(:checked, true)
+    end
+    MessageStatusChangeJob.perform_later @room.id, @user.id # クライアントの画面をJob経由で更新する
   end
 
   def create

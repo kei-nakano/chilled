@@ -75,3 +75,7 @@ Style/HashTransformKeys:
   
 Style/HashTransformValues:
   Enabled:  true
+  
+# update_attributeの使用を許可
+Rails/SkipsModelValidations:
+  Enabled: false

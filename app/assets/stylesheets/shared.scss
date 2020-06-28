@@ -122,7 +122,7 @@ input#keyword {
   padding: 5px 10px;
   border-radius: 3px;
   overflow: hidden;
-  min-width: 295px;
+  min-width: 250px;
   width: 80%;
   font-size: 1.4rem;
 }
@@ -166,6 +166,18 @@ button[type="submit"]#search-btn {
 
 .header-menus .fa {
   padding-right: 5px;
+}
+
+.header-menus {
+  font-weight: 900;
+}
+
+.header-menus span:hover {
+  text-decoration: underline;
+}
+
+.header-username {
+  padding-left: 8px;
 }
 
 /* フッター ================================ */
@@ -544,7 +556,7 @@ button[type="submit"]#search-btn {
 }
 
 .search-item-description, .search-review-description {
-  font-size: 12px;
+  font-size: 1.2rem;
   width: 90%;
   text-align: left;
   padding-bottom: 5px;
@@ -585,6 +597,22 @@ button[type="submit"]#search-btn {
 
 .search-no-option a {
   font-size: 1.2rem;
+}
+
+.active-icon {
+  position: relative;
+  color: #8aff19;
+  font-size: 3.0rem;
+  top: -55px;
+  left: -4px;
+}
+
+.active-icon.override {
+  position: relative;
+  color: #8aff19;
+  font-size: 3.0rem;
+  top: -24px;
+  left: 47px;
 }
 
 /* 通知 ================================ */
