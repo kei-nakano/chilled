@@ -122,7 +122,7 @@ input#keyword {
   padding: 5px 10px;
   border-radius: 3px;
   overflow: hidden;
-  min-width: 295px;
+  min-width: 250px;
   width: 80%;
   font-size: 1.4rem;
 }
@@ -168,9 +168,18 @@ button[type="submit"]#search-btn {
   padding-right: 5px;
 }
 
-.header-notice {
-  
+.header-menus {
+  font-weight: 900;
 }
+
+.header-menus span:hover {
+  text-decoration: underline;
+}
+
+.header-username {
+  padding-left: 8px;
+}
+
 /* フッター ================================ */
 
 .footer-wrapper {
