@@ -15,16 +15,18 @@
       
       <%= link_to(user.name, "/users/#{user.id}") %>
       
-      <% if block_ids(@current_user).include?(user.id) %>
-        <span class="search-user-block">(ブロックしています)</span>
-      <% end %>
-      
-      <% if @current_user.following.include?(user)  %>
-        <span class="search-user-follow">(フォローしています)</span>
-      <% end %>
-      
-      <% if @current_user.followers.include?(user)  %>
-        <span class="search-user-follow">(フォローされています)</span>
+      <% if @current_user %>
+        <% if block_ids(@current_user).include?(user.id) %>
+          <span class="search-user-block">(ブロックしています)</span>
+        <% end %>
+        
+        <% if @current_user.following.include?(user)  %>
+          <span class="search-user-follow">(フォローしています)</span>
+        <% end %>
+        
+        <% if @current_user.followers.include?(user)  %>
+          <span class="search-user-follow">(フォローされています)</span>
+        <% end %>
       <% end %>
     </div>
     
