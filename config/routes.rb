@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
   get '/' => 'home#top', as: 'root'
+  get 'login' => 'sessions#new'
+  post 'login' => 'sessions#create'
+  post 'logout' => 'sessions#destroy'
   get 'search' => 'search#show', as: 'search'
-  get 'login' => 'users#login_form'
-  post 'login' => 'users#login'
-  post 'logout' => 'users#logout'
-  get 'users/:id/timeline' => 'users#timeline'
   get 'comments/:review_id/new' => 'comments#new'
   post 'comments/:review_id/create' => 'comments#create'
   delete 'comments/:id' => 'comments#destroy', as: 'comment'
