@@ -2,10 +2,11 @@ class UsersController < ApplicationController
   before_action :authenticate_user, only: %i[show edit update]
   before_action :forbid_login_user, only: %i[new create]
   before_action :ensure_correct_user, only: %i[edit update]
+  before_action :admin_user, only: %i[destroy]
 
   def show
     @user = User.find(params[:id])
-    @room_id = @current_user.room_with(@user).id
+    @room_id = @current_user.room_with(@user)&.id
     @type = params[:type] || "review" # typeの指定がない場合、reviewタブを優先表示するようにする
 
     if @type == "review"
@@ -126,5 +127,9 @@ class UsersController < ApplicationController
 
     flash[:notice] = "権限がありません"
     redirect_to @current_user
+  end
+
+  def admin_user
+    redirect_to "/" unless current_user.admin?
   end
 end
