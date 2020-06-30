@@ -4,13 +4,9 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   post 'logout' => 'sessions#destroy'
   get 'search' => 'search#show', as: 'search'
-  get 'comments/:review_id/new' => 'comments#new'
-  post 'comments/:review_id/create' => 'comments#create'
-  delete 'comments/:id' => 'comments#destroy', as: 'comment'
-  get 'comments/:id' => 'comments#edit'
-  patch 'comments/:id' => 'comments#update'
   resources :items, except: %i[index]
   resources :reviews
+  resources :comments, except: %i[index]
   resources :rooms, only: %i[index show create]
   resources :notices, only: %i[index destroy]
   resources :relationships, only: %i[create destroy]
@@ -20,4 +16,5 @@ Rails.application.routes.draw do
   resources :eaten_items, only: %i[create destroy]
   resources :want_to_eat_items, only: %i[create destroy]
   resources :users, except: %i[index]
+  resources :account_activations, only: [:edit]
 end

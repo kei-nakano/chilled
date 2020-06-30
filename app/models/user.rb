@@ -6,6 +6,7 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   before_save { self.email = email.downcase }
+  before_create :create_activation_digest
   mount_uploader :image, ImageUploader
   validate :image_size
   validates :password, presence: true, length: { minimum: 7 }
