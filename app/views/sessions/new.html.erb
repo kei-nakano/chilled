@@ -15,6 +15,10 @@
           <p>パスワード</p>
           <%= form.password_field :password, value: params[:email] %>
           <%= form.submit value: "ログイン" %>
+          <%= form.label :remember_me, class: "checkbox inline" do %>
+            <%= form.check_box :remember_me %>
+          <span>Remember me on this computer</span>
+          <% end %>
         <% end %>
       </div>
     </div>
