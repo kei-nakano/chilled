@@ -6,10 +6,17 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:email].downcase)
     if user&.authenticate(params[:password])
-      login user
-      params[:remember_me] == '1' ? remember(user) : forget(user)
-      flash[:notice] = "ログインしました"
-      redirect_to "/users/#{user.id}"
+      if user.activated?
+        login user
+        params[:remember_me] == '1' ? remember(user) : forget(user)
+        flash[:notice] = "ログインしました"
+        redirect_to "/users/#{user.id}"
+      else
+        message  = "Account not activated. "
+        message += "Check your email for the activation link."
+        flash[:notice] = message
+        redirect_to "/"
+      end
     else
       flash.now[:notice] = 'メールアドレスかパスワードに誤りがあります'
       render 'new'
