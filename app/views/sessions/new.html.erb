@@ -1,0 +1,25 @@
+<% provide :title, "ログイン" %>
+
+<div class="container">
+  <div class="form-heading">ログイン</div>
+    <div class="form login-form">
+      <div class="form-body">
+        <% if @error_message %>
+          <div class="form-error">
+            <%= @error_message %>
+          </div>
+        <% end %>
+        
+        <%= form_with url: "/login", local: true do |form| %>
+          <p>メールアドレス</p>
+          <%= form.text_field :email, value: params[:email] %>
+          <p>パスワード</p>
+          <%= form.password_field :password, value: params[:password] %>
+          <%= form.check_box :remember_me %>
+          <span>次回からのログインを省略</span>
+          <%= form.submit value: "ログイン" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

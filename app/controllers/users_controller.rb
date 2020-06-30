@@ -1,27 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user, only: %i[show edit update]
-  before_action :forbid_login_user, only: %i[new create login_form login]
+  before_action :forbid_login_user, only: %i[new create]
   before_action :ensure_correct_user, only: %i[edit update]
-
-  def login_form; end
-
-  def login
-    @user = User.find_by(email: params[:email])
-    if @user.authenticate(params[:password])
-      flash[:notice] = "ログインしました"
-      session[:user_id] = @user.id
-      redirect_to @user
-    else
-      @error_message = "メールアドレスかパスワードが間違っています"
-      render 'login_form'
-    end
-  end
-
-  def logout
-    session[:user_id] = nil
-    flash[:notice] = "ログアウトしました"
-    redirect_to '/login'
-  end
 
   def show
     @user = User.find(params[:id])
@@ -131,11 +111,6 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:notice] = "削除しました"
     redirect_to '/users'
-  end
-
-  def timeline
-    @user = User.find(params[:id])
-    @items = @user.feed
   end
 
   private
