@@ -199,7 +199,7 @@ button[type="submit"]#search-btn {
   font-size: 1.0rem;
 }
 
-/* フォーム================================ */
+/* フォーム共通================================ */
 .form {
   max-width: 600px;
   margin: 0 auto;
@@ -210,7 +210,7 @@ button[type="submit"]#search-btn {
 .form-heading {
   font-weight: 300;
   margin: 60px 0 20px;
-  font-size: 48px;
+  font-size: 4.8rem;
   color: #bcc8d4;
 }
 
@@ -255,6 +255,21 @@ button[type="submit"]#search-btn {
   content: '';
   display: table;
   clear: both;
+}
+
+.form p,
+.form span {
+  font-size: 1.4rem;
+}
+
+/* ログインフォーム================================ */
+input#remember_me {
+  width: 20px;
+  margin: 0;
+}
+
+.login-form input {
+  margin-bottom: 15px;
 }
 
 /* フラッシュ ================================ */
