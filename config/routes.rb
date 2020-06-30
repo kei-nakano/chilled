@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'password_resets/new'
+  get 'password_resets/edit'
   get '/' => 'home#top', as: 'root'
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
@@ -17,4 +19,5 @@ Rails.application.routes.draw do
   resources :want_to_eat_items, only: %i[create destroy]
   resources :users, except: %i[index]
   resources :account_activations, only: [:edit]
+  resources :password_resets, only: %i[new create edit update]
 end

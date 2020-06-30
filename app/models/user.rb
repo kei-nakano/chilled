@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
   before_save { self.email = email.downcase }
   before_create :create_activation_digest
   before_destroy :rooms_destroy_all
@@ -10,8 +10,8 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   mount_uploader :image, ImageUploader
   validate :image_size
-  validates :password, presence: true, length: { minimum: 7 }
-  has_secure_password(validations: false)
+  validates :password, length: { minimum: 7 }
+  has_secure_password
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
@@ -64,6 +64,12 @@ class User < ApplicationRecord
   def create_activation_digest
     self.activation_token  = User.new_token
     self.activation_digest = User.digest(activation_token)
+  end
+
+  # パスワード再設定の属性を設定する
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
   end
 
   # ユーザーのログイン情報を破棄する

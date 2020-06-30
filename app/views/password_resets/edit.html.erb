@@ -1,0 +1,25 @@
+<% provide :title, "パスワード再設定" %>
+
+<div class="container">
+  <div class="form-heading"></div>
+    <div class="form login-form">
+      <div class="form-body">
+        <% if @error_message %>
+          <div class="form-error">
+            <%= @error_message %>
+          </div>
+        <% end %>
+        
+        <%= form_with url: "/password_resets/#{params[:id]}", local: true, method: :update do |form| %>
+          <h2 class="password-reset">新しいパスワードを入力してください</h2>
+          <p>パスワード</p>
+          <%= form.password_field :password %>
+          <p>パスワード(確認用)</p>
+          <%= form.password_field :password_confirmation %>
+          <%= form.hidden_field :email, value: @user.email %>
+          <%= form.submit value: "送信" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
