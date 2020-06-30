@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_28_194228) do
+ActiveRecord::Schema.define(version: 2020_06_30_153347) do
 
   create_table "blocks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "from_id"
@@ -193,6 +193,7 @@ ActiveRecord::Schema.define(version: 2020_06_28_194228) do
     t.boolean "appear"
     t.integer "room_id"
     t.string "remember_digest"
+    t.boolean "admin", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
