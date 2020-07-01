@@ -15,5 +15,6 @@ module Sample
     # 認証トークンをremoteフォームに埋め込み、JSが無効な場合に対応
     config.action_view.embed_authenticity_token_in_remote_forms = true
     config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
   end
 end

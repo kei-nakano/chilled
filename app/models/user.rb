@@ -72,6 +72,11 @@ class User < ApplicationRecord
     update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
   end
 
+  # パスワード再設定の期限が切れている場合はtrueを返す
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
+
   # ユーザーのログイン情報を破棄する
   def forget
     update_attribute(:remember_digest, nil)
