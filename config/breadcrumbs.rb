@@ -56,6 +56,12 @@ crumb :item_show do |item|
   parent :items
 end
 
+# item#new
+crumb :item_new do
+  link "商品投稿", "#"
+  parent :root
+end
+
 # users
 crumb :users do
   link "ユーザー一覧", "/search?type=user"
@@ -74,8 +80,8 @@ crumb :user_edit do |user|
   parent :user_show, user
 end
 
-# user#create
-crumb :user_create do
+# user#new
+crumb :user_new do
   link "新規登録", "#"
   parent :root
 end
@@ -90,16 +96,4 @@ end
 crumb :room_show do |current_user, other|
   link other.name, "#"
   parent :room_index, current_user
-end
-
-# user#edit
-crumb :edit_user do |user|
-  link "Edit #{user.name}", edit_user_path(user)
-  parent :show_user, user
-end
-
-# user#new
-crumb :new_user do
-  link "New User", new_user_path
-  parent :users
 end

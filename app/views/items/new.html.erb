@@ -1,7 +1,8 @@
-<div class="main posts-new">
-  <div class="container">
-    <h1 class="form-heading">投稿する</h1>
-    <%= form_with(model: @item, local: true) do |form| %>
+<% provide :title, "商品投稿" %>
+<% breadcrumb :item_new %>
+
+<div class="container">
+  <%= form_with(model: @item, local: true) do |form| %>
       <div class="form">
         <div class="form-body">
           <% @item.errors.full_messages.each do |message| %>
@@ -24,4 +25,3 @@
       </div>
     <% end %>
   </div>
-</div>
