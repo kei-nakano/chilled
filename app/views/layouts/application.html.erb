@@ -10,7 +10,7 @@
 
   <body>
     <%= render "shared/header" %>
-    <%= render "shared/flash" %>
+    <div class="time-limit"><%= render "shared/flash" %></div>
     <div class="main">
       <h3><%= breadcrumbs separator: "&rsaquo;" %></h3>
       <%= yield %>
