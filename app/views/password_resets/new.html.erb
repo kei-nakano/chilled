@@ -1,22 +1,15 @@
 <% provide :title, "パスワードがわからない場合" %>
+<% breadcrumb :password_forget %>
 
 <div class="container">
-  <div class="form-heading">パスワード再設定</div>
-    <div class="form login-pw-form">
-      <div class="form-body">
-        <% if @error_message %>
-          <div class="form-error">
-            <%= @error_message %>
-          </div>
-        <% end %>
-        
-        <%= form_with url: "/password_resets", local: true, method: "post" do |form| %>
-          <h2 class="password-reset">登録したメールアドレスを入力してください</h2>
-          <p>メールアドレス</p>
-          <%= form.text_field :email, value: params[:email] %>
-          <%= form.submit value: "送信", data: { disable_with: "送信中" } %>
-        <% end %>
-      </div>
+  <div class="form login-pw-form">
+    <div class="form-body">
+      <%= form_with url: "/password_resets", local: true, method: "post" do |form| %>
+        <h2 class="password-reset">登録したメールアドレスを入力してください</h2>
+        <p>メールアドレス</p>
+        <%= form.text_field :email, value: params[:email] %>
+        <%= form.submit value: "送信", data: { disable_with: "送信中" } %>
+      <% end %>
     </div>
   </div>
 </div>
