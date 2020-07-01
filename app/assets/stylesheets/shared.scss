@@ -220,6 +220,7 @@ button[type="submit"]#search-btn {
 
 .form-error {
   color: #ff4d75;
+  font-size: 1.4rem;
 }
 
 .form input {
@@ -227,7 +228,7 @@ button[type="submit"]#search-btn {
   border: 1px solid #d8dadf;
   padding: 10px;
   color: #57575f;
-  font-size: 16px;
+  font-size: 1.6rem;
   letter-spacing: 2px;
   border-radius: 2px;
 }
@@ -284,6 +285,17 @@ input#remember_me {
   margin-bottom: 5px;
 }
 
+/* ユーザ登録フォーム================================ */
+.users-form input {
+  margin-bottom: 15px;
+}
+
+.upload-user-image img {
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+}
 
 /* フラッシュ ================================ */
 .flash {

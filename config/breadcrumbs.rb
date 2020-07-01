@@ -2,6 +2,24 @@ crumb :root do
   link "トップ", "/"
 end
 
+# session
+crumb :session do
+  link "ログイン", "/login"
+  parent :root
+end
+
+# password_forget
+crumb :password_forget do
+  link "パスワードがわからない場合", "/password_resets/new"
+  parent :session
+end
+
+# password_reset
+crumb :password_reset do
+  link "パスワード再設定", "#"
+  parent :password_forget
+end
+
 # notice
 crumb :notice do
   link "通知", "/notices"
@@ -48,6 +66,18 @@ end
 crumb :user_show do |user|
   link user.name, user
   parent :users
+end
+
+# user#edit
+crumb :user_edit do |user|
+  link "アカウント編集", "#"
+  parent :user_show, user
+end
+
+# user#create
+crumb :user_create do
+  link "新規登録", "#"
+  parent :root
 end
 
 # room#index

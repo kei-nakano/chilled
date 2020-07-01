@@ -1,25 +1,53 @@
-<div class="main users-edit">
-  <div class="container">
-    <div class="form-heading">アカウント編集</div>
-    <div class="form users-form">
-      <div class="form-body">
-        <% @user.errors.full_messages.each do |message| %>
-          <div class="form-error">
-            <%= message %>
-          </div>
-        <% end %>
-        <%= form_with(model: @user, local: true) do |form| %>
-          <p>ユーザー名</p>
-          <%= form.text_field :name %>
-          <p>メールアドレス</p>
-          <%= form.email_field :email %>
-          <p>パスワード</p>
-          <%= form.password_field :password, value: "#{@user.password}" %>
-          <p>画像</p>
-          <%= form.file_field :image, accept: 'image/jpeg,image/gif,image/png' %>
-          <%= form.submit value="保存" %>
-        <% end %>
-      </div>
+<% provide :title, "アカウント編集" %>
+<% breadcrumb :user_edit, @user %>
+
+<div class="container">
+  <div class="form users-form">
+    <div class="form-body">
+      <% @user.errors.full_messages.each do |message| %>
+        <div class="form-error">
+          <%= message %>
+        </div>
+      <% end %>
+      <%= form_with(model: @user, local: true) do |form| %>
+        <p>ユーザー名</p>
+        <%= form.text_field :name %>
+        <p>メールアドレス</p>
+        <%= form.email_field :email %>
+        <p>パスワード(7文字以上)</p>
+        <%= form.password_field :password %>
+        <p>プロフィール画像</p>
+        <%= form.file_field :image, accept: 'image/jpeg,image/gif,image/png' %>
+        <%= form.submit value="完了", data: { disable_with: "送信中" } %>
+      <% end %>
     </div>
   </div>
 </div>
+
+<script>
+  $(function() {
+    // ファイルの挿入先を作成
+    $('input[type=file]').after('<span class="upload-user-image"></span>');
+  
+    // アップロードするファイルを選択
+    $('input[type=file]').change(function() {
+      var file = $(this).prop('files')[0];
+  
+      // 画像以外は処理を停止
+      if (! file.type.match('image.*')) {
+        // クリア
+        $(this).val('');
+        $('span.upload-user-image').html('');
+        return;
+      }
+  
+      // 画像表示
+      var reader = new FileReader();
+      reader.onload = function() {
+        var img_src = $('<img>').attr('src', reader.result);
+        $('span.upload-user-image').html(img_src);
+      }
+      reader.readAsDataURL(file);
+    });
+  });
+</script>

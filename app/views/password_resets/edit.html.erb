@@ -1,25 +1,24 @@
 <% provide :title, "パスワード再設定" %>
+<% breadcrumb :password_reset %>
 
 <div class="container">
-  <div class="form-heading">パスワード再設定</div>
-    <div class="form login-pw-form">
-      <div class="form-body">
-        <% if @user.errors[:password].any? %>
-          <div class="form-error">
-            <%= @user.errors.full_messages %>
-          </div>
-        <% end %>
+  <div class="form login-pw-form">
+    <div class="form-body">
+      <% @user.errors.full_messages.each do |message| %>
+        <div class="form-error">
+          <%= message %>
+        </div>
+      <% end %>
         
-        <%= form_with url: "/password_resets/#{params[:id]}", local: true, method: "patch" do |form| %>
-          <h2 class="password-reset">新しいパスワードを入力してください</h2>
-          <p>パスワード</p>
-          <%= form.password_field :password %>
-          <p>パスワード(確認用)</p>
-          <%= form.password_field :password_confirmation %>
-          <%= form.hidden_field :email, value: @user.email %>
-          <%= form.submit value: "送信", data: { disable_with: "送信中" } %>
-        <% end %>
-      </div>
+      <%= form_with url: "/password_resets/#{params[:id]}", local: true, method: "patch" do |form| %>
+        <h2 class="password-reset">新しいパスワードを入力してください</h2>
+        <p>パスワード</p>
+        <%= form.password_field :password %>
+        <p>パスワード(確認用)</p>
+        <%= form.password_field :password_confirmation %>
+        <%= form.hidden_field :email, value: @user.email %>
+        <%= form.submit value: "送信", data: { disable_with: "送信中" } %>
+      <% end %>
     </div>
   </div>
 </div>

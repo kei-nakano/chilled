@@ -1,27 +1,20 @@
 <% provide :title, "ログイン" %>
+<% breadcrumb :session %>
 
 <div class="container">
-  <div class="form-heading">ログイン</div>
-    <div class="form login-pw-form">
-      <div class="form-body">
-        <% if @error_message %>
-          <div class="form-error">
-            <%= @error_message %>
-          </div>
-        <% end %>
-        
-        <%= form_with url: "/login", local: true do |form| %>
-          <p>メールアドレス</p>
-          <%= form.text_field :email, value: params[:email] %>
-          <p>パスワード
-            <%= link_to "(パスワードがわからない場合)", "/password_resets/new", class: "forget-password-link" %>
-          </p>
-          <%= form.password_field :password, value: params[:password] %>
-          <%= form.check_box :remember_me %>
-          <span>次回からログインを省略</span>
-          <%= form.submit value: "ログイン", data: { disable_with: "送信中" } %>
-        <% end %>
-      </div>
+  <div class="form login-pw-form">
+    <div class="form-body">
+      <%= form_with url: "/login", local: true do |form| %>
+        <p>メールアドレス</p>
+        <%= form.text_field :email, value: params[:email] %>
+        <p>パスワード
+          <%= link_to "(パスワードがわからない場合)", "/password_resets/new", class: "forget-password-link" %>
+        </p>
+        <%= form.password_field :password, value: params[:password] %>
+        <%= form.check_box :remember_me %>
+        <span>次回からログインを省略</span>
+        <%= form.submit value: "ログイン", data: { disable_with: "送信中" } %>
+      <% end %>
     </div>
   </div>
 </div>
