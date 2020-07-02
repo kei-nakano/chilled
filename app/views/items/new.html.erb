@@ -20,11 +20,11 @@
           <%= form.select :manufacturer_id, @manufacturer_list, { include_blank: '選択してください'} %>
         </div>
         
-        <div class="manufacturer-new" name="manufacturer">
+        <div class="new manufacturer" name="manufacturer">
           <p>メーカー名</p>
           <%= form.text_field :manufacturer_name %>
           <p>メーカー画像</p>
-          <%= form.file_field :manufacturer_image, accept: 'image/jpeg,image/gif,image/png' %>
+          <%= form.file_field :manufacturer_image, accept: 'image/jpeg,image/gif,image/png', id: "manufacturer" %>
         </div>
         
         <div class="category-select">  
@@ -34,11 +34,11 @@
           <%= form.select :category_id, @category_list, { include_blank: '選択してください'} %>
         </div>
         
-        <div class="category-new" name="category">
+        <div class="new category" name="category">
           <p>カテゴリ名</p>
           <%= form.text_field :category_name %>
           <p>カテゴリ画像</p>
-          <%= form.file_field :category_image, accept: 'image/jpeg,image/gif,image/png' %>
+          <%= form.file_field :category_image, accept: 'image/jpeg,image/gif,image/png', id: "category" %>
         </div>
         
         <p>商品説明</p>
@@ -49,9 +49,11 @@
         <%= form.number_field :gram %>
         <p>カロリー(kcal)</p>
         <%= form.number_field :calorie %>
-        <p>商品画像</p>
-        <%= form.file_field :image, accept: 'image/jpeg,image/gif,image/png' %>
-        <%= form.submit value="投稿する", data: { disable_with: "送信中" } %>
+        <div class="item-image">
+          <p>商品画像</p>
+          <%= form.file_field :image, accept: 'image/jpeg,image/gif,image/png', id: "item-image" %>
+          <%= form.submit value="投稿する", data: { disable_with: "送信中" } %>
+        </div>
       </div>
     </div>
   <% end %>
@@ -74,25 +76,27 @@
   
   $(function() {
     // ファイルの挿入先を作成
-    $('input[type=file]').after('<span class="upload-item-image"></span>');
+    $('input[type=file]').after('<span class="upload-image"></span>');
   
     // アップロードするファイルを選択
     $('input[type=file]').change(function() {
       var file = $(this).prop('files')[0];
+      var id = $(this).attr('id');
   
       // 画像以外は処理を停止
       if (! file.type.match('image.*')) {
         // クリア
         $(this).val('');
-        $('span.upload-item-image').html('');
+        $(`.${id} span.upload-image`).html('');
         return;
       }
   
+     
       // 画像表示
       var reader = new FileReader();
       reader.onload = function() {
         var img_src = $('<img>').attr('src', reader.result);
-        $('span.upload-item-image').html(img_src);
+        $(`.${id} span.upload-image`).html(img_src);
       }
       reader.readAsDataURL(file);
     });

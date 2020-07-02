@@ -1,7 +1,9 @@
 class Item < ApplicationRecord
-  #  validates :title, presence: true,
-  #                    length: { maximum: 40 }
-  #  validates :user_id, presence: true
+  validates :title, presence: true, length: { maximum: 40 }
+  validates :content, presence: true, length: { maximum: 150 }
+  validates :price, presence: true
+  validates :gram, presence: true
+  validates :calorie, presence: true
   mount_uploader :image, ImageUploader
   has_many :reviews, dependent: :destroy
   belongs_to :manufacturer

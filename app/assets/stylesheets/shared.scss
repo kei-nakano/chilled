@@ -302,18 +302,18 @@ input#remember_me {
   margin-bottom: 15px;
 }
 
-.upload-item-image img {
+.upload-image img {
   object-fit: cover;
-  width: 250px;
-  height: 160px;
+  width: 160px;
+  height: 110px;
 }
 
 textarea#item_content {
   border: 1px solid #d8dadf;
 }
 
-.manufacturer-new,
-.category-new {
+.manufacturer.new,
+.category.new {
   display: none;
 }
 

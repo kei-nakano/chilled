@@ -1,6 +1,6 @@
 <% count ||= EatenItem.where(item_id: item.id).count %>
 
-<% if EatenItem.find_by(user_id: @current_user.id, item_id: item.id) %>
+<% if EatenItem.find_by(user_id: @current_user&.id, item_id: item.id) %>
   <%= link_to "/eaten_items/#{item.id}?count=#{count}", method: "delete", remote: true do %>
     <span class="fas fa-check-circle uneaten-btn">食べた！<%= count %></span>
   <% end %>

@@ -63,8 +63,10 @@
     <%= link_to "この商品のレビューを書く", "/reviews/#{@item.id}/create" %>
   </span>
   
-  <div class="comment-edit">
-    <%= link_to("編集", edit_item_path) %>
-    <%= link_to("削除", @item, {method: "delete"}) %>
-  </div>
+  <% if @current_user&.admin? %>
+    <div class="comment-edit">
+      <%= link_to "編集", "/items/#{@item.id}/edit" %>
+      <%= link_to "削除", "/items/#{@item.id}", method: "delete" %>
+    </div>
+  <% end %>
 </div>

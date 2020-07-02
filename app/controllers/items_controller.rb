@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  before_action :check_params, only: %i[create update]
   def index
     return @items = Item.all.tagged_with(params[:tag]) if params[:tag]
 
@@ -22,47 +23,48 @@ class ItemsController < ApplicationController
   end
 
   def create
-    unless params[:item][:manufacturer_id] # メーカー新規作成の場合
-      manufacturer = Manufacturer.new(manufacturer_params)
-      params[:item][:manufacturer_id] = manufacturer.id if manufacturer.save
-    end
-
-    unless params[:item][:category_id] # カテゴリ新規作成の場合
-      category = Category.new(category_params)
-      params[:item][:category_id] = category.id if category.save
-    end
-
     @item = Item.new(item_params)
     if @item.save
       flash[:notice] = "作成しました"
       redirect_to "/items/#{@item.id}"
     else
-      manufacturer&.destroy
-      category&.destroy
+      rollback
       @manufacturer_list = Manufacturer.all.pluck(:name, :id)
       @category_list = Category.all.pluck(:name, :id)
-      render('new')
+      flash.now[:notice] = "作成に失敗しました"
+      render 'new'
     end
   end
 
   def edit
-    @item = Item.find(params[:id])
+    @item = Item.find_by(id: params[:id])
+    @manufacturer_list = Manufacturer.all.pluck(:name, :id)
+    @category_list = Category.all.pluck(:name, :id)
   end
 
   def update
-    @item = Item.find(params[:id])
-    if @item.update(item_params)
-      flash[:notice] = "保存しました"
-      redirect_to("/items")
+    @item = Item.find_by(id: params[:id])
+    if @item&.update(item_params)
+      flash[:notice] = "更新しました"
+      redirect_to "/items/#{@item.id}"
     else
+      rollback
+      @manufacturer_list = Manufacturer.all.pluck(:name, :id)
+      @category_list = Category.all.pluck(:name, :id)
+      flash.now[:notice] = "更新に失敗しました"
       render 'edit'
     end
   end
 
   def destroy
-    Item.find(params[:id]).destroy
-    flash[:notice] = "投稿を削除しました"
-    redirect_to("/items")
+    @item = Item.find_by(id: params[:id])
+    if @item&.destroy
+      flash[:notice] = "商品を削除しました"
+      redirect_to("/search")
+    else
+      flash[:notice] = "削除に失敗しました"
+      redirect_to "/items/#{@item.id}"
+    end
   end
 
   private
@@ -85,5 +87,24 @@ class ItemsController < ApplicationController
     params.require(:category).permit(
       :name, :image
     )
+  end
+
+  # フォームからメーカーやカテゴリを新規作成した場合にレコード作成とparamsのマージを行う
+  def check_params
+    unless params[:item][:manufacturer_id] # メーカー新規作成の場合
+      manufacturer = Manufacturer.new(manufacturer_params)
+      params[:item][:manufacturer_id] = manufacturer.id if manufacturer.save
+    end
+
+    return if params[:item][:category_id] # カテゴリ新規作成の場合
+
+    category = Category.new(category_params)
+    params[:item][:category_id] = category.id if category.save
+  end
+
+  # itemの作成・更新に失敗した場合、新規作成したカテゴリとメーカーを削除する
+  def rollback
+    Manufacturer.find_by(name: params[:item][:manufacturer_name])&.destroy
+    Category.find_by(name: params[:item][:category_name])&.destroy
   end
 end

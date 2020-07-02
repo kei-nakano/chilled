@@ -50,6 +50,12 @@ crumb :items do
   parent :search
 end
 
+# item#edit
+crumb :item_edit do |item|
+  link "商品編集", "#"
+  parent :item_show, item
+end
+
 # item#show
 crumb :item_show do |item|
   link item.title, item
