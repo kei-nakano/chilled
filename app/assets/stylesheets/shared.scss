@@ -297,6 +297,47 @@ input#remember_me {
   border-radius: 100%;
 }
 
+/* 商品登録フォーム================================ */
+.items-form input {
+  margin-bottom: 15px;
+}
+
+.upload-item-image img {
+  object-fit: cover;
+  width: 250px;
+  height: 160px;
+}
+
+textarea#item_content {
+  border: 1px solid #d8dadf;
+}
+
+.manufacturer-new,
+.category-new {
+  display: none;
+}
+
+.manufacturer-select button,
+.category-select button {
+  border: none;
+  background-color: white;
+  padding: 0;
+}
+
+.manufacturer-select button:hover,
+.category-select button:hover {
+  color: #4670ac;
+  text-decoration: underline;
+}
+
+select#item_manufacturer_id,
+select#item_category_id {
+  margin-bottom: 15px;
+  border: 1px solid #d8dadf;
+  width: 100%;
+  height: 40px;
+}
+
 /* フラッシュ ================================ */
 .flash {
   padding: 10px 0;

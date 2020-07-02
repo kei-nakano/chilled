@@ -2,7 +2,8 @@
 User.create!(name: "keisuke",
              email: "keisuke@gmail.com",
              password: "keisuke",
-             activated: true)
+             activated: true,
+             admin: true)
 
 10.times do |n|
   name  = (n + 1).to_s

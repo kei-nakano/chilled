@@ -3,25 +3,98 @@
 
 <div class="container">
   <%= form_with(model: @item, local: true) do |form| %>
-      <div class="form">
-        <div class="form-body">
-          <% @item.errors.full_messages.each do |message| %>
-            <div class="form-error">
-              <%= message %>
-            </div>
-          <% end %>
-          <p>商品名</p>
-          <%= form.text_field :title %>
-          <p>メーカー</p>
-          <%= form.number_field :manufacturer_id %>
-          <p>カテゴリ</p>
-          <%= form.number_field :category_id %>
-          <p>商品説明</p>
-          <%= form.text_field :content %>
-          <p>タグ</p>
-          <%= form.text_field :tag_list %>
-          <%= form.submit value="投稿する" %>
+    <div class="form items-form">
+      <div class="form-body">
+        <% @item.errors.full_messages.each do |message| %>
+          <div class="form-error">
+            <%= message %>
+          </div>
+        <% end %>
+        <p>商品名</p>
+        <%= form.text_field :title %>
+
+        <div class="manufacturer-select">  
+          <p>メーカー 
+            <button class="manufacturer-new-link">(新規作成する)</button>
+          </p>
+          <%= form.select :manufacturer_id, @manufacturer_list, { include_blank: '選択してください'} %>
         </div>
+        
+        <div class="manufacturer-new" name="manufacturer">
+          <p>メーカー名</p>
+          <%= form.text_field :manufacturer_name %>
+          <p>メーカー画像</p>
+          <%= form.file_field :manufacturer_image, accept: 'image/jpeg,image/gif,image/png' %>
+        </div>
+        
+        <div class="category-select">  
+          <p>カテゴリ 
+            <button class="category-new-link">(新規作成する)</button>
+          </p>
+          <%= form.select :category_id, @category_list, { include_blank: '選択してください'} %>
+        </div>
+        
+        <div class="category-new" name="category">
+          <p>カテゴリ名</p>
+          <%= form.text_field :category_name %>
+          <p>カテゴリ画像</p>
+          <%= form.file_field :category_image, accept: 'image/jpeg,image/gif,image/png' %>
+        </div>
+        
+        <p>商品説明</p>
+        <%= form.text_area :content %>
+        <p>価格(円)</p>
+        <%= form.number_field :price %>
+        <p>内容量(g)</p>
+        <%= form.number_field :gram %>
+        <p>カロリー(kcal)</p>
+        <%= form.number_field :calorie %>
+        <p>商品画像</p>
+        <%= form.file_field :image, accept: 'image/jpeg,image/gif,image/png' %>
+        <%= form.submit value="投稿する", data: { disable_with: "送信中" } %>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  $(function() {
+    // メーカーを新規作成する場合、リンククリックでフォームを表示する
+    $(document).on('click', '.manufacturer-new-link', function() {
+      $(this).parents('.manufacturer-select').remove();
+      $('[name="manufacturer"]').css('display', 'inline');
+    });
+    
+    // カテゴリを新規作成する場合、リンククリックでフォームを表示する
+    $(document).on('click', '.category-new-link', function() {
+      $(this).parents('.category-select').remove();
+      $('[name="category"]').css('display', 'inline');
+    });
+  });
+  
+  $(function() {
+    // ファイルの挿入先を作成
+    $('input[type=file]').after('<span class="upload-item-image"></span>');
+  
+    // アップロードするファイルを選択
+    $('input[type=file]').change(function() {
+      var file = $(this).prop('files')[0];
+  
+      // 画像以外は処理を停止
+      if (! file.type.match('image.*')) {
+        // クリア
+        $(this).val('');
+        $('span.upload-item-image').html('');
+        return;
+      }
+  
+      // 画像表示
+      var reader = new FileReader();
+      reader.onload = function() {
+        var img_src = $('<img>').attr('src', reader.result);
+        $('span.upload-item-image').html(img_src);
+      }
+      reader.readAsDataURL(file);
+    });
+  });
+</script>

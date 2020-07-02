@@ -17,14 +17,30 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
+    @manufacturer_list = Manufacturer.all.pluck(:name, :id)
+    @category_list = Category.all.pluck(:name, :id)
   end
 
   def create
+    unless params[:item][:manufacturer_id] # メーカー新規作成の場合
+      manufacturer = Manufacturer.new(manufacturer_params)
+      params[:item][:manufacturer_id] = manufacturer.id if manufacturer.save
+    end
+
+    unless params[:item][:category_id] # カテゴリ新規作成の場合
+      category = Category.new(category_params)
+      params[:item][:category_id] = category.id if category.save
+    end
+
     @item = Item.new(item_params)
     if @item.save
       flash[:notice] = "作成しました"
-      redirect_to("/items")
+      redirect_to "/items/#{@item.id}"
     else
+      manufacturer&.destroy
+      category&.destroy
+      @manufacturer_list = Manufacturer.all.pluck(:name, :id)
+      @category_list = Category.all.pluck(:name, :id)
       render('new')
     end
   end
@@ -53,7 +69,21 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(
-      :title, :content, :image, :tag_list, :manufacturer_id, :category_id
+      :title, :manufacturer_id, :category_id, :content, :price, :gram, :calorie, :image
+    )
+  end
+
+  def manufacturer_params
+    params[:manufacturer] = { name: params[:item][:manufacturer_name], image: params[:item][:manufacturer_image] }
+    params.require(:manufacturer).permit(
+      :name, :image
+    )
+  end
+
+  def category_params
+    params[:category] = { name: params[:item][:category_name], image: params[:item][:category_image] }
+    params.require(:category).permit(
+      :name, :image
     )
   end
 end
