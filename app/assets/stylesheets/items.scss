@@ -8,7 +8,9 @@
 }
 
 .items-show img {
-  width: 360px; 
+  width: 360px;
+  height: 277px;
+  object-fit: cover; 
   box-shadow: 0 2px 6px #c1ced7;
   float: left; 
 }
@@ -38,6 +40,7 @@
 
 .item-table {
   margin-left: 390px;
+  min-height: 370px;
 }
 
 .item-table h3 {
@@ -65,6 +68,7 @@ table {
 }
 
 .item-table td {
+  width: 450px;
   padding: 5px 10px;
   border: 1px solid #BBB;
   font-size: 1.4rem;

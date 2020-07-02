@@ -23,6 +23,16 @@
         <% end %>
       </li>
       
+      <% if @current_user.admin? %>
+        <li>
+          <%= link_to "/items/new" do %>
+            <span class="header-notice">
+              <span class="fa fa-pen"> 商品投稿</span>
+            </span>
+          <% end %>
+        </li>
+      <% end %>
+      
       <li>
         <%= link_to "/rooms" do %>
           <% message_count = Message.where(room_id: @current_user.rooms.ids, checked: false).where.not(user_id: @current_user.id).count %>

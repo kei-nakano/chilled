@@ -8,3 +8,15 @@ ja:
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード(確認用)
+    models:
+      item: 商品
+    attributes:
+      item:
+        title: 商品名
+        content: 商品説明
+        calorie: カロリー
+        gram: 内容量
+        price: 価格
+        manufacturer: メーカー
+        category: カテゴリ
+        image: 商品画像

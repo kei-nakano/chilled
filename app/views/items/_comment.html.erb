@@ -24,7 +24,7 @@
       <%= render "comment_likes/show", comment: comment %>
     </span>
       
-    <% if @current_user.id == comment.user_id %>
+    <% if @current_user&.id == comment.user_id %>
       <div class="comment-edit">
         <%= link_to("編集", "/comments/#{comment.id}/edit", remote: true) %>
         <%= link_to("削除", comment, method: "delete", remote: true) %>
