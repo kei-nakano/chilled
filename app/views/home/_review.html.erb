@@ -37,8 +37,13 @@
     </p>
       
     <div class="review-scroll-image">
-      <%= link_to "items/#{review.item.id}/?review_id=#{review.id}" do %>
-        <%= image_tag review.image.url, alt: "商品のレビュー画像" %>
+      <% if review.multiple_images.any? %>
+        <%= link_to "items/#{review.item.id}/?review_id=#{review.id}" do %>
+          <%= image_tag review.multiple_images[0].url, alt: "商品のレビュー画像" %>
+        <% end %>
+
+        <% else %>
+          <div class="review-blank-image"></div>
       <% end %>
     </div>
   </div>

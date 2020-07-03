@@ -9,6 +9,7 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @item = Item.find_by(id: params[:review][:item_id])
+
     if @review.save
       flash[:notice] = "作成しました"
       redirect_to "/items/#{@item.id}?review_id=#{@review.id}"
@@ -19,15 +20,18 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-    @review = Review.find(params[:id])
+    @review = Review.find_by(id: params[:id])
+    @item = @review.item
   end
 
   def update
-    @review = Review.find(params[:id])
+    @review = Review.find_by(id: params[:id])
+    @item = @review.item
     if @review.update(review_params)
-      flash[:notice] = "保存しました"
-      redirect_to("/items/#{@review.item_id}?review_id=#{@review.id}")
+      flash[:notice] = "変更しました"
+      redirect_to "/items/#{@item.id}?review_id=#{@review.id}"
     else
+      flash.now[:notice] = "更新に失敗しました"
       render 'edit'
     end
   end
@@ -47,7 +51,7 @@ class ReviewsController < ApplicationController
 
   def review_params
     params.require(:review).permit(
-      :content, :score, :item_id, :user_id, { multiple_images: [] }
+      :content, :score, :item_id, :user_id, :tag_list, { multiple_images: [] }
     )
   end
 end
