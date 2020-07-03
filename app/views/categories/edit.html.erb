@@ -1,0 +1,49 @@
+<% provide :title, "カテゴリ編集" %>
+<% breadcrumb :category_edit, @category %>
+
+<div class="container">
+  <div class="form users-form">
+    <div class="form-body">
+      <% @category.errors.full_messages.each do |message| %>
+        <div class="form-error">
+          <%= message %>
+        </div>
+      <% end %>
+      <%= form_with(model: @category, local: true) do |form| %>
+        <p>カテゴリ名</p>
+        <%= form.text_field :name %>
+        <p>イメージ画像</p>
+        <%= form.file_field :image, accept: 'image/jpeg,image/gif,image/png' %>
+        <%= form.submit value="完了", data: { disable_with: "送信中" } %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function() {
+    // ファイルの挿入先を作成
+    $('input[type=file]').after('<span class="upload-image"></span>');
+  
+    // アップロードするファイルを選択
+    $('input[type=file]').change(function() {
+      var file = $(this).prop('files')[0];
+  
+      // 画像以外は処理を停止
+      if (! file.type.match('image.*')) {
+        // クリア
+        $(this).val('');
+        $('span.upload-image').html('');
+        return;
+      }
+  
+      // 画像表示
+      var reader = new FileReader();
+      reader.onload = function() {
+        var img_src = $('<img>').attr('src', reader.result);
+        $('span.upload-image').html(img_src);
+      }
+      reader.readAsDataURL(file);
+    });
+  });
+</script>

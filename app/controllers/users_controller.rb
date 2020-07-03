@@ -76,11 +76,11 @@ class UsersController < ApplicationController
   end
 
   def blocking
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
   end
 
   def new

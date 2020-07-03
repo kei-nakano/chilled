@@ -30,8 +30,10 @@ class SearchController < ApplicationController
     if @type == "category"
       @results = @categories
       respond_to do |format|
-        return format.js
+        format.js
+        format.html
       end
+      return
     end
 
     if @type == "user"
@@ -46,15 +48,19 @@ class SearchController < ApplicationController
     if @type == "manufacturer"
       @results = @manufacturers
       respond_to do |format|
-        return format.js
+        format.js
+        format.html
       end
+      return
     end
 
     return unless @type == "tag"
 
     @results = @tags
     respond_to do |format|
-      return format.js
+      format.js
+      format.html
     end
+    nil
   end
 end

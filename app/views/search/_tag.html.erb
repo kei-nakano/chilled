@@ -11,6 +11,10 @@
     <div class="search-item-title">
       <%= link_to tag.name, "/search?keyword=#{tag.name}" %>
     </div>
+    <% if @current_user&.admin? %>
+      <div class="comment-edit">
+        <%= link_to "削除", "/tags/#{tag.id}", method: "delete" %>
+      </div>
+    <% end %>
   </div>
 </div>
-

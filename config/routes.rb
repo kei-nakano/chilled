@@ -1,13 +1,14 @@
 Rails.application.routes.draw do
-  get 'password_resets/new'
-  get 'password_resets/edit'
   get '/' => 'home#top', as: 'root'
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   post 'logout' => 'sessions#destroy'
   get 'search' => 'search#show', as: 'search'
   resources :items, except: %i[index]
-  resources :reviews
+  resources :reviews, except: %i[index show]
+  resources :manufacturers, only: %i[edit update destroy]
+  resources :categories, only: %i[edit update destroy]
+  resources :tags, only: %i[destroy]
   resources :comments, except: %i[index]
   resources :rooms, only: %i[index show create]
   resources :notices, only: %i[index destroy]

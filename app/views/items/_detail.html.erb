@@ -43,7 +43,7 @@
         </tr>
         <tr>
           <th>タグ</th>
-          <td><%= render partial: "items/tag", collection: @item.popular_tags %></td>
+          <td><%= render partial: "items/tag", collection: @item.popular_tags.limit(@tag_limit) %></td>
         </tr>
       </tbody>
     </table>
