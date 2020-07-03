@@ -1,5 +1,7 @@
 class Review < ApplicationRecord
-  mount_uploader :image, ImageUploader
+  validate :image_count
+  validates :score, presence: true
+  validates :content, presence: true, length: { maximum: 200 }
   mount_uploaders :multiple_images, MultipleImageUploader
   acts_as_taggable
   belongs_to :item
@@ -28,5 +30,13 @@ class Review < ApplicationRecord
 
     total_score = like_count.merge(comment_count) { |_key, like, comment| like * like_weight + comment * comment_weight }
     Hash[total_score.sort_by { |_, score| -score }].keys
+  end
+
+  private
+
+  # アップロード画像が3枚までか検証する
+  def image_count
+    max = 3
+    errors.add(:multiple_images, "は3枚までアップロードできます") if multiple_images.count > max
   end
 end

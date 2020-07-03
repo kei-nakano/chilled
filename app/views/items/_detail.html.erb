@@ -60,7 +60,7 @@
   </span>
   
   <span class="create-review">
-    <%= link_to "この商品のレビューを書く", "/reviews/#{@item.id}/create" %>
+    <%= link_to "この商品のレビューを書く", "/reviews/new?item_id=#{@item.id}" %>
   </span>
   
   <% if @current_user&.admin? %>

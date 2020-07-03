@@ -32,3 +32,13 @@ ja:
       manufacturer:
         name: メーカー名
         image: イメージ画像
+    models:
+      review: レビュー
+    attributes:
+      review:
+        content: 感想
+        score: スコア
+        multiple_images : 画像
+        
+        
+        

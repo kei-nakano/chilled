@@ -1,0 +1,65 @@
+<% provide :title, "レビュー投稿" %>
+<% breadcrumb :review_new, @item %>
+
+<div class="container">
+  <%= form_with(model: @review, local: true) do |form| %>
+    <div class="form items-form">
+      <div class="form-body">
+        <% @review.errors.full_messages.each do |message| %>
+          <div class="form-error">
+            <%= message %>
+          </div>
+        <% end %>
+        <p>スコア(5点満点)</p>
+        <%= form.select :score, score_list, { include_blank: '選択してください'} %>
+  
+        <p>感想</p>
+        <%= form.text_area :content %>
+        
+        <p>タグ(任意)</p>
+        <%= form.text_area :content %>
+        
+        <p>商品画像(3枚まで)
+        <%= form.file_field :multiple_images, multiple: true, accept: 'image/jpeg,image/gif,image/png', id: "item-image" %>
+        <%= form.hidden_field :item_id, value: @item.id %>
+        <%= form.hidden_field :user_id, value: @current_user.id %>
+        <%= form.submit value="投稿する", data: { disable_with: "送信中" } %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+$(function() {
+  $('input[type=file]').after('<span class="upload-image"></span>');
+
+  // アップロードするファイルを複数選択
+  $('input[type=file]').change(function() {
+    $('span.upload-image').html('');
+    var file = $(this).prop('files');
+
+    var img_count = 1;
+    $(file).each(function(i) {
+      // 3枚まで
+      if (img_count > 3) {
+        return false;
+      }
+
+      if (! file[i].type.match('image.*')) {
+        $(this).val('');
+        $('span.upload-image').html('');
+        return;
+      }
+
+      var reader = new FileReader();
+      reader.onload = function() {
+        var img_src = $('<img>').attr('src', reader.result);
+        $('span.upload-image').append(img_src);
+      }
+      reader.readAsDataURL(file[i]);
+      
+      img_count = img_count + 1;
+    });
+  });
+});
+</script>

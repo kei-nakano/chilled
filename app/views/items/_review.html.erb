@@ -39,7 +39,7 @@
       <% end %>
     </div>
     
-    <% if @current_user&.id == review.user_id %>
+    <% if @current_user&.id == review.user_id || @current_user&.admin? %>
       <div class="review-edit-wrapper">
         <div class="show-review-edit">
           <%= link_to "編集", "/reviews/#{review.id}/edit" %>

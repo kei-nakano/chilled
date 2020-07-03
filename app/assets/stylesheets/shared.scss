@@ -306,6 +306,7 @@ input#remember_me {
   object-fit: cover;
   width: 160px;
   height: 110px;
+  margin-right: 8px;
 }
 
 textarea#item_content {
@@ -331,7 +332,8 @@ textarea#item_content {
 }
 
 select#item_manufacturer_id,
-select#item_category_id {
+select#item_category_id,
+select#review_score {
   margin-bottom: 15px;
   border: 1px solid #d8dadf;
   width: 100%;
