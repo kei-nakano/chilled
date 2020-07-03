@@ -2,6 +2,30 @@ crumb :root do
   link "トップ", "/"
 end
 
+# manufacturers
+crumb :manufacturers do
+  link "メーカー一覧", "/search?type=manufacturer"
+  parent :search
+end
+
+# manufacturer#edit
+crumb :manufacturer_edit do |manufacturer|
+  link manufacturer.name, "#"
+  parent :manufacturers
+end
+
+# categories
+crumb :categories do
+  link "カテゴリ一覧", "/search?type=category"
+  parent :search
+end
+
+# category#edit
+crumb :category_edit do |category|
+  link category.name, "#"
+  parent :categories
+end
+
 # session
 crumb :session do
   link "ログイン", "/login"

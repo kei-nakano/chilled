@@ -9,5 +9,11 @@
     <div class="search-item-title">
       <%= link_to category.name, "/search?keyword=#{category.name}" %>
     </div>
+    <% if @current_user&.admin? %>
+      <div class="comment-edit">
+        <%= link_to "編集", "/categories/#{category.id}/edit" %>
+        <%= link_to "削除", "/categories/#{category.id}", method: "delete" %>
+      </div>
+    <% end %>
   </div>
 </div>

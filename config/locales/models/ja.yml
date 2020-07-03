@@ -20,3 +20,15 @@ ja:
         manufacturer: メーカー
         category: カテゴリ
         image: 商品画像
+    models:
+      category: カテゴリ
+    attributes:
+      category:
+        name: カテゴリ名
+        image: イメージ画像
+    models:
+      manufacturer: メーカー
+    attributes:
+      manufacturer:
+        name: メーカー名
+        image: イメージ画像

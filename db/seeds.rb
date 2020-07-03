@@ -78,23 +78,27 @@ Review.create!(image: nil,
                content: 'これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。',
                score: 5.0)
 
-Review.create!(image: nil,
-               user_id: 3,
+Review.create!(user_id: 3,
                item_id: 2,
                content: 'パッケージだと美味しそうな画像だったんですけど、実際に調理してみると全然ショボかったです。正直もう買いません。',
-               score: 1.0)
+               score: 1.0,
+               tag_list: %w[うまい 美味しい])
 
-Review.create!(image: nil,
-               user_id: 4,
-               item_id: 2,
-               content: 'パッケージだと美味しそうな画像だったんですけど、実際に調理してみると全然ショボかったです。',
-               score: 1.9)
+Review.create!(
+  user_id: 4,
+  item_id: 2,
+  content: 'パッケージだと美味しそうな画像だったんですけど、実際に調理してみると全然ショボかったです。',
+  score: 1.9,
+  tag_list: %w[うまい 美味しい]
+)
 
-Review.create!(image: nil,
-               user_id: 4,
-               item_id: 2,
-               content: 'testtesttesttesttesttesttesttesttesttesttesttest',
-               score: 1.9)
+Review.create!(
+  user_id: 4,
+  item_id: 2,
+  content: 'testtesttesttesttesttesttesttesttesttesttesttest',
+  score: 1.9,
+  tag_list: %w[まずい ゴミ]
+)
 
 Review.last.update(multiple_images: [File.open("./public/uploads/default/1.jpg"),
                                      File.open("./public/uploads/default/11.jpg"),
