@@ -96,9 +96,9 @@ Review.create!(
 )
 
 Review.all.each do |review|
-  review.update(multiple_images: [File.open("./public/uploads/default/1.jpg"),
-                                  File.open("./public/uploads/default/11.jpg"),
-                                  File.open("./public/uploads/default/1.jpg")])
+  review.update(multiple_images: [File.open("./public/default/1.jpg"),
+                                  File.open("./public/default/11.jpg"),
+                                  File.open("./public/default/1.jpg")])
 end
 
 Review.create!(

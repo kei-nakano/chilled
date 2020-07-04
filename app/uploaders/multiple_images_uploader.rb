@@ -1,4 +1,4 @@
-class MultipleImageUploader < CarrierWave::Uploader::Base
+class MultipleImagesUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -16,10 +16,10 @@ class MultipleImageUploader < CarrierWave::Uploader::Base
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url(*)
   #   model_name = model.class.name
-  #   return "/uploads/default/" + [version_name, "default_user.jpg"].compact.join('_') if model_name == "User"
-  #   return "/uploads/default/" + [version_name, "default_item.png"].compact.join('_') if model_name == "Item"
+  #   return "/default/" + [version_name, "default_user.jpg"].compact.join('_') if model_name == "User"
+  #   return "/default/" + [version_name, "default_item.png"].compact.join('_') if model_name == "Item"
   #
-  #   "/uploads/default/" + [version_name, "default_review.jpg"].compact.join('_')
+  #   "/default/" + [version_name, "default_review.jpg"].compact.join('_')
   # end
 
   # Process files as they are uploaded:

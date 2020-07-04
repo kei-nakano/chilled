@@ -2,7 +2,7 @@ class Review < ApplicationRecord
   validate :image_count
   validates :score, presence: true
   validates :content, presence: true, length: { maximum: 200 }
-  mount_uploaders :multiple_images, MultipleImageUploader
+  mount_uploaders :multiple_images, MultipleImagesUploader
   acts_as_taggable
   belongs_to :item
   belongs_to :user
