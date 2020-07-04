@@ -72,10 +72,15 @@
   margin: 3px 0;
 }
 
-.review-scroll-image img {
+.review-scroll-image img,
+.review-blank-image {
   width: 350px;
   height: 240px;
   object-fit: cover;
+}
+
+.review-blank-image {
+  margin-bottom: 11px;
 }
 
 .review-scroll-end {

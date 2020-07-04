@@ -1,5 +1,5 @@
-<% provide :title, "レビュー編集" %>
-<% breadcrumb :review_edit, @item %>
+<% provide :title, "レビュー投稿" %>
+<% breadcrumb :review_new, @item %>
 
 <div class="container">
   <%= form_with(model: @review, local: true) do |form| %>
@@ -15,9 +15,9 @@
         <p>感想</p>
         <%= form.text_area :content %>
         <p>タグ(任意：3つまで)</p>
-        <%= form.text_field :tag_list, value: @review.tag_list, placeholder:  "カンマ区切りで入力：美味しい, 安い, コスパ" %>
+        <%= form.text_field :tag_list, placeholder:  "カンマ区切りで入力：美味しい, 安い, コスパ" %>
         
-        <p>商品画像(任意：3枚まで)
+        <p>商品画像(3枚まで)
         <%= form.file_field :multiple_images, multiple: true, accept: 'image/jpeg,image/gif,image/png', id: "item-image" %>
         <%= form.hidden_field :item_id, value: @item.id %>
         <%= form.hidden_field :user_id, value: @current_user.id %>
@@ -29,11 +29,6 @@
 
 <script>
 $(function() {
-  // タグのデフォルト入力にカンマ区切りを入れる
-  const separator = ", "
-  const text = $('input#review_tag_list').val().replace(/\s/g, separator); // デフォルトの半角スペースを置換
-  $('input#review_tag_list').val(text);
-  
   // タグを3つ以上入力できないように、カンマが3回以上出現したらアラートを出す
   $('input#review_tag_list').keyup(function() {
     var text = $(this).val();
@@ -49,6 +44,7 @@ $(function() {
 
 $(function() {
   $('input[type=file]').after('<span class="upload-image"></span>');
+
   // アップロードするファイルを複数選択
   $('input[type=file]').change(function() {
     $('span.upload-image').html('');

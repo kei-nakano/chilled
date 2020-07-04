@@ -11,6 +11,9 @@
     <div class="search-item-title">
       <%= link_to tag.name, "/search?keyword=#{tag.name}" %>
     </div>
+    <div class="search-item-description">
+      <p><%= "#{tag.taggings_count}" %>件のレビューがあります</p>
+    </div>
     <% if @current_user&.admin? %>
       <div class="comment-edit">
         <%= link_to "削除", "/tags/#{tag.id}", method: "delete" %>

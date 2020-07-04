@@ -1,9 +1,11 @@
 class SearchController < ApplicationController
+  after_action :respond, only: %i[show]
   def show
     @keyword = params[:keyword] || ""
     @keyword == "" ? (@digest = "全件の検索結果") : (@digest = "「#{@keyword}」の検索結果")
     @type = params[:type] || "item" # typeの指定がない場合、itemタブを優先表示するようにする
 
+    # typeの分岐によらず、検索結果の件数を表示する必要があるため、ifより前に記述
     @items = Item.search(@keyword)
     @reviews = Review.search(@keyword).where.not(user_id: block_ids(@current_user))
     @categories = Category.search(@keyword)
@@ -11,56 +13,22 @@ class SearchController < ApplicationController
     @users = User.search(@keyword)
     @tags = ActsAsTaggableOn::Tag.where('name like ?', "%" + @keyword + "%")
 
-    if @type == "item"
-      @results = @items
-      respond_to do |format|
-        format.js
-        format.html
-      end
-      return
-    end
-
-    if @type == "review"
-      @results = @reviews
-      respond_to do |format|
-        format.js
-      end
-    end
-
-    if @type == "category"
-      @results = @categories
-      respond_to do |format|
-        format.js
-        format.html
-      end
-      return
-    end
-
-    if @type == "user"
-      @results = @users
-      respond_to do |format|
-        format.js
-        format.html
-      end
-      return
-    end
-
-    if @type == "manufacturer"
-      @results = @manufacturers
-      respond_to do |format|
-        format.js
-        format.html
-      end
-      return
-    end
-
-    return unless @type == "tag"
+    return (@results = @items) if @type == "item"
+    return (@results = @reviews) if @type == "review"
+    return (@results = @categories) if @type == "category"
+    return (@results = @manufacturers) if @type == "manufacturer"
+    return (@results = @users) if @type == "user"
+    return redirect_to "/" unless @type == "tag"
 
     @results = @tags
+  end
+
+  private
+
+  def respond
     respond_to do |format|
       format.js
       format.html
     end
-    nil
   end
 end

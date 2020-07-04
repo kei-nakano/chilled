@@ -92,6 +92,12 @@ Review.create!(
   tag_list: %w[うまい 美味しい]
 )
 
+Review.all.each do |review|
+  review.update(multiple_images: [File.open("./public/uploads/default/1.jpg"),
+                                  File.open("./public/uploads/default/11.jpg"),
+                                  File.open("./public/uploads/default/1.jpg")])
+end
+
 Review.create!(
   user_id: 4,
   item_id: 2,
@@ -100,19 +106,17 @@ Review.create!(
   tag_list: %w[まずい ゴミ]
 )
 
-Review.last.update(multiple_images: [File.open("./public/uploads/default/1.jpg"),
-                                     File.open("./public/uploads/default/11.jpg"),
-                                     File.open("./public/uploads/default/1.jpg")])
-
 # ReviewLike
 ReviewLike.create!(user_id: 1,
                    review_id: 1)
-
-ReviewLike.create!(user_id: 2,
-                   review_id: 1)
-
 ReviewLike.create!(user_id: 2,
                    review_id: 2)
+ReviewLike.create!(user_id: 2,
+                   review_id: 3)
+ReviewLike.create!(user_id: 2,
+                   review_id: 4)
+ReviewLike.create!(user_id: 2,
+                   review_id: 5)
 
 # 食べた
 EatenItem.create!(user_id: 1,

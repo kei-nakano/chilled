@@ -9,6 +9,9 @@
     <div class="search-item-title">
       <%= link_to category.name, "/search?keyword=#{category.name}" %>
     </div>
+    <div class="search-item-description">
+      <p><%= "#{category.items.count}件の商品があります" %></p>
+    </div>
     <% if @current_user&.admin? %>
       <div class="comment-edit">
         <%= link_to "編集", "/categories/#{category.id}/edit" %>

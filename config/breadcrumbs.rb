@@ -2,16 +2,40 @@ crumb :root do
   link "トップ", "/"
 end
 
+# reviews
+crumb :reviews do
+  link "レビュー一覧", "/search?type=review"
+  parent :search
+end
+
+# review#edit
+crumb :review_edit do |item|
+  link "レビュー編集", "#"
+  parent :item_show, item
+end
+
+# review#new
+crumb :review_new do |item|
+  link "レビュー投稿", "#"
+  parent :item_show, item
+end
+
 # manufacturers
 crumb :manufacturers do
   link "メーカー一覧", "/search?type=manufacturer"
   parent :search
 end
 
+# manufacturer#show
+crumb :manufacturer_show do |manufacturer|
+  link manufacturer.name, "/manufacturers/#{manufacturer.id}/edit"
+  parent :manufacturers
+end
+
 # manufacturer#edit
 crumb :manufacturer_edit do |manufacturer|
-  link manufacturer.name, "#"
-  parent :manufacturers
+  link "メーカー編集", "#"
+  parent :manufacturer_show, manufacturer
 end
 
 # categories
@@ -20,10 +44,16 @@ crumb :categories do
   parent :search
 end
 
+# category#show
+crumb :category_show do |category|
+  link category.name, "/categories/#{category.id}/edit"
+  parent :categories
+end
+
 # category#edit
 crumb :category_edit do |category|
-  link category.name, "#"
-  parent :categories
+  link "カテゴリ編集", "#"
+  parent :category_show, category
 end
 
 # session
