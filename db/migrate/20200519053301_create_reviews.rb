@@ -5,7 +5,7 @@ class CreateReviews < ActiveRecord::Migration[5.2]
       t.references :item, foreign_key: true
       t.float :score
       t.text :content
-      t.string :image
+      t.json :multiple_images
 
       t.timestamps
     end

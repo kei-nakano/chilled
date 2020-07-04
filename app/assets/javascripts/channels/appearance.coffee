@@ -10,7 +10,6 @@ App.appearance = App.cable.subscriptions.create "AppearanceChannel",
     url = location.pathname
     room_id = url.split('/rooms/').pop()
     if $.isNumeric Number(room_id) 
-      console.log(room_id)
       App.appearance.appear room_id
     else 
       App.appearance.appear 0 # 0はどのroomにも入っていないことを表す

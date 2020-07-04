@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_30_200551) do
+ActiveRecord::Schema.define(version: 2020_06_12_141656) do
 
   create_table "blocks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "from_id"
@@ -24,9 +24,9 @@ ActiveRecord::Schema.define(version: 2020_06_30_200551) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "image"
     t.index ["name"], name: "index_categories_on_name", unique: true
   end
 
@@ -86,19 +86,19 @@ ActiveRecord::Schema.define(version: 2020_06_30_200551) do
 
   create_table "manufacturers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "image"
     t.index ["name"], name: "index_manufacturers_on_name", unique: true
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "room_id"
+    t.boolean "checked", default: false, null: false
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "checked", default: false, null: false
     t.index ["room_id"], name: "index_messages_on_room_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
@@ -143,10 +143,9 @@ ActiveRecord::Schema.define(version: 2020_06_30_200551) do
     t.bigint "item_id"
     t.float "score"
     t.text "content"
-    t.string "image"
+    t.json "multiple_images"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.json "multiple_images"
     t.index ["item_id"], name: "index_reviews_on_item_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
@@ -188,17 +187,17 @@ ActiveRecord::Schema.define(version: 2020_06_30_200551) do
     t.string "email"
     t.string "image"
     t.string "password_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "appear"
-    t.integer "room_id"
-    t.string "remember_digest"
     t.boolean "admin", default: false, null: false
     t.string "activation_digest"
     t.boolean "activated", default: false, null: false
     t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.string "remember_digest"
+    t.boolean "appear", default: false, null: false
+    t.integer "room_id", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
