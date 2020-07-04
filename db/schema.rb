@@ -13,8 +13,8 @@
 ActiveRecord::Schema.define(version: 2020_06_12_141656) do
 
   create_table "blocks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "from_id"
-    t.integer "blocked_id"
+    t.integer "from_id", null: false
+    t.integer "blocked_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["blocked_id"], name: "index_blocks_on_blocked_id"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2020_06_12_141656) do
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2020_06_12_141656) do
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "review_id"
-    t.text "content"
+    t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["review_id"], name: "index_comments_on_review_id"
@@ -66,26 +66,29 @@ ActiveRecord::Schema.define(version: 2020_06_12_141656) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_entries_on_room_id"
+    t.index ["user_id", "room_id"], name: "index_entries_on_user_id_and_room_id", unique: true
     t.index ["user_id"], name: "index_entries_on_user_id"
   end
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.string "image"
     t.bigint "manufacturer_id"
     t.bigint "category_id"
-    t.text "content"
-    t.integer "price"
-    t.integer "gram"
-    t.integer "calorie"
+    t.text "content", null: false
+    t.integer "price", null: false
+    t.integer "gram", null: false
+    t.integer "calorie", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_items_on_category_id"
+    t.index ["content"], name: "index_items_on_content", length: 150
     t.index ["manufacturer_id"], name: "index_items_on_manufacturer_id"
+    t.index ["title"], name: "index_items_on_title", unique: true
   end
 
   create_table "manufacturers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -96,7 +99,7 @@ ActiveRecord::Schema.define(version: 2020_06_12_141656) do
     t.bigint "user_id"
     t.bigint "room_id"
     t.boolean "checked", default: false, null: false
-    t.text "content"
+    t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_messages_on_room_id"
@@ -108,7 +111,7 @@ ActiveRecord::Schema.define(version: 2020_06_12_141656) do
     t.integer "visited_id", null: false
     t.integer "review_id"
     t.integer "comment_id"
-    t.string "action", default: "", null: false
+    t.string "action", null: false
     t.boolean "checked", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -119,8 +122,8 @@ ActiveRecord::Schema.define(version: 2020_06_12_141656) do
   end
 
   create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "follower_id"
-    t.integer "followed_id"
+    t.integer "follower_id", null: false
+    t.integer "followed_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
@@ -141,11 +144,12 @@ ActiveRecord::Schema.define(version: 2020_06_12_141656) do
   create_table "reviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "item_id"
-    t.float "score"
-    t.text "content"
+    t.float "score", null: false
+    t.text "content", null: false
     t.json "multiple_images"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["content"], name: "index_reviews_on_content", length: 150
     t.index ["item_id"], name: "index_reviews_on_item_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
@@ -183,22 +187,23 @@ ActiveRecord::Schema.define(version: 2020_06_12_141656) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
+    t.string "name", null: false
+    t.string "email", null: false
     t.string "image"
-    t.string "password_digest"
+    t.string "password_digest", null: false
+    t.string "remember_digest"
     t.boolean "admin", default: false, null: false
     t.string "activation_digest"
     t.boolean "activated", default: false, null: false
     t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
-    t.string "remember_digest"
     t.boolean "appear", default: false, null: false
     t.integer "room_id", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["name"], name: "index_users_on_name"
   end
 
   create_table "want_to_eat_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

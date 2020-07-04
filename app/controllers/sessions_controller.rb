@@ -12,9 +12,7 @@ class SessionsController < ApplicationController
         flash[:notice] = "ログインしました"
         redirect_to "/users/#{user.id}"
       else
-        message  = "Account not activated. "
-        message += "Check your email for the activation link."
-        flash[:notice] = message
+        flash[:notice] = "メールのリンクを確認してアカウントを有効化してください"
         redirect_to "/"
       end
     else
