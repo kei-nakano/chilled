@@ -1,8 +1,8 @@
 class CreateBlocks < ActiveRecord::Migration[5.2]
   def change
     create_table :blocks do |t|
-      t.integer :from_id
-      t.integer :blocked_id
+      t.integer :from_id, null: false
+      t.integer :blocked_id, null: false
 
       t.timestamps
     end

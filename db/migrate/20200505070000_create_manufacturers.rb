@@ -1,7 +1,8 @@
 class CreateManufacturers < ActiveRecord::Migration[5.2]
   def change
     create_table :manufacturers do |t|
-      t.string :name
+      t.string :name, null: false
+      t.string :image
 
       t.timestamps
     end

@@ -11,7 +11,8 @@ User.create!(name: "keisuke",
   password = "password"
   User.create!(name: name,
                email: email,
-               password: password)
+               password: password,
+               activated: true)
 end
 
 # メーカー
@@ -32,7 +33,7 @@ Item.create!(title: "日清もちっと生パスタ 牛挽肉とまいたけの�
              gram: 295,
              calorie: 472)
 
-Item.create!(title: "日清もちっと生パスタ 牛挽肉とまいたけのクリーミーボロネーゼ",
+Item.create!(title: "日清もちっと生パスタ 牛挽肉とまいたけのクリーミーボロネゼ",
              image: nil,
              manufacturer_id: 2,
              category_id: 2,
@@ -41,7 +42,7 @@ Item.create!(title: "日清もちっと生パスタ 牛挽肉とまいたけの�
              gram: 295,
              calorie: 472)
 
-Item.create!(title: "日清もちっと生パスタ 牛挽肉とまいたけのクリーミーボロネーゼ",
+Item.create!(title: "日清もちっと生パスタ 牛挽肉とまいたけのクリーミーボネーゼ",
              image: nil,
              manufacturer_id: 2,
              category_id: 2,
@@ -50,7 +51,7 @@ Item.create!(title: "日清もちっと生パスタ 牛挽肉とまいたけの�
              gram: 295,
              calorie: 472)
 
-Item.create!(title: "日清もちっと生パスタ 牛挽肉とまいたけのクリーミーボロネーゼ",
+Item.create!(title: "日清もちっと生パスタ 牛挽肉とまいたけのクリボロネーゼ",
              image: nil,
              manufacturer_id: 2,
              category_id: 2,
@@ -66,17 +67,19 @@ Item.create!(title: "日清もちっと生パスタ 牛挽肉とまいたけの�
 # end
 
 # レビュー
-Review.create!(image: nil,
-               user_id: 1,
-               item_id: 1,
-               content: 'パッケージだと美味しそうな画像だったんですけど、実際に調理してみると全然ショボかったです。正直もう買いません。',
-               score: 2.5)
+Review.create!(
+  user_id: 1,
+  item_id: 1,
+  content: 'パッケージだと美味しそうな画像だったんですけど、実際に調理してみると全然ショボかったです。正直もう買いません。',
+  score: 2.5
+)
 
-Review.create!(image: nil,
-               user_id: 2,
-               item_id: 1,
-               content: 'これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。',
-               score: 5.0)
+Review.create!(
+  user_id: 2,
+  item_id: 1,
+  content: 'これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。',
+  score: 5.0
+)
 
 Review.create!(user_id: 3,
                item_id: 2,
