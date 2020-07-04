@@ -4,7 +4,7 @@
       <%= link_to "/users/#{user.id}", alt: "ユーザの画像" do %>
         <%= image_tag user.image.url %>
       <% end %>
-      <% if user.appear == true %>
+      <% if user.appear? %>
         <span class="active-icon">.</span>
       <% end %>
     </div>

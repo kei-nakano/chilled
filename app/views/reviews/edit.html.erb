@@ -35,12 +35,14 @@ $(function() {
   $('input#review_tag_list').val(text);
   
   // タグを3つ以上入力できないように、カンマが3回以上出現したらアラートを出す
-  $('input#review_tag_list').keypress(function() {
-    const text = $(this).val();
-    var count = ( text.match( /,/g ) || [] ).length ; 
-    console.log(count);
+  $('input#review_tag_list').keyup(function() {
+    var text = $(this).val();
+    var count = (text.match(/,/g) || []).length; 
+    
     if (count > 2) {
       alert("タグは3つまでしか入力できません");
+      modified_text = text.slice(0, -1); // 末尾のカンマを削除
+      $(this).val(modified_text);
     }
   });
 });

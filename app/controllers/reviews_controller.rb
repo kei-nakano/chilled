@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+  before_action :modify_tags, only: %i[create update]
   def new
     @review = Review.new
     @item = Item.find_by(id: params[:item_id])
@@ -53,5 +54,10 @@ class ReviewsController < ApplicationController
     params.require(:review).permit(
       :content, :score, :item_id, :user_id, :tag_list, { multiple_images: [] }
     )
+  end
+
+  # tag_listの中の空白を全て取り除く
+  def modify_tags
+    params[:review][:tag_list] = params[:review][:tag_list].gsub(/[[:space:]]/, '')
   end
 end
