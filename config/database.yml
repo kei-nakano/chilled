@@ -14,12 +14,21 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password:
-  socket: /var/lib/mysql/mysql.sock
+ # password:
+ # socket: /var/lib/mysql/mysql.sock
 
+
+#development:
+#  <<: *default
+#  database: sample_development
+
+# aws開発rds接続用に追加
 development:
   <<: *default
-  database: sample_development
+  host: test-rails.cxoml4k8yopz.us-east-2.rds.amazonaws.com
+  port: 3306
+  database: sample_rds 
+  password: <%= ENV['DB_PW_DEVELOPMENT'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
