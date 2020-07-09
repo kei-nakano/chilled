@@ -17,7 +17,6 @@ default: &default
  # password:
  # socket: /var/lib/mysql/mysql.sock
 
-
 #development:
 #  <<: *default
 #  database: sample_development
@@ -25,7 +24,7 @@ default: &default
 # aws開発rds接続用に追加
 development:
   <<: *default
-  host: test-rails.cxoml4k8yopz.us-east-2.rds.amazonaws.com
+  host: rails.cwp2rolxcga0.ap-northeast-1.rds.amazonaws.com
   port: 3306
   database: sample_rds 
   password: <%= ENV['DB_PW_DEVELOPMENT'] %>
