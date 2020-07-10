@@ -21,14 +21,18 @@
 /yarn-error.log
 
 /public/uploads/
+/public/assets/
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+
+
 # Ignore following files
 .DS_Store
 Thumbs.db
 .swp
-/.env
+.env
 *.tmp
+dump.rdb
