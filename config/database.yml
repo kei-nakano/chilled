@@ -57,6 +57,11 @@ test:
 #
 production:
   <<: *default
-  database: sample_production
-#  username: sample
-#  password: <%= ENV['SAMPLE_DATABASE_PASSWORD'] %>
+  database: sample_rds
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  host: rails.cwp2rolxcga0.ap-northeast-1.rds.amazonaws.com
+  port: 3306
+  password: <%= ENV['DB_PW_DEVELOPMENT'] %>

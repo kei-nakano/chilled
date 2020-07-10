@@ -18,9 +18,8 @@ Rails.application.configure do
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
 
-  # Disable serving static files from the `/public` folder by default since
-  # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  # publicフォルダ配下の資産を公開する
+  config.public_file_server.enabled = true
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -91,4 +90,11 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # master.keyがないとき、サーバ起動をエラーとする
+  config.require_master_key = true
+
+  # Action Cableは指定されていない送信元からのリクエストを受け付けないため、送信元リストを定義する
+  # config.action_cable.url = 'ws://ec2-54-178-0-15.ap-northeast-1.compute.amazonaws.com/cable'
+  config.action_cable.allowed_request_origins = ['http://ec2-54-178-0-15.ap-northeast-1.compute.amazonaws.com']
 end

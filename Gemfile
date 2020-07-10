@@ -18,8 +18,8 @@ gem 'carrierwave'
 gem 'rails-i18n'
 gem "gretel"
 gem 'acts-as-taggable-on', '~> 6.0'
-gem 'sidekiq'
 gem 'dotenv-rails'
+gem 'redis-rails'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
