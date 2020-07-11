@@ -95,6 +95,5 @@ Rails.application.configure do
   config.require_master_key = true
 
   # Action Cableは指定されていない送信元からのリクエストを受け付けないため、送信元リストを定義する
-  # config.action_cable.url = 'ws://ec2-54-178-0-15.ap-northeast-1.compute.amazonaws.com/cable'
-  config.action_cable.allowed_request_origins = ['http://ec2-54-178-0-15.ap-northeast-1.compute.amazonaws.com']
+  config.action_cable.allowed_request_origins = ['https://chilled.site']
 end
