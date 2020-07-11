@@ -66,5 +66,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Action Cableは指定されていない送信元からのリクエストを受け付けないため、送信元リストを定義する
-  config.action_cable.allowed_request_origins = ['http://ec2-54-178-0-15.ap-northeast-1.compute.amazonaws.com']
+  config.action_cable.allowed_request_origins = ['http://ec2-54-150-77-245.ap-northeast-1.compute.amazonaws.com']
 end
