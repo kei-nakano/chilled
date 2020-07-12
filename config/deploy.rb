@@ -11,8 +11,8 @@ set :deploy_to, "/home/#{fetch(:user)}/environment/#{fetch(:application)}"
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, "/var/www/my_app_name"
-set :branch, ENV['BRANCH'] || "master"
-
+# set :branch, ENV['BRANCH'] || "master"
+set :branch, "capistrano"
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
