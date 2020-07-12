@@ -13,9 +13,6 @@ set :repo_url, "git@github.com:kei-nakano/sample.git"
 # デプロイパス
 set :deploy_to, "/home/#{fetch(:user)}/environment/#{fetch(:application)}"
 
-# shared配下の読み込みファイルの設定
-set :linked_files, fetch(:linked_files, []).push("config/master.key")
-
 # set :branch, ENV['BRANCH'] || "master"
 set :branch, "capistrano"
 # Default value for :format is :airbrussh.
@@ -28,11 +25,9 @@ set :branch, "capistrano"
 # タスク内でsudoする場合、trueにする
 set :pty, true
 
-# シンボリックリンクを作成
-# append :linked_files, "config/database.yml"
-append :linked_files, "config/credentials.yml.enc"
-
-# 環境変数の読み込み
+# 以下ファイルはそのままでは読み込まれず、shared配下に置く必要があるため、リンク対象としてシンボリックリンクを作成する
+set :linked_files, fetch(:linked_files, []).push("config/master.key")
+append :linked_files, "config/database.yml"
 append :linked_files, ".env"
 
 # Default value for linked_dirs is []
