@@ -76,6 +76,36 @@ Style/HashTransformKeys:
 Style/HashTransformValues:
   Enabled:  true
   
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+  
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+  
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+  
+Style/AccessorGrouping:
+  Enabled: true
+  
+Style/BisectedAttrAccessor:
+  Enabled: true
+
+Style/RedundantAssignment:
+  Enabled: true
+  
+Style/RedundantFetchBlock:
+  Enabled: true
+  
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
+  
 # update_attributeの使用を許可
 Rails/SkipsModelValidations:
   Enabled: false
