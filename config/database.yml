@@ -64,4 +64,5 @@ production:
   username: root
   host: rails.cwp2rolxcga0.ap-northeast-1.rds.amazonaws.com
   port: 3306
-  password: <%= ENV['DB_PW_DEVELOPMENT'] %>
+  # password: <%= ENV['DB_PW_DEVELOPMENT'] %>
+  password: <%= ENV['DB_PW_PRODUCTION'] %>
