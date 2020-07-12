@@ -15,6 +15,12 @@ set :deploy_to, "/home/#{fetch(:user)}/environment/#{fetch(:application)}"
 
 # set :branch, ENV['BRANCH'] || "master"
 set :branch, "capistrano"
+
+# 以下ファイルはそのままでは読み込まれず、shared配下に置く必要があるため、リンク対象としてシンボリックリンクを作成する
+set :linked_files, fetch(:linked_files, []).push("config/master.key")
+append :linked_files, "config/database.yml"
+append :linked_files, ".env"
+
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
@@ -24,11 +30,6 @@ set :branch, "capistrano"
 
 # タスク内でsudoする場合、trueにする
 set :pty, true
-
-# 以下ファイルはそのままでは読み込まれず、shared配下に置く必要があるため、リンク対象としてシンボリックリンクを作成する
-set :linked_files, fetch(:linked_files, []).push("config/master.key")
-append :linked_files, "config/database.yml"
-append :linked_files, ".env"
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
@@ -49,3 +50,30 @@ set :ssh_options, {
   forward_agent: true,
   auth_methods: %w[publickey]
 }
+
+# ----------カスタマイズしたタスク------------
+namespace :deploy do
+# linked_filesで使用するファイルをアップロードするタスク。deploy前に実行する。
+  desc 'upload linked_files'
+  task :upload do
+    on roles(:app) do |host|
+      execute :mkdir, '-p', "#{shared_path}/config"
+      upload!('config/database.yml',"#{shared_path}/config/database.yml")
+      upload!('config/master.key',"#{shared_path}/config/master.key")
+      upload!('.env',"#{shared_path}/.env")
+    end
+  end
+  
+# nginxの再起動を行う  
+  desc 'restart nginx'
+  task :restart do
+    on roles(:app) do
+      sudo 'nginx -s reload'
+    end
+  end
+end
+
+# linked_filesで使用するファイルをアップロードするタスクは、deployが行われる前に実行する必要がある
+before 'deploy:starting', 'deploy:upload'
+# Capistrano 3.1.0 からデフォルトで deploy:restart タスクが呼ばれなくなったので、ここに以下の1行を書く必要がある
+after 'deploy:publishing', 'deploy:restart'
