@@ -1,8 +1,16 @@
 development:
-  adapter: async
+  #adapter: async
+  adapter: redis
+  port: 6379
+  url: redis://localhost
+  channel_prefix: sample_development
 
 test:
-  adapter: async
+  #adapter: async
+  adapter: redis
+  port: 6379
+  url: redis://localhost
+  channel_prefix: sample_test
 
 production:
   adapter: redis
