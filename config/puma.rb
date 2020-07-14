@@ -13,12 +13,12 @@ threads threads_count, threads_count
 # nginx通信用：UNIXドメインソケット
 bind "unix:///tmp/sockets/puma.sock"
 
-# Specifies the `environment` that Puma will run in.
-#
+# デフォルト起動モード
 environment ENV.fetch("RAILS_ENV") { "development" }
 
-# Specifies the `pidfile` that Puma will use.
-pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
+# pumaのプロセスIDファイルパス
+pidfile ENV.fetch("PIDFILE") { "tmp/pids/puma.pid" }
+state_path ENV.fetch("STATEFILE") { "tmp/pids/puma.state" }
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together

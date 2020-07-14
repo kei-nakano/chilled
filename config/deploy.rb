@@ -16,8 +16,10 @@ set :deploy_to, "/home/#{fetch(:user)}/environment/#{fetch(:application)}"
 # 自動生成されるpuma.rbのソケット通信パスを以下に変更
 set :puma_bind, %w[unix:///tmp/sockets/puma.sock]
 
-# set :branch, ENV['BRANCH'] || "master"
-set :branch, "capistrano"
+# git cloneブランチの指定
+# 
+last_commit_branch = `git symbolic-ref --short HEAD`.chomp
+set :branch, ENV['BRANCH'] || last_commit_branch
 
 # 以下ファイルはそのままでは読み込まれず、shared配下に置く必要があるため、リンク対象としてシンボリックリンクを作成する
 set :linked_files, fetch(:linked_files, []).push("config/master.key")
@@ -34,8 +36,8 @@ append :linked_files, ".env"
 # タスク内でsudoする場合、trueにする
 set :pty, true
 
-# Default value for linked_dirs is []
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
+# git管理対象外のディレクトリはシンボリックリンク化する
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -64,6 +66,8 @@ namespace :deploy do
       upload!('config/database.yml', "#{shared_path}/config/database.yml")
       upload!('config/master.key', "#{shared_path}/config/master.key")
       upload!('.env', "#{shared_path}/.env")
+
+      # puma.rbをデプロイ時に毎回作成する
       invoke 'puma:config'
     end
   end
@@ -93,12 +97,22 @@ namespace :redis do
   end
 end
 
-before 'nginx:stop', 'puma:stop'
-before 'deploy:upload', 'nginx:stop'
-before 'nginx:stop', 'redis:stop'
-# linked_filesで使用するファイルをアップロードするタスクは、deployが行われる前に実行する必要がある
-before 'deploy:starting', 'deploy:upload'
-# Capistrano 3.1.0 からデフォルトで deploy:restart タスクが呼ばれなくなったので、ここに以下の1行を書く必要がある
-after 'deploy:publishing', 'nginx:start'
-after 'nginx:start', 'redis:start'
-# after 'puma:start', 'deploy:restart_puma'
+# capistrano内の変数一覧表示
+namespace :config do
+  desc 'show variables'
+  task :display do
+    Capistrano::Configuration.env.keys.each do |key|
+      puts "#{key} => #{fetch(key)}"
+    end
+  end
+end
+
+# デプロイ開始前のサーバ停止タスク(nginx => puma => redis)
+before 'deploy:starting', 'nginx:stop'
+after 'nginx:stop', 'puma:stop'
+after 'puma:stop', 'redis:stop'
+after 'redis:stop', 'deploy:upload'
+
+# デプロイ完了後のサーバ起動タスク(redis => puma => nginx)。pumaの起動タイミングはデプロイ直後で、gemで挿入済みのため記述しない
+before 'puma:start', 'redis:start'
+after 'puma:start', 'nginx:start'

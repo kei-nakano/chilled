@@ -67,9 +67,6 @@ Lint/StructNewOverride:
 Style/ExponentialNotation:
   Enabled:  true  
   
-Style/HashEachMethods:
-  Enabled:  true
-  
 Style/HashTransformKeys:
   Enabled:  true
   
@@ -106,6 +103,14 @@ Style/RedundantRegexpEscape:
 Style/SlicingWithRange:
   Enabled: true
   
+# 例外的にfalseとする。capistranoのconfig:displayにて異常検知されるため
+Style/HashEachMethods:
+  Enabled:  false
+  
+# デバッグ用のputsが異常検知されるため、falseとする
+Rails/Output:
+  Enabled: false
+
 # update_attributeの使用を許可
 Rails/SkipsModelValidations:
   Enabled: false
