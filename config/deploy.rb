@@ -17,9 +17,9 @@ set :deploy_to, "/home/#{fetch(:user)}/environment/#{fetch(:application)}"
 set :puma_bind, %w[unix:///tmp/sockets/puma.sock]
 
 # git cloneブランチの指定
-# 
-last_commit_branch = `git symbolic-ref --short HEAD`.chomp
-set :branch, ENV['BRANCH'] || last_commit_branch
+# カレントブランチを標準出力から取得し、chompで末尾の改行コードを削除する
+current_branch = `git symbolic-ref --short HEAD`.chomp
+set :branch, ENV['BRANCH'] || current_branch
 
 # 以下ファイルはそのままでは読み込まれず、shared配下に置く必要があるため、リンク対象としてシンボリックリンクを作成する
 set :linked_files, fetch(:linked_files, []).push("config/master.key")
