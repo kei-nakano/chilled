@@ -13,6 +13,9 @@ set :repo_url, "git@github.com:kei-nakano/sample.git"
 # デプロイパス
 set :deploy_to, "/home/#{fetch(:user)}/environment/#{fetch(:application)}"
 
+# 自動生成されるpuma.rbのソケット通信パスを以下に変更
+set :puma_bind, %w[unix:///tmp/sockets/puma.sock]
+
 # set :branch, ENV['BRANCH'] || "master"
 set :branch, "capistrano"
 
@@ -61,6 +64,7 @@ namespace :deploy do
       upload!('config/database.yml', "#{shared_path}/config/database.yml")
       upload!('config/master.key', "#{shared_path}/config/master.key")
       upload!('.env', "#{shared_path}/.env")
+      invoke 'puma:config'
     end
   end
 end
@@ -88,6 +92,8 @@ namespace :redis do
     end
   end
 end
+
+before 'nginx:stop', 'puma:stop'
 before 'deploy:upload', 'nginx:stop'
 before 'nginx:stop', 'redis:stop'
 # linked_filesで使用するファイルをアップロードするタスクは、deployが行われる前に実行する必要がある
@@ -95,3 +101,4 @@ before 'deploy:starting', 'deploy:upload'
 # Capistrano 3.1.0 からデフォルトで deploy:restart タスクが呼ばれなくなったので、ここに以下の1行を書く必要がある
 after 'deploy:publishing', 'nginx:start'
 after 'nginx:start', 'redis:start'
+# after 'puma:start', 'deploy:restart_puma'
