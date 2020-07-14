@@ -4,25 +4,21 @@
 # the maximum value specified for Puma. Default is set to 5 threads for minimum
 # and maximum; this matches the default thread size of Active Record.
 #
-threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
+threads_count = ENV.fetch("RAILS_MAX_THREADS", 5)
 threads threads_count, threads_count
 
 # UNIXドメインソケットでの連携時、TCP通信での連携は不要になるので、port設定をコメントアウトし、tcpでのlisten停止させる
 # port ENV.fetch("PORT") { 3000 }
 
 # nginx通信用：UNIXドメインソケット
-# bind "unix://#{Rails.root}/tmp/sockets/puma.sock"
-
-# /home/ec2-user/environment/sampleは変数に代入するべき
-# bind "unix:///home/ec2-user/environment/sample/tmp/sockets/puma.sock"
 bind "unix:///tmp/sockets/puma.sock"
 
-# Specifies the `environment` that Puma will run in.
-#
+# デフォルト起動モード
 environment ENV.fetch("RAILS_ENV") { "development" }
 
-# Specifies the `pidfile` that Puma will use.
-pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
+# pumaのプロセスIDファイルパス
+pidfile ENV.fetch("PIDFILE") { "tmp/pids/puma.pid" }
+state_path ENV.fetch("STATEFILE") { "tmp/pids/puma.state" }
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
