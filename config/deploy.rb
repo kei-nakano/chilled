@@ -53,27 +53,45 @@ set :ssh_options, {
 
 # ----------カスタマイズしたタスク------------
 namespace :deploy do
-# linked_filesで使用するファイルをアップロードするタスク。deploy前に実行する。
+  # linked_filesで使用するファイルをアップロードするタスク。deploy前に実行する。
   desc 'upload linked_files'
   task :upload do
-    on roles(:app) do |host|
+    on roles(:app) do |_host|
       execute :mkdir, '-p', "#{shared_path}/config"
-      upload!('config/database.yml',"#{shared_path}/config/database.yml")
-      upload!('config/master.key',"#{shared_path}/config/master.key")
-      upload!('.env',"#{shared_path}/.env")
-    end
-  end
-  
-# nginxの再起動を行う  
-  desc 'restart nginx'
-  task :restart do
-    on roles(:app) do
-      sudo 'nginx -s reload'
+      upload!('config/database.yml', "#{shared_path}/config/database.yml")
+      upload!('config/master.key', "#{shared_path}/config/master.key")
+      upload!('.env', "#{shared_path}/.env")
     end
   end
 end
 
+# nginxの起動・停止・再起動
+namespace :nginx do
+  %w[start stop restart].each do |command|
+    desc "#{command} nginx"
+    task command.to_s do
+      on roles(:web) do
+        sudo "service nginx #{command}"
+      end
+    end
+  end
+end
+
+# redisの起動・停止・再起動
+namespace :redis do
+  %w[start stop restart].each do |command|
+    desc "#{command} redis"
+    task command.to_s do
+      on roles(:web) do
+        sudo "service redis #{command}"
+      end
+    end
+  end
+end
+before 'deploy:upload', 'nginx:stop'
+before 'nginx:stop', 'redis:stop'
 # linked_filesで使用するファイルをアップロードするタスクは、deployが行われる前に実行する必要がある
 before 'deploy:starting', 'deploy:upload'
 # Capistrano 3.1.0 からデフォルトで deploy:restart タスクが呼ばれなくなったので、ここに以下の1行を書く必要がある
-after 'deploy:publishing', 'deploy:restart'
+after 'deploy:publishing', 'nginx:start'
+after 'nginx:start', 'redis:start'
