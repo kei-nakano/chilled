@@ -11,10 +11,6 @@ threads threads_count, threads_count
 # port ENV.fetch("PORT") { 3000 }
 
 # nginx通信用：UNIXドメインソケット
-# bind "unix://#{Rails.root}/tmp/sockets/puma.sock"
-
-# /home/ec2-user/environment/sampleは変数に代入するべき
-# bind "unix:///home/ec2-user/environment/sample/tmp/sockets/puma.sock"
 bind "unix:///tmp/sockets/puma.sock"
 
 # Specifies the `environment` that Puma will run in.
