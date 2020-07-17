@@ -1,3 +1,4 @@
+# circleciのバージョン
 version: 2.1
 
 jobs:
@@ -10,7 +11,8 @@ jobs:
           
       - image: mysql:5.7.28
         environment:
-          MYSQL_ROOT_PASSWORD: password
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_ROOT_PASSWORD: ''
           MYSQL_DATABASE: root
           
     # 並列実行するコンテナ数。無料プランでは1しか指定できない
@@ -32,9 +34,8 @@ jobs:
       # gemのインストールを行う
       - run:
           name: gem install
-          command: |
-            bundle install --jobs=4 --retry=3
-            
+          command: bundle install --jobs=4 --retry=3
+          
       # キャッシュを保存する
       - save_cache:
           key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
@@ -45,9 +46,14 @@ jobs:
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
-            
+      
+      # DB再起動
+      #- run:
+      #    name: restart DB
+      #    command: sudo service mysqld restart
+      
       - run: bundle exec rails db:create
-      - run: bundle exec rails db:schema:load
+      - run: bundle exec rails db:schema:load --trace
       
       - run:
           name: Which bundler?
