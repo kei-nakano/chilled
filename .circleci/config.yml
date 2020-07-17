@@ -25,13 +25,7 @@ jobs:
       - checkout
       
       # 環境変数の展開
-      - run: echo ${CIRCLE_BRANCH}
-      - run: echo ${ENV}
-      - run: echo $ENV
-      - run: echo ${ENV2}
-      - run: echo $ENV2
-      - run: echo ${ENV2} | base64 --decode > ~/.env  
-      - run: sudo ls -a ~/
+      - run: echo ${ENV} | base64 --decode > ~/.env  
       - run: cat ~/.env
       
       # bundlerのバージョン1.17.3へのアップデート
