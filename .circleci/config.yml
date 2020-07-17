@@ -30,7 +30,7 @@ jobs:
       - run: echo $ENV
       - run: echo ${ENV2}
       - run: echo $ENV2
-      - run: echo ${ENV} | base64 --decode > ~/.env  
+      - run: echo ${ENV2} | base64 --decode > ~/.env  
       - run: sudo ls -a ~/
       - run: cat ~/.env
       
