@@ -26,7 +26,7 @@ jobs:
       
       # 環境変数の展開
       - run: echo ${ENV} | base64 --decode > ~/.env  
-      - run: cat ~/.env
+      #- run: cat ~/.env
       
       # bundlerのバージョン1.17.3へのアップデート
       - run:  
@@ -76,5 +76,5 @@ jobs:
      # 本番環境へのデプロイ
       - run:
           name: Deployment
-          command: bundle exec cap production deploy 
+          command: bundle exec cap production deploy BRANCH=master
       
