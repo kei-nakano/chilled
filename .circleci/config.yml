@@ -14,7 +14,6 @@ jobs:
         environment:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: root
-
           
     # 並列実行するコンテナ数。無料プランでは1しか指定できない
     parallelism: 1
@@ -27,12 +26,24 @@ jobs:
       # CI環境上のworking_directoryの場所にgitリポジトリをコピーする
       - checkout
       
+      # bundle install高速化のため、キャッシュを利用
+      - restore_cache:
+          keys:
+            - rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - rails-demo-bundle-v2-
+      
       # gemのインストールを行う
-      - run: mysql --version
       - run:
           name: gem install
           command: |
             bundle install --jobs=4 --retry=3
+            
+      # キャッシュを保存する
+      - save_cache:
+          key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ~/.bundle
+            
       - run:
           name: Which bundler?
           command: bundle -v
