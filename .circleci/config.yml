@@ -9,10 +9,9 @@ jobs:
           RAILS_ENV: test
           MYSQL_HOST: 127.0.0.1
           
-      - image: mysql:5.7.28
+      - image: circleci/mysql:5.7.28
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_ROOT_PASSWORD: ''
           MYSQL_DATABASE: sample_test
           
     # 並列実行するコンテナ数。無料プランでは1しか指定できない
@@ -24,6 +23,28 @@ jobs:
     steps:
       # CI環境上のworking_directoryの場所にgitリポジトリをコピーする
       - checkout
+      
+      # 環境変数の展開
+      - run: echo ${CIRCLE_BRANCH}
+      - run: echo ${ENV}
+      - run: echo $ENV
+      - run: echo ${ENV2}
+      - run: echo $ENV2
+      - run: echo ${ENV} | base64 --decode > ~/.env  
+      - run: sudo ls -a ~/
+      - run: cat ~/.env
+      
+      # bundlerのバージョン1.17.3へのアップデート
+      - run:  
+          name: Update bundler   
+          command: |
+            gem uninstall bundler
+            gem install bundler -v 1.17.3
+          
+      # バージョン確認
+      - run:
+          name: Which bundler?
+          command: bundle -v
       
       # bundle install高速化のため、キャッシュを利用
       - restore_cache:
@@ -41,23 +62,25 @@ jobs:
           key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - ~/.bundle
+            
+      # rubocopテスト
+      - run:
+          name: rubocop
+          command: bundle exec rubocop
       
       # mysqlの起動待機
       - run:
-          name: wait for DB
+          name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
       
-      # テーブル作成
+      # DBセットアップ
       - run:
-          name: create tables
+          name: Setting DB
           command: bundle exec rails db:schema:load --trace
       
-
       
+     # 本番環境へのデプロイ
       - run:
-          name: Which bundler?
-          command: bundle -v
+          name: Deployment
+          command: bundle exec cap production deploy 
       
-      #- run:
-      #    name: rubocop
-      #    command: bundle exec rubocop
