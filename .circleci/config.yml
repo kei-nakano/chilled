@@ -5,12 +5,39 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.6-stretch-node
+      - image: circleci/ruby:2.6.6-node-browsers
+        environment:
+          RAILS_ENV: test
+          MYSQL_HOST: 127.0.0.1
+          
+      - image: mysql:5.7
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: root
+
+          
+    # 並列実行するコンテナ数。無料プランでは1しか指定できない
+    parallelism: 1
+    
+    # 作業ディレクトリを指定
+    working_directory: ~/sample
+    
     executor: ruby/default
     steps:
+      # CI環境上のworking_directoryの場所にgitリポジトリをコピーする
       - checkout
+      
+      # gemのインストールを行う
+      - run: mysql --version
+      - run:
+          name: gem install
+          command: |
+            bundle install --jobs=4 --retry=3
       - run:
           name: Which bundler?
           command: bundle -v
-      - ruby/bundle-install
-      - run: echo "hello+world"
+      #- ruby/bundle-install
+      #- run: echo "hello+world"
+      #- run:
+      #    name: rubocop
+      #    command: bundle exec rubocop
