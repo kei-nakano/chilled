@@ -13,7 +13,7 @@ jobs:
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_ROOT_PASSWORD: ''
-          MYSQL_DATABASE: root
+          MYSQL_DATABASE: sample_test
           
     # 並列実行するコンテナ数。無料プランでは1しか指定できない
     parallelism: 1
@@ -44,16 +44,15 @@ jobs:
       
       # mysqlの起動待機
       - run:
-          name: Wait for DB
+          name: wait for DB
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
       
-      # DB再起動
-      #- run:
-      #    name: restart DB
-      #    command: sudo service mysqld restart
+      # テーブル作成
+      - run:
+          name: create tables
+          command: bundle exec rails db:schema:load --trace
       
-      - run: bundle exec rails db:create
-      - run: bundle exec rails db:schema:load --trace
+
       
       - run:
           name: Which bundler?

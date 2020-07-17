@@ -16,7 +16,6 @@ default: &default
   port: 3306
   username: root
   password: ''
-  socket: /var/lib/mysql/mysql.sock
   host: 127.0.0.1
 
 development:
