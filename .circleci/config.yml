@@ -89,6 +89,7 @@ jobs:
       - deploy:
           name: Capistrano deploy
           command: |
+            pwd
             #if [ "${CIRCLE_BRANCH}" != "master" ]; then
             #  exit 0
             #fi
