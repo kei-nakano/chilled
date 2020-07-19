@@ -25,12 +25,13 @@ jobs:
       - checkout
       
       # 環境変数の展開
-      - run: sudo echo ${CUSTOM_ENV} | base64 --decode > ~/.bashrc
+      - run: sudo echo ${CUSTOM_ENV} | base64 --decode >> ~/.bashrc
+      - run: sudo source ~/.bashrc
       # デバッグ用
       - run: sudo cat ~/.bashrc
       
       # master.keyの生成
-      - run: sudo echo ${MASTER_KEY} | base64 --decode > ~/sample/config/master.key
+      - run: sudo echo ${MASTER_KEY} > ~/sample/config/master.key
       # デバッグ用
       - run: sudo cat ~/sample/config/master.key
       
@@ -78,9 +79,19 @@ jobs:
           name: Setting DB
           command: bundle exec rails db:schema:load --trace
       
-      
-     # 本番環境へのデプロイ
-      - run:
-          name: Deployment
-          command: bundle exec cap production deploy BRANCH=master
+      # capistranoのssh接続用秘密鍵の追加
+      - add_ssh_keys:
+          fingerprints:
+            - "03:0e:cc:fb:6d:e0:d0:6f:31:5c:8b:e4:bd:8e:aa:b7"
+
+
+      # 本番環境へのデプロイ
+      - deploy:
+          name: Capistrano deploy
+          command: |
+            #if [ "${CIRCLE_BRANCH}" != "master" ]; then
+            #  exit 0
+            #fi
+            bundle exec cap production deploy    
+     
       
