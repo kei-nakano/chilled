@@ -10,6 +10,9 @@ set :user, "ec2-user"
 # リポジトリURL
 set :repo_url, "git@github.com:kei-nakano/sample.git"
 
+# デバッグ用に詳細ログを出力
+set :log_level, :debug
+
 # デプロイパス
 set :deploy_to, "/home/#{fetch(:user)}/environment/#{fetch(:application)}"
 
