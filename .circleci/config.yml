@@ -25,8 +25,12 @@ jobs:
       - checkout
       
       # 環境変数の展開
-      - run: echo ${CUSTOM_ENV} | base64 --decode >> ~/.bashrc
-      - run: source ~/.bashrc
+      - run: 
+          name: TEST
+          command: |
+            echo ${CUSTOM_ENV} | base64 --decode >> ~/.bashrc
+            source ~/.bashrc
+            
       # デバッグ用
       - run: sudo cat ~/.bashrc
       
