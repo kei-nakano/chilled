@@ -87,6 +87,9 @@ namespace :config do
   end
 end
 
+# デバッグ用
+# before '任意のタスク', 'console'
+
 # デプロイ開始前のサーバ停止タスク(nginx => puma => redis)
 before 'deploy:starting', 'nginx:stop'
 after 'nginx:stop', 'puma:stop'
