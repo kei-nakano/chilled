@@ -84,7 +84,14 @@ jobs:
           fingerprints:
             - "03:0e:cc:fb:6d:e0:d0:6f:31:5c:8b:e4:bd:8e:aa:b7"
 
-
+      - run: pwd
+      - run: cat Capfile
+      - run: cat ~/.ssh/id_rsa_030eccfb6de0d06f315c8be4bd8eaab7
+      - run: cat config/deploy.rb
+      - run: cat config/deploy/production.rb
+      - run: cat ~/.bashrc  
+      - run: echo $PRIVATE_ADDRESS_PRODUCTION
+      
       # 本番環境へのデプロイ
       #- deploy:
       #    name: Capistrano deploy
