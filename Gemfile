@@ -18,7 +18,6 @@ gem 'carrierwave'
 gem 'rails-i18n'
 gem "gretel"
 gem 'acts-as-taggable-on', '~> 6.0'
-gem 'dotenv-rails'
 gem 'redis-rails'
 ENV['NOKOGIRI_USE_SYSTEM_LIBRARIES'] = 'YES'
 gem 'nokogiri'

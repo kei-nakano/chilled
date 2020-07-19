@@ -25,8 +25,14 @@ jobs:
       - checkout
       
       # 環境変数の展開
-      - run: echo ${ENV} | base64 --decode > ~/sample/.env  
-      #- run: cat ~/.env
+      - run: sudo echo ${CUSTOM_ENV} | base64 --decode > ~/.bashrc
+      # デバッグ用
+      - run: sudo cat ~/.bashrc
+      
+      # master.keyの生成
+      - run: sudo echo ${MASTER_KEY} | base64 --decode > ~/sample/config/master.key
+      # デバッグ用
+      - run: sudo cat ~/sample/config/master.key
       
       # bundlerのバージョン1.17.3へのアップデート
       - run:  

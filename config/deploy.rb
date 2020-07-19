@@ -27,7 +27,6 @@ set :branch, ENV['BRANCH'] || current_branch
 # 以下ファイルはそのままでは読み込まれず、shared配下に置く必要があるため、リンク対象としてシンボリックリンクを作成する
 set :linked_files, fetch(:linked_files, []).push("config/master.key")
 append :linked_files, "config/database.yml"
-append :linked_files, ".env"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -68,7 +67,6 @@ namespace :deploy do
       execute :mkdir, '-p', "#{shared_path}/config"
       upload!('config/database.yml', "#{shared_path}/config/database.yml")
       upload!('config/master.key', "#{shared_path}/config/master.key")
-      upload!('.env', "#{shared_path}/.env")
 
       # puma.rbをデプロイ時に毎回作成する
       invoke 'puma:config'
