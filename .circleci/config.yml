@@ -86,13 +86,13 @@ jobs:
 
 
       # 本番環境へのデプロイ
-      - deploy:
-          name: Capistrano deploy
-          command: |
-            pwd
+      #- deploy:
+      #    name: Capistrano deploy
+      #    command: |
+      #      pwd
             #if [ "${CIRCLE_BRANCH}" != "master" ]; then
             #  exit 0
             #fi
-            bundle exec cap production deploy    
+      - run: bundle exec cap production deploy    
      
       
