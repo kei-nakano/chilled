@@ -28,35 +28,14 @@ set :branch, ENV['BRANCH'] || current_branch
 set :linked_files, fetch(:linked_files, []).push("config/master.key")
 append :linked_files, "config/database.yml"
 
-# Default value for :format is :airbrussh.
-# set :format, :airbrussh
-
-# You can configure the Airbrussh format using :format_options.
-# These are the defaults.
-# set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
-
 # タスク内でsudoする場合、trueにする
 set :pty, true
 
 # git管理対象外のディレクトリはシンボリックリンク化する
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets"
 
-# Default value for default_env is {}
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
-
-# Default value for local_user is ENV['USER']
-# set :local_user, -> { `git config user.name`.chomp }
-
 # 何世代前までリリースを残しておくか
 set :keep_releases, 5
-
-# サーバにSSH接続を行う際の設定
-set :ssh_options, {
-  user: fetch(:user).to_s,
-  keys: %w[/home/ec2-user/.ssh/my-key.pem],
-  forward_agent: true,
-  auth_methods: %w[publickey]
-}
 
 # ----------カスタマイズしたタスク------------
 namespace :deploy do
