@@ -25,18 +25,11 @@ jobs:
       - checkout
       
       # 環境変数の展開
-      - run: 
-          name: TEST
-          command: |
-            echo ${CUSTOM_ENV} | base64 --decode >> $BASH_ENV
-            #echo ${CUSTOM_ENV} | base64 --decode >> ~/.bashrc
-            #source ~/.bashrc
-            
-      # デバッグ用
-      - run: sudo cat ~/.bashrc
+      - run: echo ${CUSTOM_ENV} | base64 --decode >> $BASH_ENV
       
       # master.keyの生成
       - run: sudo echo ${MASTER_KEY} > ~/sample/config/master.key
+      
       # デバッグ用
       - run: sudo cat ~/sample/config/master.key
       
