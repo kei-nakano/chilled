@@ -28,8 +28,9 @@ jobs:
       - run: 
           name: TEST
           command: |
-            echo ${CUSTOM_ENV} | base64 --decode >> ~/.bashrc
-            source ~/.bashrc
+            echo ${CUSTOM_ENV} | base64 --decode >> $BASH_ENV
+            #echo ${CUSTOM_ENV} | base64 --decode >> ~/.bashrc
+            #source ~/.bashrc
             
       # デバッグ用
       - run: sudo cat ~/.bashrc
