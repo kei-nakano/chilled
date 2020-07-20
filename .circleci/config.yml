@@ -24,6 +24,9 @@ jobs:
       # CI環境上のworking_directoryの場所にgitリポジトリをコピーする
       - checkout
       
+      # テスト用
+      - run: exit 1
+      
       # 環境変数の展開
       - run: echo ${CUSTOM_ENV} | base64 --decode >> $BASH_ENV
       
