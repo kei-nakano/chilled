@@ -36,7 +36,7 @@ jobs:
             unzip awscliv2.zip
             sudo ./aws/install
             aws --version
-            aws ec2 authorize-security-group-ingress --group-id sg-0452cdef694632ab2 --protocol tcp --port 22 --cidr 172.17.230.1/32"
+            aws ec2 authorize-security-group-ingress --group-id sg-0452cdef694632ab2 --protocol tcp --port 22 --cidr 172.17.230.1/32
             
       
       
