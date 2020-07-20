@@ -26,7 +26,6 @@ jobs:
       
       # 環境変数の展開
       - run: echo ${CUSTOM_ENV} | base64 --decode >> $BASH_ENV
-      - run: echo ${AWS_PAGER=} >> $BASH_ENV # AWS CLI
   
       # AWS CLIインストール
       - run:  
@@ -38,8 +37,6 @@ jobs:
             aws --version
             aws ec2 authorize-security-group-ingress --group-id sg-0452cdef694632ab2 --protocol tcp --port 22 --cidr 172.17.230.1/32 
             
-      
-      
       # master.keyの生成
       - run: sudo echo ${MASTER_KEY} > ~/sample/config/master.key
       
