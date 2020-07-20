@@ -27,6 +27,18 @@ jobs:
       # 環境変数の展開
       - run: echo ${CUSTOM_ENV} | base64 --decode >> $BASH_ENV
       
+      # aws CLIインストール
+      - run:  
+          name: Install aws CLI   
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+            aws --version
+            aws ec2 authorize-security-group-ingress --group-id sg-0452cdef694632ab2 --protocol tcp --port 22 --cidr 172.17.230.1/32"
+            
+      
+      
       # master.keyの生成
       - run: sudo echo ${MASTER_KEY} > ~/sample/config/master.key
       
