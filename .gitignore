@@ -27,7 +27,6 @@
 # Ignore following files
 .DS_Store
 Thumbs.db
-database.yml
 master.key
 .swp
 .env

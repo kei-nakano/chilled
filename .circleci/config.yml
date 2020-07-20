@@ -1,0 +1,102 @@
+# circleciのバージョン
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.6.6-node-browsers
+        environment:
+          RAILS_ENV: test
+          MYSQL_HOST: 127.0.0.1
+          
+      - image: circleci/mysql:5.7.28
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: sample_test
+          
+    # 並列実行するコンテナ数。無料プランでは1しか指定できない
+    parallelism: 1
+    
+    # 作業ディレクトリを指定
+    working_directory: ~/sample
+    
+    steps:
+      # CI環境上のworking_directoryの場所にgitリポジトリをコピーする
+      - checkout
+      
+      # 環境変数の展開
+      - run: echo ${CUSTOM_ENV} | base64 --decode >> $BASH_ENV
+      
+      # master.keyの生成
+      - run: sudo echo ${MASTER_KEY} > ~/sample/config/master.key
+      
+      # デバッグ用
+      # - run: sudo cat ~/sample/config/master.key
+      
+      # bundlerのバージョン1.17.3へのアップデート
+      - run:  
+          name: Update bundler   
+          command: |
+            gem uninstall bundler
+            gem install bundler -v 1.17.3
+          
+      # バージョン確認
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      
+      # bundle install高速化のため、キャッシュを利用
+      - restore_cache:
+          keys:
+            - rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - rails-demo-bundle-v2-
+      
+      # gemのインストールを行う
+      - run:
+          name: gem install
+          command: bundle install --jobs=4 --retry=3
+          
+      # キャッシュを保存する
+      - save_cache:
+          key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ~/.bundle
+            
+      # rubocopテスト
+      - run:
+          name: rubocop
+          command: bundle exec rubocop
+      
+      # mysqlの起動待機
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
+      
+      # DBセットアップ
+      - run:
+          name: Setting DB
+          command: bundle exec rails db:schema:load --trace
+      
+      # capistranoのssh接続用秘密鍵の追加
+      - add_ssh_keys:
+          fingerprints:
+            - "03:0e:cc:fb:6d:e0:d0:6f:31:5c:8b:e4:bd:8e:aa:b7"
+
+      - run: pwd
+      - run: cat Capfile
+      - run: cat ~/.ssh/id_rsa_030eccfb6de0d06f315c8be4bd8eaab7
+      - run: cat config/deploy.rb
+      - run: cat config/deploy/production.rb
+      - run: cat ~/.bashrc  
+      - run: echo $PRIVATE_ADDRESS_PRODUCTION
+      
+      # 本番環境へのデプロイ
+      #- deploy:
+      #    name: Capistrano deploy
+      #    command: |
+            #if [ "${CIRCLE_BRANCH}" != "master" ]; then
+            #  exit 0
+            #fi
+      - run: bundle exec cap production deploy    
+     
+      
