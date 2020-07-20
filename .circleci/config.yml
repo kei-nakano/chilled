@@ -31,7 +31,7 @@ jobs:
       - run: sudo echo ${MASTER_KEY} > ~/sample/config/master.key
       
       # デバッグ用
-      - run: sudo cat ~/sample/config/master.key
+      # - run: sudo cat ~/sample/config/master.key
       
       # bundlerのバージョン1.17.3へのアップデート
       - run:  
@@ -94,7 +94,6 @@ jobs:
       #- deploy:
       #    name: Capistrano deploy
       #    command: |
-      #      pwd
             #if [ "${CIRCLE_BRANCH}" != "master" ]; then
             #  exit 0
             #fi
