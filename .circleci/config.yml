@@ -96,21 +96,37 @@ jobs:
             - "03:0e:cc:fb:6d:e0:d0:6f:31:5c:8b:e4:bd:8e:aa:b7"
 
       # デプロイ用の一時ルールをセキュリティグループに追加
-      - run: aws ec2 authorize-security-group-ingress --group-id ${AWS_SECURITY_GROUP_ID} --protocol tcp --port 22 --cidr ${IP}/32 
+      #- run: aws ec2 authorize-security-group-ingress --group-id ${AWS_SECURITY_GROUP_ID} --protocol tcp --port 22 --cidr ${IP}/32 
       
       # セキュリティグループ反映までスリープ
-      - run: sleep 5
+      #- run: sleep 5
 
       # 本番環境へのデプロイ
-      #- deploy:
-      #    name: Capistrano deploy
-      #    command: |
-            #if [ "${CIRCLE_BRANCH}" != "master" ]; then
-            #  exit 0
-            #fi
-      - run: bundle exec cap production deploy    
+      - run:
+          name: Capistrano deploy
+          command: |
+            # masterブランチ以外ではデプロイしない
+            if [ "${CIRCLE_BRANCH}" != "master" ]; then
+              exit 0
+            fi
+            
+            # masterブランチの場合
+            # デプロイ用の一時ルールをセキュリティグループに追加
+            aws ec2 authorize-security-group-ingress --group-id ${AWS_SECURITY_GROUP_ID} --protocol tcp --port 22 --cidr ${IP}/32
+            
+            # セキュリティグループの変更を記録
+            echo true > /tmp/authorize.sg 
+            
+            # ルール変更反映まで待機する
+            sleep 5
+            
+            # capistranoによるデプロイ実行
+            bundle exec cap production deploy    
      
       # デプロイ用の一時ルールをセキュリティグループから削除
       - run:
-          command: aws ec2 revoke-security-group-ingress --group-id ${AWS_SECURITY_GROUP_ID} --protocol tcp --port 22 --cidr ${IP}/32
+          command: |
+            if [ -f /tmp/authorize.sg ]; then
+              aws ec2 revoke-security-group-ingress --group-id ${AWS_SECURITY_GROUP_ID} --protocol tcp --port 22 --cidr ${IP}/32
+            fi
           when: always # デプロイ結果に関係なくセキュリティグループを戻すため
