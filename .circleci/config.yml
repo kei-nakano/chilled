@@ -25,7 +25,7 @@ jobs:
       - checkout
       
       # テスト用
-      - run: exit 1
+      - run: exit 0
       
       # 環境変数の展開
       - run: echo ${CUSTOM_ENV} | base64 --decode >> $BASH_ENV
