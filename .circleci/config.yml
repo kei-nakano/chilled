@@ -26,9 +26,9 @@ jobs:
       
       # 環境変数の展開
       - run: echo ${CUSTOM_ENV} | base64 --decode >> $BASH_ENV
-      - run: echo export AWS_PAGER="" >> $BASH_ENV
+      - run: echo ${AWS_PAGER=} >> $BASH_ENV # AWS CLI
   
-      # aws CLIインストール
+      # AWS CLIインストール
       - run:  
           name: Install aws CLI   
           command: |
