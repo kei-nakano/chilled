@@ -27,11 +27,24 @@ jobs:
       # 環境変数の展開
       - run: echo ${CUSTOM_ENV} | base64 --decode >> $BASH_ENV
       
+      # circleci環境のパブリックIPを取得
+      - run: 
+          name: Get public IP
+          command: | 
+            IP=`curl -f -s ifconfig.me` 
+            echo "export IP=${IP}" >> $BASH_ENV
+
+      # AWS CLIインストール
+      - run:  
+          name: Install aws CLI   
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+            aws --version
+            
       # master.keyの生成
       - run: sudo echo ${MASTER_KEY} > ~/sample/config/master.key
-      
-      # デバッグ用
-      # - run: sudo cat ~/sample/config/master.key
       
       # bundlerのバージョン1.17.3へのアップデート
       - run:  
@@ -82,21 +95,33 @@ jobs:
           fingerprints:
             - "03:0e:cc:fb:6d:e0:d0:6f:31:5c:8b:e4:bd:8e:aa:b7"
 
-      - run: pwd
-      - run: cat Capfile
-      - run: cat ~/.ssh/id_rsa_030eccfb6de0d06f315c8be4bd8eaab7
-      - run: cat config/deploy.rb
-      - run: cat config/deploy/production.rb
-      - run: cat ~/.bashrc  
-      - run: echo $PRIVATE_ADDRESS_PRODUCTION
-      
       # 本番環境へのデプロイ
-      #- deploy:
-      #    name: Capistrano deploy
-      #    command: |
-            #if [ "${CIRCLE_BRANCH}" != "master" ]; then
-            #  exit 0
-            #fi
-      - run: bundle exec cap production deploy    
+      - run:
+          name: Capistrano deploy
+          command: |
+            # masterブランチ以外ではデプロイしない
+            if [ "${CIRCLE_BRANCH}" != "master" ]; then
+              exit 0
+            fi
+            
+            # masterブランチの場合
+            # デプロイ用の一時ルールをセキュリティグループに追加
+            aws ec2 authorize-security-group-ingress --group-id ${AWS_SECURITY_GROUP_ID} --protocol tcp --port 22 --cidr ${IP}/32
+            
+            # セキュリティグループの変更を記録
+            echo true > /tmp/authorize.sg 
+            
+            # ルール変更反映まで待機する
+            sleep 5
+            
+            # capistranoによるデプロイ実行
+            bundle exec cap production deploy    
      
-      
+      # デプロイ用の一時ルールをセキュリティグループから削除
+      - run:
+          name: Delete a temporary rule from security group 
+          command: |
+            if [ -f /tmp/authorize.sg ]; then
+              aws ec2 revoke-security-group-ingress --group-id ${AWS_SECURITY_GROUP_ID} --protocol tcp --port 22 --cidr ${IP}/32
+            fi
+          when: always # デプロイ結果に関係なくセキュリティグループを戻すため
