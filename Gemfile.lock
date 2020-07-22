@@ -104,6 +104,11 @@ GEM
     diff-lcs (1.4.4)
     erubi (1.9.0)
     execjs (2.7.0)
+    factory_bot (6.1.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.1.0)
+      factory_bot (~> 6.1.0)
+      railties (>= 5.0.0)
     ffi (1.13.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -318,6 +323,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   carrierwave
   coffee-rails (~> 4.2)
+  factory_bot_rails
   gretel
   jbuilder (~> 2.5)
   jquery-rails

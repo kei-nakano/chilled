@@ -46,9 +46,4 @@ class HomeController < ApplicationController
     # 使用頻度の高い順にタグを抽出
     @most_used_tags = ActsAsTaggableOn::Tag.most_used(tag_select)
   end
-
-  def about
-    @reviews = Review.all
-    @items = Item.all
-  end
 end
