@@ -23,4 +23,15 @@ module SessionsHelper
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
   end
+
+  # before_action等による強制リダイレクト後に元々のリクエストURLへ飛べるよう、sessionにパスを記録する
+  def store_location
+    session[:forwarding_url] = request.url if request.get?
+  end
+
+  # フレンドリーフォーワード
+  def friendly_forward(default_url)
+    redirect_to(session[:forwarding_url] || default_url)
+    session.delete(:forwarding_url)
+  end
 end

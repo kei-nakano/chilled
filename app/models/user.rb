@@ -1,18 +1,25 @@
 class User < ApplicationRecord
+  # 属性付与
   attr_accessor :remember_token, :activation_token, :reset_token
 
+  mount_uploader :image, ImageUploader
+  has_secure_password
+
+  # コールバック
   before_save { self.email = email.downcase }
   before_create :create_activation_digest
   before_destroy :rooms_destroy_all
+
+  # バリデーション
   validates :name,  presence: true, length: { maximum: 20 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
-  mount_uploader :image, ImageUploader
   validate :image_size
   validates :password, length: { minimum: 7 }
-  has_secure_password
+
+  # アソシエーション
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
@@ -34,11 +41,11 @@ class User < ApplicationRecord
 
   # 渡された文字列のハッシュ値を返す
   def self.digest(string)
-    if (cost = ActiveModel::SecurePassword.min_cost)
-      BCrypt::Engine::MIN_COST
-    else
-      BCrypt::Engine.cost
-    end
+    cost = if ActiveModel::SecurePassword.min_cost
+             BCrypt::Engine::MIN_COST
+           else
+             BCrypt::Engine.cost
+           end
     BCrypt::Password.create(string, cost: cost)
   end
 
@@ -59,12 +66,6 @@ class User < ApplicationRecord
     return false if digest.nil?
 
     BCrypt::Password.new(digest).is_password?(token)
-  end
-
-  # 有効化トークンとダイジェストを作成および代入する
-  def create_activation_digest
-    self.activation_token  = User.new_token
-    self.activation_digest = User.digest(activation_token)
   end
 
   # パスワード再設定の属性を設定する
@@ -152,6 +153,12 @@ class User < ApplicationRecord
   end
 
   private
+
+  # 有効化トークンとダイジェストを作成および代入する
+  def create_activation_digest
+    self.activation_token  = User.new_token
+    self.activation_digest = User.digest(activation_token)
+  end
 
   # アップロード画像のサイズを検証する
   def image_size

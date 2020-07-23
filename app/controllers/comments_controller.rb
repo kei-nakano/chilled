@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user, only: %i[create destroy]
+  before_action :authenticate_user
 
   def new
     @review_id = params[:review_id]

@@ -39,6 +39,11 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
+  # logger
+  Rails.logger = Logger.new(STDOUT)
+
+  # SQLのログを有効化する
+  # ActiveRecord::Base.logger = Logger.new(STDOUT)
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
 

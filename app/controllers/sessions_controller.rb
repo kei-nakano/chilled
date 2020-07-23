@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
         login user
         params[:remember_me] == '1' ? remember(user) : forget(user)
         flash[:notice] = "ログインしました"
-        redirect_to "/users/#{user.id}"
+        friendly_forward user
       else
         flash[:notice] = "メールのリンクを確認してアカウントを有効化してください"
         redirect_to "/"

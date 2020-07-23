@@ -126,15 +126,4 @@ class UsersController < ApplicationController
       :name, :email, :image, :password
     )
   end
-
-  def ensure_correct_user
-    return if @current_user.id == params[:id].to_i
-
-    flash[:notice] = "権限がありません"
-    redirect_to @current_user
-  end
-
-  def admin_user
-    redirect_to "/" unless current_user.admin?
-  end
 end

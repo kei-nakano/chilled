@@ -61,8 +61,8 @@ jobs:
       # bundle install高速化のため、キャッシュを利用
       - restore_cache:
           keys:
-            - rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
-            - rails-demo-bundle-v2-
+            - rails-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - rails-bundle-v2-
       
       # gemのインストールを行う
       - run:
@@ -71,13 +71,13 @@ jobs:
           
       # キャッシュを保存する
       - save_cache:
-          key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
+          key: rails-bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - ~/.bundle
             
       # rubocopテスト
       - run:
-          name: rubocop
+          name: Rubocop
           command: bundle exec rubocop
       
       # mysqlの起動待機
@@ -89,6 +89,11 @@ jobs:
       - run:
           name: Setting DB
           command: bundle exec rails db:schema:load --trace
+          
+      # rspecテスト
+      - run:
+          name: Rspec
+          command: bundle exec rspec --profile
       
       # capistranoのssh接続用秘密鍵の追加
       - add_ssh_keys:

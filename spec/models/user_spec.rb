@@ -1,20 +1,54 @@
 require 'rails_helper'
 
-RSpec.describe 'User', type: :model do
-  describe 'validates presence of name ' do
-    context 'no name' do
-      it 'is not valid' do
-        user = User.create(name: "", email: "test@gmail.com", password: "12345678")
-        expect(user).not_to be_valid
-        expect(user.errors).to be_added(:name, :blank)
-      end
+RSpec.describe User, type: :model do
+  before do
+    @user = User.new(
+      name: "Aaron",
+      email: "tester@example.com",
+      password: "dottle-nouveau-pavilion-tights-furze"
+    )
+  end
+
+  # 有効なファクトリを持つこと
+  it "has a valid factory" do
+    expect(FactoryBot.build(:user)).to be_valid
+  end
+
+  # 名前、メール、パスワードがあれば有効な状態であること
+  it "is valid with a name, email, and password" do
+    expect(@user).to be_valid
+  end
+
+  # 名前がなければ無効な状態であること
+  it "is invalid without a name" do
+    user = FactoryBot.build(:user, name: nil)
+    user.valid?
+    expect(user.errors[:name]).to include("を入力してください")
+  end
+
+  # メールアドレスがなければ無効な状態であること
+  it "is invalid without an email address" do
+    user = FactoryBot.build(:user, email: nil)
+    user.valid?
+    expect(user.errors[:email]).to include("を入力してください")
+  end
+
+  # 重複したメールアドレスなら無効な状態であること
+  it "is invalid with a duplicate email address" do
+    FactoryBot.create(:user, email: "test@gmail.com")
+    user = FactoryBot.build(:user, email: "test@gmail.com")
+    user.valid?
+    expect(user.errors[:email]).to include("はすでに存在します")
+  end
+
+  # 文字列に一致するメッセージを検索する
+  describe "search message for a term" do
+    # 一致するデータが見つかるとき
+    context "when a match is found" do # 一致する場合の example が並ぶ ...
     end
 
-    context 'name is present' do
-      it 'is valid' do
-        user = User.create(name: "taka", email: "test@gmail.com", password: "12345678")
-        expect(user).to be_valid
-      end
+    # 一致するデータが1件も見つからないとき
+    context "when no match is found" do # 一致しない場合の example が並ぶ ...
     end
   end
 end
