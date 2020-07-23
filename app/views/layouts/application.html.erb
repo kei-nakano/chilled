@@ -17,4 +17,11 @@
     </div>
     <%= render "shared/footer" %>
   </body>
+  
+  <script>
+    // フラッシュメッセージをフェードアウトする(単位: ms) 
+    setTimeout(function(){
+      $('.time-limit').fadeOut('slow');  
+    }, 2000);
+  </script>
 </html>

@@ -56,7 +56,11 @@
     </span>
     
     <span class="fas fa-comment">
-      <%= link_to "コメントする", "/comments/new?review_id=#{review.id}", remote: true %>
+      <% if @current_user %>
+        <%= link_to "コメントする", "/comments/new?review_id=#{review.id}", remote: true %>
+      <% else %>
+        <span>コメントする</span>
+      <% end %>
     </span>
     
     <% comment_count ||= review.comments.where.not(user_id: block_ids(@current_user)).count %>
