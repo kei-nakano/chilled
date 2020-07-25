@@ -18,6 +18,10 @@ AllCops:
 Metrics/MethodLength:
   Enabled: false
   
+# "Block has too many lines"を無視(rspecテストのため)
+Metrics/BlockLength:
+  Enabled: false
+  
 # 日本語でのコメントを許可
 Style/AsciiComments:
   Enabled: false
@@ -26,6 +30,7 @@ Style/AsciiComments:
 Style/BlockComments:
   Enabled: false
   
+
 # 文字列のfreeze要求を無視
 Style/FrozenStringLiteralComment:
   Enabled: false
