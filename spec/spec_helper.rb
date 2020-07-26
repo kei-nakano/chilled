@@ -1,8 +1,4 @@
-require 'support/capybara.rb'
-require 'support/test_helper.rb'
-
 RSpec.configure do |config|
-  config.include TestHelper
   # config.include Capybara::DSL
 
   # Rspec実行中にエラーが発生した時、実行終了後に赤色でエラー内容を表示する

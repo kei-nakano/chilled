@@ -14,8 +14,8 @@ RSpec.feature "Items", type: :feature do
     # pw入力~ログイン
     fill_in "email", with: user.email
     fill_in "password", with: "password"
-    allow_any_instance_of(ActionDispatch::Request).to receive(:session).and_return({ user_id: user.id })
     click_button "ログイン"
+    expect(page).to have_text('ログインしました')
 
     # 商品投稿ページへ
     click_link "商品投稿"
@@ -31,5 +31,8 @@ RSpec.feature "Items", type: :feature do
       select "1", from: 'item[category_id]'
       click_button "投稿する"
     end.to change(Item.all, :count).by(1)
+
+    click_link "ログアウト"
+    expect(page).to have_text('ログアウトしました')
   end
 end

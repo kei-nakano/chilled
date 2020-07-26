@@ -14,5 +14,6 @@ FactoryBot.define do
     sequence(:email) { |n| "administator#{n}@example.com" }
     password { "password" }
     admin { true }
+    activated { true }
   end
 end
