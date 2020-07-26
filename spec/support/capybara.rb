@@ -7,14 +7,15 @@ Capybara.configure do |config|
   config.javascript_driver = :selenium_chrome_headless
 
   # Configurable options:
-  config.run_server = true # ローカルのRack Serverを使用しない (Default: true)
-  config.default_selector = :css       # デフォルトのセレクターを`:css`または`:xpath`で指定する (Default: :css)
-  config.default_max_wait_time = 5     # Ajaxなどの非同期プロセスが終了するまで待機する最大秒数 (seconds, Default: 2)
-  config.ignore_hidden_elements = true # ページ上の隠れた要素を無視するかどうか (Default: true)
-  config.save_path = Dir.pwd           # save_(page|screenshot), save_and_open_(page|screenshot)を使用した時にファイルが保存されるパス (Default: Dir.pwd)
-  config.automatic_label_click = false # チェックボックスやラジオボタンが非表示の場合に関連するラベル要素をクリックするかどうか (Default: false)
+  config.run_server = true              # ローカルのRack Serverを使用しない (Default: true)
+  config.default_selector = :css        # デフォルトのセレクターを`:css`または`:xpath`で指定する (Default: :css)
+  config.default_max_wait_time = 5      # Ajaxなどの非同期プロセスが終了するまで待機する最大秒数 (seconds, Default: 2)
+  config.ignore_hidden_elements = true  # ページ上の隠れた要素を無視するかどうか (Default: true)
+  config.save_path = Dir.pwd            # save_(page|screenshot), save_and_open_(page|screenshot)を使用した時にファイルが保存されるパス (Default: Dir.pwd)
+  config.automatic_label_click = false  # チェックボックスやラジオボタンが非表示の場合に関連するラベル要素をクリックするかどうか (Default: false)
 end
 
+# chromeのカスタム設定
 # Capybara.register_driver :chrome do |app|
 #  options = Selenium::WebDriver::Chrome::Options.new
 #

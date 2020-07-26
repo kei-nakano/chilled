@@ -1,6 +1,8 @@
 require 'support/capybara.rb'
+require 'support/test_helper.rb'
 
 RSpec.configure do |config|
+  config.include TestHelper
   # config.include Capybara::DSL
 
   # Rspec実行中にエラーが発生した時、実行終了後に赤色でエラー内容を表示する
@@ -15,14 +17,10 @@ RSpec.configure do |config|
   # Rspecが実行結果を出力する時のフォーマットを指定して見やすくする (Default: :progress)
   # config.formatter = :documentation
 
+  # テスト後に、実行時間が遅い順にexampleを何個表示するか
+  config.profile_examples = 10
+
   config.expect_with :rspec do |expectations|
-    # This option will default to `true` in RSpec 4. It makes the `description`
-    # and `failure_message` of custom matchers include text for helper methods
-    # defined using `chain`, e.g.:
-    #     be_bigger_than(2).and_smaller_than(4).description
-    #     # => "be bigger than 2 and smaller than 4"
-    # ...rather than:
-    #     # => "be bigger than 2"
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
 
@@ -73,11 +71,6 @@ RSpec.configure do |config|
     # (e.g. via a command-line flag).
     config.default_formatter = "doc"
   end
-
-  # Print the 10 slowest examples and example groups at the
-  # end of the spec run, to help surface which specs are running
-  # particularly slow.
-  config.profile_examples = 10
 
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
