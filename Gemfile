@@ -50,4 +50,6 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   gem 'webdrivers'
+  gem 'capybara-screenshot'
+  gem 'launchy'
 end
