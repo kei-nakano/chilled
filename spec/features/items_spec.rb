@@ -5,14 +5,13 @@ RSpec.feature "Items", type: :feature do
   scenario "user creates a new item", js: true do
     user = FactoryBot.create(:user)
     user.update(admin: true)
-    
+
     visit "/"
     click_link "ログイン"
     fill_in "email", with: user.email
     fill_in "password", with: "password"
     click_button "ログイン"
-    click_link "商品投稿"
-    save_and_open_page
+    # click_link "商品投稿"
     # expect do
     #  click_link "New Project"
     #  fill_in "Name", with: "Test Project"
@@ -27,7 +26,6 @@ RSpec.feature "Items", type: :feature do
 
   scenario "guest adds a project" do
     visit "/"
-    save_and_open_page
     click_link "ログイン"
   end
 end

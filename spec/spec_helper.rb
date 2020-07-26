@@ -1,19 +1,19 @@
 require 'support/capybara.rb'
 
 RSpec.configure do |config|
-  #config.include Capybara::DSL
+  # config.include Capybara::DSL
 
   # Rspec実行中にエラーが発生した時、実行終了後に赤色でエラー内容を表示する
-  #config.failure_color = :red
+  # config.failure_color = :red
 
   # Rspec実行中にエラーが発生した時、停止せずに最後までスペックを実行する
-  #config.fail_fast = false
+  # config.fail_fast = false
 
   # Rspecの実行結果を標準出力へカラーで出力する
-  #config.color = true
+  # config.color = true
 
   # Rspecが実行結果を出力する時のフォーマットを指定して見やすくする (Default: :progress)
-  #config.formatter = :documentation
+  # config.formatter = :documentation
 
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`

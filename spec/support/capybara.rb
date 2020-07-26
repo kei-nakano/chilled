@@ -15,7 +15,7 @@ Capybara.configure do |config|
   config.automatic_label_click = false # チェックボックスやラジオボタンが非表示の場合に関連するラベル要素をクリックするかどうか (Default: false)
 end
 
-#Capybara.register_driver :chrome do |app|
+# Capybara.register_driver :chrome do |app|
 #  options = Selenium::WebDriver::Chrome::Options.new
 #
 #  #options.add_argument("--disable-dev-shm-usage")
@@ -32,4 +32,4 @@ end
 #    browser: :chrome,
 #    options: options
 #  )
-#end
+# end
