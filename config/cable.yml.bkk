@@ -1,14 +1,16 @@
 development:
+  #adapter: async
   adapter: redis
   port: 6379
   url: redis://localhost
   channel_prefix: sample_development
 
 test:
-  # 開発EC2ではredisを使用し、circleci上ではasyncを使用する
+  #adapter: async
   adapter: <%= ENV.fetch("TEST_ADAPTER") { "async" } %>
-  port: <%= ENV.fetch("TEST_PORT") { } %>
-  url: <%= ENV.fetch("TEST_URL") { } %>
+  #adapter: redis
+  #port: 6379
+  #url: redis://localhost
   channel_prefix: sample_test
 
 production:
