@@ -53,9 +53,7 @@ RSpec.describe "Reviews", type: :request do
     # ログイン済みユーザの場合
     context "as an authenticated user" do
       before do
-        # login userの代替
-        # ActionDispatch::Requestクラスの全インスタンスに対して、sessionメソッドが呼ばれた場合に、user_idを返す
-        allow_any_instance_of(ActionDispatch::Request).to receive(:session).and_return({ user_id: @user.id })
+        sign_in(@user)
       end
 
       # 有効な属性値の場合
@@ -149,9 +147,7 @@ RSpec.describe "Reviews", type: :request do
     # ログイン済みユーザの場合
     context "as an authenticated user" do
       before do
-        # login userの代替
-        # ActionDispatch::Requestクラスの全インスタンスに対して、sessionメソッドが呼ばれた場合に、user_idを返す
-        allow_any_instance_of(ActionDispatch::Request).to receive(:session).and_return({ user_id: @user.id })
+        sign_in @user
       end
 
       # 自分の商品レビューが削除できること

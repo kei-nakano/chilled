@@ -1,44 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before do
-    @user = User.new(
-      name: "Aaron",
-      email: "tester@example.com",
-      password: "dottle-nouveau-pavilion-tights-furze"
-    )
-  end
+  let(:user) { FactoryBot.build(:user) }
 
-  # 有効なファクトリを持つこと
+  # 名前、メール、パスワードがあり、有効なファクトリを持つこと
   it "has a valid factory" do
     expect(FactoryBot.build(:user)).to be_valid
   end
 
-  # 名前、メール、パスワードがあれば有効な状態であること
-  it "is valid with a name, email, and password" do
-    expect(@user).to be_valid
-  end
-
   # 名前がなければ無効な状態であること
   it "is invalid without a name" do
-    user = FactoryBot.build(:user, name: nil)
+    user.name = nil
     user.valid?
     expect(user.errors[:name]).to include("を入力してください")
   end
 
   # メールアドレスがなければ無効な状態であること
   it "is invalid without an email address" do
-    user = FactoryBot.build(:user, email: nil)
+    user.email = nil
     user.valid?
     expect(user.errors[:email]).to include("を入力してください")
   end
 
   # 重複したメールアドレスなら無効な状態であること
   it "is invalid with a duplicate email address" do
-    FactoryBot.create(:user, email: "test@gmail.com")
-    user = FactoryBot.build(:user, email: "test@gmail.com")
-    user.valid?
-    expect(user.errors[:email]).to include("はすでに存在します")
+    user.save
+    dupulicate_user = FactoryBot.build(:user, email: user.email)
+    dupulicate_user.valid?
+    expect(dupulicate_user.errors[:email]).to include("はすでに存在します")
   end
 
   # 文字列に一致するメッセージを検索する
