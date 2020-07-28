@@ -119,3 +119,7 @@ Rails/Output:
 # update_attributeの使用を許可
 Rails/SkipsModelValidations:
   Enabled: false
+  
+# includeのファイル冒頭以外での使用を許可
+Style/MixinUsage:
+  Enabled: false

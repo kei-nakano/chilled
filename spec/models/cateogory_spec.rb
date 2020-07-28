@@ -46,4 +46,24 @@ RSpec.describe Category, type: :model do
     category.valid?
     expect(category.errors[:name]).to include("はすでに存在します")
   end
+
+  # 画像なしでも有効であること
+  it "is valid with no image" do
+    category = FactoryBot.build(:category, image: nil)
+    category.valid?
+    expect(category).to be_valid
+  end
+
+  # 画像なしの場合、デフォルト画像が設定されること
+  it "has a default image with no image" do
+    category = FactoryBot.build(:category, image: nil)
+    expect(category.image.url).to eq "/default/no_image.png"
+  end
+
+  # デフォルト画像以外の画像を設定できること
+  it "can set an image except default image" do
+    category = FactoryBot.build(:category, image: File.open(Rails.root.join("public/default/default_user.png")))
+    category.save
+    expect(category.image.url).to eq "/uploads/category/image/#{category.id}/default_user.png"
+  end
 end
