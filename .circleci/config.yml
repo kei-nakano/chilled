@@ -88,7 +88,8 @@ jobs:
       # DBセットアップ
       - run:
           name: Setting DB
-          command: bundle exec rails db:schema:load --trace
+      #    command: bundle exec rails db:schema:load --trace
+          command: bundle exec rails db:migrate
           
       # rspecテスト
       - run:
