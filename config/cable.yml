@@ -6,7 +6,8 @@ development:
   channel_prefix: sample_development
 
 test:
-  adapter: async
+  #adapter: async
+  adapter: <%= ENV.fetch("TEST_ADAPTER") { async } %>
   #adapter: redis
   #port: 6379
   #url: redis://localhost
