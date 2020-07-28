@@ -16,10 +16,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url(*)
     model_name = model.class.name
-    return "/default/" + [version_name, "default_user.jpg"].compact.join('_') if model_name == "User"
-    return "/default/" + [version_name, "default_item.png"].compact.join('_') if model_name == "Item"
+    return "/default/" + [version_name, "default_user.png"].compact.join('_') if model_name == "User"
 
-    "/default/" + [version_name, "default_review.jpg"].compact.join('_')
+    # クラスがユーザ以外の場合は、no_imageの画像を使用する
+    "/default/" + [version_name, "no_image.png"].compact.join('_')
   end
 
   # Process files as they are uploaded:
