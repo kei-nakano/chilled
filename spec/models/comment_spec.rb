@@ -4,7 +4,9 @@ RSpec.describe Comment, type: :model do
   let(:user) { FactoryBot.create(:user) }
   let(:review) { FactoryBot.create(:review) }
   let(:comment) { FactoryBot.create(:comment) }
+  let(:comment_like) { FactoryBot.create(:comment_like) }
 
+  # 自分で自分のレビューにコメントしているデモデータ
   let(:self_comment) { FactoryBot.create(:comment, review: self_review, user: user) }
   let(:self_review) { FactoryBot.create(:review, user: user) }
 
@@ -59,10 +61,17 @@ RSpec.describe Comment, type: :model do
     end
   end
 
-  # 依存関係
-  it "can create and destroy" do
-    expect { FactoryBot.create(:eaten_item) }.to change(EatenItem.all, :count).by(1)
-    expect { EatenItem.first.destroy }.to change(EatenItem.all, :count).by(-1)
+  # 削除の依存関係
+  describe "dependent: destroy" do
+    # コメントを消せば、紐づくいいね!と通知が全て削除されること
+    it "destroys comment and notice which has same comment_id when deleted" do
+      2.times { FactoryBot.create(:user) }
+      CommentLike.create(comment_id: comment.id, user_id: User.first.id)
+      CommentLike.create(comment_id: comment.id, user_id: User.second.id)
+      comment.create_notice_comment(User.first)
+      comment.create_notice_comment(User.second)
+      expect { comment.destroy }.to change { CommentLike.count }.by(-2) and change { Notice.count }.by(-2)
+    end
   end
 
   # 通知
