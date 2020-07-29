@@ -5,6 +5,9 @@ RSpec.describe Comment, type: :model do
   let(:review) { FactoryBot.create(:review) }
   let(:comment) { FactoryBot.create(:comment) }
 
+  let(:self_comment) { FactoryBot.create(:comment, review: self_review, user: user) }
+  let(:self_review) { FactoryBot.create(:review, user: user) }
+
   # 有効なファクトリを持つこと
   it "has a valid factory" do
     expect { FactoryBot.create(:comment) }.to change(Comment.all, :count).by(1)
@@ -60,5 +63,36 @@ RSpec.describe Comment, type: :model do
   it "can create and destroy" do
     expect { FactoryBot.create(:eaten_item) }.to change(EatenItem.all, :count).by(1)
     expect { EatenItem.first.destroy }.to change(EatenItem.all, :count).by(-1)
+  end
+
+  # 通知
+  describe "notice" do
+    context "action: comment" do
+      # 自分のレビューにコメントしても、通知は作成されずnilを返すこと
+      it "can not create notice when commented by yourself" do
+        expect(self_comment.create_notice_comment(user)).to eq nil
+        expect { self_comment.create_notice_comment(user) }.to change(Notice.all, :count).by(0)
+      end
+
+      # 他人のレビューへのコメントでは通知が作成されること
+      it "can create notice when comented by others" do
+        other_user = FactoryBot.create(:user)
+        expect { self_comment.create_notice_comment(other_user) }.to change(Notice.all, :count).by(1)
+      end
+    end
+
+    context "action: comment_like" do
+      # 自分のレビューにコメントしても、通知は作成されずnilを返すこと
+      it "can not create notice when commented by yourself" do
+        expect(self_comment.create_notice_comment(user)).to eq nil
+        expect { self_comment.create_notice_comment(user) }.to change(Notice.all, :count).by(0)
+      end
+
+      # 他人のレビューへのコメントでは通知が作成されること
+      it "can create notice when comented by others" do
+        other_user = FactoryBot.create(:user)
+        expect { self_comment.create_notice_comment(other_user) }.to change(Notice.all, :count).by(1)
+      end
+    end
   end
 end
