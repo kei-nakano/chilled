@@ -4,8 +4,8 @@ class Review < ApplicationRecord
   validates :content, presence: true, length: { maximum: 200 }
   mount_uploaders :multiple_images, MultipleImagesUploader
   acts_as_taggable
-  belongs_to :item
-  belongs_to :user
+  belongs_to :item, optional: true
+  belongs_to :user, optional: true
   has_many :comments, dependent: :destroy
   has_many :review_likes, dependent: :destroy
   has_many :notices, dependent: :destroy

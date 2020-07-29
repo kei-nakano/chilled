@@ -1,6 +1,6 @@
 class Block < ApplicationRecord
-  belongs_to :from, class_name: "User"
-  belongs_to :blocked, class_name: "User"
+  belongs_to :from, class_name: "User", optional: true
+  belongs_to :blocked, class_name: "User", optional: true
   validates :from_id, presence: true
   validates :blocked_id, presence: true
   validates :blocked_id, uniqueness: { scope: :from_id }

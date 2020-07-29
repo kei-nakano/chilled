@@ -6,8 +6,8 @@ class Item < ApplicationRecord
   validates :calorie, presence: true
   mount_uploader :image, ImageUploader
   has_many :reviews, dependent: :destroy
-  belongs_to :manufacturer
-  belongs_to :category
+  belongs_to :manufacturer, optional: true
+  belongs_to :category, optional: true
   has_many :eaten_items, dependent: :destroy
   has_many :want_to_eat_items, dependent: :destroy
 
