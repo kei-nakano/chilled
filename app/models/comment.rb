@@ -3,6 +3,10 @@ class Comment < ApplicationRecord
   belongs_to :user
   has_many :comment_likes, dependent: :destroy
   has_many :notices, dependent: :destroy
+  validates :user_id, presence: true
+  validates :review_id, presence: true
+  validates :content, presence: true,
+                      length: { maximum: 200 }
 
   # ユーザが自分のコメントにいいね！した時の通知を作成する
   def create_notice_comment_like(current_user)

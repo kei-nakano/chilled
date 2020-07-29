@@ -6,7 +6,6 @@ RSpec.describe WantToEatItem, type: :model do
 
   # 有効なファクトリを持つこと
   it "has a valid factory" do
-    FactoryBot.create(:want_to_eat_item)
     expect { FactoryBot.create(:want_to_eat_item) }.to change(WantToEatItem.all, :count).by(1)
   end
 
