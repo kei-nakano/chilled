@@ -98,4 +98,14 @@ RSpec.describe Category, type: :model do
       expect(categories.blank?).to be_truthy
     end
   end
+
+  # 有効なデータで更新ができること
+  it "can update with valid data" do
+    FactoryBot.create(:category)
+    category = Category.first
+    image_path = Rails.root.join("public/default/default_user.png")
+    expect { category.update(name: "update_test", image: File.open(image_path)) }.to change(Category.all, :count).by(0)
+    expect(category.name).to eq "update_test"
+    expect(category.image.url).to eq "/uploads/category/image/#{category.id}/default_user.png"
+  end
 end

@@ -98,4 +98,14 @@ RSpec.describe Manufacturer, type: :model do
       expect(manufacturers.blank?).to be_truthy
     end
   end
+
+  # 有効なデータで更新ができること
+  it "can update with valid data" do
+    FactoryBot.create(:manufacturer)
+    manufacturer = Manufacturer.first
+    image_path = Rails.root.join("public/default/default_user.png")
+    expect { manufacturer.update(name: "update_test", image: File.open(image_path)) }.to change(Manufacturer.all, :count).by(0)
+    expect(manufacturer.name).to eq "update_test"
+    expect(manufacturer.image.url).to eq "/uploads/manufacturer/image/#{manufacturer.id}/default_user.png"
+  end
 end
