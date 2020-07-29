@@ -6,8 +6,8 @@ RSpec.describe ReviewLike, type: :model do
 
   # 有効なファクトリを持つこと
   it "has a valid factory" do
-    FactoryBot.create(:relationship)
-    expect { FactoryBot.create(:relationship) }.to change(Relationship.all, :count).by(1)
+    FactoryBot.create(:review_like)
+    expect { FactoryBot.create(:review_like) }.to change(ReviewLike.all, :count).by(1)
   end
 
   # user_id、review_idの存在
