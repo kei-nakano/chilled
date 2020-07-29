@@ -41,6 +41,14 @@ RSpec.describe Relationship, type: :model do
     expect(relationship.errors[:followed_id]).to include("自分自身をフォローすることはできません")
   end
 
+  # 同じ人を2回以上フォローできないこと
+  it "can not follow same person twice" do
+    Relationship.create(followed_id: User.first.id, follower_id: User.second.id)
+    relationship = Relationship.new(followed_id: User.first.id, follower_id: User.second.id)
+    relationship.valid?
+    expect(relationship.errors[:followed_id]).to include("はすでに存在します")
+  end
+
   # 作成と削除ができること
   it "can create and destroy" do
     expect { FactoryBot.create(:relationship) }.to change(Relationship.all, :count).by(1)
