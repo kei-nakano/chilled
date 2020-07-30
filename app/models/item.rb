@@ -63,17 +63,31 @@ class Item < ApplicationRecord
 
   # あるタグが付いたレビューを持つ商品を、タグ付け回数の降順に返す
   def self.tagged_desc(tag_name)
+    # 対象タグのidを割り出す
     tag_id = ActsAsTaggableOn::Tag.find_by(name: tag_name).id
+
+    # 対象タグの付けられたreviewのidを割り出す
     review_ids = ActsAsTaggableOn::Tagging.where(tag_id: tag_id).pluck(:taggable_id)
-    item_count = Review.where(id: review_ids).group(:item_id).count
-    item_ids = item_count.sort_by { |_, count| -count }.to_h.keys
+
+    # 対象タグが付いたレビューをitem_id毎に数えることで、itemに対するtag付け回数を計算する
+    tag_count = Review.where(id: review_ids).group(:item_id).count
+
+    # item_idの配列を出現回数の降順に並び替え、ハッシュ化してキー(id)を取り出す
+    item_ids = tag_count.sort_by { |_, count| -count }.to_h.keys
+
+    # 降順のidでtagを抽出する。orderを明示的に指定しなければ、tag_idsの順番通りにならない
     Item.where(id: item_ids).order([Arel.sql('field(id, ?)'), item_ids])
   end
 
   # その商品に関連付けられたタグを人気順に返す
   def popular_tags
+    # その商品に対するレビューidのみを対象に絞り、各タグの出現回数を調べる
     tag_count = ActsAsTaggableOn::Tagging.where(taggable_id: reviews.ids).group(:tag_id).count
+
+    # tag_idの配列を出現回数の降順に並び替え、ハッシュ化してキー(id)を取り出す
     tag_ids = tag_count.sort_by { |_, count| -count }.to_h.keys
+
+    # 降順のidでtagを抽出する。orderを明示的に指定しなければ、tag_idsの順番通りにならない
     ActsAsTaggableOn::Tag.where(id: tag_ids).order([Arel.sql('field(id, ?)'), tag_ids])
   end
 end

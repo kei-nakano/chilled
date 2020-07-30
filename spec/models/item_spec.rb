@@ -80,6 +80,14 @@ RSpec.describe Item, type: :model do
     end
   end
 
+  # 同じ商品名は付けられないこと
+  it "can not create same title of item" do
+    FactoryBot.create(:item, title: "test")
+    duplicate_item = Item.new(title: "test")
+    duplicate_item.valid?
+    expect(duplicate_item.errors[:title]).to include("はすでに存在します")
+  end
+
   # タイトルの長さ
   describe "length of title" do
     # 31文字のタイトルは無効であること
@@ -220,6 +228,65 @@ RSpec.describe Item, type: :model do
     # 予想ではidの降順を返す
     want_to_eat_ids = Item.all.order(id: :desc).ids
     expect(Item.want_to_eat_ids).to eq want_to_eat_ids
+  end
+
+  # 検索
+  describe "search" do
+    # 紐づくタグと部分一致する文言があればヒットすること
+    it "can search in related tags" do
+      2.times { FactoryBot.create(:item) }
+      FactoryBot.create(:review, item: Item.first, tag_list: "美味しい")
+      FactoryBot.create(:review, item: Item.second, tag_list: "美味しい")
+
+      expect(Item.search("味し").ids).to eq [Item.first.id, Item.second.id]
+    end
+
+    # 商品説明と部分一致する文言があればヒットすること
+    it "can search in its content" do
+      2.times { FactoryBot.create(:item, content: "test") }
+      expect(Item.search("est").ids).to eq [Item.first.id, Item.second.id]
+    end
+
+    # 商品名と部分一致する文言があればヒットすること
+    it "can search in its title" do
+      (1..2).each do |i|
+        FactoryBot.create(:item, title: "data_#{i}")
+      end
+      expect(Item.search("data").ids).to eq [Item.first.id, Item.second.id]
+    end
+
+    # メーカー名と部分一致する文言があればヒットすること
+    it "can search in its manufacturer" do
+      2.times { FactoryBot.create(:item) }
+      expect(Item.search("メーカー").ids).to eq [Item.first.id, Item.second.id]
+    end
+
+    # カテゴリ名と部分一致する文言があればヒットすること
+    it "can search in its category" do
+      2.times { FactoryBot.create(:item) }
+      expect(Item.search("カテゴリ").ids).to eq [Item.first.id, Item.second.id]
+    end
+  end
+
+  # その商品に関連づけられたタグを出現回数の降順に返すこと
+  it "can return tags in descending order of their count" do
+    FactoryBot.create(:review, item: item, tag_list: "美味しい, まずい, 微妙")
+    FactoryBot.create(:review, item: item, tag_list: "美味しい, まずい")
+    FactoryBot.create(:review, item: item, tag_list: "美味しい")
+    expect(item.popular_tags.first.name).to eq "美味しい"
+    expect(item.popular_tags.second.name).to eq "まずい"
+    expect(item.popular_tags.third.name).to eq "微妙"
+  end
+
+  # あるタグが付いたレビューを持つ商品を、タグ付け回数の降順に返すこと
+  it "can return items in descending order of their tag count" do
+    3.times { FactoryBot.create(:item) }
+    # 先頭の商品から順に1,2,3回のタグ付けを行う
+    1.times { FactoryBot.create(:review, item: Item.first, tag_list: "美味しい") }
+    2.times { FactoryBot.create(:review, item: Item.second, tag_list: "美味しい") }
+    3.times { FactoryBot.create(:review, item: Item.third, tag_list: "美味しい") }
+
+    expect(Item.tagged_desc("美味しい").ids).to eq [Item.third.id, Item.second.id, Item.first.id]
   end
 
   # 削除の依存関係
