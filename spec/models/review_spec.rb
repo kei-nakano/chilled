@@ -18,7 +18,6 @@ RSpec.describe Review, type: :model do
 
     # user_id、item_id、content、scoreの全てがあれば有効な状態であること
     it "is valid with a user_id and item_id, content, score" do
-      @valid_review.valid?
       expect(@valid_review).to be_valid
     end
 
@@ -166,6 +165,26 @@ RSpec.describe Review, type: :model do
     end
   end
 
+  # 検索
+  describe "search" do
+    # 紐づくタグと部分一致する文言があればヒットすること
+    it "can search in related tags" do
+      2.times { FactoryBot.create(:review) }
+      Review.first.update(tag_list: "美味しい")
+      Review.second.update(tag_list: "味し")
+      expect(Review.search("味し").ids).to eq [Review.first.id, Review.second.id]
+    end
+
+    # レビュー内容と部分一致する文言があればヒットすること
+    it "can search in its content" do
+      2.times { FactoryBot.create(:review) }
+      Review.first.update(content: "美味しい")
+      Review.second.update(content: "味し")
+      expect(Review.search("味し").ids).to eq [Review.first.id, Review.second.id]
+    end
+  end
+
+  # 削除の依存関係
   describe "dependent: destoy" do
     # 削除すると、紐づくcommentも全て削除されること
     it "destroys all comments when deleted" do
