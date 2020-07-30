@@ -59,6 +59,7 @@ class ReviewsController < ApplicationController
 
   # tag_listの中の空白を全て取り除く
   def modify_tags
-    params[:review][:tag_list] = params[:review][:tag_list].gsub(/[[:space:]]/, '')
+    # nilに対してgsubメソッドを実行しないようにする
+    params[:review][:tag_list] = params[:review][:tag_list].gsub(/[[:space:]]/, '') if params[:review][:tag_list]
   end
 end
