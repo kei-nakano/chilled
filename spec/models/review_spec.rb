@@ -165,4 +165,26 @@ RSpec.describe Review, type: :model do
       expect(Review.popular_ids).to eq popular_ids
     end
   end
+
+  describe "dependent: destoy" do
+    # 削除すると、紐づくcommentも全て削除されること
+    it "destroys all comments when deleted" do
+      2.times { FactoryBot.create(:comment, review: review) }
+      expect { review.destroy }.to change(Comment.all, :count).by(-2)
+    end
+
+    # 削除すると、紐づくreview_likeも全て削除されること
+    it "destroys all review_likes when deleted" do
+      2.times { FactoryBot.create(:review_like, review: review) }
+      expect { review.destroy }.to change(ReviewLike.all, :count).by(-2)
+    end
+
+    # 削除すると、紐づく通知も全て削除されること
+    it "destroys all review_likes when deleted" do
+      2.times { FactoryBot.create(:user) }
+      review.create_notice_review_like(User.first)
+      review.create_notice_review_like(User.second)
+      expect { review.destroy }.to change(Notice.all, :count).by(-2)
+    end
+  end
 end
