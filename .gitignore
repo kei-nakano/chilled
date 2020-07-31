@@ -32,3 +32,4 @@ master.key
 .env
 *.tmp
 dump.rdb
+over_5MB.jpg
