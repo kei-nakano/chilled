@@ -1,17 +1,16 @@
 # ユーザー
 User.create!(name: "keisuke",
              email: "keisuke@gmail.com",
-             password: "keisuke",
+             password: "Password12",
              activated: true,
              admin: true)
 
 10.times do |n|
   name  = (n + 1).to_s
   email = "example-#{n + 1}@railstutorial.org"
-  password = "password"
   User.create!(name: name,
                email: email,
-               password: password,
+               password: "Password12",
                activated: true)
 end
 

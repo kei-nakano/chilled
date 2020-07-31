@@ -17,7 +17,7 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   validate :image_size
-  validates :password, length: { minimum: 7 }
+  validate :password_regex
 
   # アソシエーション
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
@@ -162,7 +162,15 @@ class User < ApplicationRecord
 
   # アップロード画像のサイズを検証する
   def image_size
-    errors.add(:image, "should be less than 5MB") if image.size > 5.megabytes
+    errors.add(:image, "は5MB以下にする必要があります") if image.size > 5.megabytes
+  end
+
+  # パスワードが正規表現を満たすか確認する
+  def password_regex
+    valid_password_regex = /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)\w{10,20}\z/.freeze
+    return nil if valid_password_regex.match(password)
+
+    errors.add(:password, "は半角10~20文字英大文字・小文字・数字をそれぞれ１文字以上含む必要があります")
   end
 
   # 削除されるユーザが加入していたルームを全て削除する
