@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Reviews", type: :request do
+RSpec.describe "Review", type: :request do
   describe "#new" do
     before do
       @item = FactoryBot.create(:item)

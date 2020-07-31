@@ -3,6 +3,7 @@ FactoryBot.define do
     name { "Aaron" }
     sequence(:email) { |n| "tester#{n}@example.com" }
     password { "Password12" }
+    activated { true }
   end
 
   factory :admin, aliases: %i[followed blocked], class: User do
