@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "ReviewLikes", type: :feature do
-  # レビューに対して、ボタンをクリックして「いいね！」の作成を作成し、各ページのいいね！数が変化すること。
+  # レビューに対して、ボタンをクリックして「いいね！」を作成し、各ページのいいね！数が変化すること。
   # また、削除ができること
   scenario "user can create a review_like and delete it", js: true do
     # レビューの事前作成

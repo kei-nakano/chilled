@@ -53,7 +53,7 @@ RSpec.describe "Review", type: :request do
     # ログイン済みユーザの場合
     context "as an authenticated user" do
       before do
-        sign_in(@user)
+        login_rspec(@user)
       end
 
       # 有効な属性値の場合
@@ -147,7 +147,7 @@ RSpec.describe "Review", type: :request do
     # ログイン済みユーザの場合
     context "as an authenticated user" do
       before do
-        sign_in @user
+        login_rspec @user
       end
 
       # 自分の商品レビューが削除できること
