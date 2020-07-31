@@ -237,5 +237,12 @@ RSpec.describe User, type: :model do
       comment.create_notice_comment_like(user2)
       expect { user.destroy }.to change(user.passive_notices, :count).by(-2)
     end
+
+    # 削除すると、紐づくブロックも全て削除されること
+    it "destroys all blocks when deleted" do
+      user.block(user1)
+      user.block(user2)
+      expect { user.destroy }.to change(user.blocking, :count).by(-2)
+    end
   end
 end
