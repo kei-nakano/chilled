@@ -96,7 +96,7 @@ class User < ApplicationRecord
 
   # ユーザをブロック解除する
   def unblock(user)
-    active_blocks.find_by(blocked_id: user.id).destroy
+    active_blocks.find_by(blocked_id: user.id).destroy if blocking?(user)
   end
 
   # ユーザをフォロー解除する

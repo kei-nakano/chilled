@@ -245,4 +245,133 @@ RSpec.describe User, type: :model do
       expect { user.destroy }.to change(user.blocking, :count).by(-2)
     end
   end
+
+  # 検索機能
+  describe "search method" do
+    before do
+      FactoryBot.create(:user, name: "rubyonrails")     # OKパターン
+      FactoryBot.create(:user, name: "car_onroad")      # OKパターン
+      FactoryBot.create(:user, name: "train_on_road")   # NGパターン
+    end
+
+    # 検索文字列に部分一致するカテゴリを検索できること
+    it "can search users if keyword matches partially" do
+      users = User.search("onr")
+      expect(users.count).to eq 2
+    end
+
+    # 条件に一致するものがない場合、blankとなること
+    it "returns blank if keyword matches partially" do
+      users = User.search("abc")
+      expect(users.blank?).to be_truthy
+    end
+  end
+
+  # bcryptによるダイジェスト生成がうまくいくこと
+  it "can generate digest successfully by bcrypt" do
+    expect(User.digest("test")).to include("$2a")
+  end
+
+  # base64によるトークン生成がうまくいくこと
+  it "can generate a token successfully by base64" do
+    expect(User.new_token.length).to eq 22
+  end
+
+  # remember_digestにトークンが保存されること
+  it "saves remember digest successfully" do
+    expect(user.remember_digest).to eq nil
+    user.remember
+    expect(user.remember_digest).to include("$2a")
+  end
+
+  # autenticated?メソッドでダイジェストと適切に照合ができること
+  it "can match with the result of authenticated?" do
+    expect(user.authenticated?(:password, "Password12")).to be_truthy
+  end
+
+  # パスワード再設定のダイジェストを設定できること
+  it "can set password reset digest successfully" do
+    expect(user.reset_digest).to eq nil
+    user.create_reset_digest
+
+    expect(user.reset_digest).to include("$2a")
+    # 複数回のリセットも問題ないこと
+    user.create_reset_digest
+    expect(user.reset_digest).to include("$2a")
+  end
+
+  # パスワード再設定の設定時に時刻が設定できること
+  it "can set password reset digest sent time successfully" do
+    expect(user.reset_sent_at).to eq nil
+    current_time = Time.zone.now
+    sleep(1)
+    user.create_reset_digest
+
+    expect(user.reset_sent_at >= current_time).to be_truthy
+  end
+
+  # パスワードの再設定期限
+  describe "time limit of password reset" do
+    # 2時間以内ならfalseとなること
+    it "returns false password within 2 hours" do
+      user.reset_sent_at = Time.zone.now - 2.hours + 1.second
+      expect(user.password_reset_expired?).to be_falsy
+    end
+
+    # 2時間を超えるならtrueできること
+    it "returns true password within 2 hours" do
+      user.reset_sent_at = Time.zone.now - 2.hours
+      expect(user.password_reset_expired?).to be_truthy
+    end
+  end
+
+  # ユーザーのremember digestを破棄できること
+  it "can delete remember digest" do
+    user.remember_digest = "test"
+    user.save
+    user.forget
+    expect(User.find(user.id).remember_digest).to eq nil
+  end
+
+  # フォロー
+  describe "follow" do
+    # うまくフォローできること
+    it "can follow successfully" do
+      expect { user.follow(user1) }.to change(user1.followers, :count).by(1)
+    end
+
+    # うまくアンフォローできること
+    it "can unfollow successfully" do
+      user.follow(user1)
+      expect { user.unfollow(user1) }.to change(user1.followers, :count).by(-1)
+    end
+
+    # フォローしていたらtrue、フォローしていないときはfalseを返すこと
+    it "returns true if he is follower, not if false" do
+      user.follow(user1)
+      expect(user.following?(user1)).to be_truthy
+      expect(user.following?(user2)).to be_falsy
+    end
+  end
+
+  # ブロック
+  describe "block" do
+    # うまくブロックできること
+    it "can block successfully" do
+      expect { user.block(user1) }.to change(user.blocking, :count).by(1)
+    end
+
+    # うまくアンブロックできること
+    it "can unblock successfully" do
+      user.block(user1)
+      expect { user.unblock(user1) }.to change(user.blocking, :count).by(-1)
+    end
+
+    # ブロックしていたらtrue、ブロックしていないときはfalseを返すこと
+    it "returns true if he is blocked, not if false" do
+      user.block(user1)
+      expect(user.blocking?(user1)).to be_truthy
+      expect(user.blocking?(user2)).to be_falsy
+    end
+  end
 end
