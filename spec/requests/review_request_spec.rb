@@ -115,7 +115,7 @@ RSpec.describe "Reviews", type: :request do
 
       # 商品レビューが更新できること
       it "updates a review" do
-        review_params = FactoryBot.attributes_for(:review)
+        review_params = FactoryBot.attributes_for(:review, :with_tags)
 
         expect do
           patch "/reviews/#{@review.id}", params: { review: review_params }

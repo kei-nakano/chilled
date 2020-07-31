@@ -47,6 +47,7 @@ RSpec.describe Category, type: :model do
     expect(category.errors[:name]).to include("はすでに存在します")
   end
 
+  # 画像のアップロード
   describe "check image upload" do
     # 画像なしでも有効であること
     it "is valid with no image" do

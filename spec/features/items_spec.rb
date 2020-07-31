@@ -13,7 +13,7 @@ RSpec.feature "Items", type: :feature do
 
     # pw入力~ログイン
     fill_in "email", with: user.email
-    fill_in "password", with: "password"
+    fill_in "password", with: "Password12"
     click_button "ログイン"
     expect(page).to have_text('ログインしました')
 

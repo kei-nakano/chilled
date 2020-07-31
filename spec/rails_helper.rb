@@ -35,8 +35,12 @@ RSpec.configure do |config|
   aft_image_path = Rails.root.join("public/uploads_bk")
   # テストスイートの実行前に、開発環境のイメージアップロードディレクトリをリネーム退避する
   config.before(:suite) do
+    # リネーム退避
     Dir.mkdir(bef_image_path) unless Dir.exist?(bef_image_path)
     File.rename(bef_image_path, aft_image_path)
+
+    # 画像アップロードを伴うテストケースがない場合、リネーム戻しがエラーとなるため、空のディレクトリを作成する
+    Dir.mkdir(bef_image_path)
   end
 
   # テストスイートの実行が終わったらアップロードされたファイルを削除する

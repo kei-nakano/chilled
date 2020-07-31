@@ -17,7 +17,7 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   validate :image_size
-  validates :password, length: { minimum: 7 }
+  validate :password_regex
 
   # アソシエーション
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
@@ -96,7 +96,7 @@ class User < ApplicationRecord
 
   # ユーザをブロック解除する
   def unblock(user)
-    active_blocks.find_by(blocked_id: user.id).destroy
+    active_blocks.find_by(blocked_id: user.id).destroy if blocking?(user)
   end
 
   # ユーザをフォロー解除する
@@ -126,8 +126,11 @@ class User < ApplicationRecord
 
   # 過去にメッセージを送ろうとしたことがある（トークルームが作成された）ユーザを返す
   def dm_members
+    # 自分がエントリーしているルームのidを見つける
     room_ids = "SELECT room_id FROM entries WHERE user_id = :user_id"
+    # room_idからエントリーを絞り、エントリーしているユーザのidを見つける
     user_ids = "SELECT user_id FROM entries WHERE room_id IN (#{room_ids})"
+    # 自分以外のユーザを見つける
     User.where.not(id: id).where("id IN (#{user_ids})", user_id: id)
   end
 
@@ -140,15 +143,16 @@ class User < ApplicationRecord
         return u_entry.room if u_entry.room_id == cu_entry.room_id
       end
     end
+    # 一致しない場合はnil
     nil
   end
 
   # ユーザフォロー時の通知を作成する
-  def create_notice_follow(current_user)
-    temp = Notice.where(visitor_id: current_user.id, visited_id: id, action: 'follow')
-    return if temp.present?
+  def create_notice_follow(follower)
+    already_follow = Notice.where(visitor_id: follower.id, visited_id: id, action: 'follow')
+    return nil if already_follow.present?
 
-    notice = current_user.active_notices.new(visited_id: id, action: 'follow')
+    notice = follower.active_notices.new(visited_id: id, action: 'follow')
     notice.save if notice.valid?
   end
 
@@ -162,7 +166,15 @@ class User < ApplicationRecord
 
   # アップロード画像のサイズを検証する
   def image_size
-    errors.add(:image, "should be less than 5MB") if image.size > 5.megabytes
+    errors.add(:image, "は5MB以下にする必要があります") if image.size > 5.megabytes
+  end
+
+  # パスワードが正規表現を満たすか確認する
+  def password_regex
+    valid_password_regex = /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)\w{10,20}\z/.freeze
+    return nil if valid_password_regex.match(password)
+
+    errors.add(:password, "は半角10~20文字英大文字・小文字・数字をそれぞれ１文字以上含む必要があります")
   end
 
   # 削除されるユーザが加入していたルームを全て削除する

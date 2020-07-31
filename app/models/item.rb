@@ -1,13 +1,15 @@
 class Item < ApplicationRecord
-  validates :title, presence: true, length: { maximum: 40 }, uniqueness: true
-  validates :content, presence: true, length: { maximum: 150 }
+  validates :title, presence: true, length: { maximum: 30 }, uniqueness: true
+  validates :content, presence: true, length: { maximum: 300 }
   validates :price, presence: true
   validates :gram, presence: true
   validates :calorie, presence: true
+  validates :category_id, presence: true
+  validates :manufacturer_id, presence: true
   mount_uploader :image, ImageUploader
+  belongs_to :manufacturer, optional: true
+  belongs_to :category, optional: true
   has_many :reviews, dependent: :destroy
-  belongs_to :manufacturer
-  belongs_to :category
   has_many :eaten_items, dependent: :destroy
   has_many :want_to_eat_items, dependent: :destroy
 
@@ -21,18 +23,22 @@ class Item < ApplicationRecord
 
   # レビューのスコアを集計し、合計ポイント順にidを返す
   def self.popular_ids
-    border_score = 1 # 1点を超えないレビューは除く
+    Hash[Item.rank.sort_by { |_, score| -score }].keys
+  end
+
+  # 各商品の合計スコアを計算する
+  def self.rank
+    border_score = 1 # 1点を超えない商品は除く
     weight = -3 # 5点満点のレビューで3点を0点、5点を2点として評価を再マッピングするために使用する
+    # 1点がたくさん集まるより、低評価が少なく、高得点のみを獲得している方が評価が高いため
 
     original_score = Review.group(:item_id).sum(:score) # item_id毎にreviewのスコアを集計
     review_count = Review.group(:item_id).count # item毎のreviewを集計
 
     total_score = original_score.merge(review_count) { |_key, score, count| score + count * weight } # Σ(review.score - 3)と同じ計算式
-    border_clear = total_score.delete_if do |_key, score|
-      score < border_score # border_score以下のitem取り除く
+    total_score.delete_if do |_key, score|
+      score <= border_score # border_score以下のitem取り除く
     end
-
-    Hash[border_clear.sort_by { |_, score| -score }].keys
   end
 
   # 内容量(g)を単価で割った値が大きい順にidを返す
@@ -57,17 +63,31 @@ class Item < ApplicationRecord
 
   # あるタグが付いたレビューを持つ商品を、タグ付け回数の降順に返す
   def self.tagged_desc(tag_name)
+    # 対象タグのidを割り出す
     tag_id = ActsAsTaggableOn::Tag.find_by(name: tag_name).id
+
+    # 対象タグの付けられたreviewのidを割り出す
     review_ids = ActsAsTaggableOn::Tagging.where(tag_id: tag_id).pluck(:taggable_id)
-    item_count = Review.where(id: review_ids).group(:item_id).count
-    item_ids = item_count.sort_by { |_, count| -count }.to_h.keys
+
+    # 対象タグが付いたレビューをitem_id毎に数えることで、itemに対するtag付け回数を計算する
+    tag_count = Review.where(id: review_ids).group(:item_id).count
+
+    # item_idの配列を出現回数の降順に並び替え、ハッシュ化してキー(id)を取り出す
+    item_ids = tag_count.sort_by { |_, count| -count }.to_h.keys
+
+    # 降順のidでtagを抽出する。orderを明示的に指定しなければ、tag_idsの順番通りにならない
     Item.where(id: item_ids).order([Arel.sql('field(id, ?)'), item_ids])
   end
 
   # その商品に関連付けられたタグを人気順に返す
   def popular_tags
+    # その商品に対するレビューidのみを対象に絞り、各タグの出現回数を調べる
     tag_count = ActsAsTaggableOn::Tagging.where(taggable_id: reviews.ids).group(:tag_id).count
+
+    # tag_idの配列を出現回数の降順に並び替え、ハッシュ化してキー(id)を取り出す
     tag_ids = tag_count.sort_by { |_, count| -count }.to_h.keys
+
+    # 降順のidでtagを抽出する。orderを明示的に指定しなければ、tag_idsの順番通りにならない
     ActsAsTaggableOn::Tag.where(id: tag_ids).order([Arel.sql('field(id, ?)'), tag_ids])
   end
 end

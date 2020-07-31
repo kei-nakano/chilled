@@ -1,6 +1,6 @@
 class Comment < ApplicationRecord
-  belongs_to :review
-  belongs_to :user
+  belongs_to :review, optional: true
+  belongs_to :user, optional: true
   has_many :comment_likes, dependent: :destroy
   has_many :notices, dependent: :destroy
   validates :user_id, presence: true
