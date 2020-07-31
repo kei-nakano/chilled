@@ -126,8 +126,11 @@ class User < ApplicationRecord
 
   # 過去にメッセージを送ろうとしたことがある（トークルームが作成された）ユーザを返す
   def dm_members
+    # 自分がエントリーしているルームのidを見つける
     room_ids = "SELECT room_id FROM entries WHERE user_id = :user_id"
+    # room_idからエントリーを絞り、エントリーしているユーザのidを見つける
     user_ids = "SELECT user_id FROM entries WHERE room_id IN (#{room_ids})"
+    # 自分以外のユーザを見つける
     User.where.not(id: id).where("id IN (#{user_ids})", user_id: id)
   end
 
@@ -140,15 +143,16 @@ class User < ApplicationRecord
         return u_entry.room if u_entry.room_id == cu_entry.room_id
       end
     end
+    # 一致しない場合はnil
     nil
   end
 
   # ユーザフォロー時の通知を作成する
-  def create_notice_follow(current_user)
-    temp = Notice.where(visitor_id: current_user.id, visited_id: id, action: 'follow')
-    return if temp.present?
+  def create_notice_follow(follower)
+    already_follow = Notice.where(visitor_id: follower.id, visited_id: id, action: 'follow')
+    return nil if already_follow.present?
 
-    notice = current_user.active_notices.new(visited_id: id, action: 'follow')
+    notice = follower.active_notices.new(visited_id: id, action: 'follow')
     notice.save if notice.valid?
   end
 

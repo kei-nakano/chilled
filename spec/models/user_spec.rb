@@ -374,4 +374,45 @@ RSpec.describe User, type: :model do
       expect(user.blocking?(user2)).to be_falsy
     end
   end
+
+  # ルームを作成したことがある自分以外のユーザを返す
+  it "returns users in same room except yourself" do
+    2.times { FactoryBot.create(:room) }
+    FactoryBot.create(:entry, room: Room.first, user: user1)
+    FactoryBot.create(:entry, room: Room.first, user: user)
+    FactoryBot.create(:entry, room: Room.second, user: user2)
+    FactoryBot.create(:entry, room: Room.second, user: user)
+    expect(user.dm_members.ids).to eq [user1.id, user2.id]
+  end
+
+  # 自分とユーザが一緒に入っているルームを返すこと
+  it "returns same room with other" do
+    2.times { FactoryBot.create(:room) }
+    FactoryBot.create(:entry, room: Room.first, user: user1)
+    FactoryBot.create(:entry, room: Room.first, user: user)
+    FactoryBot.create(:entry, room: Room.second, user: user2)
+    FactoryBot.create(:entry, room: Room.second, user: user)
+    expect(user.room_with(user1)).to eq Room.first
+  end
+
+  # 通知
+  describe "notice" do
+    context "action: follow" do
+      # 初回フォローで通知が作成されること
+      it "can create notice if you have been followed first time" do
+        expect { user.create_notice_follow(user1) }.to change(user.passive_notices, :count).by(1)
+      end
+
+      # 過去にフォローしたことがある場合、通知は作成されずnilを返すこと
+      it "can not create notice if you have been already followed" do
+        expect { user.create_notice_follow(user1) }.to change(user.passive_notices, :count).by(1)
+        expect(user.create_notice_follow(user1)).to eq nil
+      end
+    end
+  end
+
+  # アカウント有効化ダイジェストが作成されること
+  it "generates digest of account activation" do
+    expect(user.activation_digest).to include("$2a$")
+  end
 end
