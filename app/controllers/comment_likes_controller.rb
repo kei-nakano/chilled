@@ -1,4 +1,6 @@
 class CommentLikesController < ApplicationController
+  before_action :authenticate_user
+
   def create
     @comment = Comment.find(params[:comment_id])
     CommentLike.create(user_id: @current_user.id, comment_id: @comment.id)

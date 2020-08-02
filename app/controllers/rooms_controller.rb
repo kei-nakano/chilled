@@ -1,8 +1,11 @@
 class RoomsController < ApplicationController
+  before_action :authenticate_user
+
   def show
     @room = Room.find(params[:id])
     @user = User.find(params[:user_id])
-    if block_ids(@current_user).include?(@user.id)
+    block_ids = @current_user.block_ids
+    if block_ids.include?(@user.id)
       flash[:notice] = "このユーザをブロックしているかブロックされているため、メッセージを送ることができません。"
       redirect_back(fallback_location: "/users/#{@user.id}")
     end

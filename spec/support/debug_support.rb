@@ -7,7 +7,7 @@ module DebugSupport
 
   # ページのDOM要素を表示する
   def debug_dom
-    expect(page).to have_content nil
+    expect(page).to have_content("##debug##")
   end
 end
 

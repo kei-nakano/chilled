@@ -415,4 +415,13 @@ RSpec.describe User, type: :model do
   it "generates digest of account activation" do
     expect(user.activation_digest).to include("$2a$")
   end
+
+  # ブロックまたはブロックされているユーザのidを返す
+  it "returns blocked or blocking user-ids" do
+    user.block user1
+    user1.block user2
+    expect(user1.block_ids.count).to eq 2
+    expect(user1.block_ids.include?(user.id)).to eq true
+    expect(user1.block_ids.include?(user2.id)).to eq true
+  end
 end

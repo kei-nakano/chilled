@@ -7,10 +7,10 @@ class SearchController < ApplicationController
 
     # typeの分岐によらず、検索結果の件数を表示する必要があるため、ifより前に記述
     @items = Item.search(@keyword)
-    @reviews = Review.search(@keyword).where.not(user_id: block_ids(@current_user))
+    @reviews = Review.search(@keyword).where.not(user_id: @current_user&.block_ids)
     @categories = Category.search(@keyword)
     @manufacturers = Manufacturer.search(@keyword)
-    @users = User.search(@keyword)
+    @users = User.search(@keyword) # ブロックされていても、検索結果には表示する。twitterと同じ動作とした
     @tags = ActsAsTaggableOn::Tag.where('name like ?', "%" + @keyword + "%")
 
     return (@results = @items) if @type == "item"

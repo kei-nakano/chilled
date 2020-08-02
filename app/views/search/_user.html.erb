@@ -16,7 +16,7 @@
       <%= link_to(user.name, "/users/#{user.id}") %>
       
       <% if @current_user %>
-        <% if block_ids(@current_user).include?(user.id) %>
+        <% if @current_user.active_blocks.pluck(:blocked_id).include?(user.id) %>
           <span class="search-user-block">(ブロックしています)</span>
         <% end %>
         
