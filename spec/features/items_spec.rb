@@ -27,8 +27,8 @@ RSpec.feature "Items", type: :feature do
       fill_in "item[price]", with: 290
       fill_in "item[gram]", with: 400
       fill_in "item[calorie]", with: 500
-      select "1", from: 'item[manufacturer_id]'
-      select "1", from: 'item[category_id]'
+      select Manufacturer.first.name.to_s, from: 'item[manufacturer_id]'
+      select Category.first.name.to_s, from: 'item[category_id]'
       click_button "投稿する"
     end.to change(Item.all, :count).by(1)
 

@@ -11,7 +11,7 @@ class HomeController < ApplicationController
 
     # いいねとコメントの総合スコアが高いレビューを抽出
     popular_ids = Review.popular_ids
-    popular_reviews_all = Review.where.not(id: block_ids(@current_user)).where(id: popular_ids).order([Arel.sql('field(id, ?)'), popular_ids])
+    popular_reviews_all = Review.where(id: popular_ids).order([Arel.sql('field(id, ?)'), popular_ids]).where.not(user_id: @current_user&.block_ids)
     @popular_reviews = popular_reviews_all.limit(review_select)
 
     # 指定期間内のレビューのうち、総合スコアが高いレビューを抽出

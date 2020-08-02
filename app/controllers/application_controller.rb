@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  include UsersHelper
   include SessionsHelper
   before_action :set_current_user
 
@@ -43,6 +42,6 @@ class ApplicationController < ActionController::Base
 
   # 管理者権限がない場合、topページにリダイレクトさせる
   def admin_user
-    redirect_to "/" unless current_user.admin?
+    redirect_to "/" unless @current_user.admin?
   end
 end

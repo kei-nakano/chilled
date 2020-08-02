@@ -1,4 +1,6 @@
 class TagsController < ApplicationController
+  before_action :admin_user
+
   def destroy
     @tag = ActsAsTaggableOn::Tag.find_by(id: params[:id])
     flash[:notice] = if @tag&.destroy

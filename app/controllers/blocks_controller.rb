@@ -1,5 +1,5 @@
 class BlocksController < ApplicationController
-  before_action :authenticate_user, only: %i[create destroy]
+  before_action :authenticate_user
 
   def create
     @user = User.find(params[:user_id])

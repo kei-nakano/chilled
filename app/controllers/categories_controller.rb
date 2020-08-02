@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_action :admin_user
+
   def edit
     @category = Category.find_by(id: params[:id])
   end

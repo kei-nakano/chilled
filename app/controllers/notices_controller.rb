@@ -1,4 +1,6 @@
 class NoticesController < ApplicationController
+  before_action :authenticate_user
+
   def index
     @notices = @current_user.passive_notices
     @latest_notices = @notices.where(checked: false).order(created_at: :desc).includes(:comment, :visitor, :review)
