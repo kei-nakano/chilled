@@ -1,14 +1,14 @@
 FactoryBot.define do
   factory :user, aliases: %i[follower from] do
-    name { "Aaron" }
-    sequence(:email) { |n| "tester#{n}@example.com" }
+    sequence(:name) { |n| "user_#{n}" }
+    sequence(:email) { |n| "user_#{n}@example.com" }
     password { "Password12" }
     activated { true }
   end
 
   factory :admin, aliases: %i[followed blocked], class: User do
-    name { "Admin" }
-    sequence(:email) { |n| "administator#{n}@example.com" }
+    sequence(:name) { |n| "admin_#{n}" }
+    sequence(:email) { |n| "admin_#{n}@example.com" }
     password { "Password12" }
     admin { true }
     activated { true }
