@@ -1,7 +1,7 @@
 /* rooms/index ================================ */
 .users-heading {
   font-weight: 300;
-  margin: 60px 0 20px;
+  margin: 60px 0 4px;
   font-size: 4.8rem;
   color: #bcc8d4;
 }
@@ -13,6 +13,12 @@
   box-shadow: 0 2px 6px #c1ced7;
   display: table;
   width: 100%;
+}
+
+.users-explain {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
 .user-left img {
@@ -44,7 +50,7 @@
   vertical-align: middle;
 }
 
-.user-right a {
+.room-user  {
   font-weight: 800;
 }
 

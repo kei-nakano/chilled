@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   resources :users, except: %i[index]
   resources :account_activations, only: [:edit]
   resources :password_resets, only: %i[new create edit update]
+  resources :hidden_rooms, only: %i[create]
 end

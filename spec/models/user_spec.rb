@@ -6,6 +6,8 @@ RSpec.describe User, type: :model do
   let(:user2) { FactoryBot.create(:user) }
   let(:admin) { FactoryBot.create(:admin) }
   let(:comment) { FactoryBot.create(:comment, user: user) }
+  let(:room1) { FactoryBot.create(:room) }
+  let(:room2) { FactoryBot.create(:room) }
 
   # 名前、メール、パスワードがあり、有効なファクトリを持つこと
   it "has a valid factory" do
@@ -211,6 +213,12 @@ RSpec.describe User, type: :model do
     it "destroys all commnt_likes when deleted" do
       2.times { FactoryBot.create(:comment_like, user: user) }
       expect { user.destroy }.to change(user.comment_likes, :count).by(-2)
+    end
+
+    # 削除すると、紐づくhidden_roomも全て削除されること
+    it "destroys all hidden_rooms when deleted" do
+      2.times { FactoryBot.create(:hidden_room, user: user) }
+      expect { user.destroy }.to change(user.hidden_rooms, :count).by(-2)
     end
 
     # 削除すると、紐づくメッセージも全て削除されること
@@ -423,5 +431,16 @@ RSpec.describe User, type: :model do
     expect(user1.block_ids.count).to eq 2
     expect(user1.block_ids.include?(user.id)).to eq true
     expect(user1.block_ids.include?(user2.id)).to eq true
+  end
+
+  # 非表示にしたルームに対応するユーザidを返す
+  it "returns  user-ids of hidden_rooms" do
+    FactoryBot.create(:entry, room: room1, user: user)
+    FactoryBot.create(:entry, room: room1, user: user1)
+    FactoryBot.create(:entry, room: room2, user: user)
+    FactoryBot.create(:entry, room: room2, user: user2)
+    FactoryBot.create(:hidden_room, room: room1, user: user)
+    FactoryBot.create(:hidden_room, room: room2, user: user)
+    expect(user.hidden_user_ids).to eq [user1.id, user2.id]
   end
 end

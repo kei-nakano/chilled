@@ -27,5 +27,14 @@ RSpec.describe Block, type: :model do
 
       expect { room.destroy }.to change(Message.all, :count).by(-2)
     end
+
+    # roomを削除すると、紐づくhidden_roomも全て削除されること
+    it "destroys all hidden_rooms when deleted" do
+      2.times { FactoryBot.create(:user) }
+      HiddenRoom.create(room_id: room.id, user_id: User.first.id)
+      HiddenRoom.create(room_id: room.id, user_id: User.second.id)
+
+      expect { room.destroy }.to change(HiddenRoom.all, :count).by(-2)
+    end
   end
 end

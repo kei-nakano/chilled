@@ -10,6 +10,9 @@ class RoomsController < ApplicationController
       redirect_back(fallback_location: "/users/#{@user.id}")
     end
 
+    # roomに入った時点で、もし存在していれば、その相手ユーザとのroomに紐づくHiddenRoomを削除する
+    HiddenRoom.find_by(user_id: @current_user.id, room_id: @room.id)&.destroy
+
     # roomに入った時点で、未読メッセージのステータスを全て既読に変更する
     @messages = Message.includes(:user).where(room_id: @room.id)
     unread_messages = @messages.where(checked: false, user_id: @user.id)
@@ -28,6 +31,8 @@ class RoomsController < ApplicationController
   end
 
   def index
-    @users = @current_user.dm_members
+    # 過去にトークルームを作成したことがない場合は、全ユーザを表示する
+    talked_users = @current_user.dm_members
+    @users = talked_users.where.not(id: @current_user.hidden_user_ids)
   end
 end
