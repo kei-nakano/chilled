@@ -15,8 +15,8 @@ RSpec.feature "Relationships", type: :feature do
 
     # プロフィールに移動
     visit "/users/#{user.id}"
-    expect(page).to have_content('フォロー(0)')
-    expect(page).to have_content('フォロワー(0)')
+    expect(page).to have_content('フォロー(0)', count: 1)
+    expect(page).to have_content('フォロワー(0)', count: 1)
 
     # フォローを実行
     expect do
@@ -28,14 +28,14 @@ RSpec.feature "Relationships", type: :feature do
     # userのフォローが1になる
     visit "/users/#{user.id}"
     click_link "フォロー(1)"
-    expect(page).to have_content(other_user.name.to_s, count: 1)
+    expect(page).to have_content(other_user.name, count: 1)
     expect(page).to have_content("フォロワー(1)", count: 1) # other_userのフォロワー
     expect(page).to have_content("フォロー(0)", count: 1) # other_userのフォロー
 
     # other_userのフォロワーが1になる
     visit "/users/#{other_user.id}"
     click_link "フォロワー(1)"
-    expect(page).to have_content(user.name.to_s, count: 1)
+    expect(page).to have_content(user.name, count: 2) # headerで1個
     expect(page).to have_content("フォロー(1)", count: 1) # userのフォロワー
     expect(page).to have_content("フォロワー(0)", count: 1) # userのフォロー
 
