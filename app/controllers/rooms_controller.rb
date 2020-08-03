@@ -3,7 +3,11 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
-    @user = User.find(params[:user_id]) # トーク相手
+    @user = User.find(params[:user_id])
+
+    # 自分の加入するroom一覧にないリクエストの場合は、room一覧ページへリダイレクトする
+    return redirect_to "/rooms" if @current_user.rooms.exclude?(@room)
+
     block_ids = @current_user.block_ids
     if block_ids.include?(@user.id)
       flash[:notice] = "このユーザをブロックしているかブロックされているため、メッセージを送ることができません。"
