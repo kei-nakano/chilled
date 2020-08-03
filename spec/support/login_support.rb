@@ -10,6 +10,14 @@ module LoginSupport
     # ActionDispatch::Requestクラスの全インスタンスに対して、sessionメソッドが呼ばれた場合に、nilを返す
     allow_any_instance_of(ActionDispatch::Request).to receive(:session).and_return({ user_id: nil })
   end
+
+  def feature_login(user)
+    visit "/"
+    click_link "ログイン"
+    fill_in "email", with: user.email
+    fill_in "password", with: "Password12"
+    click_button "ログイン"
+  end
 end
 
 RSpec.configure do |config|

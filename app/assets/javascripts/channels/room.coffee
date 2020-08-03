@@ -6,7 +6,7 @@ App.room = App.cable.subscriptions.create "RoomChannel",
   rejected: ->
 
   received: (data) ->
-    if data['room_id'] isnt undefined && data['message'] isnt undefined # メッセージ追加 = room_idとmessageあり
+    if data['room_id'] isnt undefined && data['message'] isnt undefined # メッセージ追加 = (room_idとmessageあり)
       url = location.pathname
       browser_room_id = url.split('/rooms/').pop()
       message_room_id = data['room_id'].toString()
@@ -16,7 +16,7 @@ App.room = App.cable.subscriptions.create "RoomChannel",
         if data['flag'] == "other"
           $('.latest-message').append data['message']
           
-    if data['room_id'] isnt undefined && data['flag'] == "read" # 既読処理 = room_idとflagが"read"
+    if data['room_id'] isnt undefined && data['flag'] == "read" # 既読処理 = (room_idとflagが"read")
       url = location.pathname
       browser_room_id = url.split('/rooms/').pop()
       message_room_id = data['room_id'].toString()
