@@ -128,3 +128,7 @@ Style/MixinUsage:
 Metrics/ClassLength:
   Enabled: false
 
+# Controllers should subclass ApplicationControllerを無視
+Rails/ApplicationController:
+  Enabled: false
+

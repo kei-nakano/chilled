@@ -14,7 +14,7 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
-  # Show full error reports.
+  # エラーの詳細画面(赤画面)を表示するか
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
