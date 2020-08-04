@@ -10,7 +10,7 @@ RSpec.feature "Messages", type: :feature do
 
     # 一般ユーザでログイン
     feature_login(user)
-
+    sleep(1)
     # 自身のプロフィールページでステータスがアクティブになること
     visit "/users/#{user.id}"
     expect(page).to have_content('(アクティブ)', count: 1)
