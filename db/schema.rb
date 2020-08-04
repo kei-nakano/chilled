@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_12_141656) do
+ActiveRecord::Schema.define(version: 2020_07_02_110506) do
 
   create_table "blocks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "from_id", null: false
@@ -68,6 +68,16 @@ ActiveRecord::Schema.define(version: 2020_06_12_141656) do
     t.index ["room_id"], name: "index_entries_on_room_id"
     t.index ["user_id", "room_id"], name: "index_entries_on_user_id_and_room_id", unique: true
     t.index ["user_id"], name: "index_entries_on_user_id"
+  end
+
+  create_table "hidden_rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_hidden_rooms_on_room_id"
+    t.index ["user_id", "room_id"], name: "index_hidden_rooms_on_user_id_and_room_id", unique: true
+    t.index ["user_id"], name: "index_hidden_rooms_on_user_id"
   end
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -224,6 +234,8 @@ ActiveRecord::Schema.define(version: 2020_06_12_141656) do
   add_foreign_key "eaten_items", "users"
   add_foreign_key "entries", "rooms"
   add_foreign_key "entries", "users"
+  add_foreign_key "hidden_rooms", "rooms"
+  add_foreign_key "hidden_rooms", "users"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "manufacturers"
   add_foreign_key "messages", "rooms"

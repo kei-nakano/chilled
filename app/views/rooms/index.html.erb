@@ -4,6 +4,7 @@
 <div class="users-index">
   <div class="container">
     <h1 class="users-heading">メッセージを送る相手を選んでください</h1>
+    <h4 class="users-explain">(チャットルームが作成されたユーザのみ表示されます)</h4>
     <% @users.each do |user| %>
       <div class="users-index-item">
         <div class="user-left">
@@ -15,11 +16,18 @@
           <span class="active-icon override">.</span>
         <% end %>
         <div class="user-right">
-          <%= link_to user.name, "/rooms/#{@current_user.room_with(user).id}?user_id=#{user.id}" %>
-          <% unread_count = Message.where(room_id: @current_user.room_with(user).id, user_id: user.id, checked: false).count %>
+          <% room_id = @current_user.room_with(user).id %>
+          <span class="room-user">
+            <%= link_to user.name, "/rooms/#{room_id}?user_id=#{user.id}" %>
+          </span>
+          
+          <% unread_count = Message.where(room_id: room_id, user_id: user.id, checked: false).count %>
           <% unless unread_count.zero? %>
             <p class="unread-message-count"><%= "未読のメッセージが#{unread_count}件あります" %></p>
           <% end %>
+          <div class="comment-edit">
+            <%= link_to "非表示", "/hidden_rooms?room_id=#{room_id}", method: "post" %>
+          </div>
         </div>
       </div>
     <% end %>

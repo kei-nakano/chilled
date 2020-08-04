@@ -33,6 +33,7 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :rooms, through: :entries
+  has_many :hidden_rooms, dependent: :destroy
   has_many :active_notices, class_name: 'Notice', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notices, class_name: 'Notice', foreign_key: 'visited_id', dependent: :destroy
   has_many :active_blocks, class_name: 'Block', foreign_key: 'from_id', dependent: :destroy
@@ -161,6 +162,17 @@ class User < ApplicationRecord
     active_block_ids = active_blocks.pluck(:blocked_id)
     passive_block_ids = passive_blocks.pluck(:from_id)
     (active_block_ids + passive_block_ids).uniq
+  end
+
+  # 非表示にしたルームに対応するユーザidを返す
+  def hidden_user_ids
+    # 非表示にしたルームのid
+    room_ids = HiddenRoom.where(user_id: id).pluck(:room_id)
+    # エントリーから、該当するルームに参加していたユーザーのidを見つける
+    user_ids = Entry.where(room_id: room_ids).pluck(:user_id)
+    # 自分のidを取り除く
+    user_ids.delete(id)
+    user_ids
   end
 
   private

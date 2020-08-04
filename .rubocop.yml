@@ -123,3 +123,12 @@ Rails/SkipsModelValidations:
 # includeのファイル冒頭以外での使用を許可
 Style/MixinUsage:
   Enabled: false
+  
+# Class has too many linesを無視
+Metrics/ClassLength:
+  Enabled: false
+
+# Controllers should subclass ApplicationControllerを無視
+Rails/ApplicationController:
+  Enabled: false
+

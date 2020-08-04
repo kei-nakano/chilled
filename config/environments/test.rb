@@ -18,12 +18,12 @@ Rails.application.configure do
     'Cache-Control' => "public, max-age=#{1.hour.to_i}"
   }
 
-  # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  # エラーの詳細画面(赤画面)を表示するか(false -> カスタム404/500ページ)
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = false
 
-  # Raise exceptions instead of rendering exception templates.
-  config.action_dispatch.show_exceptions = false
+  # テストで例外が発生しても、テンプレートレンダリングをして継続するか
+  config.action_dispatch.show_exceptions = true
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
