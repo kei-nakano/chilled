@@ -4,6 +4,7 @@ FactoryBot.define do
     sequence(:email) { |n| "no_#{n}@example.com" }
     password { "Password12" }
     activated { true }
+    activated_at { Time.zone.now }
   end
 
   factory :admin, aliases: %i[followed blocked], class: User do
@@ -12,5 +13,6 @@ FactoryBot.define do
     password { "Password12" }
     admin { true }
     activated { true }
+    activated_at { Time.zone.now }
   end
 end

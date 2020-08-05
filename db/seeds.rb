@@ -1,17 +1,16 @@
-# ユーザー
-User.create!(name: "keisuke",
-             email: "keisuke@gmail.com",
-             password: "Password12",
-             activated: true,
-             admin: true)
+# User
+FactoryBot.create(:user, name: "テストユーザー", email: "test@example.com")
+FactoryBot.create(:admin, name: "管理者ユーザー", email: "admin@example.com")
 
-10.times do |n|
-  name  = (n + 1).to_s
-  email = "example-#{n + 1}@railstutorial.org"
-  User.create!(name: name,
-               email: email,
-               password: "Password12",
-               activated: true)
+20.times do |n|
+  name = if n <= 9
+            Faker::Name.name
+          else
+            Faker::Artist.name
+          end
+  email = "example-#{n + 1}@example.com"
+  image = File.open(Rails.root.join("public/default/user/#{n + 1}.jpg"))
+  FactoryBot.create(:user, name: name, email: email, image: image)
 end
 
 # メーカー
