@@ -12,7 +12,7 @@
             <%= image_tag user.image.url, alt: "ユーザの画像" %>
           <% end %>
         </div>
-        <% if user.appear == true %>
+        <% if user.appear? %>
           <span class="active-icon override">.</span>
         <% end %>
         <div class="user-right">
@@ -22,12 +22,15 @@
           </span>
           
           <% unread_count = Message.where(room_id: room_id, user_id: user.id, checked: false).count %>
-          <% unless unread_count.zero? %>
+          <% if unread_count.zero? %>
+            <p class="keep-space"></p>
+          <% else %>
             <p class="unread-message-count"><%= "未読のメッセージが#{unread_count}件あります" %></p>
           <% end %>
           <div class="comment-edit">
             <%= link_to "非表示", "/hidden_rooms?room_id=#{room_id}", method: "post" %>
           </div>
+          
         </div>
       </div>
     <% end %>

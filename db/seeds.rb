@@ -17,6 +17,10 @@ end
 nissin = FactoryBot.create(:manufacturer, name: "日清食品", image: File.open(Rails.root.join("public/default/manufacturer/日清食品.png")))
 nichirei = FactoryBot.create(:manufacturer, name: "ニチレイフーズ", image: File.open(Rails.root.join("public/default/manufacturer/ニチレイフーズ.jpg")))
 meiji = FactoryBot.create(:manufacturer, name: "明治", image: File.open(Rails.root.join("public/default/manufacturer/明治.png")))
+haagen = FactoryBot.create(:manufacturer, name: "ハーゲンダッツ", image: File.open(Rails.root.join("public/default/manufacturer/ハーゲンダッツ.jpg")))
+maruha = FactoryBot.create(:manufacturer, name: "マルハニチロ", image: File.open(Rails.root.join("public/default/manufacturer/マルハニチロ.jpg")))
+ajinomoto = FactoryBot.create(:manufacturer, name: "味の素", image: File.open(Rails.root.join("public/default/manufacturer/味の素.png")))
+tablemark = FactoryBot.create(:manufacturer, name: "テーブルマーク", image: File.open(Rails.root.join("public/default/manufacturer/テーブルマーク.png")))
 
 # Category
 pasta = FactoryBot.create(:category, name: "パスタ", image: File.open(Rails.root.join("public/default/category/パスタ.jpg")))
@@ -24,6 +28,9 @@ tantanmen = FactoryBot.create(:category, name: "担々麺", image: File.open(Rai
 fried_rice = FactoryBot.create(:category, name: "チャーハン", image: File.open(Rails.root.join("public/default/category/チャーハン.jpg")))
 okazu = FactoryBot.create(:category, name: "おかず", image: File.open(Rails.root.join("public/default/category/おかず.jpg")))
 ice = FactoryBot.create(:category, name: "アイス", image: File.open(Rails.root.join("public/default/category/アイス.jpg")))
+udon = FactoryBot.create(:category, name: "うどん", image: File.open(Rails.root.join("public/default/category/うどん.jpg")))
+soba = FactoryBot.create(:category, name: "そば", image: File.open(Rails.root.join("public/default/category/そば.jpg")))
+vegetable = FactoryBot.create(:category, name: "野菜", image: File.open(Rails.root.join("public/default/category/野菜.jpeg")))
 
 # Item
 # 日清*パスタ
@@ -138,6 +145,131 @@ Item.create!(title: "明治 エッセル スーパーカップ 抹茶",
              price: 140,
              gram: 200,
              calorie: 301)
+
+# ハーゲンダッツ*アイス
+Item.create!(title: "ハーゲンダッツ バニラ",
+             image: File.open(Rails.root.join("public/default/item/13.png")),
+             manufacturer_id: haagen.id,
+             category_id: ice.id,
+             content: 'マダガスカル産の複雑で深い香りが特長のレッドビーンズを使用。ハーゲンダッツでは濃厚な味わいのクリームに合わせて、レッドビーンズを選んでいます。',
+             price: 268,
+             gram: 110,
+             calorie: 244)
+
+Item.create!(title: "ハーゲンダッツ 抹茶",
+             image: File.open(Rails.root.join("public/default/item/14.png")),
+             manufacturer_id: haagen.id,
+             category_id: ice.id,
+             content: 'ハーゲンダッツでは抹茶の風味を引き出すために、石臼で茶葉を挽いています。石臼は他の粉砕機より熱がかかりにくく、風味や色を損ないません。',
+             price: 269,
+             gram: 110,
+             calorie: 239)
+
+# マルハニチロ*おかず
+Item.create!(title: "牛カルビマヨネーズ",
+             image: File.open(Rails.root.join("public/default/item/15.png")),
+             manufacturer_id: maruha.id,
+             category_id: okazu.id,
+             content: 'お肉でマヨソースを包み、焼肉のタレをかけました。お肉は過熱水蒸気焼き製法により外はこんがり、中はふっくらとジューシーに焼き上げました。粗びき肉を使用し食べごたえのある一品です。しっかりとした味付けなのでお弁当にぴったりで、ごはんがすすむおかずです。',
+             price: 250,
+             gram: 126,
+             calorie: 300)
+
+Item.create!(title: "いか天ぷら",
+             image: File.open(Rails.root.join("public/default/item/16.png")),
+             manufacturer_id: maruha.id,
+             category_id: okazu.id,
+             content: 'やわらかないかを天ぷら衣でつつみ、こだわりの甘辛天つゆのたれをからめました。お弁当、てんむす、天丼におすすめです。',
+             price: 249,
+             gram: 108,
+             calorie: 270)
+
+# マルハニチロ*チャーハン
+Item.create!(title: "石焼風ビビンバ炒飯",
+             image: File.open(Rails.root.join("public/default/item/17.png")),
+             manufacturer_id: maruha.id,
+             category_id: fried_rice.id,
+             content: 'おこげの香ばしさと、特製だれに漬こんだ牛カルビが楽しめる石焼風ビビンバ炒飯。',
+             price: 258,
+             gram: 450,
+             calorie: 810)
+
+# 味の素*チャーハン
+Item.create!(title: "具だくさんエビピラフ",
+             image: File.open(Rails.root.join("public/default/item/18.jpg")),
+             manufacturer_id: maruha.id,
+             category_id: fried_rice.id,
+             content: 'エビがプリッ！バターが香る本格的な製法で仕上げたピラフです。バターをきかせてお米を炒め、ブイヨンで炊き上げ、パラッとふっくらしたごはんに仕上げました。',
+             price: 268,
+             gram: 450,
+             calorie: 616)
+
+Item.create!(title: "具だくさん高菜炒飯",
+             image: File.open(Rails.root.join("public/default/item/19.jpg")),
+             manufacturer_id: ajinomoto.id,
+             category_id: fried_rice.id,
+             content: '九州産熟成高菜と玉子がたっぷり入った高菜炒飯です。パラッとふっくらした食感とごま油で炒めた熟成高菜の豊かな風味が味わえます。',
+             price: 278,
+             gram: 450,
+             calorie: 862)
+
+# 味の素*おかず
+Item.create!(title: "ひとくち餃子",
+             image: File.open(Rails.root.join("public/default/item/20.jpg")),
+             manufacturer_id: ajinomoto.id,
+             category_id: okazu.id,
+             content: 'お酒によく合う、ひとくちサイズでパリパリの食感。昭和30年代から大阪の老舗で親しまれている、扇型でひとくちサイズのパリッパリの食感が楽しめる餃子をモデルにしています。',
+             price: 298,
+             gram: 250,
+             calorie: 475)
+
+# テーブルマーク*うどん
+Item.create!(title: "讃岐麺一番肉ぶっかけうどん大盛り",
+             image: File.open(Rails.root.join("public/default/item/21.jpg")),
+             manufacturer_id: tablemark.id,
+             category_id: udon.id,
+             content: '甘辛く味付けした牛肉の旨みと甘みが、コシがあり、もちもちした食感のうどんによく絡む、ぶっかけうどんです。1人分370gのうれしい大盛り。トレー入りでお皿いらず、袋のままレンジ調理で手軽にお召しあがりいただけます。',
+             price: 237,
+             gram: 370,
+             calorie: 431)
+
+Item.create!(title: "讃岐麺一番　えび天うどん",
+             image: File.open(Rails.root.join("public/default/item/22.jpg")),
+             manufacturer_id: tablemark.id,
+             category_id: udon.id,
+             content: 'サクサクした花咲衣をまとったえび天を、さぬきうどんにトッピングしました。豊かな風味と旨みが広がる関西風のだしが、強いコシ、もちもちした食感のさぬきうどんによく合います。',
+             price: 239,
+             gram: 264,
+             calorie: 348)
+
+# テーブルマーク*そば
+Item.create!(title: "蕎麦打ち職人　海老天そば2尾入",
+             image: File.open(Rails.root.join("public/default/item/23.jpg")),
+             manufacturer_id: tablemark.id,
+             category_id: soba.id,
+             content: '石臼挽きしたそば粉で打った日本そばに、えび天を贅沢に２尾のせました。枕崎産かつお節を使った風味豊かなつゆが、のど越しと歯切れのよいそばの旨さを引き立てます。',
+             price: 283,
+             gram: 247,
+             calorie: 397)
+
+# ニチレイフーズ*野菜
+Item.create!(title: "そのまま使える 高原育ちのブロッコリー",
+             image: File.open(Rails.root.join("public/default/item/24.jpg")),
+             manufacturer_id: nichirei.id,
+             category_id: vegetable.id,
+             content: '食べやすい大きさにカットしてあり、下茹で済みなので、自然解凍でサラダにしてもOK。シチューやパスタなど、彩りにちょっとだけ加えたいときにも、ストックしておくと重宝します。',
+             price: 280,
+             gram: 400,
+             calorie: 148)
+
+Item.create!(title: "北海道産スイートコーン",
+             image: File.open(Rails.root.join("public/default/item/25.jpg")),
+             manufacturer_id: nichirei.id,
+             category_id: vegetable.id,
+             content: '獲れたての甘味がギュッ！甘味がギュッとつまった北海道十勝産のスイートコーンです。急速凍結することで素材の美味しさを閉じ込めました。各種料理に幅広くお使いいただけます。',
+             price: 239,
+             gram: 200,
+             calorie: 242)
 
 # レビュー
 Review.create!(

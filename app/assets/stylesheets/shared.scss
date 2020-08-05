@@ -610,6 +610,7 @@ select#review_score {
 .search-show-item img {
   width: 96px;
   height: 85px;
+  margin-right: 22px;
   box-shadow: 0 2px 6px #c1ced7;
   object-fit: cover;
 }
@@ -652,6 +653,7 @@ select#review_score {
 
 .search-review-end {
   font-size: 1.4rem;
+  margin-left: 7px;
 }
 
 .show-tag-image img {
@@ -666,6 +668,7 @@ select#review_score {
   object-fit: cover;
   border-radius: 70%;
   box-shadow: none;
+  margin: 0;
 }
 
 .search-user-block,
@@ -684,15 +687,15 @@ select#review_score {
   color: #8aff19;
   font-size: 3.0rem;
   top: -55px;
-  left: -4px;
+  left: -6px;
 }
 
 .active-icon.override {
   position: relative;
   color: #8aff19;
   font-size: 3.0rem;
-  top: -24px;
-  left: 47px;
+  top: -26px;
+  left: 53px;
 }
 
 /* 通知 ================================ */
