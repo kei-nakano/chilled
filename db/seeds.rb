@@ -4,10 +4,10 @@ FactoryBot.create(:admin, name: "管理者ユーザー", email: "admin@example.c
 
 20.times do |n|
   name = if n <= 9
-            Faker::Name.name
-          else
-            Faker::Artist.name
-          end
+           Faker::Name.name
+         else
+           Faker::Artist.name
+         end
   email = "example-#{n + 1}@example.com"
   image = File.open(Rails.root.join("public/default/user/#{n + 1}.jpg"))
   FactoryBot.create(:user, name: name, email: email, image: image)
