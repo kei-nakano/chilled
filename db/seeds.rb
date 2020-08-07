@@ -366,6 +366,98 @@ Review.create!(
   multiple_images: [File.open("./public/default/review/10/10.jpg")]
 )
 
+Review.create!(
+  user_id: 13,
+  item_id: 11,
+  content: 'もう何十年も同じ味で本当に好きです。',
+  score: 4.6,
+  tag_list: %w[],
+  multiple_images: [File.open("./public/default/review/11/11.jpg")]
+)
+
+Review.create!(
+  user_id: 14,
+  item_id: 12,
+  content: 'バニラやチョコよりさっぱりしてていい。',
+  score: 4.1,
+  tag_list: %w[抹茶],
+  multiple_images: [File.open("./public/default/review/12/12.jpg")]
+)
+
+Review.create!(
+  user_id: 15,
+  item_id: 13,
+  content: 'これをいつか大人買いしたい。',
+  score: 4.1,
+  tag_list: %w[],
+  multiple_images: [File.open("./public/default/review/13/13.jpg")]
+)
+
+Review.create!(
+  user_id: 16,
+  item_id: 14,
+  content: '抹茶本当に大好きなんです。大人の味。',
+  score: 4.9,
+  tag_list: %w[抹茶],
+  multiple_images: [File.open("./public/default/review/14/14.jpg")]
+)
+
+Review.create!(
+  user_id: 17,
+  item_id: 15,
+  content: '幼稚園のお弁当に重宝してます。',
+  score: 4.2,
+  tag_list: %w[美味しい],
+  multiple_images: [File.open("./public/default/review/15/15.jpg")]
+)
+
+Review.create!(
+  user_id: 18,
+  item_id: 18,
+  content: '自分でシーフードミックスとかを買ってきて足してやると更にいいですよ！',
+  score: 4.2,
+  tag_list: %w[コスパ良],
+  multiple_images: [File.open("./public/default/review/18/18.jpg")]
+)
+
+Review.create!(
+  user_id: 19,
+  item_id: 19,
+  content: '高菜の食感が病みつきになります。',
+  score: 4.2,
+  tag_list: %w[コスパ良],
+  multiple_images: [File.open("./public/default/review/19/19.jpg")]
+)
+
+Review.create!(
+  user_id: 20,
+  item_id: 20,
+  content: 'リーズナブルな価格の割に、ボリューム満点です！',
+  score: 4.9,
+  tag_list: %w[],
+  multiple_images: [File.open("./public/default/review/20/20.jpg")]
+)
+
+Review.create!(
+  user_id: 21,
+  item_id: 21,
+  content: 'これ前から好きだったんだけど、テーブルマークさんはほんとに優秀！',
+  score: 4.9,
+  tag_list: %w[],
+  multiple_images: [File.open("./public/default/review/21/21.jpg")]
+)
+
+Review.create!(
+  user_id: 22,
+  item_id: 22,
+  content: '今や冷凍のえび天そばもここまで進化したんだなぁ。駅とかで食べるのと変わらないくらい美味しい。',
+  score: 5.0,
+  tag_list: %w[美味しい コスパ良 テーブルマーク],
+  multiple_images: [File.open("./public/default/review/23/23_1.jpg"),
+                    File.open("./public/default/review/23/23_2.jpg"),
+                    File.open("./public/default/review/23/23_3.jpg")]
+)
+
 # ReviewLike
 ReviewLike.create!(user_id: 1,
                    review_id: 1)
