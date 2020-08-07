@@ -198,6 +198,29 @@ RSpec.describe Review, type: :model do
       Review.second.update(content: "味し")
       expect(Review.search("味し").ids).to eq [Review.first.id, Review.second.id]
     end
+
+    # 商品名と部分一致する文言があればヒットすること
+    it "can search in related item name" do
+      item1 = FactoryBot.create(:item, title: "テスト商品1")
+      2.times { FactoryBot.create(:review, item: item1) }
+      expect(Review.search("スト商品").ids).to eq [Review.first.id, Review.second.id]
+    end
+
+    # メーカー名と部分一致する文言があればヒットすること
+    it "can search in related manufacturer name" do
+      manufacturer1 = FactoryBot.create(:manufacturer, name: "テストメーカー1")
+      item1 = FactoryBot.create(:item, manufacturer: manufacturer1)
+      2.times { FactoryBot.create(:review, item: item1) }
+      expect(Review.search("ストメーカー").ids).to eq [Review.first.id, Review.second.id]
+    end
+
+    # カテゴリ名と部分一致する文言があればヒットすること
+    it "can search in related category name" do
+      category1 = FactoryBot.create(:category, name: "テストカテゴリ1")
+      item1 = FactoryBot.create(:item, category: category1)
+      2.times { FactoryBot.create(:review, item: item1) }
+      expect(Review.search("ストカテゴリ").ids).to eq [Review.first.id, Review.second.id]
+    end
   end
 
   # 削除の依存関係

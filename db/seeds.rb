@@ -330,6 +330,42 @@ Review.create!(
   multiple_images: [File.open("./public/default/review/6/6.jpg")]
 )
 
+Review.create!(
+  user_id: 9,
+  item_id: 7,
+  content: '「箸で切れる」を謳っているだけに、本当に柔らかくておいしいです。息子のお弁当に入れてあげると喜びます。',
+  score: 4.0,
+  tag_list: %w[揚げ物],
+  multiple_images: [File.open("./public/default/review/7/7.jpg")]
+)
+
+Review.create!(
+  user_id: 10,
+  item_id: 8,
+  content: 'しっかり味が付いているのでお弁当にいれてもおいしいです。スーパーの特売日で購入したのですごく安く買えちゃいました。',
+  score: 3.9,
+  tag_list: %w[揚げ物],
+  multiple_images: [File.open("./public/default/review/8/8.jpg")]
+)
+
+Review.create!(
+  user_id: 11,
+  item_id: 9,
+  content: 'ジューシーな油が溢れてきて、とっても美味しかったですよ。万人受けする味だと思います。',
+  score: 5.0,
+  tag_list: %w[揚げ物 美味しい],
+  multiple_images: [File.open("./public/default/review/9/9.jpg")]
+)
+
+Review.create!(
+  user_id: 12,
+  item_id: 10,
+  content: 'チョコミントって、好き嫌いが分かれるかもしれないけど、私は大好きです。変わらない味に大満足です。',
+  score: 4.4,
+  tag_list: %w[チョコミン党],
+  multiple_images: [File.open("./public/default/review/10/10.jpg")]
+)
+
 # ReviewLike
 ReviewLike.create!(user_id: 1,
                    review_id: 1)
