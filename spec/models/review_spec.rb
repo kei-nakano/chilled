@@ -66,6 +66,22 @@ RSpec.describe Review, type: :model do
     end
   end
 
+  # スコアの上限確認
+  describe "check score limit" do
+    # 5点以下なら有効であること
+    it "is valid with score less than 5" do
+      review = FactoryBot.build(:review, user: user, item: item, score: 5.0)
+      expect(review).to be_valid
+    end
+
+    # 5点を超えると無効であること
+    it "is invalid with score more than 5" do
+      review = FactoryBot.build(:review, score: 5.01)
+      review.valid?
+      expect(review.errors[:score]).to include("は5点以下で入力してください")
+    end
+  end
+
   # 画像のアップロード
   describe "check image upload" do
     # 画像なしでも有効であること

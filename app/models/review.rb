@@ -1,5 +1,6 @@
 class Review < ApplicationRecord
   validate :image_count
+  validate :check_score
   validates :score, presence: true
   validates :content, presence: true, length: { maximum: 300 }
   validates :user_id, presence: true
@@ -49,5 +50,12 @@ class Review < ApplicationRecord
   def image_count
     max = 3
     errors.add(:multiple_images, "は3枚までアップロードできます") if multiple_images.count > max
+  end
+
+  # スコアが5点以下か検証する
+  def check_score
+    return unless score
+
+    errors.add(:score, "は5点以下で入力してください") if score > 5
   end
 end

@@ -273,78 +273,74 @@ Item.create!(title: "北海道産スイートコーン",
 
 # レビュー
 Review.create!(
-  user_id: 1,
+  user_id: 3,
   item_id: 1,
-  content: 'パッケージだと美味しそうな画像だったんですけど、実際に調理してみると全然ショボかったです。正直もう買いません。',
-  score: 2.5
+  content: 'ほうれん草入りの緑色の平打ちパスタがとっても鮮やかでした。
+            もちもちして美味しいですが、ほうれん草の風味は特に感じられませんでした。味は普通に美味しかったですよ。',
+  score: 4.0,
+  tag_list: %w[うまい 美味しい ほうれん草],
+  multiple_images: [File.open("./public/default/review/1/1.jpg")]
 )
-
-Review.create!(
-  user_id: 2,
-  item_id: 1,
-  content: 'これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。これが2つ目のレビューじゃ。心してみろや。',
-  score: 5.0
-)
-
-Review.create!(user_id: 3,
-               item_id: 2,
-               content: 'パッケージだと美味しそうな画像だったんですけど、実際に調理してみると全然ショボかったです。正直もう買いません。',
-               score: 1.0,
-               tag_list: %w[うまい 美味しい])
 
 Review.create!(
   user_id: 4,
   item_id: 2,
-  content: 'パッケージだと美味しそうな画像だったんですけど、実際に調理してみると全然ショボかったです。',
-  score: 1.9,
-  tag_list: %w[うまい 美味しい]
+  content: 'ボロネーゼが大好きなので買いました。安くて量も多いので大満足です。',
+  score: 4.3,
+  tag_list: %w[美味しい],
+  multiple_images: [File.open("./public/default/review/2/2.jpg")]
 )
 
-Review.all.each do |review|
-  review.update(multiple_images: [File.open("./public/default/default_user.png"),
-                                  File.open("./public/default/no_image.png"),
-                                  File.open("./public/default/tag.jpg")])
-end
+Review.create!(
+  user_id: 5,
+  item_id: 3,
+  content: 'パッケージが鮮やかで思わず購入しちゃいました。夏は冷やして食べてもおいしいかも。',
+  score: 4.2,
+  tag_list: %w[],
+  multiple_images: [File.open("./public/default/review/3/3.jpg")]
+)
 
 Review.create!(
-  user_id: 4,
-  item_id: 2,
-  content: 'testtesttesttesttesttesttesttesttesttesttesttest',
-  score: 1.9,
-  tag_list: %w[まずい ゴミ]
+  user_id: 6,
+  item_id: 4,
+  content: '小袋に山椒が入っていて、かけると味は期待どおり、超旨いです！！
+            普通にお店で食べるよりコスパいいのでオススメですよ！',
+  score: 5.0,
+  tag_list: %w[コスパ良 辛党],
+  multiple_images: [File.open("./public/default/review/4/4.jpg")]
+)
+
+Review.create!(
+  user_id: 7,
+  item_id: 5,
+  content: '最近の冷凍チャーハンってここまで進化してるのか。。。最高！',
+  score: 4.8,
+  tag_list: %w[美味しい],
+  multiple_images: [File.open("./public/default/review/5/5.jpg")]
+)
+
+Review.create!(
+  user_id: 8,
+  item_id: 6,
+  content: 'ねぎ、卵、焼豚、にんじん、たけのこ、しいたけ、きくらげといった具材がたくさん入っています。
+            色は濃いめですが味は意外とアッサリで飽きずにバクバクいけます。
+            ご飯のパラパラ具合も絶妙でした！',
+  score: 5.0,
+  tag_list: %w[美味しい],
+  multiple_images: [File.open("./public/default/review/6/6.jpg")]
 )
 
 # ReviewLike
 ReviewLike.create!(user_id: 1,
                    review_id: 1)
-ReviewLike.create!(user_id: 2,
-                   review_id: 2)
-ReviewLike.create!(user_id: 2,
-                   review_id: 3)
-ReviewLike.create!(user_id: 2,
-                   review_id: 4)
-ReviewLike.create!(user_id: 2,
-                   review_id: 5)
 
 # 食べた
 EatenItem.create!(user_id: 1,
                   item_id: 1)
 
-EatenItem.create!(user_id: 2,
-                  item_id: 1)
-
-EatenItem.create!(user_id: 2,
-                  item_id: 2)
-
 # 食べてみたい
 WantToEatItem.create!(user_id: 1,
                       item_id: 1)
-
-WantToEatItem.create!(user_id: 2,
-                      item_id: 1)
-
-WantToEatItem.create!(user_id: 2,
-                      item_id: 2)
 
 # コメント
 Comment.create!(user_id: 1,
@@ -352,27 +348,9 @@ Comment.create!(user_id: 1,
                 content: "1-意外でしたが、参考になりました。")
 Comment.first.update(created_at: Time.zone.today + 1.minute)
 
-Comment.create!(user_id: 2,
-                review_id: 1,
-                content: "2-ふーん。そうなんだ。")
-Comment.second.update(created_at: Time.zone.today + 2.minutes)
-
-Comment.create!(user_id: 1,
-                review_id: 2,
-                content: "3-意外でしたが、参考になりました。")
-Comment.third.update(created_at: Time.zone.today + 3.minutes)
-
-Comment.create!(user_id: 2,
-                review_id: 2,
-                content: "4-ふーん。そうなんだ。")
-Comment.fourth.update(created_at: Time.zone.today + 4.minutes)
-
 # いいね
 CommentLike.create!(user_id: 1,
                     comment_id: 1)
-
-CommentLike.create!(user_id: 2,
-                    comment_id: 2)
 
 users = User.all
 user  = users.first
