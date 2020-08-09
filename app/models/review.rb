@@ -39,7 +39,7 @@ class Review < ApplicationRecord
     # group.countでは0が集計されないため、初期値0のハッシュを生成する
     array = []
     Review.pluck(:id).each do |id|
-      array  = array + [[id, 0]]
+      array += [[id, 0]]
     end
     zero_hash = array.to_h
 

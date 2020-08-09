@@ -55,7 +55,7 @@ class Item < ApplicationRecord
     eaten_count.sort_by { |_, count| -count }.to_h.keys
   end
 
-  # 食べてみたい！の降順にidを返す
+  # 食べたい！の降順にidを返す
   def self.want_to_eat_ids
     want_count = WantToEatItem.group(:item_id).count
     want_count.sort_by { |_, count| -count }.to_h.keys

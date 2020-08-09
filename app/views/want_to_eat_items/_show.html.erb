@@ -2,10 +2,10 @@
 
 <% if WantToEatItem.find_by(user_id: @current_user&.id, item_id: item.id) %>
   <%= link_to "/want_to_eat_items/#{item.id}?count=#{count}", method: "delete", remote: true do %>
-    <span class="fas fa-utensils unwant-to-eat-btn">食べてみたい！<%= count %></span>
+    <span class="fas fa-utensils unwant-to-eat-btn">食べたい！<%= count %></span>
   <% end %>
 <% else %>
   <%= link_to "/want_to_eat_items?item_id=#{item.id}&count=#{count}", method: "post", remote: true do %>
-    <span class="fas fa-utensils want-to-eat-btn">食べてみたい！<%= count unless count.zero? %></span>
+    <span class="fas fa-utensils want-to-eat-btn">食べたい！<%= count unless count.zero? %></span>
   <% end %>
 <% end %>

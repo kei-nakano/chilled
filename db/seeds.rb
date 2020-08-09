@@ -459,45 +459,54 @@ Review.create!(
 )
 
 # ReviewLike
-# テストユーザー、管理者ユーザーはいいね！をつけない
-User.where.not(id: [1, 2]).each do |user|
+# 管理者ユーザーはいいね！をつけない
+User.where.not(id: [2]).each do |user|
   Review.all.sample(15).each do |review|
     ReviewLike.create!(user_id: user.id, review_id: review.id)
   end
 end
 
+# Comment
+# 管理者ユーザーはコメントをつけない
+comments = ["美味しそう。", "参考になります！", "今度買ってみようかな。", "好み分かれそう。", "食べたい。", "まだ食べたことない。", "参考になった。"]
+comments += ["これ、見たことある。", "へぇー、そうなんだ。", "本当においしそう。", "私的には微妙でした。。。", "今日買ってきた。", "これ、高くないですか？？"]
+User.where.not(id: [2]).each do |user|
+  Review.all.sample(1).each do |review|
+    Comment.create!(user_id: user.id, review_id: review.id, content: comments.sample(1).join)
+  end
+end
+
 # EatenItem
-# テストユーザー、管理者ユーザーは食べた！をつけない
-User.where.not(id: [1, 2]).each do |user|
+# 管理者ユーザーは食べた！をつけない
+User.where.not(id: [2]).each do |user|
   Item.all.sample(20).each do |item|
     EatenItem.create!(user_id: user.id, item_id: item.id)
   end
 end
 
 # WantToEatItem
-# テストユーザー、管理者ユーザーは食べた！をつけない
-User.where.not(id: [1, 2]).each do |user|
+# 管理者ユーザーは食べたい！をつけない
+User.where.not(id: [2]).each do |user|
   Item.all.sample(20).each do |item|
     WantToEatItem.create!(user_id: user.id, item_id: item.id)
   end
 end
 
-# コメント
-Comment.create!(user_id: 1,
-                review_id: 1,
-                content: "1-意外でしたが、参考になりました。")
-Comment.first.update(created_at: Time.zone.today + 1.minute)
+# CommentLike
+# 管理者ユーザーはいいね！をつけない
+User.where.not(id: [2]).each do |user|
+  Comment.all.sample(10).each do |comment|
+    CommentLike.create!(user_id: user.id, comment_id: comment.id)
+  end
+end
 
-# いいね
-CommentLike.create!(user_id: 1,
-                    comment_id: 1)
-
-users = User.all
-user  = users.first
-following = users[2..10]
-followers = users[1..10]
-following.each { |followed| user.follow(followed) }
-followers.each { |follower| follower.follow(user) }
+# RelationShip
+# 管理者ユーザーはフォロー対象外ｓ
+User.where.not(id: [2]).each do |user|
+  User.where.not(id: [2, user.id]).sample(10).each do |other|
+    user.follow(other)
+  end
+end
 
 # room
 Room.create!

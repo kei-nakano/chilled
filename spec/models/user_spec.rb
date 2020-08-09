@@ -203,7 +203,7 @@ RSpec.describe User, type: :model do
       expect { user.destroy }.to change(user.eaten_items, :count).by(-2)
     end
 
-    # 削除すると、紐づく食べてみたい！も全て削除されること
+    # 削除すると、紐づく食べたい！も全て削除されること
     it "destroys all want_to_eat_items when deleted" do
       2.times { FactoryBot.create(:want_to_eat_item, user: user) }
       expect { user.destroy }.to change(user.want_to_eat_items, :count).by(-2)
