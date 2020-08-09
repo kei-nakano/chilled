@@ -175,6 +175,12 @@ class User < ApplicationRecord
     user_ids
   end
 
+  # 検索機能
+  def self.search(keyword)
+    search = "%" + keyword + "%"
+    where('name like ?', search)
+  end
+
   private
 
   # 有効化トークンとダイジェストを作成および代入する

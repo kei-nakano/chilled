@@ -44,6 +44,18 @@ class Review < ApplicationRecord
     like_count.merge(comment_count) { |_key, like, comment| like * like_weight + comment * comment_weight }
   end
 
+  # 検索機能
+  def self.search(keyword)
+    # タグ付けされていないレビューも検索にヒットさせるため、inner joinではなくleft outer joinが必要なため、eager_load
+    # レビューの場合は、レビュー本文、タグ名、メーカー・カテゴリ、商品名を対象とする
+    search = "%" + keyword + "%"
+    eager_load(:tags).includes(item: %i[manufacturer category]).where('reviews.content like ? or
+                                                                              tags.name like ? or
+                                                                              manufacturers.name like ? or
+                                                                              categories.name like ? or
+                                                                              items.title like ?', search, search, search, search, search)
+  end
+
   private
 
   # アップロード画像が3枚までか検証する
