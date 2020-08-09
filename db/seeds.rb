@@ -459,16 +459,28 @@ Review.create!(
 )
 
 # ReviewLike
-ReviewLike.create!(user_id: 1,
-                   review_id: 1)
+# テストユーザー、管理者ユーザーはいいね！をつけない
+User.where.not(id: [1, 2]).each do |user|
+  Review.all.sample(15).each do |review|
+    ReviewLike.create!(user_id: user.id, review_id: review.id)
+  end
+end
 
-# 食べた
-EatenItem.create!(user_id: 1,
-                  item_id: 1)
+# EatenItem
+# テストユーザー、管理者ユーザーは食べた！をつけない
+User.where.not(id: [1, 2]).each do |user|
+  Item.all.sample(20).each do |item|
+    EatenItem.create!(user_id: user.id, item_id: item.id)
+  end
+end
 
-# 食べてみたい
-WantToEatItem.create!(user_id: 1,
-                      item_id: 1)
+# WantToEatItem
+# テストユーザー、管理者ユーザーは食べた！をつけない
+User.where.not(id: [1, 2]).each do |user|
+  Item.all.sample(20).each do |item|
+    WantToEatItem.create!(user_id: user.id, item_id: item.id)
+  end
+end
 
 # コメント
 Comment.create!(user_id: 1,
