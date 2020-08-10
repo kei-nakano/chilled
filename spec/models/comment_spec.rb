@@ -70,7 +70,7 @@ RSpec.describe Comment, type: :model do
       CommentLike.create(comment_id: comment.id, user_id: User.second.id)
       comment.create_notice_comment(User.first)
       comment.create_notice_comment(User.second)
-      expect { comment.destroy }.to change { CommentLike.count }.by(-2) and change { Notice.count }.by(-2)
+      expect { comment.destroy }.to change { CommentLike.count }.by(-2).and change { Notice.count }.by(-2)
     end
   end
 

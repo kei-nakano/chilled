@@ -5,7 +5,7 @@ class Message < ApplicationRecord
   validates :room_id, presence: true
   validates :content, presence: true,
                       length: { maximum: 200 }
+  has_many :tmp_deleted_messages, dependent: :destroy
 
   after_create_commit { MessageBroadcastJob.perform_later self }
-  after_destroy_commit { MessageDestroyJob.perform_now self }
 end

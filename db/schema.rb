@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_02_110506) do
+ActiveRecord::Schema.define(version: 2020_08_10_222213) do
 
   create_table "blocks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "from_id", null: false
@@ -196,6 +196,16 @@ ActiveRecord::Schema.define(version: 2020_07_02_110506) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "tmp_deleted_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "message_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_tmp_deleted_messages_on_message_id"
+    t.index ["user_id", "message_id"], name: "index_tmp_deleted_messages_on_user_id_and_message_id", unique: true
+    t.index ["user_id"], name: "index_tmp_deleted_messages_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -245,6 +255,8 @@ ActiveRecord::Schema.define(version: 2020_07_02_110506) do
   add_foreign_key "reviews", "items"
   add_foreign_key "reviews", "users"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "tmp_deleted_messages", "messages"
+  add_foreign_key "tmp_deleted_messages", "users"
   add_foreign_key "want_to_eat_items", "items"
   add_foreign_key "want_to_eat_items", "users"
 end

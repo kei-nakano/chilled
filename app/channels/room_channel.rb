@@ -22,6 +22,9 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def destroy(data)
-    Message.find(data['message_id']).destroy! # クライアントの画面更新はafter_commitで行う
+    message_id = data['message_id']
+
+    # DBから削除しないが、そのユーザの画面からは二度と表示されないようTmpDeletedMessageに登録する
+    TmpDeletedMessage.create!(user_id: current_user.id, message_id: message_id) # クライアントの画面更新はafter_commitで行う
   end
 end

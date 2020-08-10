@@ -450,7 +450,18 @@ Review.create!(
 Review.create!(
   user_id: 22,
   item_id: 22,
-  content: '今や冷凍のえび天そばもここまで進化したんだなぁ。駅とかで食べるのと変わらないくらい美味しい。',
+  content: 'ここのえび天そばがおいしかったので、うどんを購入しました。ボリュームもあって美味しかったです。
+            味はもう少し濃くてもいいかもしれません。',
+  score: 4.7,
+  tag_list: %w[美味しい コスパ良 テーブルマーク],
+  multiple_images: [File.open("./public/default/review/22/22.jpg")]
+)
+
+Review.create!(
+  user_id: 1,
+  item_id: 23,
+  content: '今や冷凍のえび天そばもここまで進化したんですね。
+            駅やお店とかで食べるのと変わらないくらい美味しかったです。',
   score: 5.0,
   tag_list: %w[美味しい コスパ良 テーブルマーク],
   multiple_images: [File.open("./public/default/review/23/23_1.jpg"),
@@ -501,14 +512,14 @@ User.where.not(id: [2]).each do |user|
 end
 
 # RelationShip
-# 管理者ユーザーはフォロー対象外ｓ
+# 管理者ユーザーはフォロー対象外にする
 User.where.not(id: [2]).each do |user|
   User.where.not(id: [2, user.id]).sample(10).each do |other|
     user.follow(other)
   end
 end
 
-# room
+# Room
 Room.create!
 
 # Entry
@@ -518,7 +529,7 @@ Entry.create!(user_id: 1,
 Entry.create!(user_id: 2,
               room_id: 1)
 
-# message
+# Message
 Message.create!(user_id: 1,
                 room_id: 1,
                 content: "keiのmsg")

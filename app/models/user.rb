@@ -34,6 +34,7 @@ class User < ApplicationRecord
   has_many :entries, dependent: :destroy
   has_many :rooms, through: :entries
   has_many :hidden_rooms, dependent: :destroy
+  has_many :tmp_deleted_messages, dependent: :destroy
   has_many :active_notices, class_name: 'Notice', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notices, class_name: 'Notice', foreign_key: 'visited_id', dependent: :destroy
   has_many :active_blocks, class_name: 'Block', foreign_key: 'from_id', dependent: :destroy

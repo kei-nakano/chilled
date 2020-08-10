@@ -176,7 +176,7 @@ RSpec.describe User, type: :model do
     it "destroys all followers when deleted" do
       user.follow(user1)
       user.follow(user2)
-      expect { user.destroy }.to change(user1.followers, :count).by(-1) and change(user2.followers, :count).by(-1)
+      expect { user.destroy }.to change(user1.followers, :count).by(-1).and change(user2.followers, :count).by(-1)
     end
 
     # 削除すると、紐づくレビューも全て削除されること
@@ -231,6 +231,12 @@ RSpec.describe User, type: :model do
     it "destroys all entries when deleted" do
       2.times { FactoryBot.create(:entry, user: user) }
       expect { user.destroy }.to change(user.entries, :count).by(-2)
+    end
+
+    # 削除すると、紐づく一時削除メッセージも全て削除されること
+    it "destroys all tmp_deleted_messages when deleted" do
+      2.times { FactoryBot.create(:tmp_deleted_message, user: user) }
+      expect { user.destroy }.to change(user.tmp_deleted_messages, :count).by(-2)
     end
 
     # 削除すると、紐づくルームも全て削除されること
