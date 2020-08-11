@@ -449,4 +449,18 @@ RSpec.describe User, type: :model do
     FactoryBot.create(:hidden_room, room: room2, user: user)
     expect(user.hidden_user_ids).to eq [user1.id, user2.id]
   end
+
+  # 作成のコールバック
+  describe "after_create" do
+    # 管理者ユーザの作成時は、メッセージが作成されないこと
+    it "doesn't create messages if user is an admin" do
+      a = FactoryBot.create(:admin)
+      expect(a.messages.count).to eq 0
+    end
+
+    # 一般ユーザの作成時は、初期メッセージが2件送信されること
+    it "can create messages if user is not an admin" do
+      expect { FactoryBot.create(:user) }.to change(admin.messages, :count).by(2)
+    end
+  end
 end

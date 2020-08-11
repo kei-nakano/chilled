@@ -9,6 +9,7 @@ class User < ApplicationRecord
   before_save { self.email = email.downcase }
   before_create :create_activation_digest
   before_destroy :rooms_destroy_all
+  after_create :create_guide_messages
 
   # バリデーション
   validates :name,  presence: true, length: { maximum: 20 }
@@ -206,5 +207,29 @@ class User < ApplicationRecord
   # 削除されるユーザが加入していたルームを全て削除する
   def rooms_destroy_all
     rooms.each(&:destroy)
+  end
+
+  # ユーザ新規作成後に、このサイトの利用方法についてのメッセージ管理者ユーザから送信する
+  def create_guide_messages
+    # 管理者ユーザの生成時は何もしない
+    return nil if admin? # self.admin?
+
+    # 管理者ユーザの検索
+    administrator = User.find_by(email: "admin@example.com", admin: true)
+    return nil unless administrator
+
+    # メッセージ作成
+    room = Room.create!
+    Entry.create!(room_id: room.id, user_id: id)
+    Entry.create!(room_id: room.id, user_id: administrator.id)
+
+    Message.create!(user_id: administrator.id,
+                    room_id: room.id,
+                    content: "Chill℃へようこそ！
+                    このサイトは「おいしい冷凍食品の発見」をコンセプトにしたレビューサービスです。")
+
+    Message.create!(user_id: administrator.id,
+                    room_id: room.id,
+                    content: "「レビューの閲覧・投稿」「検索機能」「食べた・食べたい商品のメモ」「興味のあるユーザへのダイレクトメッセージ」を通じて、「感想や情報をシェアして楽しむツール」としてご利用いただけます。")
   end
 end

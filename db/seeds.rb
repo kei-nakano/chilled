@@ -1,6 +1,6 @@
 # User
-FactoryBot.create(:user, name: "テストユーザー", email: "test@example.com")
 admin = FactoryBot.create(:admin, name: "管理者ユーザー", email: "admin@example.com")
+FactoryBot.create(:user, name: "テストユーザー", email: "test@example.com")
 
 20.times do |n|
   name = if n <= 9
@@ -458,7 +458,7 @@ Review.create!(
 )
 
 Review.create!(
-  user_id: 1,
+  user_id: 2,
   item_id: 23,
   content: '今や冷凍のえび天そばもここまで進化したんですね。
             駅やお店とかで食べるのと変わらないくらい美味しかったです。',
@@ -471,7 +471,7 @@ Review.create!(
 
 # ReviewLike
 # 管理者ユーザーはいいね！をつけない
-User.where.not(id: [2]).each do |user|
+User.where.not(id: [admin.id]).each do |user|
   Review.all.sample(15).each do |review|
     ReviewLike.create!(user_id: user.id, review_id: review.id)
   end
@@ -481,7 +481,7 @@ end
 # 管理者ユーザーはコメントをつけない
 comments = ["美味しそう。", "参考になります！", "今度買ってみようかな。", "好み分かれそう。", "食べたい。", "まだ食べたことない。", "参考になった。"]
 comments += ["これ、見たことある。", "へぇー、そうなんだ。", "本当においしそう。", "私的には微妙でした。。。", "今日買ってきた。", "これ、高くないですか？？"]
-User.where.not(id: [2]).each do |user|
+User.where.not(id: [admin.id]).each do |user|
   Review.all.sample(1).each do |review|
     Comment.create!(user_id: user.id, review_id: review.id, content: comments.sample(1).join)
   end
@@ -489,7 +489,7 @@ end
 
 # EatenItem
 # 管理者ユーザーは食べた！をつけない
-User.where.not(id: [2]).each do |user|
+User.where.not(id: [admin.id]).each do |user|
   Item.all.sample(20).each do |item|
     EatenItem.create!(user_id: user.id, item_id: item.id)
   end
@@ -497,7 +497,7 @@ end
 
 # WantToEatItem
 # 管理者ユーザーは食べたい！をつけない
-User.where.not(id: [2]).each do |user|
+User.where.not(id: [admin.id]).each do |user|
   Item.all.sample(20).each do |item|
     WantToEatItem.create!(user_id: user.id, item_id: item.id)
   end
@@ -505,7 +505,7 @@ end
 
 # CommentLike
 # 管理者ユーザーはいいね！をつけない
-User.where.not(id: [2]).each do |user|
+User.where.not(id: [admin.id]).each do |user|
   Comment.all.sample(10).each do |comment|
     CommentLike.create!(user_id: user.id, comment_id: comment.id)
   end
@@ -513,28 +513,8 @@ end
 
 # RelationShip
 # 管理者ユーザーはフォロー対象外にする
-User.where.not(id: [2]).each do |user|
-  User.where.not(id: [2, user.id]).sample(10).each do |other|
+User.where.not(id: [admin.id]).each do |user|
+  User.where.not(id: [admin.id, user.id]).sample(10).each do |other|
     user.follow(other)
   end
 end
-
-# Room
-Room.create!
-
-# Entry
-Entry.create!(user_id: 1,
-              room_id: 1)
-
-Entry.create!(user_id: 2,
-              room_id: 1)
-
-# Message
-Message.create!(user_id: admin.id,
-                room_id: 1,
-                content: "Chill℃へようこそ！
-                このサイトは「おいしい冷凍食品の発見」をコンセプトにしたレビューサービスです。")
-
-Message.create!(user_id: admin.id,
-                room_id: 1,
-                content: "「レビューの閲覧・投稿」「検索機能」「食べた・食べたい商品のメモ」「興味のあるユーザへのダイレクトメッセージ」を通じて、「感想や情報をシェアして楽しむツール」としてご利用いただけます。")
