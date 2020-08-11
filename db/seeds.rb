@@ -518,3 +518,5 @@ User.where.not(id: [admin.id]).each do |user|
     user.follow(other)
   end
 end
+
+# Notice
