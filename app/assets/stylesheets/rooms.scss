@@ -60,9 +60,9 @@
 
 .line-bc {
   padding: 20px 10px;
-  max-width: 450px;
+  max-width: 550px;
   min-height: 400px;
-  margin: 15px auto;
+  margin: 15px auto 30px auto;
   text-align: right;
   font-size: 1.4rem;
   background: #7da4cd;
@@ -164,25 +164,29 @@
   border-radius: 5px;
   font-size: 1.2rem;
   color: #4a535a;
+  margin-left: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
-
-.dm.delete-btn.other {
-  float:left;
-}
-
 
 .dm-form {
   text-align: center;
 }
 
 .dm-form textarea {
-  width: 450px;
+  width: 550px;
   height: 60px;
   font-size: 14px;
 }
 
 .speak-btn {
   font-size: 1.4rem;
+  height: 28px;
+  position: relative;
+  right: -253px;
+  margin: -4px 0 0 0px;
+  float: none;
+  display: inline
 }
 
 .speak-btn-wrapper {
@@ -192,4 +196,5 @@
 
 .message-time {
   font-weight: 100;
+  font-size: 1.2rem;
 }

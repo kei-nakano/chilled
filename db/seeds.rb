@@ -1,6 +1,6 @@
 # User
 FactoryBot.create(:user, name: "テストユーザー", email: "test@example.com")
-FactoryBot.create(:admin, name: "管理者ユーザー", email: "admin@example.com")
+admin = FactoryBot.create(:admin, name: "管理者ユーザー", email: "admin@example.com")
 
 20.times do |n|
   name = if n <= 9
@@ -530,26 +530,11 @@ Entry.create!(user_id: 2,
               room_id: 1)
 
 # Message
-Message.create!(user_id: 1,
+Message.create!(user_id: admin.id,
                 room_id: 1,
-                content: "keiのmsg")
+                content: "Chill℃へようこそ！
+                このサイトは「おいしい冷凍食品の発見」をコンセプトにしたレビューサービスです。")
 
-Message.create!(user_id: 2,
+Message.create!(user_id: admin.id,
                 room_id: 1,
-                content: "No.1のmsg")
-
-Message.create!(user_id: 1,
-                room_id: 1,
-                content: "keiのmsg")
-
-Message.create!(user_id: 2,
-                room_id: 1,
-                content: "No.1のmsg")
-
-Message.create!(user_id: 1,
-                room_id: 1,
-                content: "keiのmsg")
-
-Message.create!(user_id: 2,
-                room_id: 1,
-                content: "No.1のmsg")
+                content: "「レビューの閲覧・投稿」「検索機能」「食べた・食べたい商品のメモ」「興味のあるユーザへのダイレクトメッセージ」を通じて、「感想や情報をシェアして楽しむツール」としてご利用いただけます。")
