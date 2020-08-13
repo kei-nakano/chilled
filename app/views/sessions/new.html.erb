@@ -15,6 +15,19 @@
         <span>次回からログインを省略</span>
         <%= form.submit value: "ログイン", data: { disable_with: "送信中" } %>
       <% end %>
+      <div class="easy-login">
+        <div class="test-user">パスワード入力を省略してログインできます</div>
+        <%= link_to "/login?email=test@example.com&password=Password12", method: "post" do %>
+          <div class="login-align-center"><input value="テストユーザでログイン", data: { disable_with: "送信中" } ></div>
+          <div class="clear"></div>
+        <% end %>
+        
+        <%= link_to "/login?email=admin@example.com&password=Password12", method: "post" do %>
+          <div class="login-align-center"><input value="管理者ユーザでログイン"></div>
+        <% end %>
+      </div>
     </div>
+    
+    
   </div>
 </div>

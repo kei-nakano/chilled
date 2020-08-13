@@ -278,7 +278,28 @@ input#remember_me {
   color: #7e7e7e;
 }
 
-/* ログインフォーム================================ */
+.test-user {
+  font-size: 1.4rem;
+  margin-top: 45px;
+}
+
+.login-align-center {
+  text-align: center;
+}
+
+.easy-login input {
+  background-color: #f36262;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 300;
+  width: 270px;
+  border-radius: 2px;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+/* PWリセットフォーム================================ */
 .password-reset {
   font-size: 1.4rem;
   font-weight: 600;
