@@ -8,6 +8,7 @@ ja:
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード(確認用)
+        
     models:
       item: 商品
     attributes:
@@ -20,18 +21,21 @@ ja:
         manufacturer: メーカー
         category: カテゴリ
         image: 商品画像
+        
     models:
       category: カテゴリ
     attributes:
       category:
         name: カテゴリ名
         image: イメージ画像
+        
     models:
       manufacturer: メーカー
     attributes:
       manufacturer:
         name: メーカー名
         image: イメージ画像
+        
     models:
       review: レビュー
     attributes:
@@ -39,6 +43,3 @@ ja:
         content: 感想
         score: スコア
         multiple_images : 画像
-        
-        
-        

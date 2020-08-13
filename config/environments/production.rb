@@ -62,11 +62,31 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "sample_#{Rails.env}"
 
+  # メーラー設定
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { host: 'ec2-54-150-77-245.ap-northeast-1.compute.amazonaws.com', protocol: 'http' }
+
+  # 送信方法を指定
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    # gmail利用時はaddress,domain,portは下記で固定
+    address: "smtp.gmail.com",
+    domain: 'gmail.com',
+    port: 587,
+    # gmailのユーザアカウント(xxx@gmail.com)
+    user_name: Rails.application.credentials.gmail_user_name,
+    # gmail 2段階認証回避のためのアプリケーション利用パスワード
+    password: Rails.application.credentials.gmail_password,
+    # パスワードをBase64でエンコード
+    authentication: :login
+  }
+
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

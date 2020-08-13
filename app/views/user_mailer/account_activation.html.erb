@@ -1,7 +1,7 @@
-<h1>Sample App</h1>
+<h1>Chill℃</h1>
 
-<p>Hi <%= @user.name %>,</p>
+<p><%= @user.name %>さん</p>
 
-<p>Welcome to the Sample App! Click on the link below to activate your account:</p>
+<p>Chill℃へようこそ！ 以下のリンクをクリックして、アカウントの有効化を行ってください。</p>
 
-<%= link_to "Activate", edit_account_activation_url(@user.activation_token, email: @user.email) %>
+<%= link_to "確認する", edit_account_activation_url(@user.activation_token, email: @user.email) %>
