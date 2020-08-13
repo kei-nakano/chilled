@@ -219,7 +219,7 @@ RSpec.describe Item, type: :model do
     expect(Item.eaten_ids).to eq eaten_ids
   end
 
-  # 食べてみたい！の降順にidを返す
+  # 食べたい！の降順にidを返す
   it "returns ids in descending order of want_to_eat_items" do
     2.times { FactoryBot.create(:item) }
     FactoryBot.create(:want_to_eat_item, item: Item.first)

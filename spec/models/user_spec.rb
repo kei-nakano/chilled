@@ -176,7 +176,7 @@ RSpec.describe User, type: :model do
     it "destroys all followers when deleted" do
       user.follow(user1)
       user.follow(user2)
-      expect { user.destroy }.to change(user1.followers, :count).by(-1) and change(user2.followers, :count).by(-1)
+      expect { user.destroy }.to change(user1.followers, :count).by(-1).and change(user2.followers, :count).by(-1)
     end
 
     # 削除すると、紐づくレビューも全て削除されること
@@ -203,7 +203,7 @@ RSpec.describe User, type: :model do
       expect { user.destroy }.to change(user.eaten_items, :count).by(-2)
     end
 
-    # 削除すると、紐づく食べてみたい！も全て削除されること
+    # 削除すると、紐づく食べたい！も全て削除されること
     it "destroys all want_to_eat_items when deleted" do
       2.times { FactoryBot.create(:want_to_eat_item, user: user) }
       expect { user.destroy }.to change(user.want_to_eat_items, :count).by(-2)
@@ -231,6 +231,12 @@ RSpec.describe User, type: :model do
     it "destroys all entries when deleted" do
       2.times { FactoryBot.create(:entry, user: user) }
       expect { user.destroy }.to change(user.entries, :count).by(-2)
+    end
+
+    # 削除すると、紐づく一時削除メッセージも全て削除されること
+    it "destroys all tmp_deleted_messages when deleted" do
+      2.times { FactoryBot.create(:tmp_deleted_message, user: user) }
+      expect { user.destroy }.to change(user.tmp_deleted_messages, :count).by(-2)
     end
 
     # 削除すると、紐づくルームも全て削除されること
@@ -442,5 +448,19 @@ RSpec.describe User, type: :model do
     FactoryBot.create(:hidden_room, room: room1, user: user)
     FactoryBot.create(:hidden_room, room: room2, user: user)
     expect(user.hidden_user_ids).to eq [user1.id, user2.id]
+  end
+
+  # 作成のコールバック
+  describe "after_create" do
+    # 管理者ユーザの作成時は、メッセージが作成されないこと
+    it "doesn't create messages if user is an admin" do
+      a = FactoryBot.create(:admin)
+      expect(a.messages.count).to eq 0
+    end
+
+    # 一般ユーザの作成時は、初期メッセージが2件送信されること
+    it "can create messages if user is not an admin" do
+      expect { FactoryBot.create(:user) }.to change(admin.messages, :count).by(2)
+    end
   end
 end

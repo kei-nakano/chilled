@@ -61,4 +61,14 @@ RSpec.describe Message, type: :model do
     Message.create(content: "test", user_id: user.id, room_id: room.id)
     expect(Message.last.checked).to eq false
   end
+
+  # 削除の依存関係
+  describe "depndent: :destroy" do
+    # 削除すると、紐づく一時削除メッセージも削除されること
+    it "destroys a tmp_deleted_message when deleted" do
+      message = FactoryBot.create(:message, user: user)
+      FactoryBot.create(:tmp_deleted_message, message: message, user: user)
+      expect { message.destroy }.to change(message.tmp_deleted_messages, :count).by(-1)
+    end
+  end
 end

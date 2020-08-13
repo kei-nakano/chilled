@@ -66,6 +66,22 @@ RSpec.describe Review, type: :model do
     end
   end
 
+  # スコアの上限確認
+  describe "check score limit" do
+    # 5点以下なら有効であること
+    it "is valid with score less than 5" do
+      review = FactoryBot.build(:review, user: user, item: item, score: 5.0)
+      expect(review).to be_valid
+    end
+
+    # 5点を超えると無効であること
+    it "is invalid with score more than 5" do
+      review = FactoryBot.build(:review, score: 5.01)
+      review.valid?
+      expect(review.errors[:score]).to include("は5点以下で入力してください")
+    end
+  end
+
   # 画像のアップロード
   describe "check image upload" do
     # 画像なしでも有効であること
@@ -181,6 +197,29 @@ RSpec.describe Review, type: :model do
       Review.first.update(content: "美味しい")
       Review.second.update(content: "味し")
       expect(Review.search("味し").ids).to eq [Review.first.id, Review.second.id]
+    end
+
+    # 商品名と部分一致する文言があればヒットすること
+    it "can search in related item name" do
+      item1 = FactoryBot.create(:item, title: "テスト商品1")
+      2.times { FactoryBot.create(:review, item: item1) }
+      expect(Review.search("スト商品").ids).to eq [Review.first.id, Review.second.id]
+    end
+
+    # メーカー名と部分一致する文言があればヒットすること
+    it "can search in related manufacturer name" do
+      manufacturer1 = FactoryBot.create(:manufacturer, name: "テストメーカー1")
+      item1 = FactoryBot.create(:item, manufacturer: manufacturer1)
+      2.times { FactoryBot.create(:review, item: item1) }
+      expect(Review.search("ストメーカー").ids).to eq [Review.first.id, Review.second.id]
+    end
+
+    # カテゴリ名と部分一致する文言があればヒットすること
+    it "can search in related category name" do
+      category1 = FactoryBot.create(:category, name: "テストカテゴリ1")
+      item1 = FactoryBot.create(:item, category: category1)
+      2.times { FactoryBot.create(:review, item: item1) }
+      expect(Review.search("ストカテゴリ").ids).to eq [Review.first.id, Review.second.id]
     end
   end
 

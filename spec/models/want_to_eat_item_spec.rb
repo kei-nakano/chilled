@@ -32,7 +32,7 @@ RSpec.describe WantToEatItem, type: :model do
     end
   end
 
-  # 同じ商品を2回以上食べてみたい！できないこと
+  # 同じ商品を2回以上食べたい！できないこと
   it "can not create two want_to_eat_items for same item" do
     WantToEatItem.create(user_id: user.id, item_id: item.id)
     want_to_eat_item = WantToEatItem.new(user_id: user.id, item_id: item.id)

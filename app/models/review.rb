@@ -1,5 +1,6 @@
 class Review < ApplicationRecord
   validate :image_count
+  validate :check_score
   validates :score, presence: true
   validates :content, presence: true, length: { maximum: 300 }
   validates :user_id, presence: true
@@ -35,12 +36,34 @@ class Review < ApplicationRecord
     like_weight = 4 # 1いいねの重み
     comment_weight = 3 # 1コメントの重み
 
+    # group.countでは0が集計されないため、初期値0のハッシュを生成する
+    array = []
+    Review.pluck(:id).each do |id|
+      array += [[id, 0]]
+    end
+    zero_hash = array.to_h
+
     # review_id毎にいいねとコメントの数を集計し、ハッシュとして返す
-    like_count = ReviewLike.group(:review_id).count
-    comment_count = Comment.group(:review_id).count
+    like_count_omit_zero = ReviewLike.group(:review_id).count
+    like_count = like_count_omit_zero.merge(zero_hash) { |_key, v, zero| v + zero }
+
+    comment_count_omit_zero = Comment.group(:review_id).count
+    comment_count = comment_count_omit_zero.merge(zero_hash) { |_key, v, zero| v + zero }
 
     # いいね、コメントに重みをかけて、ハッシュのキー毎にスコアを再計算する
     like_count.merge(comment_count) { |_key, like, comment| like * like_weight + comment * comment_weight }
+  end
+
+  # 検索機能
+  def self.search(keyword)
+    # タグ付けされていないレビューも検索にヒットさせるため、inner joinではなくleft outer joinが必要なため、eager_load
+    # レビューの場合は、レビュー本文、タグ名、メーカー・カテゴリ、商品名を対象とする
+    search = "%" + keyword + "%"
+    eager_load(:tags).includes(item: %i[manufacturer category]).where('reviews.content like ? or
+                                                                              tags.name like ? or
+                                                                              manufacturers.name like ? or
+                                                                              categories.name like ? or
+                                                                              items.title like ?', search, search, search, search, search)
   end
 
   private
@@ -49,5 +72,12 @@ class Review < ApplicationRecord
   def image_count
     max = 3
     errors.add(:multiple_images, "は3枚までアップロードできます") if multiple_images.count > max
+  end
+
+  # スコアが5点以下か検証する
+  def check_score
+    return unless score
+
+    errors.add(:score, "は5点以下で入力してください") if score > 5
   end
 end

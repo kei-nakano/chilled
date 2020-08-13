@@ -1,5 +1,6 @@
 class SearchController < ApplicationController
   after_action :respond, only: %i[show]
+
   def show
     @keyword = params[:keyword] || ""
     @keyword == "" ? (@digest = "全件の検索結果") : (@digest = "「#{@keyword}」の検索結果")
@@ -10,7 +11,7 @@ class SearchController < ApplicationController
     @reviews = Review.search(@keyword).where.not(user_id: @current_user&.block_ids)
     @categories = Category.search(@keyword)
     @manufacturers = Manufacturer.search(@keyword)
-    @users = User.search(@keyword) # ブロックされていても、検索結果には表示する。twitterと同じ動作とした
+    @users = User.search(@keyword).where(admin: false) # ブロックされていても、検索結果には表示する。twitterと同じ動作とした
     @tags = ActsAsTaggableOn::Tag.where('name like ?', "%" + @keyword + "%")
 
     return (@results = @items) if @type == "item"

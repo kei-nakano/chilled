@@ -1,12 +1,18 @@
 class UsersController < ApplicationController
   before_action :authenticate_user, only: %i[show edit update]
   before_action :forbid_login_user, only: %i[new create]
-  before_action :ensure_correct_user, only: %i[edit update]
-  before_action :admin_user, only: %i[destroy]
+  before_action :ensure_correct_user, only: %i[edit update destroy]
 
   def show
     @user = User.find(params[:id])
-    @room_id = @current_user.room_with(@user)&.id
+
+    # 本番環境かつ管理者ユーザのページへのアクセスの場合は、404ページを表示させる
+    # 自身が管理者の場合のみ正常に表示できる
+    if Rails.env.production? && @user.admin?
+      raise ActionController::RoutingError, "管理者のプロフィールへのアクセスです" unless @current_user.admin?
+    end
+
+    @room_id = @current_user&.room_with(@user)&.id
     @type = params[:type] || "review" # typeの指定がない場合、reviewタブを優先表示するようにする
 
     if @type == "review"
@@ -112,7 +118,7 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     if @user&.destroy
       flash[:notice] = "削除しました"
-      redirect_to '/users'
+      redirect_to '/'
     else
       flash[:notice] = "削除に失敗しました"
       redirect_to "/users/#{@user.id}"

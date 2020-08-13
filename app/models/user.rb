@@ -9,6 +9,7 @@ class User < ApplicationRecord
   before_save { self.email = email.downcase }
   before_create :create_activation_digest
   before_destroy :rooms_destroy_all
+  after_create :create_guide_messages
 
   # バリデーション
   validates :name,  presence: true, length: { maximum: 20 }
@@ -34,6 +35,7 @@ class User < ApplicationRecord
   has_many :entries, dependent: :destroy
   has_many :rooms, through: :entries
   has_many :hidden_rooms, dependent: :destroy
+  has_many :tmp_deleted_messages, dependent: :destroy
   has_many :active_notices, class_name: 'Notice', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notices, class_name: 'Notice', foreign_key: 'visited_id', dependent: :destroy
   has_many :active_blocks, class_name: 'Block', foreign_key: 'from_id', dependent: :destroy
@@ -150,6 +152,7 @@ class User < ApplicationRecord
 
   # ユーザフォロー時の通知を作成する
   def create_notice_follow(follower)
+    # 過去にフォローしたことがある場合は、nilを返す
     already_follow = Notice.where(visitor_id: follower.id, visited_id: id, action: 'follow')
     return nil if already_follow.present?
 
@@ -173,6 +176,12 @@ class User < ApplicationRecord
     # 自分のidを取り除く
     user_ids.delete(id)
     user_ids
+  end
+
+  # 検索機能
+  def self.search(keyword)
+    search = "%" + keyword + "%"
+    where('name like ?', search)
   end
 
   private
@@ -199,5 +208,29 @@ class User < ApplicationRecord
   # 削除されるユーザが加入していたルームを全て削除する
   def rooms_destroy_all
     rooms.each(&:destroy)
+  end
+
+  # ユーザ新規作成後に、このサイトの利用方法についてのメッセージ管理者ユーザから送信する
+  def create_guide_messages
+    # 管理者ユーザの生成時は何もしない
+    return nil if admin? # self.admin?
+
+    # 管理者ユーザの検索
+    administrator = User.find_by(email: "admin@example.com", admin: true)
+    return nil unless administrator
+
+    # メッセージ作成
+    room = Room.create!
+    Entry.create!(room_id: room.id, user_id: id)
+    Entry.create!(room_id: room.id, user_id: administrator.id)
+
+    Message.create!(user_id: administrator.id,
+                    room_id: room.id,
+                    content: "Chill℃へようこそ！
+                    このサイトは「おいしい冷凍食品の発見」をコンセプトにしたレビューサービスです。")
+
+    Message.create!(user_id: administrator.id,
+                    room_id: room.id,
+                    content: "「レビューの閲覧・投稿」「検索機能」「食べた・食べたい商品のメモ」「興味のあるユーザへのダイレクトメッセージ」を通じて、「感想や情報をシェアして楽しむツール」としてご利用いただけます。")
   end
 end

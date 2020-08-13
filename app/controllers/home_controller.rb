@@ -32,7 +32,7 @@ class HomeController < ApplicationController
     eaten_ids = Item.eaten_ids
     @eaten_items = Item.where(id: eaten_ids).order([Arel.sql('field(id, ?)'), eaten_ids]).limit(@item_select)
 
-    # 食べてみたい！の降順に商品を抽出
+    # 食べたい！の降順に商品を抽出
     want_to_eat_ids = Item.want_to_eat_ids
     @want_to_eat_items = Item.where(id: want_to_eat_ids).order([Arel.sql('field(id, ?)'), want_to_eat_ids]).limit(@item_select)
 

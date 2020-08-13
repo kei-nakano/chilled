@@ -22,7 +22,7 @@ App.room = App.cable.subscriptions.create "RoomChannel",
       message_room_id = data['room_id'].toString()
       if browser_room_id == message_room_id # 開いているページとroom_idが一致した場合にのみ更新される
         $('.unread').each ->
-          $(this).text('既読')
+          $(this).text('(既読)')
         
     if data['message_id'] isnt undefined # メッセージ削除 = messages_idあり
       $("#message-#{data['message_id']}").remove()

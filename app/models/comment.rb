@@ -12,8 +12,9 @@ class Comment < ApplicationRecord
   def create_notice_comment_like(comment_user)
     return nil if comment_user.id == user_id # 自分で自分のコメントにいいね！した時はnilを返す
 
+    # 過去にいいね！をして場合はnilを返す
     temp = Notice.where(visitor_id: comment_user.id, visited_id: user_id, comment_id: id, action: 'comment_like')
-    return if temp.present?
+    return nil if temp.present?
 
     notice = comment_user.active_notices.new(visited_id: user_id, comment_id: id, action: 'comment_like')
     notice.save if notice.valid?

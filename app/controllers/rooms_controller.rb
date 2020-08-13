@@ -6,8 +6,12 @@ class RoomsController < ApplicationController
     @user = User.find(params[:user_id])
 
     # 自分の加入するroom一覧にないリクエストの場合は、room一覧ページへリダイレクトする
-    return redirect_to "/rooms" if @current_user.rooms.exclude?(@room)
+    if @current_user.rooms.exclude?(@room)
+      flash[:notice] = "このページにアクセスする権限がありません。"
+      return redirect_to "/rooms"
+    end
 
+    # 相手か自分がブロックしている相手にメッセージを送ろうとした場合
     block_ids = @current_user.block_ids
     if block_ids.include?(@user.id)
       flash[:notice] = "このユーザをブロックしているかブロックされているため、メッセージを送ることができません。"
@@ -17,11 +21,12 @@ class RoomsController < ApplicationController
     # roomに入った時点で、もし存在していれば、その相手ユーザとのroomに紐づくHiddenRoomを削除する
     HiddenRoom.find_by(user_id: @current_user.id, room_id: @room.id)&.destroy
 
-    # roomに入った時点で、未読メッセージのステータスを全て既読に変更する
-    # view側で自分のメッセージが相手のメッセージが振り分ける。ここではトーク内の全メッセージを取得する
-    @messages = Message.includes(:user).where(room_id: @room.id)
+    # メッセージ取得処理：TmpDeletedMessageに登録されたメッセージ(削除ボタン押下済)を除き、トークルーム内の全メッセージを取得する
+    # view側で自分のメッセージか相手のメッセージか振り分ける
+    hidden_ids = @current_user.tmp_deleted_messages.pluck(:message_id)
+    @messages = Message.includes(:user).where(room_id: @room.id).where.not(id: hidden_ids)
 
-    # 既読処理
+    # 既読処理： roomに入った時点で、未読メッセージのステータスを全て既読に変更する
     unread_messages = @messages.where(checked: false, user_id: @user.id)
     unread_messages.each do |message|
       message.update_attribute(:checked, true)

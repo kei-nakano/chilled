@@ -55,7 +55,7 @@ class Item < ApplicationRecord
     eaten_count.sort_by { |_, count| -count }.to_h.keys
   end
 
-  # 食べてみたい！の降順にidを返す
+  # 食べたい！の降順にidを返す
   def self.want_to_eat_ids
     want_count = WantToEatItem.group(:item_id).count
     want_count.sort_by { |_, count| -count }.to_h.keys
@@ -89,5 +89,16 @@ class Item < ApplicationRecord
 
     # 降順のidでtagを抽出する。orderを明示的に指定しなければ、tag_idsの順番通りにならない
     ActsAsTaggableOn::Tag.where(id: tag_ids).order([Arel.sql('field(id, ?)'), tag_ids])
+  end
+
+  # 検索機能
+  def self.search(keyword)
+    search = "%" + keyword + "%"
+    # itemの検索範囲は、メーカー名、カテゴリ名、タグ、商品名、商品説明とする
+    Item.eager_load(:manufacturer, :category, reviews: :tags).where('items.title like ? or
+                                                                     items.content like ? or
+                                                                     manufacturers.name like ? or
+                                                                     categories.name like ? or
+                                                                     tags.name like ?', search, search, search, search, search)
   end
 end

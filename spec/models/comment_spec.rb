@@ -70,7 +70,7 @@ RSpec.describe Comment, type: :model do
       CommentLike.create(comment_id: comment.id, user_id: User.second.id)
       comment.create_notice_comment(User.first)
       comment.create_notice_comment(User.second)
-      expect { comment.destroy }.to change { CommentLike.count }.by(-2) and change { Notice.count }.by(-2)
+      expect { comment.destroy }.to change { CommentLike.count }.by(-2).and change { Notice.count }.by(-2)
     end
   end
 
@@ -83,24 +83,37 @@ RSpec.describe Comment, type: :model do
         expect { self_comment.create_notice_comment(user) }.to change(Notice.all, :count).by(0)
       end
 
-      # 他人のレビューへのコメントでは通知が作成されること
+      # 他人のレビューへのコメントでは毎回通知が作成されること
       it "can create notice when comented by others" do
         other_user = FactoryBot.create(:user)
-        expect { self_comment.create_notice_comment(other_user) }.to change(Notice.all, :count).by(1)
+        comment1 = FactoryBot.create(:comment, review: self_review, user: other_user)
+        expect { comment1.create_notice_comment(other_user) }.to change(Notice.all, :count).by(1)
+        comment2 = FactoryBot.create(:comment, review: self_review, user: other_user)
+        expect { comment2.create_notice_comment(other_user) }.to change(Notice.all, :count).by(1)
       end
     end
 
     context "action: comment_like" do
-      # 自分のレビューにコメントしても、通知は作成されずnilを返すこと
-      it "can not create notice when commented by yourself" do
-        expect(self_comment.create_notice_comment(user)).to eq nil
-        expect { self_comment.create_notice_comment(user) }.to change(Notice.all, :count).by(0)
+      # 自分のコメントにいいね！しても、通知は作成されずnilを返すこと
+      it "can not create notice when comment_liked by yourself" do
+        CommentLike.create!(user_id: user.id, comment_id: self_comment.id)
+        expect(self_comment.create_notice_comment_like(user)).to eq nil
+        expect { self_comment.create_notice_comment_like(user) }.to change(Notice.all, :count).by(0)
       end
 
-      # 他人のレビューへのコメントでは通知が作成されること
-      it "can create notice when comented by others" do
+      # 他人のコメントへのいいね！では通知が作成され、かつ一度だけしか作成されないこと
+      it "can create notice only once when coment_liked by others" do
         other_user = FactoryBot.create(:user)
-        expect { self_comment.create_notice_comment(other_user) }.to change(Notice.all, :count).by(1)
+        other_comment = FactoryBot.create(:comment, user: other_user)
+        CommentLike.create!(user_id: user.id, comment_id: other_comment.id)
+        expect { other_comment.create_notice_comment_like(user) }.to change(Notice.all, :count).by(1)
+
+        # 削除
+        expect { user.comment_likes.destroy_all }.to change(user.comment_likes, :count).by(-1)
+
+        # 再作成
+        CommentLike.create!(user_id: user.id, comment_id: other_comment.id)
+        expect { other_comment.create_notice_comment_like(user) }.to change(Notice.all, :count).by(0)
       end
     end
   end
