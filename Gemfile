@@ -21,14 +21,14 @@ gem 'acts-as-taggable-on', '~> 6.0'
 gem 'redis-rails'
 ENV['NOKOGIRI_USE_SYSTEM_LIBRARIES'] = 'YES'
 gem 'nokogiri'
+gem 'factory_bot_rails'
+gem 'faker'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
-  gem 'factory_bot_rails'
   gem 'rails-controller-testing'
-  gem 'faker'
 end
 
 group :development do
