@@ -152,6 +152,7 @@ class User < ApplicationRecord
 
   # ユーザフォロー時の通知を作成する
   def create_notice_follow(follower)
+    # 過去にフォローしたことがある場合は、nilを返す
     already_follow = Notice.where(visitor_id: follower.id, visited_id: id, action: 'follow')
     return nil if already_follow.present?
 

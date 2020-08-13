@@ -1,6 +1,6 @@
 # User
 admin = FactoryBot.create(:admin, name: "管理者ユーザー", email: "admin@example.com")
-FactoryBot.create(:user, name: "テストユーザー", email: "test@example.com")
+test_user = FactoryBot.create(:user, name: "テストユーザー", email: "test@example.com")
 
 20.times do |n|
   name = if n <= 9
@@ -471,18 +471,21 @@ Review.create!(
 
 # ReviewLike
 # 管理者ユーザーはいいね！をつけない
+# テストユーザのレビューにいいね！はつけない
+except_review = test_user.reviews.first
 User.where.not(id: [admin.id]).each do |user|
-  Review.all.sample(15).each do |review|
+  Review.where.not(id: except_review.id).sample(15).each do |review|
     ReviewLike.create!(user_id: user.id, review_id: review.id)
   end
 end
 
 # Comment
 # 管理者ユーザーはコメントをつけない
+# テストユーザのレビューにコメントはつけない
 comments = ["美味しそう。", "参考になります！", "今度買ってみようかな。", "好み分かれそう。", "食べたい。", "まだ食べたことない。", "参考になった。"]
 comments += ["これ、見たことある。", "へぇー、そうなんだ。", "本当においしそう。", "私的には微妙でした。。。", "今日買ってきた。", "これ、高くないですか？？"]
 User.where.not(id: [admin.id]).each do |user|
-  Review.all.sample(1).each do |review|
+  Review.where.not(id: except_review.id).sample(1).each do |review|
     Comment.create!(user_id: user.id, review_id: review.id, content: comments.sample(1).join)
   end
 end
@@ -505,18 +508,44 @@ end
 
 # CommentLike
 # 管理者ユーザーはいいね！をつけない
+# テストユーザーのコメントは対象外とする。
+except_comment = test_user.comments.first
 User.where.not(id: [admin.id]).each do |user|
-  Comment.all.sample(10).each do |comment|
+  Comment.where.not(id: except_comment.id).sample(10).each do |comment|
     CommentLike.create!(user_id: user.id, comment_id: comment.id)
   end
 end
 
 # RelationShip
-# 管理者ユーザーはフォロー対象外にする
-User.where.not(id: [admin.id]).each do |user|
-  User.where.not(id: [admin.id, user.id]).sample(10).each do |other|
+# テストユーザー、管理者ユーザーはフォロー対象外にする
+User.where.not(id: [admin.id, test_user.id]).each do |user|
+  User.where.not(id: [admin.id, user.id, test_user.id]).sample(10).each do |other|
     user.follow(other)
   end
 end
 
 # Notice
+# テストユーザのレビューに対するいいね！の作成と通知作成
+review = test_user.reviews.first
+review_liked_user_ids = ReviewLike.where(review_id: review.id).pluck(:user_id)
+review_like_user = User.where.not(id: review_liked_user_ids + [test_user.id, admin.id]).sample(1)[0] # [0]はsample(1)がarray形式のため、必要
+ReviewLike.create!(user_id: review_like_user.id, review_id: review.id)
+review.create_notice_review_like(review_like_user)
+
+# テストユーザのコメントに対するいいね！の作成と通知作成
+comment =  test_user.comments.first
+comment_liked_user_ids = CommentLike.where(comment_id: comment.id).pluck(:user_id)
+comment_like_user = User.where.not(id: comment_liked_user_ids + [test_user.id, admin.id]).sample(1)[0] # [0]はsample(1)がarray形式のため、必要
+CommentLike.create!(user_id: comment_like_user.id, comment_id: comment.id)
+comment.create_notice_comment_like(comment_like_user)
+
+# テストユーザのレビューに対するコメントの作成と通知作成
+commented_user_ids = Comment.where(review_id: review.id).pluck(:user_id)
+comment_user = User.where.not(id: commented_user_ids + [test_user.id, admin.id]).sample(1)[0] # [0]はsample(1)がarray形式のため、必要
+comment = Comment.create!(user_id: comment_user.id, review_id: review.id, content: "一度食べてみたい。")
+comment.create_notice_comment(comment_user)
+
+# テストユーザのフォロー作成と通知作成
+user = User.where.not(id: [admin.id, test_user.id]).sample(1)[0]
+user.follow(test_user)
+test_user.create_notice_follow(user)
