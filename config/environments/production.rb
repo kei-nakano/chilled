@@ -64,7 +64,7 @@ Rails.application.configure do
 
   # メーラー設定
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: 'ec2-54-150-77-245.ap-northeast-1.compute.amazonaws.com', protocol: 'http' }
+  config.action_mailer.default_url_options = { host: 'chilled.site', protocol: 'https' }
 
   # 送信方法を指定
   config.action_mailer.delivery_method = :smtp
