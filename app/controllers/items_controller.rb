@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  before_action :authenticate_user, except: %i[show]
   before_action :check_params, only: %i[create update]
   # 一般ユーザは閲覧以外不可
   before_action :restrict_user, except: %i[show]

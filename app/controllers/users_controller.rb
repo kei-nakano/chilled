@@ -1,17 +1,11 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user, only: %i[show edit update]
+  before_action :authenticate_user, only: %i[show edit update destroy]
   before_action :forbid_login_user, only: %i[new create]
   before_action :ensure_correct_user, only: %i[edit update destroy]
+  before_action :hidden_admin_profile, only: %i[show]
 
   def show
     @user = User.find(params[:id])
-
-    # 本番環境かつ管理者ユーザのページへのアクセスの場合は、404ページを表示させる
-    # 自身が管理者の場合のみ正常に表示できる
-    if Rails.env.production? && @user.admin?
-      raise ActionController::RoutingError, "管理者のプロフィールへのアクセスです" unless @current_user.admin?
-    end
-
     @room_id = @current_user&.room_with(@user)&.id
     @type = params[:type] || "review" # typeの指定がない場合、reviewタブを優先表示するようにする
 
@@ -81,10 +75,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def blocking
-    @user = User.find_by(id: params[:id])
-  end
-
   def edit
     @user = User.find_by(id: params[:id])
   end
@@ -131,5 +121,23 @@ class UsersController < ApplicationController
     params.require(:user).permit(
       :name, :email, :image, :password
     )
+  end
+
+  # 管理者のプロフィールを見られないようにする
+  def hidden_admin_profile
+    profile = User.find(params[:id])
+
+    # 管理者以外のプロフィールを表示する場合は、何もしない
+    return nil unless profile.admin?
+
+    # ------管理者のプロフィールが選択された場合------
+
+    # 自分が管理者ならば、表示できる
+    return nil if @current_user.admin?
+
+    # ------一般ユーザが管理者のプロフィールにアクセスした場合------
+
+    # 404ページを表示させる
+    raise ActionController::RoutingError, "管理者のプロフィールへのアクセスです"
   end
 end

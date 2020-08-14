@@ -140,6 +140,7 @@ RSpec.feature "Messages", type: :feature do
     expect do
       expect(page).to have_content(user.name, count: 1)
       click_link "非表示"
+      sleep(1)
     end.to change(other_user.hidden_rooms, :count).by(1)
     expect(page).to have_content(user.name, count: 0)
 
@@ -147,6 +148,7 @@ RSpec.feature "Messages", type: :feature do
     visit "/users/#{user.id}"
     expect do
       find('.dm-area').click_link 'メッセージ'
+      sleep(1)
     end.to change(other_user.hidden_rooms, :count).by(-1)
 
     visit "/rooms"

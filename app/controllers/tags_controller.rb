@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  before_action :authenticate_user
   before_action :restrict_user
 
   def destroy
