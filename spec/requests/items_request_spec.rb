@@ -6,7 +6,6 @@ RSpec.describe "Items", type: :request do
   let(:manufacturer) { FactoryBot.create(:manufacturer) }
   let(:category) { FactoryBot.create(:category) }
 
-  
   describe "#show" do
     # 未ログインの場合
     context "not login" do
@@ -16,7 +15,7 @@ RSpec.describe "Items", type: :request do
         get "/items/#{item.id}"
         expect(response).to be_successful
       end
-  
+
       # 200レスポンスを返すこと
       it "returns a 200 response" do
         item = FactoryBot.create(:item)
@@ -24,7 +23,7 @@ RSpec.describe "Items", type: :request do
         expect(response).to have_http_status "200"
       end
     end
-    
+
     context "as a user" do
       # 正常にレスポンスを返すこと
       it "responds successfully" do
@@ -33,7 +32,7 @@ RSpec.describe "Items", type: :request do
         get "/items/#{item.id}"
         expect(response).to be_successful
       end
-  
+
       # 200レスポンスを返すこと
       it "returns a 200 response" do
         login_rspec user
@@ -43,8 +42,8 @@ RSpec.describe "Items", type: :request do
       end
     end
   end
-  
-  describe "#create" do 
+
+  describe "#create" do
     # 管理者ユーザの場合
     context "as an admin" do
       before do
@@ -66,7 +65,7 @@ RSpec.describe "Items", type: :request do
         end
       end
     end
-    
+
     # 一般ユーザの場合
     context "as a user" do
       before do
@@ -76,18 +75,18 @@ RSpec.describe "Items", type: :request do
       # 商品が作成できないこと
       it "can not create an item" do
         item_params = FactoryBot.attributes_for(:item, manufacturer_id: manufacturer.id, category_id: category.id)
-  
+
         expect do
           post "/items", params: { item: item_params }
         end.to change(Item.all, :count).by(0)
-        
+
         expect(response).to redirect_to user
         expect(response).to have_http_status "302"
       end
     end
   end
-  
-  describe "#update" do 
+
+  describe "#update" do
     # 管理者ユーザの場合
     context "as an admin" do
       before do
@@ -111,8 +110,8 @@ RSpec.describe "Items", type: :request do
       end
     end
   end
-  
-  describe "#destory" do 
+
+  describe "#destory" do
     # 管理者ユーザの場合
     context "as an admin" do
       before do
@@ -122,7 +121,7 @@ RSpec.describe "Items", type: :request do
       # 商品が削除できること
       it "destroys an item" do
         item1 = FactoryBot.create(:item)
-        
+
         expect do
           delete "/items/#{item1.id}"
         end.to change(Item.all, :count).by(-1)
