@@ -1,5 +1,6 @@
 class EatenItemsController < ApplicationController
   before_action :authenticate_user
+  before_action :restrict_admin
 
   def create
     @item = Item.find(params[:item_id])
