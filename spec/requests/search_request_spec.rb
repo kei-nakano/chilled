@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Home", type: :request do
+RSpec.describe "Search", type: :request do
   let(:user) { FactoryBot.create(:user) }
   let(:admin) { FactoryBot.create(:admin) }
 
@@ -9,7 +9,7 @@ RSpec.describe "Home", type: :request do
     context "not login" do
       # 正常にレスポンスを返すこと
       it "responds successfully" do
-        get "/"
+        get "/search"
         expect(response).to be_successful
         expect(response).to have_http_status "200"
       end
@@ -20,7 +20,7 @@ RSpec.describe "Home", type: :request do
       # 正常にレスポンスを返すこと
       it "responds successfully" do
         login_rspec user
-        get "/"
+        get "/search"
         expect(response).to be_successful
         expect(response).to have_http_status "200"
       end
@@ -31,7 +31,7 @@ RSpec.describe "Home", type: :request do
       # 正常にレスポンスを返すこと
       it "responds successfully" do
         login_rspec admin
-        get "/"
+        get "/search"
         expect(response).to be_successful
         expect(response).to have_http_status "200"
       end
