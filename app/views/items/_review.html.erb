@@ -39,11 +39,12 @@
       <% end %>
     </div>
     
-    <% if @current_user&.id == review.user_id || @current_user&.admin? %>
+    <% if @current_user&.id == review.user_id %>
       <div class="review-edit-wrapper">
         <div class="show-review-edit">
           <%= link_to "編集", "/reviews/#{review.id}/edit" %>
-          <%= link_to "削除", "/reviews/#{review.id}", method: "delete" %>
+          <%= link_to "削除", "/reviews/#{review.id}", method: "delete",
+              data: { confirm: '一度削除すると元に戻すことはできません。本当に削除してよろしいでしょうか？' } %>
         </div>
       </div>
       <div class="clear"></div>

@@ -66,7 +66,8 @@
   <% if @current_user&.admin? %>
     <div class="comment-edit">
       <%= link_to "編集", "/items/#{@item.id}/edit" %>
-      <%= link_to "削除", "/items/#{@item.id}", method: "delete" %>
+      <%= link_to "削除", "/items/#{@item.id}", method: "delete",
+          data: { confirm: '一度削除すると元に戻すことはできません。本当に削除してよろしいでしょうか？' } %>
     </div>
   <% end %>
 </div>

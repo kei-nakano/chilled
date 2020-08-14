@@ -25,7 +25,10 @@
       
       <% if @current_user.id == @user.id %>
         <%= link_to "編集", "/users/#{@user.id}/edit" %>
-        <%= link_to "削除", "/users/#{@user.id}", method: :delete %>
+        <% unless @current_user.admin? %>
+          <%= link_to "削除", "/users/#{@user.id}", 
+              data: { confirm: '一度削除すると元に戻すことはできません。本当に削除してよろしいでしょうか？' }, method: :delete %>
+        <% end %>
       <% end %>
       
       <% if @current_user.id != @user.id %>

@@ -335,7 +335,7 @@ Review.create!(
   item_id: 7,
   content: '「箸で切れる」を謳っているだけに、本当に柔らかくておいしいです。息子のお弁当に入れてあげると喜びます。',
   score: 4.0,
-  tag_list: %w[揚げ物],
+  tag_list: %w[揚げ物 おかず],
   multiple_images: [File.open("./public/default/review/7/7.jpg")]
 )
 
@@ -344,7 +344,7 @@ Review.create!(
   item_id: 8,
   content: 'しっかり味が付いているのでお弁当にいれてもおいしいです。スーパーの特売日で購入したのですごく安く買えちゃいました。',
   score: 3.9,
-  tag_list: %w[揚げ物],
+  tag_list: %w[揚げ物 おかず],
   multiple_images: [File.open("./public/default/review/8/8.jpg")]
 )
 
@@ -353,7 +353,7 @@ Review.create!(
   item_id: 9,
   content: 'ジューシーな油が溢れてきて、とっても美味しかったですよ。万人受けする味だと思います。',
   score: 5.0,
-  tag_list: %w[揚げ物 美味しい],
+  tag_list: %w[揚げ物 おかず 美味しい],
   multiple_images: [File.open("./public/default/review/9/9.jpg")]
 )
 
@@ -407,7 +407,7 @@ Review.create!(
   item_id: 15,
   content: '幼稚園のお弁当に重宝してます。',
   score: 4.2,
-  tag_list: %w[美味しい],
+  tag_list: %w[美味しい おかず],
   multiple_images: [File.open("./public/default/review/15/15.jpg")]
 )
 
@@ -468,6 +468,12 @@ Review.create!(
                     File.open("./public/default/review/23/23_2.jpg"),
                     File.open("./public/default/review/23/23_3.jpg")]
 )
+
+# レビューの作成時刻を調整
+Review.all.sample(Review.count).each_with_index do |review, i|
+  time = Time.zone.now - (12 * i).hours
+  review.update_attribute(:created_at, time)
+end
 
 # ReviewLike
 # 管理者ユーザーはいいね！をつけない

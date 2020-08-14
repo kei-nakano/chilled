@@ -18,7 +18,8 @@
     
   <% if @notices.any? %>
     <div class="delete-notice">
-      <%= link_to "削除する", "/notices/destroy", method: :delete %>
+      <%= link_to "削除する", "/notices/destroy", method: :delete,
+      data: { confirm: '全ての通知を削除します。本当に削除してよろしいでしょうか？' } %>
     </div>
     <div class="clear"></div>
   <% end %>

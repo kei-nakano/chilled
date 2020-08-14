@@ -1,14 +1,14 @@
 <% provide :title, "Top" %>
 
 <div class="container">
-  <h2 class="scroll-title">注目のレビュー</h2>
-  <ul class="horizontal-list">
-    <%= render partial: "home/review", collection: @popular_reviews.includes(:user, :item) %>
-  </ul>
-  
   <h2 class="scroll-title">最近のレビュー</h2>
   <ul class="horizontal-list">
     <%= render partial: "home/review", collection: @recent_reviews.includes(:user, :item) %>
+  </ul>
+  
+  <h2 class="scroll-title">高評価のレビュー</h2>
+  <ul class="horizontal-list">
+    <%= render partial: "home/review", collection: @popular_reviews.includes(:user, :item) %>
   </ul>
   
   <h2 class="scroll-title">人気の商品</h2>
