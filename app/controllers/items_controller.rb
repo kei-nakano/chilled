@@ -1,10 +1,7 @@
 class ItemsController < ApplicationController
   before_action :check_params, only: %i[create update]
-  def index
-    return @items = Item.all.tagged_with(params[:tag]) if params[:tag]
-
-    @items = Item.all.order(created_at: :desc)
-  end
+  # 一般ユーザは閲覧以外不可
+  before_action :restrict_user, except: %i[show] 
 
   def show
     @tag_limit = 3

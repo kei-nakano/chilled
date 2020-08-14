@@ -1,6 +1,8 @@
 class ReviewsController < ApplicationController
   before_action :modify_tags, only: %i[create update]
   before_action :authenticate_user
+  before_action :restrict_admin
+  
   def new
     @review = Review.new
     @item = Item.find_by(id: params[:item_id])

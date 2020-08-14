@@ -40,8 +40,14 @@ class ApplicationController < ActionController::Base
     redirect_to @current_user
   end
 
-  # 管理者権限がない場合、topページにリダイレクトさせる
-  def admin_user
-    redirect_to "/" unless @current_user.admin?
+  # 一般ユーザが管理者機能にアクセスした場合、直前のページにリダイレクトさせる
+  def restrict_user
+    redirect_back(fallback_location: "/users/#{@current_user.id}") unless @current_user.admin?
+  end
+
+  # 管理者ユーザで実行できない機能にアクセスした場合、直前のページにリダイレクトさせる
+  def restrict_admin
+    flash[:notice] = "管理者ユーザーでは利用できません"
+    redirect_back(fallback_location: "/") if @current_user.admin?
   end
 end
