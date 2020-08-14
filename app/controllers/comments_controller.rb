@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user
+  before_action :restrict_admin
 
   def new
     @review_id = params[:review_id]

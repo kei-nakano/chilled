@@ -134,5 +134,24 @@ RSpec.feature "Messages", type: :feature do
 
     # 自分の画面上、メッセージが消えたこと
     expect(page).to have_content('test message', count: 0)
+
+    # トーク一覧を非表示にする
+    visit "/rooms"
+    expect do
+      expect(page).to have_content(user.name, count: 1)
+      click_link "非表示"
+      sleep(1)
+    end.to change(other_user.hidden_rooms, :count).by(1)
+    expect(page).to have_content(user.name, count: 0)
+
+    # メッセージを送ろうとすることで、一覧に再表示できること
+    visit "/users/#{user.id}"
+    expect do
+      find('.dm-area').click_link 'メッセージ'
+      sleep(1)
+    end.to change(other_user.hidden_rooms, :count).by(-1)
+
+    visit "/rooms"
+    expect(page).to have_content(user.name, count: 1)
   end
 end

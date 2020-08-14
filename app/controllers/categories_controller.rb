@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
-  before_action :admin_user
+  before_action :authenticate_user
+  before_action :restrict_user
 
   def edit
     @category = Category.find_by(id: params[:id])

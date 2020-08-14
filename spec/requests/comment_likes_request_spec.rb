@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "Relationships", type: :request do
+RSpec.describe "CommentLikes", type: :request do
   let(:admin) { FactoryBot.create(:admin) }
 
   describe "#create" do
     before do
-      @user = FactoryBot.create(:user)
+      @comment = FactoryBot.create(:comment)
     end
 
     # 管理者ユーザの場合
@@ -13,7 +13,7 @@ RSpec.describe "Relationships", type: :request do
       # Topページにリダイレクトされること
       it "redirects to top" do
         login_rspec admin
-        post "/relationships?user_id=#{@user.id}"
+        post "/comment_likes?comment_id=#{@comment.id}"
         expect(response).to redirect_to('/')
         expect(response).to have_http_status "302"
       end

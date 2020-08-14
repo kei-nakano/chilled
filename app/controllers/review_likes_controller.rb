@@ -1,5 +1,6 @@
 class ReviewLikesController < ApplicationController
   before_action :authenticate_user
+  before_action :restrict_admin
 
   def create
     @review = Review.find(params[:review_id])

@@ -1,5 +1,6 @@
 class ManufacturersController < ApplicationController
-  before_action :admin_user
+  before_action :authenticate_user
+  before_action :restrict_user
 
   def edit
     @manufacturer = Manufacturer.find_by(id: params[:id])

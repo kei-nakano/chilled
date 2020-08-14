@@ -42,14 +42,16 @@
         <% end %>
       </li>
       
-      <li>
-        <%= link_to "/notices" do %>
-          <% notice_count = @current_user.passive_notices.where(checked: false).count %>
-          <span class="header-notice">
-            <span class="fas fa-bell badge"> 通知 <%= notice_count unless notice_count.zero? %></span>
-          </span>
-        <% end %>
-      </li>
+      <% unless @current_user.admin? %>
+        <li>
+          <%= link_to "/notices" do %>
+            <% notice_count = @current_user.passive_notices.where(checked: false).count %>
+            <span class="header-notice">
+              <span class="fas fa-bell badge"> 通知 <%= notice_count unless notice_count.zero? %></span>
+            </span>
+          <% end %>
+        </li>
+      <% end %>
       
       <li>
         <%= link_to "/logout", method: :post do %>

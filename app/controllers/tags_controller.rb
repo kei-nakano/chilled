@@ -1,5 +1,6 @@
 class TagsController < ApplicationController
-  before_action :admin_user
+  before_action :authenticate_user
+  before_action :restrict_user
 
   def destroy
     @tag = ActsAsTaggableOn::Tag.find_by(id: params[:id])
