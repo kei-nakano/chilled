@@ -23,6 +23,7 @@ class SessionsController < ApplicationController
 
   def destroy
     logout @current_user if @current_user
+    @current_user.update_attribute(:room_id, 0)
     @current_user = nil
     flash[:notice] = "ログアウトしました"
     redirect_to '/'

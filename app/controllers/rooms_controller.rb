@@ -21,6 +21,9 @@ class RoomsController < ApplicationController
     # roomに入った時点で、もし存在していれば、その相手ユーザとのroomに紐づくHiddenRoomを削除する
     HiddenRoom.find_by(user_id: @current_user.id, room_id: @room.id)&.destroy
 
+    # roomに入った時点で、自分のroom_idを更新する
+    @current_user.update_attribute(:room_id, @room.id)
+
     # メッセージ取得処理：TmpDeletedMessageに登録されたメッセージ(削除ボタン押下済)を除き、トークルーム内の全メッセージを取得する
     # view側で自分のメッセージか相手のメッセージか振り分ける
     hidden_ids = @current_user.tmp_deleted_messages.pluck(:message_id)
