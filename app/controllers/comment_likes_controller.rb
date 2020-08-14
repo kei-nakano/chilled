@@ -1,5 +1,6 @@
 class CommentLikesController < ApplicationController
   before_action :authenticate_user
+  before_action :restrict_admin
 
   def create
     @comment = Comment.find(params[:comment_id])

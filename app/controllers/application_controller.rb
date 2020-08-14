@@ -47,7 +47,9 @@ class ApplicationController < ActionController::Base
 
   # 管理者ユーザで実行できない機能にアクセスした場合、直前のページにリダイレクトさせる
   def restrict_admin
+    return nil unless @current_user.admin?
+
     flash[:notice] = "管理者ユーザーでは利用できません"
-    redirect_back(fallback_location: "/") if @current_user.admin?
+    redirect_back(fallback_location: "/")
   end
 end

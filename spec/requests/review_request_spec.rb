@@ -1,10 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe "Review", type: :request do
+  let(:admin) { FactoryBot.create(:admin) }
+
   describe "#new" do
     before do
       @item = FactoryBot.create(:item)
       @user = FactoryBot.create(:user)
+    end
+
+    # 管理者ユーザの場合
+    context "as an admin" do
+      # Topページにリダイレクトされること
+      it "redirects to top" do
+        login_rspec admin
+        get "/reviews/new?item_id=#{@item.id}"
+        expect(response).to redirect_to('/')
+        expect(response).to have_http_status "302"
+      end
     end
 
     # 未ログインユーザの場合
@@ -39,16 +52,6 @@ RSpec.describe "Review", type: :request do
       @item = FactoryBot.create(:item)
       @user = FactoryBot.create(:user)
     end
-
-    # 未ログインユーザの場合
-    # context "as an unauthenticated user" do
-    #  # ログインページにリダイレクトされること
-    #  it "redirects to login" do
-    #    get "/reviews/new?item_id=#{@item.id}"
-    #    expect(response).to redirect_to('/login')
-    #    expect(response).to have_http_status "302"
-    #  end
-    # end
 
     # ログイン済みユーザの場合
     context "as an authenticated user" do
@@ -95,22 +98,10 @@ RSpec.describe "Review", type: :request do
       @review = FactoryBot.create(:review)
     end
 
-    # 未ログインユーザの場合
-    # context "as an unauthenticated user" do
-    #  # ログインページにリダイレクトされること
-    #  it "redirects to login" do
-    #    get "/reviews/new?item_id=#{@item.id}"
-    #    expect(response).to redirect_to('/login')
-    #    expect(response).to have_http_status "302"
-    #  end
-    # end
-
     # ログイン済みユーザの場合
     context "as an authenticated user" do
       before do
-        # login userの代替
-        # ActionDispatch::Requestクラスの全インスタンスに対して、sessionメソッドが呼ばれた場合に、user_idを返す
-        allow_any_instance_of(ActionDispatch::Request).to receive(:session).and_return({ user_id: @user.id })
+        login_rspec @user
       end
 
       # 商品レビューが更新できること

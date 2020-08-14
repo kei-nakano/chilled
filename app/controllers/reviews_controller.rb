@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :modify_tags, only: %i[create update]
   before_action :authenticate_user
+  # 管理者ユーザはレビューに関する操作を禁止する
   before_action :restrict_admin
 
   def new
