@@ -4,7 +4,6 @@
 
 URL: https://chilled.site
 
-
 * Ruby version
 
 * System dependencies
