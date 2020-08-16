@@ -1,9 +1,8 @@
-# README
+# Chill℃
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+「おいしい冷凍食品の発見」をコンセプトにしたレビューサイトです。「レビューの閲覧・投稿」、「検索機能」、「食べた・食べたい商品のメモ」、「興味のあるユーザへのダイレクトメッセージ」を通じて、「感想や情報をシェアして楽しむツール」としてご利用いただけます。
+URL: https://dishare.work
 
-Things you may want to cover:
 
 * Ruby version
 
