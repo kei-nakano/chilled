@@ -2,13 +2,13 @@
 lock "~> 3.14.1"
 
 # アプリケーションディレクトリ名
-set :application, "sample"
+set :application, "chilled"
 
 # SSH接続ユーザ
 set :user, "ec2-user"
 
 # リポジトリURL
-set :repo_url, "git@github.com:kei-nakano/sample.git"
+set :repo_url, "git@github.com:kei-nakano/chilled.git"
 
 # デバッグ用に詳細ログを出力
 set :log_level, :debug
@@ -35,7 +35,7 @@ set :pty, true
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets"
 
 # 何世代前までリリースを残しておくか
-set :keep_releases, 5
+set :keep_releases, 3
 
 # ----------カスタマイズしたタスク------------
 namespace :deploy do
@@ -87,6 +87,16 @@ namespace :config do
   end
 end
 
+# assetsディレクトリの削除
+namespace :assets do
+  desc 'remove assets directory'
+  task :rm do
+    on roles(:web) do
+      sudo "rm -rf /home/ec2-user/environment/chilled/shared/public/assets"
+    end
+  end
+end
+
 # デバッグ用
 # before '任意のタスク', 'console'
 
@@ -95,6 +105,7 @@ before 'deploy:starting', 'nginx:stop'
 after 'nginx:stop', 'puma:stop'
 after 'puma:stop', 'redis:stop'
 after 'redis:stop', 'deploy:upload'
+after 'deploy:upload', 'assets:rm'
 
 # デプロイ完了後のサーバ起動タスク(redis => puma => nginx)。pumaの起動タイミングはデプロイ直後で、gemで挿入済みのため記述しない
 before 'puma:start', 'redis:start'
