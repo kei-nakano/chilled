@@ -4,20 +4,26 @@
 
 URL: https://chilled.site
 
-* Ruby version
+## 構成
 
-* System dependencies
+* インフラ
+  * AWS（ EC2 / ALB / Route53 / ACM / RDS / VPC )
 
-* Configuration
+* フロントエンド
+  * jQuery / HTML / CSS
+  
+* バックエンド
+  * Ruby 2.6.6
+  * Rails 5.2.4
+  
+* Webサーバ
+  * Nginx
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* APサーバ
+  * Puma
+ 
+* データベース
+  * RDS for MySQL 5.7.28
+  
+* CI / CD
+  * CircleCI / Rubocop / Rspec / Capistrano 
