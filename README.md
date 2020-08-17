@@ -15,7 +15,7 @@ URL: https://chilled.site
   * Gmail (メール送信)
 
 * フロントエンド
-  * jQuery / HTML / CSS
+  * JavaScript / jQuery / HTML / CSS
   
 * バックエンド
   * Ruby 2.6.6
