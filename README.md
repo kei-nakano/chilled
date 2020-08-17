@@ -31,6 +31,8 @@ URL: https://chilled.site
   * CircleCI / Rubocop / Rspec / Capistrano 
   
 ## クラウドアーキテクチャ
+![test (6)](https://user-images.githubusercontent.com/63604398/90353369-f93a3a80-e080-11ea-8f25-fa5e72ea69e0.png)
+
 
 ## 特に見ていただきたい点
 
