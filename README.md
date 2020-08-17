@@ -25,7 +25,7 @@ URL: https://chilled.site
  
 * データベース
   * RDS for MySQL 5.7.28
-  * Redis (リアルタイムチャット機能、ログインユーザのアクティブ判定でWebsocketのアダプターとして使用)
+  * Redis (リアルタイムチャット機能、ログインユーザのアクティブ判定でAction CableのPub/Subキューとして使用)
   
 * CI / CD
   * CircleCI / Rubocop / Rspec / Capistrano 
