@@ -33,12 +33,12 @@
     </div>
     
     <p class="review-scroll-span">
-      <%= link_to "続きを見る", "items/#{review.item.id}/?review_id=#{review.id}" %>
+      <%= link_to "続きを見る", "items/#{review.item.id}?review_id=#{review.id}" %>
     </p>
       
     <div class="review-scroll-image">
       <% if review.multiple_images.any? %>
-        <%= link_to "items/#{review.item.id}/?review_id=#{review.id}" do %>
+        <%= link_to "items/#{review.item.id}?review_id=#{review.id}" do %>
           <%= image_tag review.multiple_images[0].url, alt: "商品のレビュー画像" %>
         <% end %>
 
