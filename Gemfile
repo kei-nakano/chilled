@@ -23,6 +23,7 @@ ENV['NOKOGIRI_USE_SYSTEM_LIBRARIES'] = 'YES'
 gem 'nokogiri'
 gem 'factory_bot_rails'
 gem 'faker'
+gem 'fog-aws'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
