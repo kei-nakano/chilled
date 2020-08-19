@@ -11,9 +11,8 @@ URL: https://chilled.site
 ## 構成
 
 * インフラ
-  * AWS（ EC2 / ALB / Route53 / ACM / RDS / VPC )
-  * Gmail (メール送信)
-
+  * AWS（ EC2 / ALB / Route53 / ACM / RDS / VPC / SES / S3 )
+  
 * フロントエンド
   * JavaScript / jQuery / HTML / CSS
   
@@ -35,8 +34,7 @@ URL: https://chilled.site
   * CircleCI / Rubocop / Rspec / Capistrano 
   
 ## クラウドアーキテクチャ
-![test (6)](https://user-images.githubusercontent.com/63604398/90353369-f93a3a80-e080-11ea-8f25-fa5e72ea69e0.png)
-
+![architecture](https://user-images.githubusercontent.com/63604398/90596862-de0b2e80-e22a-11ea-80cd-0f95a55aabe5.png)
 
 ## 特に見ていただきたい点
 * レビューサービス × 好きなユーザへのダイレクトメッセージ機能
