@@ -69,15 +69,12 @@ Rails.application.configure do
   # 送信方法を指定
   config.action_mailer.delivery_method = :smtp
 
+  # 送信方法として:smtpを指定した場合は、このconfigを使って送信詳細の設定を行う
   config.action_mailer.smtp_settings = {
-    # gmail利用時はaddress,domain,portは下記で固定
-    address: "smtp.gmail.com",
-    domain: 'gmail.com',
+    address: "email-smtp.ap-northeast-1.amazonaws.com",
     port: 587,
-    # gmailのユーザアカウント(xxx@gmail.com)
-    user_name: Rails.application.credentials.gmail_user_name,
-    # gmail 2段階認証回避のためのアプリケーション利用パスワード
-    password: Rails.application.credentials.gmail_password,
+    user_name: Rails.application.credentials.ses_access_key,
+    password: Rails.application.credentials.ses_secret_key,
     # パスワードをBase64でエンコード
     authentication: :login
   }
