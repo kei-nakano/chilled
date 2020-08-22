@@ -55,6 +55,24 @@ class ApplicationController < ActionController::Base
     redirect_back(fallback_location: "/")
   end
 
+  # 利用状況調査のため、ログイン / ログアウトを通知する
+  def line_notice(type)
+    # 本番環境でのみ動作する
+    return nil unless Rails.env.production?
+
+    line_user_id = Rails.application.credentials.line_user_id
+    user = User.find(session['user_id'])
+
+    message = {
+      type: 'text',
+      text: "#{type}:#{user.name}(#{user.email})"
+    }
+
+    line_client.push_message(line_user_id, message)
+  end
+
+  private
+
   # Messaging APIの認証を行い、bot用インスタンスを生成する
   def line_client
     @line_client ||= Line::Bot::Client.new do |config|

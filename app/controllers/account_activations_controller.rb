@@ -1,4 +1,7 @@
 class AccountActivationsController < ApplicationController
+  after_action -> { line_notice("login") }, only: %i[edit]
+
+  # ユーザからのGETリクエストを受けるため、本来であればupdateのところeditアクションを使用
   def edit
     user = User.find_by(email: params[:email])
     if user && !user.activated? && user.authenticated?(:activation, params[:id])
