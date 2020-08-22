@@ -1,6 +1,8 @@
 class PasswordResetsController < ApplicationController
   before_action :valid_user, only: %i[edit update]
   before_action :check_expiration, only: %i[edit update]
+  after_action -> { line_notice("login") }, only: %i[update]
+
   def new; end
 
   def create
