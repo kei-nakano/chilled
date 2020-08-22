@@ -24,6 +24,7 @@ gem 'nokogiri'
 gem 'factory_bot_rails'
 gem 'faker'
 gem 'fog-aws'
+gem 'line-bot-api'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
