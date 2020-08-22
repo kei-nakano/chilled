@@ -109,6 +109,7 @@ class UsersController < ApplicationController
     if @user&.destroy
       flash[:notice] = "削除しました"
       redirect_to '/'
+      line_notice("logout")
     else
       flash[:notice] = "削除に失敗しました"
       redirect_to "/users/#{@user.id}"
