@@ -1,6 +1,7 @@
 class PasswordResetsController < ApplicationController
   before_action :valid_user, only: %i[edit update]
   before_action :check_expiration, only: %i[edit update]
+
   def new; end
 
   def create
@@ -24,6 +25,7 @@ class PasswordResetsController < ApplicationController
       @user.update_attribute(:reset_digest, nil) # メールを無効化する
       flash[:notice] = "パスワードを再設定しました"
       redirect_to "/users/#{@user.id}"
+      line_notice("login")
     else
       @user.errors.add(:password, :blank)
       render 'edit'
