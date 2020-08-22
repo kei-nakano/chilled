@@ -25,9 +25,9 @@ gem 'factory_bot_rails'
 gem 'faker'
 gem 'fog-aws'
 gem 'line-bot-api'
+gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
 group :development, :test do
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'rails-controller-testing'
