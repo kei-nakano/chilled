@@ -1,6 +1,4 @@
 class AccountActivationsController < ApplicationController
-  after_action -> { line_notice("login") }, only: %i[edit]
-
   # ユーザからのGETリクエストを受けるため、本来であればupdateのところeditアクションを使用
   def edit
     user = User.find_by(email: params[:email])
@@ -9,6 +7,7 @@ class AccountActivationsController < ApplicationController
       login user
       flash[:notice] = "アカウントの有効化が完了しました"
       redirect_to "/users/#{user.id}"
+      line_notice("login")
     else
       flash[:notice] = "メールのリンクが不正です"
       redirect_to "/"

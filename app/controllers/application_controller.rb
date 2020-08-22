@@ -56,12 +56,12 @@ class ApplicationController < ActionController::Base
   end
 
   # 利用状況調査のため、ログイン / ログアウトを通知する
-  def line_notice(type)
+  def line_notice(type, user)
     # 本番環境でのみ動作する
     return nil unless Rails.env.production?
 
     line_user_id = Rails.application.credentials.line_user_id
-    user = User.find(session['user_id'])
+    user ||= User.find(session['user_id'])
 
     message = {
       type: 'text',

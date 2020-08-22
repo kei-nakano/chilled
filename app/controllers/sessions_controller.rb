@@ -1,7 +1,5 @@
 class SessionsController < ApplicationController
   before_action :forbid_login_user, only: %i[new create]
-  after_action -> { line_notice("login") }, only: %i[create]
-  before_action -> { line_notice("logout") }, only: %i[destroy] # 可能であれば、destroy後に実施するのが望ましい。改善の余地あり。
 
   def new; end
 
@@ -10,6 +8,7 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:password])
       if user.activated?
         login user
+        line_notice("login")
         params[:remember_me] == '1' ? remember(user) : forget(user)
         flash[:notice] = "ログインしました"
         friendly_forward user
@@ -25,6 +24,7 @@ class SessionsController < ApplicationController
 
   def destroy
     logout @current_user if @current_user
+    line_notice("logout", @current_user)
     @current_user.update_attribute(:room_id, 0)
     @current_user = nil
     flash[:notice] = "ログアウトしました"
