@@ -24,5 +24,5 @@ Rails.application.routes.draw do
   resources :hidden_rooms, only: %i[create]
 
   # Linebot開発テスト用
-  post 'callback' => 'linebot#callback'
+  post '/callback' => 'linebot#callback'
 end
