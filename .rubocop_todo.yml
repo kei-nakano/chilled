@@ -12,7 +12,3 @@ Metrics/BlockLength:
   
 Metrics/ClassLength:
   Max: 130
-  
-# 一時的に無効
-Style/BlockDelimiters:
-  Enabled: false

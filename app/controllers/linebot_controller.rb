@@ -1,14 +1,8 @@
 class LinebotController < ApplicationController
   require 'line/bot'
 
+  # csrf対策のトークンを使用しないようにする
   protect_from_forgery except: [:callback]
-
-  def client
-    @client ||= Line::Bot::Client.new { |config|
-      config.channel_secret = Rails.application.credentials.line_secret_key
-      config.channel_token = Rails.application.credentials.line_access_token
-    }
-  end
 
   def callback
     body = request.body.read
@@ -18,7 +12,7 @@ class LinebotController < ApplicationController
 
     events = client.parse_events_from(body)
 
-    events.each { |event|
+    events.each do |event|
       case event
       when Line::Bot::Event::Message
         case event.type
@@ -30,12 +24,20 @@ class LinebotController < ApplicationController
           end
         end
       end
-    }
+    end
 
     head :ok
   end
 
   private
+
+  # Messaging APIの認証を行う
+  def client
+    @client ||= Line::Bot::Client.new do |config|
+      config.channel_secret = Rails.application.credentials.line_secret_key
+      config.channel_token = Rails.application.credentials.line_access_token
+    end
+  end
 
   def template
     {
