@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
   end
 
   # 利用状況調査のため、ログイン / ログアウトを通知する
-  def line_notice(type, user)
+  def line_notice(type, user = nil)
     # 本番環境でのみ動作する
     return nil unless Rails.env.production?
 
