@@ -56,16 +56,22 @@ class ApplicationController < ActionController::Base
   end
 
   # 利用状況調査のため、ログイン / ログアウトを通知する
-  def line_notice(type, user = nil)
+  def line_notice(user = nil)
     # 本番環境でのみ動作する
     return nil unless Rails.env.production?
 
+    # line通知先
     line_user_id = Rails.application.credentials.line_user_id
+
+    # ユーザ情報
     user ||= User.find(session['user_id'])
+    client_ip = request.remote_ip
+    controller = request.env['action_dispatch.request.path_parameters'][:controller]
+    action = request.env['action_dispatch.request.path_parameters'][:action]
 
     message = {
       type: 'text',
-      text: "#{type}:#{user.name}(#{user.email})"
+      text: "#{client_ip}:#{user&.name}(#{user&.email}) -> #{controller}_#{action}"
     }
 
     line_client.push_message(line_user_id, message)

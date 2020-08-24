@@ -7,7 +7,7 @@ class AccountActivationsController < ApplicationController
       login user
       flash[:notice] = "アカウントの有効化が完了しました"
       redirect_to "/users/#{user.id}"
-      line_notice("login")
+      line_notice
     else
       flash[:notice] = "メールのリンクが不正です"
       redirect_to "/"
