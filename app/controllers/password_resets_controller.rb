@@ -25,7 +25,7 @@ class PasswordResetsController < ApplicationController
       @user.update_attribute(:reset_digest, nil) # メールを無効化する
       flash[:notice] = "パスワードを再設定しました"
       redirect_to "/users/#{@user.id}"
-      line_notice("login")
+      line_notice
     else
       @user.errors.add(:password, :blank)
       render 'edit'
