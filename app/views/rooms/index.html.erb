@@ -28,7 +28,9 @@
             <p class="unread-message-count"><%= "未読のメッセージが#{unread_count}件あります" %></p>
           <% end %>
           <div class="comment-edit">
-            <%= link_to "非表示", "/hidden_rooms?room_id=#{room_id}", method: "post" %>
+            <% unless user.admin? %>
+              <%= link_to "非表示", "/hidden_rooms?room_id=#{room_id}", method: "post" %>
+            <% end %>
           </div>
           
         </div>
